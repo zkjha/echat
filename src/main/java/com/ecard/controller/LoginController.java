@@ -46,6 +46,9 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		String url = request.getParameter("url");
 		mv.setViewName("admin/login");
+		if(null==url){
+			url ="";
+		}
 		mv.addObject("url", url);
 		return mv;
 	}

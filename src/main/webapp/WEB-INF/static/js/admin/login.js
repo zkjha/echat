@@ -42,7 +42,15 @@ app.controller('loginCtrl',['$scope','$http',function($scope,$http){
 					
 					var code =data.code;
 					if(code==1){
-						window.location.href="/admin/biz/homepage"
+						var url =$scope.url;
+					
+						if(url==""){
+							window.location.href="/admin/biz/homepage";
+						}else{
+							window.location.href=url;
+							
+						}
+						
 					}else if(code ==100001){
 						$scope.useridIsError=true;
 						$scope.passwordIsError=false;

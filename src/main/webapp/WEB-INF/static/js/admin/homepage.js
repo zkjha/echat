@@ -20,18 +20,30 @@ app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
 	//初始化用户信息
 	 $http.post("getLoginUserInfo").then(
 			 function(result){
-				var data =result.data;
-				
-				var code =data.code;
+				 
+				var rs =result.data;
+				var code =rs.code;
+				var data=rs.data;
 				if(code==1){
+				    $scope.strRealname=data.strRealname;
+					var strMerchantname= data.strMerchantname;
+					if(strMerchantname==""){
+						strMerchantname="4s名称"
+					}
+					$scope.strMerchantname=strMerchantname;
 					
-				  //得到登录路径
-				//  window.location.href=  "/admin/login?url="+window.location.pathname+window.location.search;
-				alert(window.location.pathname+window.location.search)	    
+					if( !data.strMerchantlogo){
+						$scope.had4sImage=false;
+					}else{
+						
+						$scope.had4sImage=true;
+						$scope.strMerchantlogo=data.strMerchantlogo
+						$scope.strImgrootpath=data.strImgrootpath;
+					}
 					
 				}else if(code ==-1){
-					
-					window.location.href="/admin/login";
+					//得到登录路径
+					window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;
 					//未登录
 				}else if(code<=-2&&code>=-7){
 					//必填字段未填写

@@ -42,22 +42,8 @@ public class HomepageController {
 	public ModelAndView homepage(HttpServletRequest request, HttpServletResponse response) {
 		
 		ModelAndView mv = new ModelAndView();
-		try {
-			// 当前登录的用户信息
-			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
-					request, response).getAttribute("employeeEntity");
-			if(!ValidateTool.isNull(employeeEntity)) {
-				//登录用户不为空，查询登录用户对用的商家信息
-				MerchantEntity merchantEntity = merchantService.getMerchantById(employeeEntity.getStrMerchantid());
-				mv.addObject("merchantEntity", merchantEntity);
-				mv.addObject("strImgrootpath", StaticValue.IMAGE_ROOT_PATH);
-			}
-			mv.addObject("employeeEntity", employeeEntity);
-			mv.setViewName("admin/homepage");
-		} catch (Exception e) {
-			mv.setViewName("admin/error");
-			e.printStackTrace();
-		} 
+		
+		mv.setViewName("admin/homepage");
 		
 		return mv;
 		
@@ -83,8 +69,6 @@ public class HomepageController {
 				resultMap.put("strMerchantlogo", merchantEntity.getStrMerchantlogo());
 				resultMap.put("strImgrootpath", StaticValue.IMAGE_ROOT_PATH);
 				resultMap.put("strMerchantname", merchantEntity.getStrMerchantname());
-				resultMap.put("strMerchantid", merchantEntity.getStrMerchantid());
-				resultMap.put("strEmployeeid", employeeEntity.getStrEmployeeid());
 				resultMap.put("strRealname", employeeEntity.getStrRealname());
 			}
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);

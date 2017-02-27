@@ -25,6 +25,8 @@
 	<alert></alert>
 	<comfirm></comfirm>
 	<toast></toast>
+	
+	<input type="hidden" ng-model="url"  ng-init="url='${url}'" value=""/>
     <div class="-lpy-login-form">
 			<h3>E-card 一键开启轻松管理模式</h3>
 			<div class="-lpy-input-container">
