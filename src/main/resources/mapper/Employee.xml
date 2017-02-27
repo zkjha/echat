@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ecard.mapper.EmployeeMapper">
+	
+	<!-- 新增员工 -->
+	<insert id="insertEmployee" parameterType="com.ecard.entity.EmployeeEntity">
+		INSERT INTO tb_employee (STREMPLOYEEID, STRLOGINNAME, STRPASSWORD, STRHEADPORTRAIT, STRREALNAME, STRMOBILE,
+		                         INTSTATUS, STRDUTYID, STRMERCHANTID, STRINSERTTIME)
+								VALUES
+								(#{strEmployeeid}, #{strLoginname}, #{strPassword}, #{strHeadportrait}, #{strRealname}, #{strMobile},
+		                         #{intStatus}, #{strDutyid}, #{strMerchantid}, #{strInserttime})
+	</insert>
+	
+	<!-- 修改员工 -->
+	<insert id="updateEmployee" parameterType="com.ecard.entity.EmployeeEntity">
+		UPDATE tb_employee SET STRPASSWORD=#{strPassword}, STRHEADPORTRAIT=#{strHeadportrait}, STRREALNAME=#{strRealname}, STRMOBILE=#{strMobile},
+		                       INTSTATUS=#{intStatus}, STRDUTYID=#{strDutyid}, STRUPDATETIME=#{strUpdatetime}
+		WHERE STREMPLOYEEID=#{strEmployeeid}
+	</insert>
+
 	<!-- 根据登录用户名查询用户信息 -->
 	<select id="getEmployeeByLoginname" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
 	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
@@ -10,5 +27,23 @@
 	      FROM tb_employee
 	     WHERE STRLOGINNAME=#{strLoginname}
 	</select>
+	
+	<!-- 根据ID查询用户信息 -->
+	<select id="getEmployeeById" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
+	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
+	            STRHEADPORTRAIT AS strHeadportrait, STRREALNAME AS strRealname, STRMOBILE AS strMobile,
+	            INTSTATUS AS intStatus, STRDUTYID AS strDutyid, STRMERCHANTID AS strMerchantid
+	      FROM tb_employee
+	     WHERE STREMPLOYEEID=#{strEmployeeid}
+	</select>
+	
+	<!-- 根据ID查询用户信息 -->
+	<select id="listEmployeeEntity" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
+	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
+	            STRHEADPORTRAIT AS strHeadportrait, STRREALNAME AS strRealname, STRMOBILE AS strMobile,
+	            INTSTATUS AS intStatus, STRDUTYID AS strDutyid, STRMERCHANTID AS strMerchantid, STRINSERTTIME AS strInserttime
+	      FROM tb_employee ORDER BY STRINSERTTIME DESC
+	</select>
+	
 
 </mapper>

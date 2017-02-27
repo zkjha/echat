@@ -26,37 +26,61 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		PrintUtil.println("在请求处理之前进行调用（Controller方法调用之前）");
 		response.setContentType("text/html;charset=UTF-8");
+		String x_requested_with=(String)request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWebSession(request, response);
     	
 		if (session == null) {
-
-			response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+			if(x_requested_with==null){
+				response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+          	}else{
+	       		response.getWriter().write(DataTool
+						.constructResponse(
+								ResultCode.NOT_LOGIN,
+								"未登陆", null));
+			
+          	}
 			return false;
 		}
 		try {
 			EmployeeEntity employeeEntity = (EmployeeEntity)session.getAttribute("employeeEntity");
 			if (employeeEntity == null) {
-				response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+				if(x_requested_with==null){
+					response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+	          	}else{
+		       		response.getWriter().write(DataTool
+							.constructResponse(
+									ResultCode.NOT_LOGIN,
+									"未登陆", null));
+				
+	          	}
 				return false;
 			} else {
 				@SuppressWarnings("unchecked")
 				List<String> priviliegeList = (List<String>) session
 						.getAttribute("privilegeList");
 				if (priviliegeList == null) {
-					response.getWriter().write(DataTool
-									.constructResponse(
-											ResultCode.NO_ACCESS_PRIVILEGE,
-											"无访问权限", null));
+					if(x_requested_with==null){
+						response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/noprivilege");
+		          	}else{
+		          		response.getWriter().write(DataTool
+								.constructResponse(
+										ResultCode.NO_ACCESS_PRIVILEGE,
+										"无访问权限", null));
+		          	}
 					return false;
 				} else {
 					String accessUrl = request.getRequestURI(); //访问路径
 					if(priviliegeList.contains(accessUrl)) {
 						return true;
 					} else {
-						response.getWriter().write(DataTool
-								.constructResponse(
-										ResultCode.NO_ACCESS_PRIVILEGE,
-										"无访问权限", null));
+						if(x_requested_with==null){
+							response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/noprivilege");
+			          	}else{
+			          		response.getWriter().write(DataTool
+									.constructResponse(
+											ResultCode.NO_ACCESS_PRIVILEGE,
+											"无访问权限", null));
+			          	}
 						return false;
 					}
 				}
