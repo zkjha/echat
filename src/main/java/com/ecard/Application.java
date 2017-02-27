@@ -26,15 +26,6 @@ public class Application {
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		DataSource dataSource = new DataSource();
-		dataSource.setUrl("jdbc:mysql://linux.fushoukeji.com:3306/ecard?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true");
-		dataSource.setUsername("develop");
-		dataSource.setPassword("123456");
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setInitialSize(10);
-		dataSource.setMaxActive(20);
-		dataSource.setMaxIdle(20);
-		dataSource.setMinIdle(1);
-		dataSource.setMaxWait(60000);
 		return dataSource;
 	}
 

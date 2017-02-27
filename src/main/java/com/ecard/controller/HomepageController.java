@@ -27,7 +27,7 @@ import com.ecard.util.WebSessionUtil;
  *
  */
 @Controller
-@RequestMapping("/admin/biz/")
+@RequestMapping("/admin/")
 public class HomepageController {
 	
 	@Resource
@@ -38,7 +38,7 @@ public class HomepageController {
 	 * 登录成功后跳转到主页面
 	 * @return
 	 */
-	@RequestMapping("homepage")
+	@RequestMapping("/biz/homepage")
 	public ModelAndView homepage(HttpServletRequest request, HttpServletResponse response) {
 		
 		ModelAndView mv = new ModelAndView();
@@ -54,7 +54,7 @@ public class HomepageController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("getLoginUserInfo")
+	@RequestMapping("/biz/getLoginUserInfo")
 	public String getLoginUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {

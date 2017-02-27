@@ -1,5 +1,8 @@
 package com.ecard.interceptor;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,50 +13,55 @@ import org.springframework.web.servlet.ModelAndView;
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
-import com.ecard.entity.EmployeeEntity;
+import com.ecard.entity.MerchantEntity;
+import com.ecard.service.MerchantService;
 import com.ecard.util.PrintUtil;
-import com.ecard.util.Session;
-import com.ecard.util.WebSessionUtil;
 
-//登录拦截器
-public class LoginInterceptor implements HandlerInterceptor {
+//系统全局拦截器
+public class SystemInterceptor implements HandlerInterceptor {
 	@Autowired
-	private WebSessionUtil webSessionUtil;
+	private MerchantService merchantService;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		PrintUtil.println("登录拦截器");
+		PrintUtil.println("系统状态拦截器");
 		response.setContentType("text/html;charset=UTF-8");
+		
 		String x_requested_with=(String)request.getHeader("x-requested-with");
-		Session session = webSessionUtil.getWebSession(request, response);
     	
-		if (session == null) {
-			if(x_requested_with==null){
-				response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
-          	}else{
-	       		response.getWriter().write(DataTool
-						.constructResponse(
-								ResultCode.NOT_LOGIN,
-								"未登陆", null));
-			
-          	}
-			return false;
-		}
 		try {
-			EmployeeEntity employeeEntity = (EmployeeEntity)session.getAttribute("employeeEntity");
-			if (employeeEntity == null) {
+			MerchantEntity merchantEntity = merchantService.getMerchantSystemVersionInfo();
+			if(merchantEntity == null) {
 				if(x_requested_with==null){
-					response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+					response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/systemoutdate");
 	          	}else{
 		       		response.getWriter().write(DataTool
 							.constructResponse(
-									ResultCode.NOT_LOGIN,
-									"未登陆", null));
+									ResultCode.SYSTEM_OUTDATED,
+									"系统过期，请升级", null));
 				
 	          	}
 				return false;
 			}
-			return true;
+			String strExpirationtime = merchantEntity.getStrExpirationtime();
+			String pattern ="yyyy-MM-dd hh:mm:ss";//格式化日期格式
+			SimpleDateFormat sf = new SimpleDateFormat(pattern);
+			Date expirationtimeDate = sf.parse(strExpirationtime);//把时间格式化
+			if(expirationtimeDate.getTime()>System.currentTimeMillis()) {
+				return true;
+			} else {
+				if(x_requested_with==null){
+					response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/systemoutdate");
+	          	}else{
+		       		response.getWriter().write(DataTool
+							.constructResponse(
+									ResultCode.SYSTEM_OUTDATED,
+									"系统过期，请升级", null));
+				
+	          	}
+				return false;
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.getWriter().write(DataTool.constructResponse(

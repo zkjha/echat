@@ -18,4 +18,7 @@ public interface MerchantMapper {
 	//商家系统版本升级
 	void upgradeMerchantSystem(MerchantEntity merchantEntity) throws Exception;
 	
+	//查询商家系统版本信息
+	MerchantEntity getMerchantSystemVersionInfo() throws Exception;
+	
 }

@@ -35,5 +35,9 @@ public class MerchantService {
 		merchantMapper.upgradeMerchantSystem(merchantEntity);
 	}
 	
+	public MerchantEntity getMerchantSystemVersionInfo() throws Exception {
+		return merchantMapper.getMerchantSystemVersionInfo();
+	}
+	
 }
 

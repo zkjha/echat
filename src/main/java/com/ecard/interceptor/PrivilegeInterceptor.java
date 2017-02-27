@@ -1,5 +1,7 @@
 package com.ecard.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,14 +17,14 @@ import com.ecard.util.PrintUtil;
 import com.ecard.util.Session;
 import com.ecard.util.WebSessionUtil;
 
-//登录拦截器
-public class LoginInterceptor implements HandlerInterceptor {
+//权限拦截器
+public class PrivilegeInterceptor implements HandlerInterceptor {
 	@Autowired
 	private WebSessionUtil webSessionUtil;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		PrintUtil.println("登录拦截器");
+		PrintUtil.println("权限拦截器");
 		response.setContentType("text/html;charset=UTF-8");
 		String x_requested_with=(String)request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWebSession(request, response);
@@ -52,8 +54,37 @@ public class LoginInterceptor implements HandlerInterceptor {
 				
 	          	}
 				return false;
+			} else {
+				@SuppressWarnings("unchecked")
+				List<String> priviliegeList = (List<String>) session
+						.getAttribute("privilegeList");
+				if (priviliegeList == null) {
+					if(x_requested_with==null){
+						response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/noprivilege");
+		          	}else{
+		          		response.getWriter().write(DataTool
+								.constructResponse(
+										ResultCode.NO_ACCESS_PRIVILEGE,
+										"无访问权限", null));
+		          	}
+					return false;
+				} else {
+					String accessUrl = request.getRequestURI(); //访问路径
+					if(priviliegeList.contains(accessUrl)) {
+						return true;
+					} else {
+						if(x_requested_with==null){
+							response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/noprivilege");
+			          	}else{
+			          		response.getWriter().write(DataTool
+									.constructResponse(
+											ResultCode.NO_ACCESS_PRIVILEGE,
+											"无访问权限", null));
+			          	}
+						return false;
+					}
+				}
 			}
-			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.getWriter().write(DataTool.constructResponse(

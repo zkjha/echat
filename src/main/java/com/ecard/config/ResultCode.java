@@ -43,6 +43,10 @@ public final class ResultCode {
 	 * 前端不需要处理的错误
 	 */
 	public static final int NOT_NEED_DEAL = -9;
+	/**
+	 * 系统过期
+	 */
+	public static final int SYSTEM_OUTDATED = -10;
 	//========================全局请求返回状态标识结束=======================
 	
 	//========================接口返回状态标识开始==========================

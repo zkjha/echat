@@ -52,6 +52,30 @@ public class LoginController {
 		mv.addObject("url", url);
 		return mv;
 	}
+	
+	/**
+	 * 跳转到系统过期界面
+	 * @return
+	 */
+	@RequestMapping("systemoutdate")
+	public ModelAndView systemoutdate(HttpServletRequest request) {
+	
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("admin/systemoutdate");
+		return mv;
+	}
+	
+	/**
+	 * 跳转到无权限界面
+	 * @return
+	 */
+	@RequestMapping("noprivilege")
+	public ModelAndView noprivilege(HttpServletRequest request) {
+	
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("admin/noprivilege");
+		return mv;
+	}
 
 	/**
 	 * 登录验证
