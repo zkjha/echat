@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.PrivilegeMapper">
+
+	<!-- 新增权限 -->
+	<insert id="insertPrivilege" parameterType="com.ecard.entity.PrivilegeEntity">
+		INSERT INTO tb_privilege 
+		(STRPRIVILEGEID, STRPRIVILEGENAME, STRPRIVILEGEDESC, STRPRIVILEGEURL, STRPARENTID, STRINSERTTIME)
+		VALUS
+		(#{strPrivilegeid}, #{strPrivilegename}, #{strPrivilegedesc}, #{strPrivilegeurl}, #{strParentid}, #{strInserttime})  
+	</insert>
+	
+	<!-- 删除权限 -->
+	<delete id="deletePrivilege" parameterType="string">
+		DELETE FROM tb_privilege WHERE STRPRIVILEGEID=#{strPrivilegeid}
+	</delete>
+	
+	<!-- 修改权限 -->
+	<update id="updatePrivilege" parameterType="com.ecard.entity.PrivilegeEntity">
+		UPDATE tb_privilege SET STRPRIVILEGENAME=#{strPrivilegename}, STRPRIVILEGEDESC=#{strPrivilegedesc}, STRPRIVILEGEURL=#{strPrivilegeurl},
+		                        STRPARENTID=#{strParentid}, STRUPDATETIME=#{strUpdatetime}
+		WHERE STRPRIVILEGEID=#{strPrivilegeid}
+	</update>
+	
+	<!-- 根据权限ID查询权限信息 -->
+	<select id="getPrivilegeById" parameterType="string" resultType="com.ecard.entity.PrivilegeEntity">
+	     SELECT STRPRIVILEGEID AS strPrivilegeid, STRPRIVILEGENAME AS strPrivilegename, STRPRIVILEGEDESC AS strPrivilegedesc, STRPRIVILEGEURL AS strPrivilegeurl,
+	            STRPARENTID AS strParentid, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_privilege
+	     WHERE STRPRIVILEGEID=#{strPrivilegeid}
+	</select>
+	
+	<!-- 查询职务列表 -->
+	<select id="listPrivilege" parameterType="map" resultType="com.ecard.entity.PrivilegeEntity">
+	      SELECT STRPRIVILEGEID AS strPrivilegeid, STRPRIVILEGENAME AS strPrivilegename, STRPRIVILEGEDESC AS strPrivilegedesc, STRPRIVILEGEURL AS strPrivilegeurl,
+	            STRPARENTID AS strParentid, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_privilege ORDER BY STRINSERTTIME DESC
+	</select>
+
+</mapper>

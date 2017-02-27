@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.DutyMapper">
+
+	<!-- 新增职务 -->
+	<insert id="insertDuty" parameterType="com.ecard.entity.DutyEntity">
+		INSERT INTO tb_duty 
+		(STRDUTYID, STRDUTYNAME, STRINSERTTIME)
+		VALUS
+		(#{strDutyid}, #{strDutyname}, #{strInserttime})  
+	</insert>
+	
+	<!-- 修改职务 -->
+	<update id="updateDuty" parameterType="com.ecard.entity.DutyEntity">
+		UPDATE tb_duty SET STRDUTYNAME=#{strDutyname}, STRUPDATETIME=#{strUpdatetime} WHERE STRDUTYID=#{strDutyid}
+	</update>
+	
+	<!-- 根据职务ID查询职务信息 -->
+	<select id="getDutyById" parameterType="string" resultType="com.ecard.entity.DutyEntity">
+	     SELECT STRDUTYID AS strDutyid, STRDUTYNAME AS strDutyname, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_duty
+	     WHERE STRDUTYID=#{strDutyid}
+	</select>
+	
+	<!-- 查询职务列表 -->
+	<select id="listDuty" parameterType="map" resultType="com.ecard.entity.DutyEntity">
+	     SELECT STRDUTYID AS strDutyid, STRDUTYNAME AS strDutyname, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_duty ORDER BY STRINSERTTIME DESC
+	</select>
+	
+	<!-- 新增职务权限关系 -->
+	<insert id="insertDutyPrivilege" parameterType="com.ecard.entity.DutyPrivilegeEntity">
+		INSERT INTO tb_duty_privilege 
+		(STRRELATIONID, STRPRIVILEGEID, STRDUTYID)
+		VALUS
+		(#{strRelationid}, #{strPrivilegeid}, #{strDutyid})  
+	</insert>
+	
+	<!-- 删除职务与权限关系 -->
+	<delete id="deleteDutyPrivilege">
+		DELETE FROM tb_duty_privilege
+		<where>
+			<!-- 权限ID不为空 -->
+			<if test="strPrivilegeid != null and strPrivilegeid != ''">
+				AND STRPRIVILEGEID=#{strPrivilegeid}
+			</if>
+			<!-- 职务ID不为空 -->
+			<if test="strDutyid != null and strDutyid != ''">
+				AND STRDUTYID=#{strDutyid}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 根据职务ID查询该职务所有的权限访问路径 -->
+	<select id="listDutyPrivilegeUrl" parameterType="string" resultType="string">
+	     SELECT tp.STRPRIVILEGEURL AS strPrivilegeurl
+	     FROM tb_privilege tp, tb_duty_privilege tdp
+	     WHERE tdp.STRDUTYID=#{strDutyid} AND tp.STRPRIVILEGEID=tdp.STRPRIVILEGEID 
+	</select>
+	
+
+</mapper>

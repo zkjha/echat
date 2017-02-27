@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.EmployeeMapper">
+	<!-- 根据登录用户名查询用户信息 -->
+	<select id="getEmployeeByLoginname" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
+	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
+	            STRHEADPORTRAIT AS strHeadportrait, STRREALNAME AS strRealname, STRMOBILE AS strMobile,
+	            INTSTATUS AS intStatus, STRDUTYID AS strDutyid, STRMERCHANTID AS strMerchantid
+	      FROM tb_employee
+	     WHERE STRLOGINNAME=#{strLoginname}
+	</select>
+
+</mapper>

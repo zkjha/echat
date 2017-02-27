@@ -1,0 +1,37 @@
+.main-color{
+	color: #fdc204;
+}
+.main-bg-color{
+	background-color: #fdc204;
+}
+.btn{
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	color: #ffffff;
+	font-size: 16px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	cursor: pointer;
+}
+.btn-primary{
+	background-color: #fdc204;
+}
+.error-ico{
+	display: inline-block;
+	width:20px;
+	height: 20px;
+	background: url("../../images/error_ico.png") top center no-repeat;
+}
+
+.btn-disable{
+	background-color: black !important;
+	cursor: auto;
+}
+.btn-busy{
+	background-color: #d9ae02 !important;
+	cursor: wait;
+}
+
+

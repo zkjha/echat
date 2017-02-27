@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.FrontInformationMapper">
+
+	<!-- 新增前端注册页面资料-->
+	<insert id="insertFrontInformation" parameterType="com.ecard.entity.FrontInformationEntity">
+		INSERT INTO tb_front_information 
+		(STRINFORMATIONID, STRCONTENT, STRINSERTTIME)
+		VALUS
+		(#{strInformationid}, #{strContent}, #{strInserttime})  
+	</insert>
+	
+	<!-- 删除所有前端注册页面资料 -->
+	<delete id="deleteAllFrontInformation">
+		DELETE FROM tb_front_information
+	</delete>
+	
+	<!-- 查询前端注册页面资料详细信息 -->
+	<select id="getOneFrontInformation" resultType="com.ecard.entity.FrontInformationEntity">
+	     SELECT STRINFORMATIONID AS strInformationid, STRCONTENT AS strContent, STRINSERTTIME AS strInserttime
+	     FROM tb_front_information ORDER BY STRINSERTTIME DESC LIMIT 1
+	</select>
+	
+</mapper>

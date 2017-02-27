@@ -1,0 +1,83 @@
+package com.ecard.interceptor;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.commontools.data.DataTool;
+import com.ecard.config.ResultCode;
+import com.ecard.config.StaticValue;
+import com.ecard.entity.EmployeeEntity;
+import com.ecard.util.PrintUtil;
+import com.ecard.util.Session;
+import com.ecard.util.WebSessionUtil;
+
+//登录拦截器
+public class LoginInterceptor implements HandlerInterceptor {
+	@Autowired
+	private WebSessionUtil webSessionUtil;
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		PrintUtil.println("在请求处理之前进行调用（Controller方法调用之前）");
+		response.setContentType("text/html;charset=UTF-8");
+		Session session = webSessionUtil.getWebSession(request, response);
+    	
+		if (session == null) {
+
+			response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+			return false;
+		}
+		try {
+			EmployeeEntity employeeEntity = (EmployeeEntity)session.getAttribute("employeeEntity");
+			if (employeeEntity == null) {
+				response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/login");
+				return false;
+			} else {
+				@SuppressWarnings("unchecked")
+				List<String> priviliegeList = (List<String>) session
+						.getAttribute("privilegeList");
+				if (priviliegeList == null) {
+					response.getWriter().write(DataTool
+									.constructResponse(
+											ResultCode.NO_ACCESS_PRIVILEGE,
+											"无访问权限", null));
+					return false;
+				} else {
+					String accessUrl = request.getRequestURI(); //访问路径
+					if(priviliegeList.contains(accessUrl)) {
+						return true;
+					} else {
+						response.getWriter().write(DataTool
+								.constructResponse(
+										ResultCode.NO_ACCESS_PRIVILEGE,
+										"无访问权限", null));
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.getWriter().write(DataTool.constructResponse(
+							ResultCode.SYSTEM_ERROR, "系统错误", null));
+			return false;
+		}
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		PrintUtil.println("请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）");
+	}
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		PrintUtil.println("在整个请求结束之后被调用，也就是在DispatcherServlet渲染了对应的视图之后执行（主要是用于进行资源清理工作）");
+	}
+}

@@ -1,0 +1,126 @@
+body{
+	background: url("../../../images/admin/login/bg.jpg") top center no-repeat;
+	overflow: hidden;
+    min-height: 500px;
+}
+
+
+.-lpy-login-form{
+	width:440px;
+	height: 300px;
+	margin:150px auto;
+	
+}
+.-lpy-login-form h3{
+	text-align: center;
+	color: #ffffff;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+
+.-lpy-input-container{
+	height: 40px;
+	width:370px;
+	margin:0 auto 50px auto;
+	border-bottom: 1px solid #ffffff;
+	position: relative;
+}
+.-lpy-input-container span{
+	font-size: 16px;
+	color: #ffffff;
+}
+.-lpy-input-container input{
+	width:280px;
+	height: 30px;
+	border: 0;
+	background: none;
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.error-container{
+	position: absolute;
+	height: 30px;
+	font-size: 14px;
+	top:0;
+	left:370px;
+	width:300px;
+}
+.error-info{
+color: red !important;
+display: inline-block;
+width:200px;
+font-size: 14px !important;
+line-height: 30px;
+}
+.error-ico{
+	 margin-top: 5px;
+    margin-right: 5px;
+}
+.-lpy-login-btn{
+	width:370px;
+
+	margin:  0 auto;
+}
+
+
+/*  尾部开始*/
+.footer{
+	height: 60px;
+	background: black;
+	position: fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+}
+.footer-first-line{
+	height: 40px;
+	width:100%;
+	background-color: #3b3b3b;
+	color: #ffffff;
+}
+.footer-seconde-line{
+	color: #ffffff;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+}
+
+.ico-phone{
+	display: inline-block;
+	width:24px;
+	height: 24px;
+	background: url("../../../images/admin/login/ico-phone.png") top center no-repeat;
+	vertical-align: middle;
+}
+
+.ico-addr{
+	display: inline-block;
+	width:24px;
+	height: 24px;
+	background: url("../../../images/admin/login/ico-addr.png") top center no-repeat;
+	vertical-align: middle;
+}
+
+.ico-email{
+	display: inline-block;
+	width:24px;
+	height: 24px;
+	background: url("../../../images/admin/login/ico-email.png") top center no-repeat;
+	vertical-align: middle;
+}
+
+.finst-line-center{
+	width:740px;
+	margin: auto;
+}
+
+/* 尾部结束 */
+
+
+.-lpy-main-content{
+	height: 100px;
+	background: red;
+}

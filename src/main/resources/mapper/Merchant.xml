@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.MerchantMapper">
+
+	<!-- 修改商家资料 -->
+	<update id="updateMerchant" parameterType="com.ecard.entity.MerchantEntity">
+		UPDATE tb_merchant SET STRMERCHANTNAME=#{strMerchantname}, STRMERCHANTADDRESS=#{strMerchantaddress},
+		                       STRMERCHANTLOGO=#{strMerchantlogo}, STRUPDATETIME=#{strUpdatetime}
+		 WHERE STRMERCHANTID=#{strMerchantid}
+	</update>
+	
+	<!-- 根据商家ID查询商家信息-->
+	<select id="getMerchantById" parameterType="string" resultType="com.ecard.entity.MerchantEntity">
+	     SELECT STRMERCHANTNAME AS strMerchantname, STRMERCHANTADDRESS AS strMerchantaddress, STRMERCHANTLOGO AS strMerchantlogo,
+	            STRSYSTEMVERSION AS strSystemversion, STREXPIRATIONTIME AS strExpirationtime, INTMEMBERCOUNT AS intMembercount
+	     FROM tb_merchant
+	     WHERE STRMERCHANTID=#{strMerchantid}
+	</select>
+	
+	<!-- 商家软件版本升级 -->
+	<update id="upgradeMerchantSystem" parameterType="com.ecard.entity.MerchantEntity">
+		UPDATE tb_merchant SET STRSYSTEMVERSION=#{strSystemversion}, STREXPIRATIONTIME=#{strExpirationtime},
+		                       INTMEMBERCOUNT=#{intMembercount}, STRUPDATETIME=#{strUpdatetime}
+		 WHERE STRMERCHANTID=#{strMerchantid}
+	</update>
+	
+</mapper>
