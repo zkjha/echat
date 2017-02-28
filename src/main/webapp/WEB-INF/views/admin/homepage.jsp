@@ -7,11 +7,12 @@
 	<link href="<%=basePath %>/static/css/libs/global.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/pages/admin/global.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/pages/admin/homepage.css" rel="stylesheet" type="text/css"/>
-	
+	<link href="<%=basePath %>/static/css/dirctive/leftmenu.css" rel="stylesheet" type="text/css"/>
    <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
     <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-route.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/lib/requestParamUtill.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>  
+   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/menuDirective.js"></script>    
    <script type="text/javascript" src="<%=basePath %>/static/js/admin/homepage.js"></script>
    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,18 +32,20 @@
 	<toast></toast>
 	
 	
-	<div ng-include="'/static/temp/admin/header.html'">
-	
-	</div>
+	<div ng-include="'/static/temp/admin/header.html'"></div>
 
-	<div class="-lpy-main-content" >
-		<div ng-view></div>
+	<div class="-lpy-main-content " >
+		<div class="left-menu fl" >
+			<menu></menu>
+		</div>
+		
+		<div class="right-content fl" >
+		    <div ng-view></div>
+		</div>
+		<div class="clearfix"></div>
     </div>
-
     
     
-    <div ng-include="'/static/temp/admin/footer.html'">
-	
-	</div>
+    <div ng-include="'/static/temp/admin/footer.html'"></div>
 </body>
 </html>

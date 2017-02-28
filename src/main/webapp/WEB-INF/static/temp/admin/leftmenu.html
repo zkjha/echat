@@ -1,0 +1,28 @@
+<!-- 
+     数据模板 menuData 名字不能修改
+	$scope.menuData=[
+	                 {id:1,link: '', name: "aa",hasnext:true,next:[{id:3,link: '#!/player/list', name: "header",hasnext:false}]},
+	                 {id:4,link: '#!/player/edit', name: "header",hasnext:true,next:[{id:9,link: '#!/player/list', name: "header",hasnext:false}]},
+	                 {id:6,link: '#!/player/list', name: "header",hasnext:false},
+	                 {id:7,link: '#!/player/edit', name: "header",hasnext:true,next:[{id:8,link: '#!/player/list', name: "header",hasnext:false},{id:10,link: '#!/player/edit', name: "header",hasnext:false}]}
+	               ] -->
+	
+<div>
+	<ul class="leftmenu-container">
+		
+		<li ng-repeat="data in menuData" class="leftmenu-first-li"  >
+		  <a  ng-class="{'left-menu-selected':isClicked[data.id]}"  class="leftmenu-first-a" ng-click="toggle(data.link,data.hasnext,$index,data.id)"  >
+		  	{{data.name}}
+		  	<span  ng-if="data.hasnext" class="more-btn-ico"></span>
+		  </a>
+		  	<ul ng-if="data.hasnext" ng-show="isShowMenu[$index]"  >
+		  		<li class="leftmenu-second-li" ng-repeat="next in data.next">
+		  		    <a  ng-class="{'left-menu-selected':isClicked[next.id]}"  ng-click="toggle(next.link,next.hasnext,$index,next.id)"  >
+		  		    {{next.name}}
+		  		  </a>
+		  		</li>
+		  	</ul>
+		 </li>
+	</ul>
+	
+</div>

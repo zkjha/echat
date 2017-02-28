@@ -147,9 +147,14 @@
 .-lpy-main-content{
 	width:1190px;
 	margin: auto;
-	height: 100px;
 }
-
+.left-menu{
+	width:165px;
+}
+.right-content{
+	width:1025px;
+	margin-top: 20px;
+}
 
 /* 主体结束 */
 

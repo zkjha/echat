@@ -1,0 +1,55 @@
+.leftmenu-container{
+	background: #e6e6e6;
+	width:145px;
+	height: 500px;
+	font-size: 14px;
+	text-align: center;
+	margin: 20px 20px 20px 0;
+}
+.leftmenu-container a{
+	display: block;
+	position: relative;
+}
+.leftmenu-container a:hover{
+	background-color:#ffd489;
+	color: #ffffff;
+}
+.leftmenu-first-li{
+	min-height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+.leftmenu-first-a .more-btn-ico{
+	display: inline-block;
+	width:18px;
+	height: 14px;
+	background: url("/static/images/admin/menu-more-ico.png");
+	position: absolute;
+	right:10px;
+	top:13px;
+}
+.leftmenu-first-a:hover .more-btn-ico{
+	display: inline-block;
+	width:18px;
+	height: 14px;
+	background: url("/static/images/admin/menu-more-ico-1.png");
+	position: absolute;
+	right:10px;
+	top:12px;
+}
+.leftmenu-second-li{
+	border-bottom: 1px solid #d9d9d9;
+	color: #666666 !important;
+	background: #e0e0e0 !important;
+	height: 30px !important;
+	line-height: 30px !important;
+}
+.leftmenu-second-li a{
+	font-size: 12px;
+}
+
+
+.left-menu-selected{
+	background-color: #fdc204;
+	color: #ffffff;
+}

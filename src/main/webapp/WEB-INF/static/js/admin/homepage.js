@@ -1,22 +1,30 @@
-var app = angular.module("homepage", ['ngRoute']);
+var app = angular.module("homepage", ['ngRoute',]);
 requestParamUtill(app);
 tipsDictive(app);
-
+menueDictive(app);
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
-	$routeProvider.when("/", {
-		templateUrl: "/static/temp/admin/index.html"
-	}).when("/footer", {
+	$routeProvider.when("/player/list", {
+		templateUrl: "/static/temp/admin/homepage/index.html"
+		
+	}).when("/player/edit", {
 		templateUrl: "/static/temp/admin/footer.html"
-	}).when("/header", {
-		templateUrl: "/static/temp/admin/header.html"
+		
 	}).otherwise({
-		redirectTo: "/"
+		redirectTo: "/player/list"
 	});
+	
 }]);
 
 
 app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
+	$scope.menuData=[
+	                 {id:1,link: '', name: "aa",hasnext:true,next:[{id:3,link: '#!/player/list', name: "header",hasnext:false}]},
+	                 {id:4,link: '', name: "header",hasnext:true,next:[{id:9,link: '#!/player/list4', name: "header",hasnext:false}]},
+	                 {id:6,link: '#!/player/list2', name: "header",hasnext:false},
+	                 {id:7,link: '', name: "header",hasnext:true,next:[{id:8,link: '#!/player/list5', name: "header",hasnext:false},{id:10,link: '#!/player/edit6', name: "header",hasnext:false}]}
+	               ]
+	
 	//初始化用户信息
 	 $http.post("getLoginUserInfo").then(
 			 function(result){
