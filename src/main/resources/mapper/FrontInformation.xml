@@ -7,7 +7,7 @@
 	<insert id="insertFrontInformation" parameterType="com.ecard.entity.FrontInformationEntity">
 		INSERT INTO tb_front_information 
 		(STRINFORMATIONID, STRCONTENT, STRINSERTTIME)
-		VALUS
+		VALUES
 		(#{strInformationid}, #{strContent}, #{strInserttime})  
 	</insert>
 	
