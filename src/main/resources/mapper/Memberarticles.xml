@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.MemberarticlesMapper">
+
+	<!-- 新增会员章程资料-->
+	<insert id="insertMemberarticles" parameterType="com.ecard.entity.MemberarticlesEntity">
+		INSERT INTO tb_member_articles 
+		(STRARTICLESID, STRCONTENT, STRINSERTTIME)
+		VALUS
+		(#{strArticlesid}, #{strContent}, #{strInserttime})  
+	</insert>
+	
+	<!-- 删除所有会员章程资料 -->
+	<delete id="deleteAllMemberarticles">
+		DELETE FROM tb_member_articles
+	</delete>
+	
+	<!-- 查询会员章程资料详细信息 -->
+	<select id="getOneMemberarticles" resultType="com.ecard.entity.MemberarticlesEntity">
+	     SELECT STRARTICLESID AS strArticlesid, STRCONTENT AS strContent, STRINSERTTIME AS strInserttime
+	     FROM tb_member_articles ORDER BY STRINSERTTIME DESC LIMIT 1
+	</select>
+	
+
+</mapper>

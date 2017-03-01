@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.MemberexpandinformationMapper">
+
+	<!-- 新增会员拓展资料-->
+	<insert id="insertMemberexpandinformation" parameterType="com.ecard.entity.MemberexpandinformationEntity">
+		INSERT INTO tb_member_expand_information 
+		(STRINFORMATIONID, STRINFORMATIONNAME, INTISMUST, INTTYPE, STRINSERTTIME)
+		VALUS
+		(#{strInformationid}, #{strInformationname}, #{intIsmust}, #{intType}, #{strInserttime})  
+	</insert>
+	
+	<!-- 删除会员拓展资料 -->
+	<delete id="deleteMemberexpandinformation">
+		DELETE FROM tb_member_expand_information WHERE STRINFORMATIONID=#{strInformationid}
+	</delete>
+	
+	<!-- 修改会员拓展资料 -->
+	<update id="updateMemberexpandinformation" parameterType="com.ecard.entity.MemberexpandinformationEntity">
+		UPDATE tb_member_expand_information SET STRINFORMATIONNAME=#{strInformationname}, INTISMUST=#{intIsmust},
+		                                        STRUPDATETIME=#{strUpdatetime}
+	    WHERE STRINFORMATIONID=#{strInformationid}
+	</update>
+	
+	<!-- 查询会员拓展资料详细信息 -->
+	<select id="getMemberexpandinformationById" parameterType="string" resultType="com.ecard.entity.MemberexpandinformationEntity">
+	     SELECT STRINFORMATIONID AS strInformationid, STRINFORMATIONNAME AS strInformationname, INTISMUST AS intIsmust, INTTYPE AS intType,
+	            STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_member_expand_information WHERE STRINFORMATIONID=#{strInformationid}
+	</select>
+	
+	<!-- 查询会员拓展资料列表 -->
+	<select id="listMemberexpandinformation" parameterType="map" resultType="com.ecard.entity.MemberexpandinformationEntity">
+	     SELECT STRINFORMATIONID AS strInformationid, STRINFORMATIONNAME AS strInformationname, INTISMUST AS intIsmust, INTTYPE AS intType,
+	            STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	     FROM tb_member_expand_information
+	</select>
+	
+
+</mapper>
