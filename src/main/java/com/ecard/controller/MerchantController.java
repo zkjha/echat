@@ -1,6 +1,8 @@
 package com.ecard.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.MerchantEntity;
 import com.ecard.service.MerchantService;
@@ -47,8 +50,10 @@ public class MerchantController {
 			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 					request, response).getAttribute("employeeEntity");
 			MerchantEntity merchantEntity = merchantService.getMerchantById(employeeEntity.getStrMerchantid());
-			
-			return DataTool.constructResponse(ResultCode.OK, "查询成功", merchantEntity);
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("strImgrootpath", StaticValue.IMAGE_ROOT_PATH);
+			resultMap.put("merchantEntity", merchantEntity);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -88,7 +93,7 @@ public class MerchantController {
 			merchantEntity.setStrMerchantlogo(strMerchantlogo.trim());
 			merchantEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 			merchantService.updateMerchant(merchantEntity);
-			return DataTool.constructResponse(ResultCode.OK, "查询成功", merchantEntity);
+			return DataTool.constructResponse(ResultCode.OK, "修改成功", merchantEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
