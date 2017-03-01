@@ -1,0 +1,15 @@
+
+.edit-merchant-info-container,.merchant-info-container{
+	margin-top: 5px;
+    min-height: 500px;
+    margin-bottom: 50px;
+}
+
+.merchant-info-main{
+	margin: 20px;
+	min-height: 200px;
+}
+.-lpy-div-subbmit{
+	width:40px;
+	margin: auto;
+}

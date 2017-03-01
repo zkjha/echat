@@ -1,4 +1,4 @@
-var app = angular.module("login", []);
+var app = angular.module("login",[]);
 requestParamUtill(app);
 tipsDictive(app);
 app.controller('loginCtrl',['$scope','$http',function($scope,$http){

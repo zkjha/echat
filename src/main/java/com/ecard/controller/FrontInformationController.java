@@ -44,6 +44,8 @@ public class FrontInformationController {
 			if(ValidateTool.isNull(frontInformationEntity)) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无前端资料信息", null);
 			}
+			
+			
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", frontInformationEntity);
 		} catch (Exception e) {
 			e.printStackTrace();

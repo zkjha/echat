@@ -155,7 +155,46 @@
 	width:1025px;
 	margin-top: 20px;
 }
+.right-content-main{
+	width:100%;
+	
+}
+.right-content-header{
+	height: 30px;
+	border-bottom: 1px solid #fdc204;
+	line-height: 30px;
+}
 
 /* 主体结束 */
+.small-btn{
+	width:40px;
+	
+	text-align: center;
+	line-height: 20px;
+	border: 1px solid #7c7c7c;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	margin: 0 5px; 
+	cursor: pointer;
+	display: inline-block;
+	padding: 0 5px;
+
+}
+.yellow-border{
+	border: 1px solid #fdc204;
+}
+.white-color{
+	color: #ffffff;
+}
+.center{
+	margin: auto;
+}
+.small-btn:hover{
+	border: 1px solid #fdc204;
+	color: #fdc204;
+	
+}
+
 
 

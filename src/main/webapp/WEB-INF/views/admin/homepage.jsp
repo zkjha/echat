@@ -5,15 +5,24 @@
 <head>
 	<link href="<%=basePath %>/static/css/libs/base.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/libs/global.css" rel="stylesheet" type="text/css"/>
+	<link type="text/css" href="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/themes/default/css/umeditor.css"
+          rel="stylesheet">
 	<link href="<%=basePath %>/static/css/pages/admin/global.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/pages/admin/homepage.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/dirctive/leftmenu.css" rel="stylesheet" type="text/css"/>
-   <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
-    <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-route.js"></script>
+	  <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
+	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/third-party/jquery.min.js"></script>
+	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/umeditor.js"></script>
+	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config.js"></script>
+	<script src="<%=basePath %>/static/metaumeditor/src/meta.umeditor.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-route.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-sanitize.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/lib/requestParamUtill.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/menuDirective.js"></script>    
    <script type="text/javascript" src="<%=basePath %>/static/js/admin/homepage.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/controller/admin/homepageController.js"></script>
+   
    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="renderer" content="webkit">
