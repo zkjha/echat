@@ -32,9 +32,17 @@ public class MerchantEntity {
 	 */
 	private String strExpirationtime;
 	/**
+	 * 系统有效期天数
+	 */
+	private int intValiddays;
+	/**
 	 * 会员最大允许数量
 	 */
 	private int intMembercount;
+	/**
+	 * 系统秘钥
+	 */
+	private String strSystemsecret;
 	/**
 	 * 录入时间
 	 */
@@ -79,11 +87,23 @@ public class MerchantEntity {
 	public void setStrExpirationtime(String strExpirationtime) {
 		this.strExpirationtime = strExpirationtime;
 	}
+	public int getIntValiddays() {
+		return intValiddays;
+	}
+	public void setIntValiddays(int intValiddays) {
+		this.intValiddays = intValiddays;
+	}
 	public int getIntMembercount() {
 		return intMembercount;
 	}
 	public void setIntMembercount(int intMembercount) {
 		this.intMembercount = intMembercount;
+	}
+	public String getStrSystemsecret() {
+		return strSystemsecret;
+	}
+	public void setStrSystemsecret(String strSystemsecret) {
+		this.strSystemsecret = strSystemsecret;
 	}
 	public String getStrInserttime() {
 		return strInserttime;
@@ -97,4 +117,5 @@ public class MerchantEntity {
 	public void setStrUpdatetime(String strUpdatetime) {
 		this.strUpdatetime = strUpdatetime;
 	}
+	
 } 

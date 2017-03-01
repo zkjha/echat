@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.commontools.data.DataTool;
 import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
+import com.commontools.secret.MD5Tool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
@@ -50,6 +51,11 @@ public class MerchantController {
 			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 					request, response).getAttribute("employeeEntity");
 			MerchantEntity merchantEntity = merchantService.getMerchantById(employeeEntity.getStrMerchantid());
+			if(ValidateTool.isNull(merchantEntity)) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无商家信息", null);
+			}
+			int intValiddays = merchantEntity.getIntValiddays();
+			merchantEntity.setStrExpirationtime(DateTool.addDay(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD), intValiddays));
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 			resultMap.put("strImgrootpath", StaticValue.IMAGE_ROOT_PATH);
 			resultMap.put("merchantEntity", merchantEntity);
@@ -99,5 +105,46 @@ public class MerchantController {
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
 	}
+	
+	/**
+	 * 商家系统升级
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("biz/merchant/upgradeMerchantSystem")
+	public String upgradeMerchantSystem(HttpServletRequest request, HttpServletResponse response) {
+		
+		String strActivationcode = request.getParameter("strActivationcode");
+		if(ValidateTool.isEmptyStr(strActivationcode)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "激活码不能为空", null);
+		}
+		try {
+			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+					request, response).getAttribute("employeeEntity");
+			//1.根据激活码远程调用激活系统查询激活码信息,可能返回激活码失效
+			
+			MerchantEntity merchantEntity = new MerchantEntity();
+			merchantEntity.setStrMerchantid(employeeEntity.getStrMerchantid());
+			merchantEntity.setStrSystemversion("中级版");
+			merchantEntity.setIntValiddays(365);
+			merchantEntity.setIntMembercount(500);
+			merchantEntity.setStrSystemsecret(MD5Tool.createMd5("ecard_365_500")); //ecard_到期天数_会员数量
+			merchantEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+			merchantService.upgradeMerchantSystem(merchantEntity);
+			
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("strSystemversion", merchantEntity.getStrSystemversion());
+			resultMap.put("IntMembercount", merchantEntity.getIntMembercount());
+			resultMap.put("strExpirationtime", DateTool.addDay(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD), merchantEntity.getIntValiddays()));
+			
+			return DataTool.constructResponse(ResultCode.OK, "激活成功", merchantEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+	}
+	
 	
 }

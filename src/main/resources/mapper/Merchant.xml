@@ -13,7 +13,7 @@
 	<!-- 根据商家ID查询商家信息-->
 	<select id="getMerchantById" parameterType="string" resultType="com.ecard.entity.MerchantEntity">
 	     SELECT STRMERCHANTNAME AS strMerchantname, STRMERCHANTADDRESS AS strMerchantaddress, STRMERCHANTLOGO AS strMerchantlogo,
-	            STRSYSTEMVERSION AS strSystemversion, STREXPIRATIONTIME AS strExpirationtime, INTMEMBERCOUNT AS intMembercount
+	            STRSYSTEMVERSION AS strSystemversion, INTVALIDDAYS AS intValiddays, INTMEMBERCOUNT AS intMembercount
 	     FROM tb_merchant
 	     WHERE STRMERCHANTID=#{strMerchantid}
 	</select>
@@ -21,14 +21,15 @@
 	<!-- 查询商家版本信息-->
 	<select id="getMerchantSystemVersionInfo" resultType="com.ecard.entity.MerchantEntity">
 	     SELECT STRMERCHANTNAME AS strMerchantname, STRMERCHANTADDRESS AS strMerchantaddress, STRMERCHANTLOGO AS strMerchantlogo,
-	            STRSYSTEMVERSION AS strSystemversion, STREXPIRATIONTIME AS strExpirationtime, INTMEMBERCOUNT AS intMembercount
+	            STRSYSTEMVERSION AS strSystemversion, INTVALIDDAYS AS intValiddays, INTMEMBERCOUNT AS intMembercount
 	     FROM tb_merchant LIMIT 1
 	</select>
 	
 	<!-- 商家软件版本升级 -->
 	<update id="upgradeMerchantSystem" parameterType="com.ecard.entity.MerchantEntity">
-		UPDATE tb_merchant SET STRSYSTEMVERSION=#{strSystemversion}, STREXPIRATIONTIME=#{strExpirationtime},
-		                       INTMEMBERCOUNT=#{intMembercount}, STRUPDATETIME=#{strUpdatetime}
+		UPDATE tb_merchant SET STRSYSTEMVERSION=#{strSystemversion}, INTVALIDDAYS=#{intValiddays},
+		                       INTMEMBERCOUNT=#{intMembercount}, STRSYSTEMSECRET=#{strSystemsecret}, 
+		                       STRUPDATETIME=#{strUpdatetime}
 		 WHERE STRMERCHANTID=#{strMerchantid}
 	</update>
 	
