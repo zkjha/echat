@@ -29,7 +29,7 @@ public class FrontInformationService {
 	
 	//查询前端注册页面资料详细信息
 	public FrontInformationEntity getOneFrontInformation() throws Exception {
-		return getOneFrontInformation();
+		return frontInformationMapper.getOneFrontInformation();
 	}
 }
 
