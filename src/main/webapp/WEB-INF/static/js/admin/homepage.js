@@ -1,28 +1,41 @@
-var app = angular.module("homepage", ['ngRoute',]);
+var app = angular.module("homepage", ['ngRoute','ngSanitize','meta.umeditor']);
 requestParamUtill(app);
 tipsDictive(app);
 menueDictive(app);
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
-	$routeProvider.when("/player/list", {
+	$routeProvider.when("/index", {
 		templateUrl: "/static/temp/admin/homepage/index.html"
 		
-	}).when("/player/edit", {
-		templateUrl: "/static/temp/admin/footer.html"
+	}).when("/merchantinfo", {
+		templateUrl: "/static/temp/admin/homepage/merchantinfo.html",
+		//controller:merchantinfoController
+		
+	}).when("/merchantinfo/editMerchantinfo", {
+		templateUrl: "/static/temp/admin/homepage/editMerchantinfo.html",
+		//controller:editMerchantinfoController
+		
+	}).when("/frontinfo", {
+		templateUrl: "/static/temp/admin/homepage/frontinfo.html",
+		controller:frontinfoController
+	}).when("/staffinfo/editStaffinfo", {
+		templateUrl: "/static/temp/admin/homepage/editstaffinfo.html",
+		controller:editFrontinfoController
 		
 	}).otherwise({
-		redirectTo: "/player/list"
+		redirectTo: "/index"
 	});
 	
 }]);
 
 
 app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
+	$scope.config = {};
 	$scope.menuData=[
-	                 {id:1,link: '', name: "aa",hasnext:true,next:[{id:3,link: '#!/player/list', name: "header",hasnext:false}]},
-	                 {id:4,link: '', name: "header",hasnext:true,next:[{id:9,link: '#!/player/list4', name: "header",hasnext:false}]},
-	                 {id:6,link: '#!/player/list2', name: "header",hasnext:false},
-	                 {id:7,link: '', name: "header",hasnext:true,next:[{id:8,link: '#!/player/list5', name: "header",hasnext:false},{id:10,link: '#!/player/edit6', name: "header",hasnext:false}]}
+	                 {id:1,link: '#!/index', name: "首页",hasnext:false,next:[]},
+	                 {id:4,link: '#!/merchantinfo', name: "商家资料",hasnext:false,next:[]},
+	                 {id:6,link: '#!/staffinfo', name: "员工管理",hasnext:false},
+	                 {id:7,link: '#!/frontinfo', name: "前端资料维护",hasnext:false}
 	               ]
 	
 	//初始化用户信息

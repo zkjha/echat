@@ -11,8 +11,6 @@ function menueDictive(app){
             	for(var i=0;i<$scope.menuData.length;i++){
             		
             			$scope.isShowMenu[i]=false;
-            		
-            		
             	}
             	
             	
@@ -44,10 +42,12 @@ function menueDictive(app){
             	}
             	//id 链接地址 length 下一级长度
                 $scope.toggle=function(link,hasnext,index,id){
-                	
+                	//下面是否有子菜单 有
             	   if(hasnext){
+            		   //循环所有一级菜单 如果是当前这个索引  就转换
             		   for(var x=0;x<$scope.isShowMenu.length;x++){
                    		if(x==index){
+                   			
                    		    $scope.isShowMenu[index]=!$scope.isShowMenu[index];
                    			continue;
                    		}else{
@@ -55,7 +55,7 @@ function menueDictive(app){
                    			
                    		}
                    	}
-            	   }else{
+            	   }else{//下面是否有子菜单 否
             		   for(y in  $scope.isClicked){
             			   $scope.isClicked[y]=false;
             		   }

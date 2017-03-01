@@ -1,6 +1,6 @@
-  
- function tipsDictive(app){
-   app.directive("alert", function() {
+
+function tipsDictive(app){
+	 app.directive("alert", function() {
         return {
             restrict: "E", //default: EA
             replace: true,
@@ -75,4 +75,4 @@
            }
        };
    });
-}
+	}
