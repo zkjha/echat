@@ -1,8 +1,5 @@
 package com.ecard.interceptor;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.commontools.data.DataTool;
+import com.commontools.secret.MD5Tool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.MerchantEntity;
@@ -43,11 +41,23 @@ public class SystemInterceptor implements HandlerInterceptor {
 	          	}
 				return false;
 			}
-			String strExpirationtime = merchantEntity.getStrExpirationtime();
-			String pattern ="yyyy-MM-dd hh:mm:ss";//格式化日期格式
-			SimpleDateFormat sf = new SimpleDateFormat(pattern);
-			Date expirationtimeDate = sf.parse(strExpirationtime);//把时间格式化
-			if(expirationtimeDate.getTime()>System.currentTimeMillis()) {
+			int intValiddays = merchantEntity.getIntValiddays(); //有效天数
+			int intMembercount = merchantEntity.getIntMembercount(); //会员数量
+			String strNewsystemsecret = MD5Tool.createMd5("ecard_" + intValiddays + "_" + intMembercount);
+			if(!strNewsystemsecret.equals(merchantEntity.getStrSystemsecret())) {
+				//系统参数信息被改了
+				if(x_requested_with==null){
+					response.sendRedirect(StaticValue.PROJECT_ROOT_PATH + "admin/systemoutdate");
+	          	}else{
+		       		response.getWriter().write(DataTool
+							.constructResponse(
+									ResultCode.SYSTEM_OUTDATED,
+									"系统过期，请升级", null));
+				
+	          	}
+				return false;
+			}
+			if(intValiddays>0) {
 				return true;
 			} else {
 				if(x_requested_with==null){
