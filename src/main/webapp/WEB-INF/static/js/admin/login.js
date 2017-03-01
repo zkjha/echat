@@ -1,6 +1,4 @@
-var app = angular.module("login",[]);
-requestParamUtill(app);
-tipsDictive(app);
+var app = angular.module("login",['tips','httphelper']);
 app.controller('loginCtrl',['$scope','$http',function($scope,$http){
 	$scope.user={};
 	$scope.isActive=true;

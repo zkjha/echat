@@ -3,8 +3,10 @@
  * 修改post请求方式
  * @param app
  */
-function requestParamUtill(app){
-	app.config(function($httpProvider) {
+//function requestParamUtill(app){
+(function() {
+	'use strict'
+	angular.module("httphelper", []).config(function($httpProvider) {
 		$httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
 		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 		// Override $http service's default transformRequest
@@ -51,4 +53,5 @@ function requestParamUtill(app){
 					: data;
 		}];
 	});
-}
+//}
+	})();

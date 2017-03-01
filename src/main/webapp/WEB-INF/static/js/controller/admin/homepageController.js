@@ -108,6 +108,10 @@ function editFrontinfoController($scope, $http, $routeParams, $location,$sce){
 		}
 
 
-	
+}
 
+//商家信息控制器
+function merchantinfoController($scope, $http){
+	
+	
 }

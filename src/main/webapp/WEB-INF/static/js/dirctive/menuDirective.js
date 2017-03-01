@@ -1,5 +1,6 @@
-function menueDictive(app){
-   app.directive("menu", function() {
+(function() {
+	'use strict'
+	angular.module("menu", []).directive("menu", function() {
         return {
             restrict: "E", //default: EA
             replace: true,
@@ -67,4 +68,4 @@ function menueDictive(app){
         };
     });
    
-};
+})();

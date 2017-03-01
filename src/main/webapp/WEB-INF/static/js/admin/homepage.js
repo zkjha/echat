@@ -1,7 +1,4 @@
-var app = angular.module("homepage", ['ngRoute','ngSanitize','meta.umeditor']);
-requestParamUtill(app);
-tipsDictive(app);
-menueDictive(app);
+var app = angular.module("homepage", ['ngRoute','ngSanitize','meta.umeditor','tips','httphelper','menu']);
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/index", {
@@ -9,11 +6,7 @@ app.config(["$routeProvider", function($routeProvider) {
 		
 	}).when("/merchantinfo", {
 		templateUrl: "/static/temp/admin/homepage/merchantinfo.html",
-		//controller:merchantinfoController
-		
-	}).when("/merchantinfo/editMerchantinfo", {
-		templateUrl: "/static/temp/admin/homepage/editMerchantinfo.html",
-		//controller:editMerchantinfoController
+		controller:merchantinfoController
 		
 	}).when("/frontinfo", {
 		templateUrl: "/static/temp/admin/homepage/frontinfo.html",
