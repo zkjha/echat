@@ -137,7 +137,7 @@ public class MerchantController {
 			resultMap.put("IntMembercount", merchantEntity.getIntMembercount());
 			resultMap.put("strExpirationtime", DateTool.addDay(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD), merchantEntity.getIntValiddays()));
 			
-			return DataTool.constructResponse(ResultCode.OK, "激活成功", merchantEntity);
+			return DataTool.constructResponse(ResultCode.OK, "激活成功", resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);

@@ -66,6 +66,10 @@ public final class ResultCode {
 	 * 上传文件不是指定的图片类型
 	 */
 	public static final int IS_NOT_PICTURE = 100004;
+	/**
+	 * 升级激活码无效
+	 */
+	public static final int IS_INVALIDATION_CODE = 100005;
 	//========================接口返回状态标识结束==========================
 	
 
