@@ -5,8 +5,10 @@
 
 	<!-- 修改商家资料 -->
 	<update id="updateMerchant" parameterType="com.ecard.entity.MerchantEntity">
-		UPDATE tb_merchant SET STRMERCHANTNAME=#{strMerchantname}, STRMERCHANTADDRESS=#{strMerchantaddress},
-		                       STRMERCHANTLOGO=#{strMerchantlogo}, STRUPDATETIME=#{strUpdatetime}
+		UPDATE tb_merchant SET STRMERCHANTNAME=#{strMerchantname}, STRMERCHANTADDRESS=#{strMerchantaddress}, STRUPDATETIME=#{strUpdatetime}
+		                       <if test="strMerchantlogo != null and strMerchantlogo != ''">
+		                       	,STRMERCHANTLOGO=#{strMerchantlogo}
+		                       </if>
 		 WHERE STRMERCHANTID=#{strMerchantid}
 	</update>
 	

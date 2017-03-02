@@ -85,9 +85,7 @@ public class MerchantController {
 		if(ValidateTool.isEmptyStr(strMerchantaddress)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商家地址不能为空", null);
 		}
-		if(ValidateTool.isEmptyStr(strMerchantlogo)) {
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商家LOGO不能为空", null);
-		}
+		
 		try {
 			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 					request, response).getAttribute("employeeEntity");
@@ -96,7 +94,7 @@ public class MerchantController {
 			merchantEntity.setStrMerchantid(employeeEntity.getStrMerchantid());
 			merchantEntity.setStrMerchantname(strMerchantname.trim());
 			merchantEntity.setStrMerchantaddress(strMerchantaddress.trim());
-			merchantEntity.setStrMerchantlogo(strMerchantlogo.trim());
+			merchantEntity.setStrMerchantlogo(strMerchantlogo);
 			merchantEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 			merchantService.updateMerchant(merchantEntity);
 			return DataTool.constructResponse(ResultCode.OK, "修改成功", merchantEntity);
