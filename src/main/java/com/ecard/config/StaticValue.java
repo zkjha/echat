@@ -22,7 +22,7 @@ public final class StaticValue {
 	/**
 	 * 文件上传根路径
 	 */
-	public static final String FILE_UPLOAD_URL = "d:/mnt/picpath/";
+	public static final String FILE_UPLOAD_URL = "/mnt/picpath/";
 	/**
 	 * 图片根路径
 	 */
@@ -30,6 +30,6 @@ public final class StaticValue {
 	/**
 	 * 项目根路径
 	 */
-	public static final String PROJECT_ROOT_PATH = "http://local.fushoukeji.com:8080/ecard/";
+	public static final String PROJECT_ROOT_PATH = "http://local.fushoukeji.com:8080/";
 	
 }
