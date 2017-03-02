@@ -62,6 +62,10 @@ public final class ResultCode {
 	 * M端登录账号被禁用
 	 */
 	public static final int ACCOUNT_IS_FORBID = 100003;
+	/**
+	 * 上传文件不是指定的图片类型
+	 */
+	public static final int IS_NOT_PICTURE = 100004;
 	//========================接口返回状态标识结束==========================
 	
 
