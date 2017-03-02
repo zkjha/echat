@@ -7,7 +7,7 @@
 	<insert id="insertMemberarticles" parameterType="com.ecard.entity.MemberarticlesEntity">
 		INSERT INTO tb_member_articles 
 		(STRARTICLESID, STRCONTENT, STRINSERTTIME)
-		VALUS
+		VALUES
 		(#{strArticlesid}, #{strContent}, #{strInserttime})  
 	</insert>
 	

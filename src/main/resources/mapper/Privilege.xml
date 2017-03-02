@@ -7,7 +7,7 @@
 	<insert id="insertPrivilege" parameterType="com.ecard.entity.PrivilegeEntity">
 		INSERT INTO tb_privilege 
 		(STRPRIVILEGEID, STRPRIVILEGENAME, STRPRIVILEGEDESC, STRPRIVILEGEURL, STRPARENTID, STRINSERTTIME)
-		VALUS
+		VALUES
 		(#{strPrivilegeid}, #{strPrivilegename}, #{strPrivilegedesc}, #{strPrivilegeurl}, #{strParentid}, #{strInserttime})  
 	</insert>
 	

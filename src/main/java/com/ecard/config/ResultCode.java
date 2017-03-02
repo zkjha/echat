@@ -70,6 +70,10 @@ public final class ResultCode {
 	 * 升级激活码无效
 	 */
 	public static final int IS_INVALIDATION_CODE = 100005;
+	/**
+	 * 数据库不能重复字段重复
+	 */
+	public static final int CANTNOTREPEAT_PARAM_ISREPEAT = 100006;
 	//========================接口返回状态标识结束==========================
 	
 

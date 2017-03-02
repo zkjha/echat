@@ -31,5 +31,9 @@ public final class StaticValue {
 	 * 项目根路径
 	 */
 	public static final String PROJECT_ROOT_PATH = "http://local.fushoukeji.com:8080/";
+	/**
+	 * 分页默认每页显示条数
+	 */
+	public static final int PAGE_SIZE = 10;
 	
 }

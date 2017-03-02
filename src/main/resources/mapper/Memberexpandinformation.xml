@@ -7,7 +7,7 @@
 	<insert id="insertMemberexpandinformation" parameterType="com.ecard.entity.MemberexpandinformationEntity">
 		INSERT INTO tb_member_expand_information 
 		(STRINFORMATIONID, STRINFORMATIONNAME, INTISMUST, INTTYPE, STRINSERTTIME)
-		VALUS
+		VALUES
 		(#{strInformationid}, #{strInformationname}, #{intIsmust}, #{intType}, #{strInserttime})  
 	</insert>
 	

@@ -18,6 +18,7 @@ import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.config.StaticValue;
 import com.ecard.entity.DutyEntity;
 import com.ecard.entity.DutyPrivilegeEntity;
 import com.ecard.service.DutyService;
@@ -37,6 +38,29 @@ public class DutyController {
 	private WebSessionUtil webSessionUtil;
 	
 	/**
+	 * 判断职务名称是否存在
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("judgeDutyNameIsExist")
+	public String judgeDutyNameIsExist(HttpServletRequest request, HttpServletResponse response) {
+		String strDutyid = request.getParameter("strDutyid");
+		String strDutyname = request.getParameter("strDutyname");
+		if(ValidateTool.isEmptyStr(strDutyname)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务名称不能为空", null);
+		}
+		try {
+			String flag = dutyService.judgeDutyNameIsExist(strDutyid, strDutyname.trim());
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", flag);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+	}
+	
+	/**
 	 * 新增职务
 	 * @param request
 	 * @param response
@@ -46,16 +70,19 @@ public class DutyController {
 	@RequestMapping("insertDuty")
 	public String insertDuty(HttpServletRequest request, HttpServletResponse response) {
 		String strDutyname = request.getParameter("strDutyname");
+		String[] arrPrivilegeid = request.getParameterValues("listPrivilegeid");
 		if(ValidateTool.isEmptyStr(strDutyname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务名称不能为空", null);
+		}
+		if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
 		}
 		try {
 			DutyEntity dutyEntity = new DutyEntity();
 			dutyEntity.setStrDutyid(DataTool.getUUID());
 			dutyEntity.setStrDutyname(strDutyname.trim());
 			dutyEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			dutyService.insertDuty(dutyEntity);
-			return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
+			return dutyService.insertDuty(dutyEntity,arrPrivilegeid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -95,19 +122,22 @@ public class DutyController {
 	public String updateDuty(HttpServletRequest request, HttpServletResponse response) {
 		String strDutyid = request.getParameter("strDutyid");
 		String strDutyname = request.getParameter("strDutyname");
+		String[] arrPrivilegeid = {"你好","我好","大家好"};//request.getParameterValues("listPrivilegeid");
 		if(ValidateTool.isEmptyStr(strDutyid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务ID不能为空", null);
 		}
 		if(ValidateTool.isEmptyStr(strDutyname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务名称不能为空", null);
 		}
+		if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
+		}
 		try {
 			DutyEntity dutyEntity = new DutyEntity();
 			dutyEntity.setStrDutyid(strDutyid);
 			dutyEntity.setStrDutyname(strDutyname.trim());
 			dutyEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			dutyService.updateDuty(dutyEntity);
-			return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
+			return dutyService.updateDuty(dutyEntity,arrPrivilegeid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -123,13 +153,34 @@ public class DutyController {
 	@ResponseBody
 	@RequestMapping("listDuty")
 	public String listDuty(HttpServletRequest request, HttpServletResponse response) {
+		String pagenum = request.getParameter("pagenum");
+		String pagesize = request.getParameter("pagesize");
+		
+		if(ValidateTool.isEmptyStr(pagenum)) {
+			pagenum = "1";
+		}
+		int iPagesize = StaticValue.PAGE_SIZE;
+		if(!ValidateTool.isEmptyStr(pagesize)) {
+			iPagesize = Integer.valueOf(pagesize);
+		}
+		
+		int pageFrom = (Integer.parseInt(pagenum)-1)*iPagesize;
+		
 		
 		try {
-			Map<String,Object> queryMap = new HashMap<String, Object>();
-			List<DutyEntity> dutyEntityList = dutyService.listDuty(queryMap);
-			Map<String,Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("dutyEntityList", dutyEntityList);
-			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			
+			List<DutyEntity> dutyEntityList = dutyService.listDuty(pageFrom, iPagesize); //分页查询职务列表
+			if(ValidateTool.isNull(dutyEntityList)||dutyEntityList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无职务", null);
+			} else {
+				int totalrecord = dutyService.getDutyTotalCount(); //查询职务总数量
+				Map<String,Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("dutyEntityList", dutyEntityList);
+				resultMap.put("iTotalRecord", totalrecord);
+				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);

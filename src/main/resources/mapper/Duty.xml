@@ -3,11 +3,26 @@
 
 <mapper namespace="com.ecard.mapper.DutyMapper">
 
+	<!-- 判断职务名称是否存在 -->
+	<select id="judgeDutyNameIsExist" resultType="string">
+		SELECT (CASE WHEN COUNT(STRDUTYID)>0 THEN 'true' ELSE 'false' END) FROM tb_duty
+		<where>
+			<!-- 职务ID -->
+			<if test="strDutyid != null and strDutyid != ''">	
+				AND STRDUTYID!=#{strDutyid}
+			</if>
+			<!-- 职务名称 -->
+			<if test="strDutyname != null and strDutyname != ''">	
+				AND STRDUTYNAME=#{strDutyname}
+			</if>
+		</where>
+	</select>
+
 	<!-- 新增职务 -->
 	<insert id="insertDuty" parameterType="com.ecard.entity.DutyEntity">
 		INSERT INTO tb_duty 
 		(STRDUTYID, STRDUTYNAME, STRINSERTTIME)
-		VALUS
+		VALUES
 		(#{strDutyid}, #{strDutyname}, #{strInserttime})  
 	</insert>
 	
@@ -26,15 +41,31 @@
 	<!-- 查询职务列表 -->
 	<select id="listDuty" parameterType="map" resultType="com.ecard.entity.DutyEntity">
 	     SELECT STRDUTYID AS strDutyid, STRDUTYNAME AS strDutyname, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
-	     FROM tb_duty ORDER BY STRINSERTTIME DESC
+	     FROM tb_duty ORDER BY STRINSERTTIME DESC LIMIT #{pageFrom}, #{pageSize}
+	</select>
+	
+	<!-- 查询职务总数量 -->
+	<select id="getDutyTotalCount" resultType="int">
+	     SELECT COUNT(STRDUTYID)
+	     FROM tb_duty
 	</select>
 	
 	<!-- 新增职务权限关系 -->
 	<insert id="insertDutyPrivilege" parameterType="com.ecard.entity.DutyPrivilegeEntity">
 		INSERT INTO tb_duty_privilege 
 		(STRRELATIONID, STRPRIVILEGEID, STRDUTYID)
-		VALUS
+		VALUES
 		(#{strRelationid}, #{strPrivilegeid}, #{strDutyid})  
+	</insert>
+	
+	<!-- 批量新增职务权限关系 -->
+	<insert id="batchInsertDutyPrivilege" parameterType="list">
+		INSERT INTO tb_duty_privilege 
+		(STRRELATIONID, STRPRIVILEGEID, STRDUTYID)
+		VALUES
+		<foreach collection="listPrivilegeEntity" item="dutyPrivilege" index="index" separator=",">
+            (#{dutyPrivilege.strRelationid}, #{dutyPrivilege.strPrivilegeid}, #{dutyPrivilege.strDutyid})
+        </foreach>
 	</insert>
 	
 	<!-- 删除职务与权限关系 -->
