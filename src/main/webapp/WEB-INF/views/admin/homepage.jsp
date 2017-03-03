@@ -2,6 +2,12 @@
 <% String basePath = request.getContextPath();%>
 <!DOCTYPE html>
 <html ng-app="homepage">
+<script>
+function logoImgError(_this)
+{
+ _this.src="/static/images/logo.png";
+}
+</script>
 <head>
 	<link href="<%=basePath %>/static/css/libs/base.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/libs/global.css" rel="stylesheet" type="text/css"/>
@@ -10,6 +16,7 @@
 	<link href="<%=basePath %>/static/css/pages/admin/global.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/pages/admin/homepage.css" rel="stylesheet" type="text/css"/>
 	<link href="<%=basePath %>/static/css/dirctive/leftmenu.css" rel="stylesheet" type="text/css"/>
+	<link href="<%=basePath %>/static/css/dirctive/ng-pagination.css" rel="stylesheet" type="text/css"/>
 	  <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
 	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/third-party/jquery.min.js"></script>
 	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/umeditor.js"></script>
@@ -19,9 +26,12 @@
    <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-sanitize.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/lib/requestParamUtill.js"></script>
    <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/menuDirective.js"></script>    
-   <script type="text/javascript" src="<%=basePath %>/static/js/admin/homepage.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/menuDirective.js"></script>   
+   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/ng-pagination.js"></script> 
+   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/fileUploadDirective.js"></script> 
+   <script type="text/javascript" src="<%=basePath %>/static/js/service/fileReaderService.js"></script> 
    <script type="text/javascript" src="<%=basePath %>/static/js/controller/admin/homepageController.js"></script>
+   <script type="text/javascript" src="<%=basePath %>/static/js/admin/homepage.js"></script>
    
    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

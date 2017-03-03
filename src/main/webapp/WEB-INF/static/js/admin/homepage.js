@@ -1,19 +1,27 @@
-var app = angular.module("homepage", ['ngRoute','ngSanitize','meta.umeditor','tips','httphelper','menu']);
+var app = angular.module("homepage", ['ngRoute','ng-pagination','ngSanitize','meta.umeditor','tips','httphelper','menu','fileuploadModel','fileReaderModel']);
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/index", {
 		templateUrl: "/static/temp/admin/homepage/index.html"
 		
-	}).when("/merchantinfo", {
+	}).when("/merchantinfo", {//商家管理
 		templateUrl: "/static/temp/admin/homepage/merchantinfo.html",
 		controller:merchantinfoController
 		
-	}).when("/frontinfo", {
+	}).when("/frontinfo", {//前端资料展示
 		templateUrl: "/static/temp/admin/homepage/frontinfo.html",
 		controller:frontinfoController
-	}).when("/staffinfo/editStaffinfo", {
-		templateUrl: "/static/temp/admin/homepage/editstaffinfo.html",
+	}).when("/frontinfo/editFrontinfo", {//前端资料编辑
+		templateUrl: "/static/temp/admin/homepage/editfrontinfo.html",
 		controller:editFrontinfoController
+		
+	}).when("/staffinfo", {//员工管理列表
+		templateUrl: "/static/temp/admin/homepage/staffinfo.html",
+		controller:editFrontinfoController
+		
+	}).when("/duty", {//职务管理列表
+		templateUrl: "/static/temp/admin/homepage/duty.html",
+		controller:dutyController
 		
 	}).otherwise({
 		redirectTo: "/index"
@@ -24,11 +32,16 @@ app.config(["$routeProvider", function($routeProvider) {
 
 app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
 	$scope.config = {};
+	//初始化菜单数据
 	$scope.menuData=[
-	                 {id:1,link: '#!/index', name: "首页",hasnext:false,next:[]},
-	                 {id:4,link: '#!/merchantinfo', name: "商家资料",hasnext:false,next:[]},
-	                 {id:6,link: '#!/staffinfo', name: "员工管理",hasnext:false},
-	                 {id:7,link: '#!/frontinfo', name: "前端资料维护",hasnext:false}
+	                 {id:'index',link: '#!/index', name: "首页",hasnext:false,next:[]},
+	                 {id:'merchantinfo',link: '#!/merchantinfo', name: "商家资料",hasnext:false,next:[]},
+	                 {id:'1',link: '###', name: "员工管理",hasnext:true,
+	                	 next:[ {id:'staffinfo',link: '#!/staffinfo', name: "员工管理",hasnext:false}
+	                	      ,{id:'duty',link: '#!/duty', name: "职务管理",hasnext:false}
+	                	      ]
+	                 },
+	                 {id:'frontinfo',link: '#!/frontinfo', name: "前端资料维护",hasnext:false}
 	               ]
 	
 	//初始化用户信息

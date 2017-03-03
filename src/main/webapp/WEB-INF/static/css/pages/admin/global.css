@@ -167,7 +167,7 @@
 
 /* 主体结束 */
 .small-btn{
-	width:40px;
+	/* width:40px; */
 	
 	text-align: center;
 	line-height: 20px;
@@ -178,11 +178,25 @@
 	margin: 0 5px; 
 	cursor: pointer;
 	display: inline-block;
-	padding: 0 5px;
+	padding: 0 10px;
 
 }
-.yellow-border{
+
+.small-btn-default{
+	color: #fdc204;
 	border: 1px solid #fdc204;
+}
+.small-btn-primary{
+	border: 1px solid #fdc204;
+	background-color: #fdc204;
+	color: #ffffff;
+}
+.small-btn-primary:hover{
+	background-color: #ffa038;
+}
+.small-btn-default:hover{
+	border: 1px solid #ffa038;
+	color: #ffa038;
 }
 .white-color{
 	color: #ffffff;
@@ -190,11 +204,7 @@
 .center{
 	margin: auto;
 }
-.small-btn:hover{
-	border: 1px solid #fdc204;
-	color: #fdc204;
-	
-}
+
 
 
 
