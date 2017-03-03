@@ -52,7 +52,7 @@ public class PrivilegeService {
 	//构造权限返回数据结构
 	private List<PrivilegeVO> constructPrivilegeResult(List<String> alreadyhavePrivileges, List<PrivilegeEntity> privilegeList) {
 		
-		List<PrivilegeVO> resultPrivilegeList = new ArrayList<PrivilegeVO>();
+		List<PrivilegeVO> resultPrivilegeList = new LinkedList<PrivilegeVO>();
 		List<String> topmenunameList = new ArrayList<String>();
 		
 		String strTopmenuname = "";
@@ -72,7 +72,7 @@ public class PrivilegeService {
 
 	//根据顶层菜单名称构造改菜单下的所有的顶层权限
 	private List<TopPrivilegeVO> constructtopPrivilegeList(String strTopmenuname, List<PrivilegeEntity> privilegeList, List<String> alreadyhavePrivileges) {
-		List<TopPrivilegeVO> topPrivilegeList = new ArrayList<TopPrivilegeVO>();
+		List<TopPrivilegeVO> topPrivilegeList = new LinkedList<TopPrivilegeVO>();
 		PrivilegeEntity privilegeEntity = null;
 		for(int i=0;i<privilegeList.size();i++) {
 			privilegeEntity = privilegeList.get(i);
@@ -92,7 +92,7 @@ public class PrivilegeService {
 	//根据顶层权限ID构造改权限下的子权限信息
 	private FloorPrivilegeDTO constructFloorPrivilegeList(String strPrivilegeid, List<PrivilegeEntity> privilegeList, List<String> alreadyhavePrivileges) {
 		FloorPrivilegeDTO floorPrivilegeDTO = new FloorPrivilegeDTO();
-		List<FloorPrivilegeVO> floorPrivilegeList = new ArrayList<FloorPrivilegeVO>();
+		List<FloorPrivilegeVO> floorPrivilegeList = new LinkedList<FloorPrivilegeVO>();
 		PrivilegeEntity privilegeEntity = null;
 		boolean parentIschecked = true;
 		for(int i=0;i<privilegeList.size();i++) {
