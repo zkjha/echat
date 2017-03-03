@@ -1,0 +1,16 @@
+
+<!--职务管理  -->
+<div class="right-content-main">
+	<div class="right-content-header">
+		<div class="right-content-header-left-info fl"><a href="/admin/biz/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a>职务管理</a></div>
+		<div class="right-content-header-right-info fr">
+			<!-- <a class="small-btn fl">导入</a><a class="small-btn fl">导出</a> -->
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	
+	<div class="merchant-info-container">
+		 <pager ng-if="havData" page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text=">" prev-text="<" last-text="尾页" show-goto="true" goto-text="跳转"></pager>	
+	</div>
+	
+</div>

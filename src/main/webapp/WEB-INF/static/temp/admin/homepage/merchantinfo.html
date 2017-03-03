@@ -1,3 +1,4 @@
+
 <div class="right-content-main">
 	<div class="right-content-header">
 		<div class="right-content-header-left-info fl"><a href="/admin/biz/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a>商家资料</a></div>
@@ -8,8 +9,32 @@
 	</div>
 	
 	<div class="merchant-info-container">
+		<div class="w800 center">
+	     <form  name="merchantinfoForm">
+			<div class="fl w400">
 			
+				<div class="mt40">商家名称：<input type="text" ng-value="merchant_name"  name="merchant_name" ng-change="checkmerchantnameinfo()" ng-class="{'errorinput':merchantnameIsError}" ng-model="merchant_name" maxlength="15" ngTrim="true" required/><span  ng-show="merchantnameIsError" class="ml5"><span class="error-ico "></span> <span class="error-info">商家名称必须填写</span></span></div>
+				<div class="mt40">店铺地址：<input type="text" ng-value="merchant_address" name="merchant_address"ng-change="checkmerchantaddressinfo()"  ng-class="{'errorinput':merchantaddressIsError}"   ng-model="merchant_address" ngTrim="true" maxlength="30" required/><span ng-show="merchantaddressIsError" class="ml5"><span class="error-ico "></span> <span class="error-info">店铺地址必须填写</span></span></div>
+				<div class="mt40">版本信息：{{strSystemversion}}</div>
+				<div class="mt40">激 活 码：<input type="text" ng-model="registcode"/><a  ng-click="updataversion()" class="small-btn  small-btn-default  " >升级</a></div>
+				<div class="mt40">到期时间：{{strExpirationtime}}</div>
+						
+			</div>
 			
+			<div class="fr w400">
+				<div class="mt40 relative">商家LOGO:<a class="small-btn  small-btn-default">上传</a><input class="file-input" type="file" file-model="myFile"/></div>
+				<div><img ng-src="{{imageSrc}}" onerror="logoImgError(this)" class="merchant-logo-image"/></div>
+				<div>(logo尺寸：120px * 120px)</div>
+				<div class="mt40">会 员 数：{{intMembercount}}</div>
+				
+			</div>
+			<div class="clearfix"></div>
+			<div class="h100 w100"></div>
+				<div class="center w120">
+					<a class="small-btn small-btn-primary " ng-click="submitMerchantinfo()">确定</a>
+				</div>
+			</form>
+		</div>
 	</div>
 	
 </div>

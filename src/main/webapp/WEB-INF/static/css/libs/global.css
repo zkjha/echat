@@ -23,6 +23,7 @@
 	width:20px;
 	height: 20px;
 	background: url("../../images/error_ico.png") top center no-repeat;
+	vertical-align: middle;
 }
 
 .btn-disable{
@@ -36,4 +37,13 @@
 .yellow-primay{
 	color:#ffa401;
 }
-
+input{
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border: 1px solid #c6c6c6;
+	padding: 0 5px;
+}
+.errorinput{
+	border-color: red !important;
+}

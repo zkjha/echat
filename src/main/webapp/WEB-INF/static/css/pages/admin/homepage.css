@@ -10,6 +10,31 @@
 	min-height: 200px;
 }
 .-lpy-div-subbmit{
-	width:40px;
+	width:50px;
 	margin: auto;
+}
+.mt60{
+	margin-top: 60px;
+}
+.w120{
+	width:120px;
+}
+.merchant-logo-image{
+	width: 90px;
+    height: 90px;
+    margin: 5px 45px;
+}
+
+.relative{
+	position: relative;
+}
+
+.file-input{
+	position:absolute;
+	filter:alpha(opacity=0); /*IE滤镜，透明度50%*/
+   -moz-opacity:0; /*Firefox私有，透明度50%*/
+    opacity:0;
+    left:60px;
+    cursor: pointer;
+    z-index:0;
 }
