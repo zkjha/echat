@@ -1,5 +1,4 @@
-;
-(function (angular) {
+define([ 'lib/angular'],     function (angular) {  
   'use strict';
   angular.module("ng-pagination", [])
     .constant('ngPaginationConfig', {
@@ -142,4 +141,4 @@
         '<lable ng-if="showGoto" class="gotnext"><input type="text" ng-value="currentPage" ng-model="nextPageNum" ng-keyup="keyupHanlder($event)"><span class="gotNextBtn" ng-click="gotoNext(nextPageNum)">{{gotoText}}</span></label></div>'
       }
     }]);
-})(angular);
+});

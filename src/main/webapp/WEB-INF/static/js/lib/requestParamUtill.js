@@ -4,9 +4,9 @@
  * @param app
  */
 //function requestParamUtill(app){
-(function() {
+define([ 'lib/angular'],     function (angular) {  
 	'use strict'
-	angular.module("httphelper", []).config(function($httpProvider) {
+	return angular.module("httphelper", []).config(function($httpProvider) {
 		$httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
 		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 		// Override $http service's default transformRequest
@@ -54,4 +54,4 @@
 		}];
 	});
 //}
-	})();
+});

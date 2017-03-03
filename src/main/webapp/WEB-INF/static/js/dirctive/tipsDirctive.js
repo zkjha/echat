@@ -1,8 +1,8 @@
-//
+
 //function tipsDictive(app){
-(function() {
+define([ 'lib/angular'],     function (angular) {  
 	'use strict'
-	angular.module("tips", []).directive("alert", function() {
+    return	angular.module("tips", []).directive("alert", function() {
 		return {
 			restrict : "E", //default: EA
 			replace : true,
@@ -72,5 +72,6 @@
 			}
 		};
 	});
+	
 	//	}
-})();
+});

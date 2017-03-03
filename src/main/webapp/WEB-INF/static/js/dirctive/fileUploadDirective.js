@@ -1,7 +1,7 @@
-(function() {
+define([ 'lib/angular'],     function (angular) {  
 	'use strict'
 
-	angular.module("fileuploadModel",[]).directive('fileModel', ['$parse', function ($parse) {
+	return angular.module("fileuploadModel",[]).directive('fileModel', ['$parse', function ($parse) {
                 return {
                     restrict: 'A',
                     link: function(scope, element, attrs, ngModel) {
@@ -18,4 +18,4 @@
                     }
               };
  }])
-})();
+});

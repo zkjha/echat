@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% String basePath = request.getContextPath();%>
 <!DOCTYPE html>
-<html ng-app="login">
+<html >
 <head>
-	<link href="<%=basePath %>/static/css/libs/base.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/libs/global.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/pages/admin/login.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
-    <script type="text/javascript" src="<%=basePath %>/static/js/lib/requestParamUtill.js"></script>
-    <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>  
-    <script type="text/javascript" src="<%=basePath %>/static/js/admin/login.js"></script>
-   
+    <%@ include  file="../version.jsp" %>
+  <script type="text/javascript">
+    (function(){
+	    var css ='<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/base.css">'
+	    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/global.css">'
+	    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/admin/login.css">'
+        document.write(css);
+    })();
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="renderer" content="webkit">
     <meta name="applicable-device" content="pc">
@@ -61,3 +62,12 @@
     
 </body>
 </html>
+
+
+<script type="text/javascript">
+    (function(){
+    var footer = '<script src="'+ EK.STATIC_ROOT+'js/lib/require.js" data-main="'+ EK.STATIC_ROOT+'js/admin/login"><\/script>';
+    document.write(footer);
+    })();
+
+</script>

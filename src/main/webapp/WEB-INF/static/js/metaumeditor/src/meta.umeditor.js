@@ -1,7 +1,9 @@
 /**
  * Created by dylike.
  */
-angular.module('meta.umeditor', [])
+define([ 'lib/angular'],     function (angular) {  
+	'use strict'
+    return angular.module('meta.umeditor', [])
     .value('metaUmeditorConfig', {
         //这里可以选择自己需要的工具按钮名称,此处仅选择如下七个
         toolbar: ['source undo redo bold italic underline'],
@@ -119,4 +121,4 @@ angular.module('meta.umeditor', [])
             }
         }
     }]);
-
+});

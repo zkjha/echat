@@ -1,7 +1,8 @@
-(function() {
+define([ 'lib/angular'],     function (angular) {  
 	'use strict'
 
-	angular.module('fileReaderModel',[]).factory('fileReader', ["$q", "$log", function($q, $log){
+
+	return angular.module('fileReaderModel',[]).factory('fileReader', ["$q", "$log", function($q, $log){
                 var onLoad = function(reader, deferred, scope) {
                     return function () {
                         scope.$apply(function () {
@@ -37,4 +38,4 @@
                 };
             }])
             
-})();
+});

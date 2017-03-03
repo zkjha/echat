@@ -1,6 +1,6 @@
-(function() {
+define([ 'lib/angular'],     function (angular) {  
 	'use strict'
-	angular.module("menu", []).directive("menu", function() {
+	return angular.module("menu", []).directive("menu", function() {
         return {
             restrict: "E", //default: EA
             replace: true,
@@ -68,4 +68,4 @@
         };
     });
    
-})();
+});
