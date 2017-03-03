@@ -109,10 +109,5 @@ public class DutyService {
 		dutyMapper.deleteDutyPrivilege(strPrivilegeid, strDutyid);
 	}
 	
-	//根据职务ID查询该职务所有的权限访问路径
-	public List<String> listDutyPrivilegeUrl(String strDutyid) throws Exception {
-		return dutyMapper.listDutyPrivilegeUrl(strDutyid);
-	}
-
 }
 

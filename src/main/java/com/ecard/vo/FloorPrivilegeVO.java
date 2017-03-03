@@ -1,12 +1,7 @@
-package com.ecard.entity;
+package com.ecard.vo;
 
-/**
- * 权限信息实体
- * @author Administrator
- *
- */
-public class PrivilegeEntity {
-
+public class FloorPrivilegeVO {
+	
 	/**
 	 * 主键
 	 */
@@ -16,13 +11,13 @@ public class PrivilegeEntity {
 	 */
 	private String strPrivilegename;
 	/**
-	 * 头部菜单名称
-	 */
-	private String strTopmenuname;
-	/**
-	 * 父级权限ID (顶级权限为top)
+	 * 父级权限ID
 	 */
 	private String strParentid;
+	/**
+	 * 是否选择 true选中 false非选中
+	 */
+	private boolean isChecked;
 	public String getStrPrivilegeid() {
 		return strPrivilegeid;
 	}
@@ -35,17 +30,17 @@ public class PrivilegeEntity {
 	public void setStrPrivilegename(String strPrivilegename) {
 		this.strPrivilegename = strPrivilegename;
 	}
-	public String getStrTopmenuname() {
-		return strTopmenuname;
-	}
-	public void setStrTopmenuname(String strTopmenuname) {
-		this.strTopmenuname = strTopmenuname;
-	}
 	public String getStrParentid() {
 		return strParentid;
 	}
 	public void setStrParentid(String strParentid) {
 		this.strParentid = strParentid;
+	}
+	public boolean isChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 	
 } 
