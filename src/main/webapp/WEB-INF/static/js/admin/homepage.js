@@ -22,23 +22,21 @@ require.config({
 });
 requirejs(
 		[ 'lib/angular', 
+		  'controller/admin/homepageController',
+		  'lib/remoteUrl',
 		  'dirctive/tipsDirctive',
 		  'lib/requestParamUtill',
-		  'lib/angular-route',
-		  'controller/admin/homepageController',
 		  'dirctive/menuDirective',
 		  'dirctive/fileUploadDirective',
-		  'dirctive/ng-pagination',
 		  'service/fileReaderService',
+		  'lib/angular-route',
+		  'dirctive/ng-pagination',
 		  'lib/jquery',
 		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
 		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
 		  'metaumeditor/src/meta.umeditor'
-		  
 		  ],
-		function(angular,tips,httphelper,ngRoute,homepageController,menuDirective,fileUploadDirective,fileReaderService,pagination,$) {
-//
-//var app = angular.module("homepage", ['ngRoute','ng-pagination','ngSanitize','meta.umeditor','tips','httphelper','menu','fileuploadModel','fileReaderModel']);
+		function(angular,homepageController,remoteUrl) {
 
 var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor']);
 
@@ -88,7 +86,7 @@ app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
 	               ]
 	
 	//初始化用户信息
-	 $http.post("getLoginUserInfo").then(
+	 $http.post(remoteUrl.getLoginUserInfo).then(
 			 function(result){
 				 
 				var rs =result.data;

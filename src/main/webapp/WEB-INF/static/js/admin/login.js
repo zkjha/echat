@@ -9,8 +9,8 @@ require.config({
 
 // Start the main app logic.
 requirejs(
-		[ 'lib/angular', 'dirctive/tipsDirctive','lib/requestParamUtill' ],
-		function(angular,tips,httphelper) {
+		[ 'lib/angular','lib/remoteUrl' ,'dirctive/tipsDirctive','lib/requestParamUtill' ],
+		function(angular,remoteUrl) {
 			
 			var app = angular.module("login",['tips','httphelper']);
 			app.controller('loginCtrl',['$scope','$http',function($scope,$http){
@@ -47,7 +47,7 @@ requirejs(
 						$scope.passwordIsError=false;
 						$scope.passwordErrorInfo='';
 					}
-					 $http.post("loginCertification",$scope.user).then(
+					 $http.post(remoteUrl.loginCertification,$scope.user).then(
 							 function(result){
 								 $scope.isActive=true;
 								var data =result.data;

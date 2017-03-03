@@ -1,5 +1,5 @@
 define(
-		[],  function () {  
+		['lib/remoteUrl'],  function (remoteUrl) {  
 	'use strict'
 	
 	  var HomePageContor={
@@ -13,8 +13,7 @@ define(
 				getFromeinfo : function($scope, $http, $sce, type) {
 
 					$http
-							.post(
-									"/admin/biz/frontinformation/getFrontinformation")
+							.post(remoteUrl.getFrontinformation)
 							.then(
 									function(result) {
 										var rs = result.data;
@@ -82,8 +81,7 @@ define(
 							return;
 						}
 						$http
-								.post(
-										"/admin/biz/frontinformation/updateFrontinformation",
+								.post(remoteUrl.updateFrontinformation,
 										{
 											'strContent' : $scope.strContent
 										})
@@ -153,9 +151,7 @@ define(
 							};
 
 							$http
-									.post(
-											"/admin/biz/merchant/updateMerchantInfo",
-											submitdata)
+									.post(remoteUrl.updateMerchantInfo,submitdata)
 									.then(
 											function(result) {
 
@@ -217,8 +213,7 @@ define(
 						var postData = {
 							file : $scope.myFile,
 						};
-						var promise = postMultipart(
-								'/admin/biz/file/uploadWechantLogo', postData);
+						var promise = postMultipart(remoteUrl.uploadWechantLogo, postData);
 						promise.then(function(result) {
 							var rs = result.data;
 							var code = rs.code;
@@ -272,7 +267,7 @@ define(
 
 					// 初始化表单数据
 					$http
-							.post("/admin/biz/merchant/getMerchantInfo")
+							.post(remoteUrl.getMerchantInfo)
 							.then(
 									function(result) {
 
@@ -333,9 +328,7 @@ define(
 							'strActivationcode' : registcode
 						};
 						$http
-								.post(
-										"/admin/biz/merchant/upgradeMerchantSystem",
-										data)
+								.post(remoteUrl.upgradeMerchantSystem,data)
 								.then(
 										function(result) {
 
@@ -401,7 +394,7 @@ define(
 						"pagesize" : 5
 					};
 
-					$http.post("/admin/biz/duty/listDuty", data).then(
+					$http.post(remoteUrl.listDuty, data).then(
 							function(result) {
 
 								var rs = result.data;
