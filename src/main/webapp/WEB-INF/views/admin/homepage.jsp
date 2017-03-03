@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% String basePath = request.getContextPath();%>
 <!DOCTYPE html>
-<html ng-app="homepage">
+<html >
 <script>
 function logoImgError(_this)
 {
@@ -9,29 +9,26 @@ function logoImgError(_this)
 }
 </script>
 <head>
-	<link href="<%=basePath %>/static/css/libs/base.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/libs/global.css" rel="stylesheet" type="text/css"/>
-	<link type="text/css" href="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/themes/default/css/umeditor.css"
-          rel="stylesheet">
-	<link href="<%=basePath %>/static/css/pages/admin/global.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/pages/admin/homepage.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/dirctive/leftmenu.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=basePath %>/static/css/dirctive/ng-pagination.css" rel="stylesheet" type="text/css"/>
-	  <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular.js"></script>
-	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/third-party/jquery.min.js"></script>
-	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/umeditor.js"></script>
-	<script src="<%=basePath %>/static/metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config.js"></script>
-	<script src="<%=basePath %>/static/metaumeditor/src/meta.umeditor.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-route.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-sanitize.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/lib/requestParamUtill.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/tipsDirctive.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/menuDirective.js"></script>   
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/ng-pagination.js"></script> 
-   <script type="text/javascript" src="<%=basePath %>/static/js/dirctive/fileUploadDirective.js"></script> 
-   <script type="text/javascript" src="<%=basePath %>/static/js/service/fileReaderService.js"></script> 
-   <script type="text/javascript" src="<%=basePath %>/static/js/controller/admin/homepageController.js"></script>
-   <script type="text/javascript" src="<%=basePath %>/static/js/admin/homepage.js"></script>
+    <%@ include  file="../version.jsp" %>
+   <script type="text/javascript">
+ 
+    (function(){
+    
+    var css ='<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/base.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/global.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/admin/global.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/dirctive/leftmenu.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/dirctive/ng-pagination.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'js/metaumeditor/lib/umeditor/dist/utf8-php/themes/default/css/umeditor.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/admin/homepage.css">'
+    document.write(css);
+    })();
+    </script>
+   
+ 
+
+  <%--  <script type="text/javascript" src="<%=basePath %>/static/js/lib/angular-route.js"></script>--%>
+
    
    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -68,3 +65,11 @@ function logoImgError(_this)
     <div ng-include="'/static/temp/admin/footer.html'"></div>
 </body>
 </html>
+
+<script type="text/javascript">
+    (function(){
+    var footer = '<script src="'+ EK.STATIC_ROOT+'js/lib/require.js" data-main="'+ EK.STATIC_ROOT+'js/admin/homepage"><\/script>';
+    document.write(footer);
+    })();
+
+</script>

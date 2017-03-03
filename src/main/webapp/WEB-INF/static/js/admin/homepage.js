@@ -1,4 +1,47 @@
-var app = angular.module("homepage", ['ngRoute','ng-pagination','ngSanitize','meta.umeditor','tips','httphelper','menu','fileuploadModel','fileReaderModel']);
+
+require.config({
+	baseUrl : EK.STATIC_ROOT + "js" ,
+	shim:{
+        'lib/angular':{
+            exports:'angular'
+        },
+        'lib/angular-route':{
+            deps:['lib/angular'],
+            exports: 'angular-route'
+        },
+        'metaumeditor/lib/umeditor/dist/utf8-php/umeditor':{
+        	 deps:['lib/jquery'],
+        },
+        'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config':{
+        	 deps:['metaumeditor/lib/umeditor/dist/utf8-php/umeditor']
+        },
+        'metaumeditor/src/meta.umeditor':{
+        	 deps:['lib/angular','lib/jquery']
+        }
+    }
+});
+requirejs(
+		[ 'lib/angular', 
+		  'dirctive/tipsDirctive',
+		  'lib/requestParamUtill',
+		  'lib/angular-route',
+		  'controller/admin/homepageController',
+		  'dirctive/menuDirective',
+		  'dirctive/fileUploadDirective',
+		  'dirctive/ng-pagination',
+		  'service/fileReaderService',
+		  'lib/jquery',
+		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
+		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
+		  'metaumeditor/src/meta.umeditor'
+		  
+		  ],
+		function(angular,tips,httphelper,ngRoute,homepageController,menuDirective,fileUploadDirective,fileReaderService,pagination,$) {
+//
+//var app = angular.module("homepage", ['ngRoute','ng-pagination','ngSanitize','meta.umeditor','tips','httphelper','menu','fileuploadModel','fileReaderModel']);
+
+var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor']);
+
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/index", {
@@ -6,22 +49,22 @@ app.config(["$routeProvider", function($routeProvider) {
 		
 	}).when("/merchantinfo", {//商家管理
 		templateUrl: "/static/temp/admin/homepage/merchantinfo.html",
-		controller:merchantinfoController
+		controller:homepageController.merchantinfoController
 		
 	}).when("/frontinfo", {//前端资料展示
 		templateUrl: "/static/temp/admin/homepage/frontinfo.html",
-		controller:frontinfoController
+		controller:homepageController.frontinfoController
 	}).when("/frontinfo/editFrontinfo", {//前端资料编辑
 		templateUrl: "/static/temp/admin/homepage/editfrontinfo.html",
-		controller:editFrontinfoController
+		controller:homepageController.editFrontinfoController
 		
 	}).when("/staffinfo", {//员工管理列表
 		templateUrl: "/static/temp/admin/homepage/staffinfo.html",
-		controller:editFrontinfoController
+		controller:homepageController.editFrontinfoController
 		
 	}).when("/duty", {//职务管理列表
 		templateUrl: "/static/temp/admin/homepage/duty.html",
-		controller:dutyController
+		controller:homepageController.dutyController
 		
 	}).otherwise({
 		redirectTo: "/index"
@@ -93,3 +136,6 @@ app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
 	 
 	 );
 }]);
+
+angular.bootstrap(document, ["homepage"]);  
+});
