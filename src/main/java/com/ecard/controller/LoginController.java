@@ -19,6 +19,7 @@ import com.ecard.entity.EmployeeEntity;
 import com.ecard.enumeration.EmployeeStatusEnum;
 import com.ecard.service.DutyService;
 import com.ecard.service.EmployeeService;
+import com.ecard.service.PrivilegeService;
 import com.ecard.util.Session;
 import com.ecard.util.WebSessionUtil;
 /**
@@ -34,6 +35,8 @@ public class LoginController {
 	private EmployeeService employeeService;
 	@Resource
 	private DutyService dutyService;
+	@Resource
+	private PrivilegeService privilegeService;
 	@Resource
 	private WebSessionUtil webSessionUtil;
 	/**
@@ -114,7 +117,7 @@ public class LoginController {
 				if(real_pwd.equals(input_pwd)) {
 					//输入的密码和实际密码匹配成功，登录成功
 					// 往session中放入用户对象信息
-					List<String> privilegeList = dutyService.listDutyPrivilegeUrl(employeeEntity.getStrDutyid()); //查询用户的权限信息
+					List<String> privilegeList = privilegeService.listDutyPrivilegeUrl(employeeEntity.getStrDutyid()); //查询用户的权限信息
 					Session session = webSessionUtil.getWebSession(request,
 							response);
 					session.setAttribute("employeeEntity", employeeEntity);

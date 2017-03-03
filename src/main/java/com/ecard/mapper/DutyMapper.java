@@ -39,7 +39,4 @@ public interface DutyMapper {
 	//删除职务权限关系
 	void deleteDutyPrivilege(@Param("strPrivilegeid")String strPrivilegeid, @Param("strDutyid")String strDutyid) throws Exception;
 	
-	//根据职务ID查询该职务所有的权限访问路径
-	List<String> listDutyPrivilegeUrl(@Param("strDutyid")String strDutyid) throws Exception;
-
 }

@@ -83,12 +83,4 @@
 		</where>
 	</delete>
 	
-	<!-- 根据职务ID查询该职务所有的权限访问路径 -->
-	<select id="listDutyPrivilegeUrl" parameterType="string" resultType="string">
-	     SELECT tp.STRPRIVILEGEURL AS strPrivilegeurl
-	     FROM tb_privilege tp, tb_duty_privilege tdp
-	     WHERE tdp.STRDUTYID=#{strDutyid} AND tp.STRPRIVILEGEID=tdp.STRPRIVILEGEID 
-	</select>
-	
-
 </mapper>
