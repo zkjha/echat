@@ -14,6 +14,7 @@
 		<version>1.4.0.BUILD-SNAPSHOT</version>
 	</parent>
 
+
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
 		<!-- 常用工具类包 -->
@@ -117,6 +118,20 @@
 	<!-- Add Spring repositories -->
 	<!-- (you don't need this if you are using a .RELEASE version) -->
 	<repositories>
+	    <repository>
+			 <id>snapshot</id>
+        <name>iZ23noueft3Z-snapshots</name>
+        <url>http://linux.fushoukeji.com:8081/artifactory/simple/ext-snapshot-local/</url>
+
+		</repository>
+		<repository>
+		
+        <id>release</id>
+        <name>iZ23noueft3Z-releases</name>
+        <url>http://linux.fushoukeji.com:8081/artifactory/simple/ext-release-local/</url>
+  
+
+		</repository>
 		<repository>
 			<id>spring-snapshots</id>
 			<url>http://repo.spring.io/snapshot</url>
