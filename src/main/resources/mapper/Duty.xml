@@ -86,4 +86,11 @@
 		</where>
 	</delete>
 	
+	<!-- 根据职务ID查询该职务所有的权限ID-->
+	<select id="listPrivilegeIdByDutyId" parameterType="string" resultType="string">
+	     SELECT tp.STRPRIVILEGEID AS strPrivilegeid
+	     FROM tb_privilege tp, tb_duty_privilege tdp
+	     WHERE tdp.STRDUTYID=#{strDutyid} AND tp.STRPRIVILEGEID=tdp.STRPRIVILEGEID 
+	</select>
+	
 </mapper>

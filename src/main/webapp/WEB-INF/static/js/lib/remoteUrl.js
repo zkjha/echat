@@ -31,7 +31,9 @@ define([],function(){
 			//根据ID查询职务详情
 			getDutyById:" /admin/biz/duty/getDutyById",
 			//新增职务
-			insertDuty:" /admin/biz/duty/insertDuty"
+			insertDuty:" /admin/biz/duty/insertDuty",
+			//修改职务
+			updateDuty:"/admin/biz/duty/updateDuty"
 			
 	}
 	return remoteUrl;

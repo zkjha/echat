@@ -108,6 +108,12 @@ public class DutyService {
 	public void deleteDutyPrivilege(String strPrivilegeid, String strDutyid) throws Exception {
 		dutyMapper.deleteDutyPrivilege(strPrivilegeid, strDutyid);
 	}
+
+	//查询职务拥有的权限ID List
+	public List<String> listPrivilegeIdByDutyId(String strDutyid) throws Exception {
+		// TODO Auto-generated method stub
+		return dutyMapper.listPrivilegeIdByDutyId(strDutyid);
+	}
 	
 }
 

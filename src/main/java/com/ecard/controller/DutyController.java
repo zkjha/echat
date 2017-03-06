@@ -108,7 +108,14 @@ public class DutyController {
 		}
 		try {
 			DutyEntity dutyEntity = dutyService.getDutyById(strDutyid);
-			return DataTool.constructResponse(ResultCode.OK, "查询成功", dutyEntity);
+			if(ValidateTool.isNull(dutyEntity)) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "职务不存在", dutyEntity);
+			}
+			List<String> privilegeids = dutyService.listPrivilegeIdByDutyId(strDutyid);
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("dutyEntity", dutyEntity);
+			resultMap.put("privilegeids", privilegeids);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);

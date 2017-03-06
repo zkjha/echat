@@ -402,6 +402,7 @@ define(
 					$scope.newDuty=function(){
 						$scope.showDutyWindow=true;
 						$scope.isAddNewDuty=true;
+						$scope.strDutyid="";
 						$scope.strDutyname="";
 						$scope.AllSelectedPower=[];
 						$scope.AllSelectedPowerTitle=[];
@@ -422,11 +423,10 @@ define(
 									var rs = result.data;
 									var code = rs.code;
 									var data = rs.data;
-								
 									if (code == 1) {
 										
-										$scope.strDutyname=data.strDutyname;
-										
+										$scope.strDutyname=data.dutyEntity.strDutyname;
+										$scope.AllSelectedPower=data.privilegeids;
 										$scope.showDutyWindow=true;
 										$scope.isAddNewDuty=false;
 										
@@ -661,12 +661,22 @@ define(
 						
 						var privilegeids = $scope.AllSelectedPower.join(",");
 						
+						var strDutyid=$scope.strDutyid
+						
 						var data = {
+							'strDutyid':strDutyid,
 							'privilegeids' : privilegeids,
 							'strDutyname': $scope.strDutyname
 						};
+						var url="";
+						if(!strDutyid){
+							url=remoteUrl.insertDuty
+						}else{
+							//修改职务
+							url=remoteUrl.updateDuty
+						}
 
-						$http.post(remoteUrl.insertDuty, data).then(
+						$http.post(url, data).then(
 								function(result) {
 
 									var rs = result.data;
@@ -675,6 +685,7 @@ define(
 								
 									if (code == 1) {
 										$scope.clostDutyWindow();
+										window.location.reload();
 									
 									} else if (code == -1) {
 										window.location.href = "/admin/login?url="
