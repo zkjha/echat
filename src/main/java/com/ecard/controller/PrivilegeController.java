@@ -51,7 +51,7 @@ public class PrivilegeController {
 			} else {
 				Map<String,Object> resultMap = new HashMap<String,Object>();
 				resultMap.put("privilegeList", privilegeList);
-				return DataTool.constructResponse(ResultCode.OK, "查询成功", privilegeList);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 			}
 			
 		} catch (Exception e) {
