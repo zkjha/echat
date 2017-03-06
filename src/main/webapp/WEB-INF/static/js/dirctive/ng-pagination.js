@@ -9,8 +9,8 @@ define([ 'lib/angular'],     function (angular) {
       nextText: 'Next',
       showIfOnePage: false,
       showFirstLastText: true,
-      gotoText: 'Goto Page',
-      showGoto: false
+      gotoText: 'Goto Page'//,
+     // showGoto: false
     }).directive("pager", ['ngPaginationConfig', function (ngPaginationConfig) {
       return {
     	 
@@ -23,8 +23,10 @@ define([ 'lib/angular'],     function (angular) {
           scope.showFirstLastText = angular.isDefined(attrs.showFirstLastText) ? attrs.showFirstLastText : ngPaginationConfig.showFirstLastText;
           scope.showIfOnePage = angular.isDefined(attrs.showIfOnePage) ? attrs.showIfOnePage : ngPaginationConfig.showIfOnePage;
           scope.gotoText = angular.isDefined(attrs.gotoText) ? attrs.gotoText : ngPaginationConfig.gotoText;
-          scope.showGoto = angular.isDefined(attrs.showGoto) ? attrs.showGoto : ngPaginationConfig.showGoto;
+          // scope.showGoto = angular.isDefined(attrs.showGoto) ? attrs.showGoto : ngPaginationConfig.showGoto;
           scope.currentPage = 1;
+       
+          
 
           scope.pageChange = function (page) {
             if (page >= 1 && page <= scope.pageCount) {
@@ -128,7 +130,7 @@ define([ 'lib/angular'],     function (angular) {
         replace: true,
         restrict: "E",
         scope: {
-          nextPageNum:'=',
+        
           pageCount: '=',
           currentPage: '=',
           onPageChange: '&'
@@ -138,7 +140,7 @@ define([ 'lib/angular'],     function (angular) {
         '<li ng-repeat="pagenum in pagenums track by pagenum" ng-click="pageChange(pagenum)" ng-class="{active:currentPage===pagenum}">{{pagenum}}</li>' +
         '<li ng-click="pageChange(currentPage+1<=pageCount?currentPage+1:pageCount)">{{nextText}}</li>' +
         '<li ng-click="pageChange(pageCount)" ng-if="showFirstLastText">{{lastText}}</li></ul>' +
-        '<lable ng-if="showGoto" class="gotnext"><input type="text" ng-value="currentPage" ng-model="nextPageNum" ng-keyup="keyupHanlder($event)"><span class="gotNextBtn" ng-click="gotoNext(nextPageNum)">{{gotoText}}</span></label></div>'
+        '<lable ng-if="pageCount>1" class="gotnext"><input type="text" ng-value="currentPage" ng-model="nextPageNum" ng-keyup="keyupHanlder($event)"><span class="gotNextBtn" ng-click="gotoNext(nextPageNum)">{{gotoText}}</span></label></div>'
       }
     }]);
 });

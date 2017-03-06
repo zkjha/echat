@@ -157,7 +157,7 @@
 }
 .right-content-main{
 	width:100%;
-	
+	position: relative;
 }
 .right-content-header{
 	height: 30px;

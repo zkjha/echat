@@ -57,7 +57,7 @@ requirejs(
 									var url =$scope.url;
 								
 									if(url==""){
-										window.location.href="/admin/biz/homepage";
+										window.location.href="/admin/page/homepage";
 									}else{
 										window.location.href=url;
 										
