@@ -48,8 +48,8 @@ public class FileController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("uploadWechantLogo")
-	public String uploadWechantLogo(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping("uploadImage")
+	public String uploadImage(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("file") MultipartFile file) {
 
 		if (file.isEmpty()) {

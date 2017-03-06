@@ -38,7 +38,7 @@ public class HomepageController {
 	 * 登录成功后跳转到主页面
 	 * @return
 	 */
-	@RequestMapping("/biz/homepage")
+	@RequestMapping("/page/homepage")
 	public ModelAndView homepage(HttpServletRequest request, HttpServletResponse response) {
 		
 		ModelAndView mv = new ModelAndView();
@@ -54,7 +54,7 @@ public class HomepageController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/biz/getLoginUserInfo")
+	@RequestMapping("/page/getLoginUserInfo")
 	public String getLoginUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
