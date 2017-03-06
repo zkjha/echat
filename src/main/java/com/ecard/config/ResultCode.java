@@ -74,6 +74,10 @@ public final class ResultCode {
 	 * 数据库不能重复字段重复
 	 */
 	public static final int CANTNOTREPEAT_PARAM_ISREPEAT = 100006;
+	/**
+	 * 手机号格式错误
+	 */
+	public static final int MOBILE_FORMAT_ERROR = 100007;
 	//========================接口返回状态标识结束==========================
 	
 

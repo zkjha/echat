@@ -3,6 +3,21 @@
 
 <mapper namespace="com.ecard.mapper.EmployeeMapper">
 	
+	<!-- 判断登录名称是否存在 -->
+	<select id="judgeEmployeeLoginNameIsExist" resultType="string">
+		SELECT (CASE WHEN COUNT(STREMPLOYEEID)>0 THEN 'true' ELSE 'false' END) FROM tb_employee
+		<where>
+			<!-- 职务ID -->
+			<if test="strEmployeeid != null and strEmployeeid != ''">	
+				AND STREMPLOYEEID!=#{strEmployeeid}
+			</if>
+			<!-- 职务名称 -->
+			<if test="strLoginname != null and strLoginname != ''">	
+				AND STRLOGINNAME=#{strLoginname}
+			</if>
+		</where>
+	</select>
+	
 	<!-- 新增员工 -->
 	<insert id="insertEmployee" parameterType="com.ecard.entity.EmployeeEntity">
 		INSERT INTO tb_employee (STREMPLOYEEID, STRLOGINNAME, STRPASSWORD, STRHEADPORTRAIT, STRREALNAME, STRMOBILE,
@@ -13,11 +28,19 @@
 	</insert>
 	
 	<!-- 修改员工 -->
-	<insert id="updateEmployee" parameterType="com.ecard.entity.EmployeeEntity">
-		UPDATE tb_employee SET STRPASSWORD=#{strPassword}, STRHEADPORTRAIT=#{strHeadportrait}, STRREALNAME=#{strRealname}, STRMOBILE=#{strMobile},
+	<update id="updateEmployee" parameterType="com.ecard.entity.EmployeeEntity">
+		UPDATE tb_employee SET STRREALNAME=#{strRealname}, STRMOBILE=#{strMobile},
 		                       INTSTATUS=#{intStatus}, STRDUTYID=#{strDutyid}, STRUPDATETIME=#{strUpdatetime}
+		                       <if test="strHeadportrait != null and strHeadportrait != ''">
+		                       		,STRHEADPORTRAIT=#{strHeadportrait}
+		                       </if>
 		WHERE STREMPLOYEEID=#{strEmployeeid}
-	</insert>
+	</update>
+	
+	<!-- 重置员工密码-->
+	<update id="resetEmployeePassword" parameterType="com.ecard.entity.EmployeeEntity">
+		UPDATE tb_employee SET STRPASSWORD=#{strPassword} WHERE STREMPLOYEEID=#{strEmployeeid}
+	</update>
 
 	<!-- 根据登录用户名查询用户信息 -->
 	<select id="getEmployeeByLoginname" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
@@ -30,20 +53,37 @@
 	
 	<!-- 根据ID查询用户信息 -->
 	<select id="getEmployeeById" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
-	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
-	            STRHEADPORTRAIT AS strHeadportrait, STRREALNAME AS strRealname, STRMOBILE AS strMobile,
-	            INTSTATUS AS intStatus, STRDUTYID AS strDutyid, STRMERCHANTID AS strMerchantid
+	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRHEADPORTRAIT AS strHeadportrait, 
+	            STRREALNAME AS strRealname, STRMOBILE AS strMobile, INTSTATUS AS intStatus, STRDUTYID AS strDutyid
 	      FROM tb_employee
 	     WHERE STREMPLOYEEID=#{strEmployeeid}
 	</select>
 	
-	<!-- 根据ID查询用户信息 -->
-	<select id="listEmployeeEntity" parameterType="string" resultType="com.ecard.entity.EmployeeEntity">
-	     SELECT STREMPLOYEEID AS strEmployeeid, STRLOGINNAME AS strLoginname, STRPASSWORD AS strPassword,
-	            STRHEADPORTRAIT AS strHeadportrait, STRREALNAME AS strRealname, STRMOBILE AS strMobile,
-	            INTSTATUS AS intStatus, STRDUTYID AS strDutyid, STRMERCHANTID AS strMerchantid, STRINSERTTIME AS strInserttime
-	      FROM tb_employee ORDER BY STRINSERTTIME DESC
+	<!-- 查询员工列表 -->
+	<select id="listEmployeeEntity" parameterType="map" resultType="com.ecard.entity.EmployeeEntity">
+	     SELECT TE.STREMPLOYEEID AS strEmployeeid, TE.STRLOGINNAME AS strLoginname, TE.STRREALNAME AS strRealname, 
+	            TE.STRMOBILE AS strMobile, TE.INTSTATUS AS intStatus, TD.STRDUTYNAME AS strDutyid, TE.STRINSERTTIME AS strInserttime
+	      FROM tb_employee TE, tb_duty TD
+	      <where>
+	      	TE.STRDUTYID=TD.STRDUTYID
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND (STRREALNAME LIKE CONCAT('%',#{strSearchkey},'%') OR TD.STRDUTYNAME=#{strSearchkey}) 
+	      	</if>
+	      </where>
+	      ORDER BY STRINSERTTIME DESC
+	      LIMIT #{pageFrom}, #{pageSize}
 	</select>
 	
+	<!-- 查询员工总数量 -->
+	<select id="getEmployeeTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(STREMPLOYEEID)
+      	 FROM tb_employee TE, tb_duty TD
+   	  	 <where>
+	      	TE.STRDUTYID=TD.STRDUTYID
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND (STRREALNAME LIKE CONCAT('%',#{strSearchkey},'%') OR TD.STRDUTYNAME=#{strSearchkey}) 
+	      	</if>
+        </where>
+	</select>
 
 </mapper>

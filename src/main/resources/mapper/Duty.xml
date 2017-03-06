@@ -41,7 +41,10 @@
 	<!-- 查询职务列表 -->
 	<select id="listDuty" parameterType="map" resultType="com.ecard.entity.DutyEntity">
 	     SELECT STRDUTYID AS strDutyid, STRDUTYNAME AS strDutyname, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
-	     FROM tb_duty ORDER BY STRINSERTTIME DESC LIMIT #{pageFrom}, #{pageSize}
+	     FROM tb_duty ORDER BY STRINSERTTIME DESC
+	     <if test="pageSize != 0">
+	     	LIMIT #{pageFrom}, #{pageSize}	
+	     </if>
 	</select>
 	
 	<!-- 查询职务总数量 -->
