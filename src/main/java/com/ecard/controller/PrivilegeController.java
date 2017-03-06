@@ -1,6 +1,8 @@
 package com.ecard.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +49,8 @@ public class PrivilegeController {
 			if(ValidateTool.isNull(privilegeList)||privilegeList.size()<=0) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无权限", null);
 			} else {
+				Map<String,Object> resultMap = new HashMap<String,Object>();
+				resultMap.put("privilegeList", privilegeList);
 				return DataTool.constructResponse(ResultCode.OK, "查询成功", privilegeList);
 			}
 			
