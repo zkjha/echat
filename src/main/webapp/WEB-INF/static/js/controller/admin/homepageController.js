@@ -635,12 +635,6 @@ define(
 										$scope.showAlert("服务器错误")
 									}
 								});
-					
-						
-						
-						
-						
-						
 					}
 					$scope.clostPowerWindow=function(){
 						$scope.showPowerWindow=false;
@@ -657,7 +651,7 @@ define(
 							$scope.dutynameIsError=false;
 						}
 					
-						var selectedPowerlength=	$scope.AllSelectedPower.length;
+						var selectedPowerlength=$scope.AllSelectedPower.length;
 						if(selectedPowerlength<=0){
 							$scope.powerIsError=true;
 							return;
@@ -665,10 +659,10 @@ define(
 							$scope.powerIsError=false;
 						}
 						
-						console.log($scope.AllSelectedPower)
+						var privilegeids = $scope.AllSelectedPower.join(",");
 						
 						var data = {
-							'listPrivilegeid' : $scope.AllSelectedPower,
+							'privilegeids' : privilegeids,
 							'strDutyname': $scope.strDutyname
 						};
 

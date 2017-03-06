@@ -70,10 +70,14 @@ public class DutyController {
 	@RequestMapping("insertDuty")
 	public String insertDuty(HttpServletRequest request, HttpServletResponse response) {
 		String strDutyname = request.getParameter("strDutyname");
-		String[] arrPrivilegeid = request.getParameterValues("listPrivilegeid");
+		String privilegeids = request.getParameter("privilegeids");
 		if(ValidateTool.isEmptyStr(strDutyname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务名称不能为空", null);
 		}
+		if(ValidateTool.isEmptyStr(privilegeids)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
+		}
+		String [] arrPrivilegeid = privilegeids.split(",");
 		if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
 		}
@@ -122,16 +126,21 @@ public class DutyController {
 	public String updateDuty(HttpServletRequest request, HttpServletResponse response) {
 		String strDutyid = request.getParameter("strDutyid");
 		String strDutyname = request.getParameter("strDutyname");
-		String[] arrPrivilegeid = {"你好","我好","大家好"};//request.getParameterValues("listPrivilegeid");
+		String privilegeids = request.getParameter("privilegeids");
 		if(ValidateTool.isEmptyStr(strDutyid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务ID不能为空", null);
 		}
 		if(ValidateTool.isEmptyStr(strDutyname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务名称不能为空", null);
 		}
+		if(ValidateTool.isEmptyStr(privilegeids)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
+		}
+		String [] arrPrivilegeid = privilegeids.split(",");
 		if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
 		}
+		
 		try {
 			DutyEntity dutyEntity = new DutyEntity();
 			dutyEntity.setStrDutyid(strDutyid);
