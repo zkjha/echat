@@ -50,6 +50,21 @@ public class HomepageController {
 	}
 	
 	/**
+	 * 微信互动
+	 * @return
+	 */
+	@RequestMapping("/page/wechantinteract")
+	public ModelAndView wechantinteract(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/wechantinteract");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 得到后端登录用户信息
 	 * @return
 	 */
