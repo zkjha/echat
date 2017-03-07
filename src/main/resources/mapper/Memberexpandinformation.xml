@@ -6,9 +6,9 @@
 	<!-- 新增会员拓展资料-->
 	<insert id="insertMemberexpandinformation" parameterType="com.ecard.entity.MemberexpandinformationEntity">
 		INSERT INTO tb_member_expand_information 
-		(STRINFORMATIONID, STRINFORMATIONNAME, INTISMUST, INTTYPE, STRINSERTTIME)
+		(STRINFORMATIONID, STRINFORMATIONNAME, INTISMUST, INTTYPE, STROPTIONS, STRINSERTTIME)
 		VALUES
-		(#{strInformationid}, #{strInformationname}, #{intIsmust}, #{intType}, #{strInserttime})  
+		(#{strInformationid}, #{strInformationname}, #{intIsmust}, #{intType}, #{strOptions}, #{strInserttime})  
 	</insert>
 	
 	<!-- 删除会员拓展资料 -->
@@ -19,14 +19,14 @@
 	<!-- 修改会员拓展资料 -->
 	<update id="updateMemberexpandinformation" parameterType="com.ecard.entity.MemberexpandinformationEntity">
 		UPDATE tb_member_expand_information SET STRINFORMATIONNAME=#{strInformationname}, INTISMUST=#{intIsmust},
-		                                        STRUPDATETIME=#{strUpdatetime}
+		                                        STROPTIONS=#{strOptions}, STRUPDATETIME=#{strUpdatetime}
 	    WHERE STRINFORMATIONID=#{strInformationid}
 	</update>
 	
 	<!-- 查询会员拓展资料详细信息 -->
 	<select id="getMemberexpandinformationById" parameterType="string" resultType="com.ecard.entity.MemberexpandinformationEntity">
 	     SELECT STRINFORMATIONID AS strInformationid, STRINFORMATIONNAME AS strInformationname, INTISMUST AS intIsmust, INTTYPE AS intType,
-	            STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
+	            STROPTIONS AS strOptions, STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
 	     FROM tb_member_expand_information WHERE STRINFORMATIONID=#{strInformationid}
 	</select>
 	

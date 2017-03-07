@@ -24,6 +24,10 @@ public class MemberexpandinformationEntity {
 	 */
 	private int intType;
 	/**
+	 * 选项JSON数据
+	 */
+	private String strOptions;
+	/**
 	 * 新增时间
 	 */
 	private String strInserttime;
@@ -54,6 +58,12 @@ public class MemberexpandinformationEntity {
 	}
 	public void setIntType(int intType) {
 		this.intType = intType;
+	}
+	public String getStrOptions() {
+		return strOptions;
+	}
+	public void setStrOptions(String strOptions) {
+		this.strOptions = strOptions;
 	}
 	public String getStrInserttime() {
 		return strInserttime;

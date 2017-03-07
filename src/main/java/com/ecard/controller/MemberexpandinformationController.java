@@ -44,7 +44,7 @@ public class MemberexpandinformationController {
 	public String insertMemberexpandinformation(HttpServletRequest request, HttpServletResponse response) {
 		String strInformationname = request.getParameter("strInformationname");
 		String strIsmust = request.getParameter("strIsmust");
-		String strType = request.getParameter("intType");
+		String strType = request.getParameter("strType");
 		if(ValidateTool.isEmptyStr(strInformationname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料名称不能为空", null);
 		}
@@ -84,6 +84,9 @@ public class MemberexpandinformationController {
 		}
 		try {
 			MemberexpandinformationEntity memberexpandinformationEntity = memberexpandinformationService.getMemberexpandinformationById(strInformationid);
+			if(ValidateTool.isNull(memberexpandinformationEntity)) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "拓展资料不存在", null);
+			}
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", memberexpandinformationEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
