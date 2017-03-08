@@ -47,7 +47,7 @@ function logoImgError(_this)
 	<comfirm></comfirm>
 	<toast></toast>
 	
-	
+
 	<div ng-include="'/static/temp/admin/header.html'"></div>
 
 	<div class="-lpy-main-content " >
