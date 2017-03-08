@@ -120,6 +120,29 @@ public class EmployeeController {
 	}
 	
 	/**
+	 * 查询所有的职务信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("listAllDuty")
+	public String listAllDuty(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			List<DutyEntity> dutyEntityList = dutyService.listDuty(0, 0); //查询职务列表
+			if(dutyEntityList==null||dutyEntityList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无职务", null);
+			}
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("dutyEntityList", dutyEntityList);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+	}
+	
+	/**
 	 * 根据员工ID查询员工信息
 	 * @param request
 	 * @param response
@@ -137,14 +160,9 @@ public class EmployeeController {
 			if(ValidateTool.isNull(employeeEntity)) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "员工不存在", null);
 			}
-			List<DutyEntity> dutyEntityList = dutyService.listDuty(0, 0); //查询职务列表
-			if(dutyEntityList==null||dutyEntityList.size()<=0) {
-				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无职务", null);
-			}
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("strImgrootpath", StaticValue.IMAGE_ROOT_PATH);
 			resultMap.put("employeeEntity", employeeEntity);
-			resultMap.put("dutyEntityList", dutyEntityList);
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 		} catch (Exception e) {
 			e.printStackTrace();
