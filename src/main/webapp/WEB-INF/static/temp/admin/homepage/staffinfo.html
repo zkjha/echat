@@ -71,7 +71,7 @@
 			<div class="-lpy-edit-staff-content">
 				<div class="header-container">
 				       <div class="user-header">
-				       	 <img alt="" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488889987536&di=a71c8c4106c25c2f16c43c491e9053f3&imgtype=0&src=http%3A%2F%2Fxinsheng-image.huawei.com%2Fcn%2Fforumimage%2Fdownload-3591859-a5cc3aca200d84580b2866ba34abcffb_e20275f7a6f2d9bba31d26855e68a893-24335109-forum-0%2FIMGP1396_%25B5%25F7%25D5%25FB%25B4%25F3%25D0%25A1.JPG">
+				       	 <img alt="" ng-src="imageSrc" />
 						</div>
 				       <div>（最大120px*120px）</div>
 						<div class=" upload-btn-group">
@@ -97,7 +97,7 @@
 			
 						</div>
 						<div class="fl w300">
-						       <div class="mt20"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
+						       <div class="mt20" ng-show="isAddNewStaff"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
                                   <span  ng-show="addEmployeeForm.strPassword.$error.minlength" class="ml5">
                                     <span class="error-ico "></span>
                                     <span class="error-info">至少6位</span>

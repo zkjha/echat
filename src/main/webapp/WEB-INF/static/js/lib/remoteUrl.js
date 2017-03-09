@@ -39,7 +39,9 @@ define([],function(){
 			//根据ID查询员工信息
 			getEmployeeById:"/admin/biz/employee/getEmployeeById",
             //查询所有职务
-            listAllDuty:"/admin/biz/employee/listAllDuty"
+            listAllDuty:"/admin/biz/employee/listAllDuty",
+            //新增员工信息
+            insertEmployee:"/admin/biz/employee/insertEmployee"
 			
 	};
 	return remoteUrl;
