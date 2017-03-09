@@ -44,13 +44,8 @@ public class EmployeeService {
 	
 	//修改员工
 	public String updateEmployee(EmployeeEntity employeeEntity) throws Exception {
-		String flag = employeeMapper.judgeEmployeeLoginNameIsExist(employeeEntity.getStrEmployeeid(), employeeEntity.getStrLoginname());
-		if("false".equals(flag)) {
-			employeeMapper.updateEmployee(employeeEntity);
-			return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
-		} else {
-			return DataTool.constructResponse(ResultCode.CANTNOTREPEAT_PARAM_ISREPEAT, "登录名已经存在", null);
-		}
+		employeeMapper.updateEmployee(employeeEntity);
+		return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
 	}
 	
 	//重置用户密码
