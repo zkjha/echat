@@ -13,6 +13,8 @@ define(
 
             }
 
-        }
+        };
+
+        return HomePageContor;
 
     });

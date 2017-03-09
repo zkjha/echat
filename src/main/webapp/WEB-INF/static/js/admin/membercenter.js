@@ -53,7 +53,7 @@ requirejs(
 
             }).when("/regulations", {//会员章程展示
                 templateUrl: "/static/temp/admin/membercenter/regulations.html",
-                contoller:menbercentController.regulationsController
+                controller:menbercentController.regulationsController
 
             }).when("/editRegulations", {//会员章程修改
                 templateUrl: "/static/temp/admin/membercenter/editRegulations.html"
@@ -63,7 +63,7 @@ requirejs(
 
 
             }).otherwise({
-                redirectTo: "/index"
+                redirectTo: "/memberSet"
             });
 
         }]);
