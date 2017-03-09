@@ -85,7 +85,7 @@
 						       <div class="mt20"><span class="red-require">*</span> 登陆名：<input type="text" ng-value="employee.strLoginname"  ng-readonly="!isAddNewStaff" name="strLoginname"   ng-model="employee.strLoginname" ng-minlength="6" maxlength="15" ngTrim="true" required/>
 
                                    <span  ng-show="addEmployeeForm.strLoginname.$error.minlength" class="ml5">
-                                    <span class="error-ico "></span>
+                                    <span class="error-ico-min "></span>
                                     <span class="error-info">至少6位</span>
                                    </span>
                                </div>
@@ -99,13 +99,13 @@
 						<div class="fl w300">
 						       <div class="mt20" ng-if="isAddNewStaff"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
                                   <span  ng-show="addEmployeeForm.strPassword.$error.minlength" class="ml5">
-                                    <span class="error-ico "></span>
+                                    <span class="error-ico-min "></span>
                                     <span class="error-info">至少6位</span>
                                    </span>
                                </div>
 				               <div class="mt20"><span class="red-require">*</span> 手机号码：<input type="number" ng-value="employee.strMobile" name="strMobile"    ng-model="employee.strMobile" ngTrim="true" ng-minlength="11" ng-maxlength="11"  required/>
                                    <span  ng-show="addEmployeeForm.strMobile.$error.minlength" class="ml5">
-                                    <span class="error-ico "></span>
+                                    <span class="error-ico-min "></span>
                                     <span class="error-info">至少11位</span>
                                    </span>
                                </div>

@@ -70,14 +70,14 @@
 				<li>
 				  <span class="red-require">*</span> 职务名称：<input type="text" ng-value="strDutyname"   ng-class="{'errorinput':dutynameIsError}" ng-model="strDutyname" maxlength="15" ngTrim="true" required/>
 				     <span  ng-show="dutynameIsError" class="ml5">
-				        <span class="error-ico "></span>
+				        <span class="error-ico-min "></span>
 				        <span class="error-info">职务名称不能为空</span>
 				     </span>
 				</li>
 					<!-- <li><span class="red-require">*</span> 职务名称: <input ng-value="strDutyname" ng-model="strDutyname" /></li> -->
 				<li><span class="red-require">*</span> 权限设置: <a class="small-btn small-btn-primary" ng-click="showPowerWindowClick()">设置</a>
 				 <span  ng-show="powerIsError" class="ml5">
-				        <span class="error-ico "></span>
+				        <span class="error-ico-min "></span>
 				        <span class="error-info">权限必须设置</span>
 				     </span>
 				
