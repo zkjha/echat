@@ -46,7 +46,9 @@ define([],function(){
             //查询所有职务
             listAllDuty:"/admin/biz/employee/listAllDuty",
             //新增员工信息
-            insertEmployee:"/admin/biz/employee/insertEmployee"
+            insertEmployee:"/admin/biz/employee/insertEmployee",
+            //修改员工信息
+            updateEmployee:"/admin/biz/employee/updateEmployee"
 
     };
 	return remoteUrl;

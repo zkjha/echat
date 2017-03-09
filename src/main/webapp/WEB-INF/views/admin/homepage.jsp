@@ -3,10 +3,13 @@
 <!DOCTYPE html>
 <html >
 <script>
-function logoImgError(_this)
-{
- _this.src="/static/images/logo.png";
-}
+    function logoImgError(_this)
+    {
+     _this.src="/static/images/logo.png";
+    };
+    function userHeadImgError(_this){
+    _this.src="/static/images/defaulHeader.png";
+    };
 </script>
 <head>
     <%@ include  file="../version.jsp" %>

@@ -764,6 +764,7 @@ define(
             //员工列表控制器
             staffinfoController: function ($scope, $http,fileReader) {
 
+                $scope.imageSrc="http://";
                 $scope.employee = {};
                 //初始化弹窗中 职务select数据
                 HomePageContor.initDutySelectData($scope, $http)
@@ -791,7 +792,7 @@ define(
                         var data=$scope.employee;
 
                         //开始提交表单数据
-                        HomePageContor.insertEmployee($scope,$http,data);
+                        HomePageContor.saveEmployee($scope,$http,data);
 
 
                     }
@@ -822,6 +823,7 @@ define(
                     $scope.isAddNewStaff = true;
                     $scope.strStaffid = "";
                     $scope.employee={};
+
                     if ($scope.dutyEntityList.length > 0) {
                         $scope.employee.strDutyid = $scope.dutyEntityList[0].strDutyid;
                     }
@@ -850,6 +852,7 @@ define(
                                var employeeEntity = data.employeeEntity;
                                 employeeEntity.strMobile=parseInt(employeeEntity.strMobile);
                                 $scope.employee =employeeEntity ;
+                                $scope.imageSrc = data.strImgrootpath+employeeEntity.strHeadportrait
 
 
                             } else if (code == -1) {
@@ -898,7 +901,7 @@ define(
                             var rs = result.data;
                             var code = rs.code;
                             if (code == 1) {
-                                $scope.strMerchantlogo = rs.data.strImgpath;
+                                $scope.employee.strHeadportrait = rs.data.strImgpath;
 
                             } else if (code == -1) {
                                 window.location.href = "/admin/login?url="
@@ -948,9 +951,17 @@ define(
             }
 
 
-            //新增员工信息
-            ,insertEmployee:function($scope,$http,data){
-                $http.post(remoteUrl.insertEmployee,data).then(
+            //保存员工信息
+            ,saveEmployee:function($scope,$http,data,$location){
+                var url="";
+                if($scope.isAddNewStaff==true){
+                    //新建
+                    url=remoteUrl.insertEmployee
+                }else{
+                    data.strEmployeeid=$scope.strStaffid;
+                    url=remoteUrl.updateEmployee
+                }
+                $http.post(url,data).then(
                     function (result) {
 
                         var rs = result.data;
@@ -958,7 +969,12 @@ define(
                         var data = rs.data;
                         if (code == 1) {
 
-                            alert("ok");
+                            $scope.showAlert(rs.msg,function(rs){
+                                if(rs){
+                                    window.location.reload()
+                                }
+                            });
+
 
 
                         } else if (code == 100006) {

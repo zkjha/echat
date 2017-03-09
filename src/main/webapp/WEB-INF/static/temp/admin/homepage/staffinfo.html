@@ -71,7 +71,7 @@
 			<div class="-lpy-edit-staff-content">
 				<div class="header-container">
 				       <div class="user-header">
-				       	 <img alt="" ng-src="imageSrc" />
+				       	 <img alt="" ng-src="{{imageSrc}}" onerror="userHeadImgError(this)" />
 						</div>
 				       <div>（最大120px*120px）</div>
 						<div class=" upload-btn-group">
@@ -82,7 +82,7 @@
 				<form  name="addEmployeeForm" ng-submit="sumbitemployee()">
 					<div class="form-container">
 						<div class="fl w300">
-						       <div class="mt20"><span class="red-require">*</span> 登陆名：<input type="text" ng-value="employee.strLoginname"  name="strLoginname"   ng-model="employee.strLoginname" ng-minlength="6" maxlength="15" ngTrim="true" required/>
+						       <div class="mt20"><span class="red-require">*</span> 登陆名：<input type="text" ng-value="employee.strLoginname"  ng-readonly="!isAddNewStaff" name="strLoginname"   ng-model="employee.strLoginname" ng-minlength="6" maxlength="15" ngTrim="true" required/>
 
                                    <span  ng-show="addEmployeeForm.strLoginname.$error.minlength" class="ml5">
                                     <span class="error-ico "></span>
@@ -97,7 +97,7 @@
 			
 						</div>
 						<div class="fl w300">
-						       <div class="mt20" ng-show="isAddNewStaff"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
+						       <div class="mt20" ng-if="isAddNewStaff"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
                                   <span  ng-show="addEmployeeForm.strPassword.$error.minlength" class="ml5">
                                     <span class="error-ico "></span>
                                     <span class="error-info">至少6位</span>
