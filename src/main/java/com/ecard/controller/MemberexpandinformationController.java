@@ -18,6 +18,7 @@ import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.config.StaticValue;
 import com.ecard.entity.MemberexpandinformationEntity;
 import com.ecard.service.MemberexpandinformationService;
 /**
@@ -138,13 +139,36 @@ public class MemberexpandinformationController {
 	@ResponseBody
 	@RequestMapping("listMemberexpandinformation")
 	public String listMemberexpandinformation(HttpServletRequest request, HttpServletResponse response) {
+		String pagenum = request.getParameter("pagenum");
+		String pagesize = request.getParameter("pagesize");
+		String strSearchkey = request.getParameter("strSearchkey");
 		
+		if(ValidateTool.isEmptyStr(pagenum)) {
+			pagenum = "1";
+		}
+		int iPagesize = StaticValue.PAGE_SIZE;
+		if(!ValidateTool.isEmptyStr(pagesize)) {
+			iPagesize = Integer.valueOf(pagesize);
+		}
+		
+		int pageFrom = (Integer.parseInt(pagenum)-1)*iPagesize;
 		try {
 			Map<String,Object> queryMap = new HashMap<String, Object>();
-			List<MemberexpandinformationEntity> memberexpandinformationEntity = memberexpandinformationService.listMemberexpandinformation(queryMap);
-			Map<String,Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("memberexpandinformationEntity", memberexpandinformationEntity);
-			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			queryMap.put("pageFrom", pageFrom);
+			queryMap.put("pageSize", iPagesize);
+			queryMap.put("strSearchkey", strSearchkey);
+			List<MemberexpandinformationEntity> memberexpandinformationEntityList = memberexpandinformationService.listMemberexpandinformation(queryMap);//查询会员拓展资料
+			if(ValidateTool.isNull(memberexpandinformationEntityList)||memberexpandinformationEntityList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
+			} else {
+				int totalrecord = memberexpandinformationService.getMemberexpandinformationTotalCount(queryMap); //查询会员拓展资料总数量
+				Map<String,Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("memberexpandinformationEntityList", memberexpandinformationEntityList);
+				resultMap.put("iTotalRecord", totalrecord);
+				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
