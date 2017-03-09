@@ -18,7 +18,7 @@ function logoImgError(_this)
     +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/global.css">'
     +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/admin/global.css">'
     +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/dirctive/leftmenu.css">'
-    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/wechat/wechat.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/admin/wechat.css">'
 
     document.write(css);
     })();
