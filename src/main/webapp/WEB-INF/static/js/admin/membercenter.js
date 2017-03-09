@@ -25,7 +25,7 @@ require.config({
 });
 requirejs(
     [ 'lib/angular',
-        'controller/admin/menbercentController',
+        'controller/admin/memberCentController',
         'lib/remoteUrl',
         'dirctive/tipsDirctive',
         'lib/requestParamUtill',
@@ -40,7 +40,7 @@ requirejs(
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
         'metaumeditor/src/meta.umeditor'
     ],
-    function(angular,menbercentController,remoteUrl) {
+    function(angular,memberCentController,remoteUrl) {
 
         var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize']);
 
@@ -54,11 +54,11 @@ requirejs(
 
             }).when("/regulations", {//会员章程展示
                 templateUrl: "/static/temp/admin/membercenter/regulations.html",
-                controller:menbercentController.regulationsController
+                controller:memberCentController.regulationsController
 
-            }).when("/editRegulations", {//会员章程修改
-                templateUrl: "/static/temp/admin/membercenter/editRegulations.html"
-
+            }).when("/expandinfo/editRegulations", {//会员章程修改
+                templateUrl: "/static/temp/admin/membercenter/editRegulations.html",
+                controller:memberCentController.editRegulationsController
             }).when("/expandinfo", {//会员拓展资料
                 templateUrl: "/static/temp/admin/membercenter/expandinfo.html"
 

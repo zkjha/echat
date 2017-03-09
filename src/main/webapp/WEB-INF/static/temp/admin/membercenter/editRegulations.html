@@ -1,3 +1,21 @@
-<div>
-    编辑会员章程
+<div class="right-content-main">
+    <div class="right-content-header">
+        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">会员中心</a>&nbsp;&nbsp;>><a>编辑会员章程</a></div>
+        <div class="right-content-header-right-info fr">
+            <!-- <a class="small-btn fl">导入</a><a class="small-btn fl">导出</a> -->
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!--自定区域  -->
+    <div class="edit-merchant-info-container">
+        <div class="all">
+            <script type="text/html" style="margin:auto;height:300px;width:100%;" ng-model="strContent" meta-umeditor
+                    meta-umeditor-config='config'
+                    meta-umeditor-placeholder="请输入前端显示信息">
+        </script>
+            <div class="h20"></div>
+            <div class="-lpy-div-subbmit "><a class="small-btn small-btn-default  center " ng-click="saveFrontinfo()">保存</a></div>
+        </div>
+    </div>
+
 </div>

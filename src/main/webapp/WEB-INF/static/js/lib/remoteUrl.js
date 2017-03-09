@@ -8,6 +8,7 @@ define([],function(){
 			/**
 			 * 后台请求
 			 */
+            ////////////homepage开始/////////////////////////////
 			//登陆认证
 			loginCertification:"/admin/loginCertification",
 			//得到登陆用户信息  用于展示在界面头部
@@ -34,11 +35,6 @@ define([],function(){
 			insertDuty:" /admin/biz/duty/insertDuty",
 			//修改职务
 			updateDuty:"/admin/biz/duty/updateDuty",
-            //保存公众号信息
-            updateWechantconfig:"/admin/biz/wechantconfig/updateWechantconfig",
-            //查询公众号信息
-            getWechantconfig:"/admin/biz/wechantconfig/getWechantconfig",
-
             //查询员工列表
 			listEmployee:"/admin/biz/employee/listEmployee",
 			//根据ID查询员工信息
@@ -50,7 +46,32 @@ define([],function(){
             //修改员工信息
             updateEmployee:"/admin/biz/employee/updateEmployee",
             //重置员工密码
-            resetEmployeePassword:"/admin/biz/employee/resetEmployeePassword"
+            resetEmployeePassword:"/admin/biz/employee/resetEmployeePassword",
+
+        ////////////homepage结束/////////////////////////////
+
+        ////////////微信互动开始/////////////////////////////
+            //保存公众号信息
+            updateWechantconfig:"/admin/biz/wechantconfig/updateWechantconfig",
+            //查询公众号信息
+            getWechantconfig:"/admin/biz/wechantconfig/getWechantconfig",
+
+        ////////////微信互动结束/////////////////////////////
+
+
+
+        ////////////会员部分开始/////////////////////////////
+            //得到会员章程
+            getMemberarticles:"/admin/biz/memberarticles/getMemberarticles",
+            //保存会员章程
+            updateMemberarticles:"/admin/biz/memberarticles/updateMemberarticles"
+        ////////////会员部分结束/////////////////////////////
+
+
+        /**
+         * 微信前端部分
+         */
+
 
     };
 	return remoteUrl;
