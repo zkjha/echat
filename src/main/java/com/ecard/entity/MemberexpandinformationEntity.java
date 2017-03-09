@@ -20,7 +20,7 @@ public class MemberexpandinformationEntity {
 	 */
 	private int intIsmust;
 	/**
-	 * 拓展资料类型0；input 1：select
+	 * 拓展资料类型0；input 1：select 2：checkbox
 	 */
 	private int intType;
 	/**

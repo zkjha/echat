@@ -20,6 +20,7 @@ import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.MemberexpandinformationEntity;
+import com.ecard.enumeration.MemberexpandinformationTypeEnum;
 import com.ecard.service.MemberexpandinformationService;
 /**
  * 会员拓展资料信息控制层
@@ -27,7 +28,7 @@ import com.ecard.service.MemberexpandinformationService;
  *
  */
 @Controller
-@RequestMapping("/admin/biz/memberexpandinformation")
+@RequestMapping("/admin/biz/memberexpandinformation/")
 public class MemberexpandinformationController {
 	
 	@Resource
@@ -46,6 +47,7 @@ public class MemberexpandinformationController {
 		String strInformationname = request.getParameter("strInformationname");
 		String strIsmust = request.getParameter("strIsmust");
 		String strType = request.getParameter("strType");
+		String strOptions = request.getParameter("strOptions");
 		if(ValidateTool.isEmptyStr(strInformationname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料名称不能为空", null);
 		}
@@ -55,12 +57,21 @@ public class MemberexpandinformationController {
 		if(ValidateTool.isEmptyStr(strType)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "类型不能为空", null);
 		}
+		int intType = Integer.valueOf(strType);
+		if(intType==MemberexpandinformationTypeEnum.SELECT.getValue()||intType==MemberexpandinformationTypeEnum.CHECKBOX.getValue()) {
+			//select checkbox
+			if(ValidateTool.isEmptyStr(strOptions)) {
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "选项不能为空", null);
+			}
+		}
+		
 		try {
 			MemberexpandinformationEntity memberexpandinformationEntity = new MemberexpandinformationEntity();
 			memberexpandinformationEntity.setStrInformationid(DataTool.getUUID());
 			memberexpandinformationEntity.setStrInformationname(strInformationname.trim());
 			memberexpandinformationEntity.setIntIsmust(Integer.valueOf(strIsmust));
-			memberexpandinformationEntity.setIntType(Integer.valueOf(strType));
+			memberexpandinformationEntity.setIntType(intType);
+			memberexpandinformationEntity.setStrOptions(DataTool.trimStr(strOptions));
 			memberexpandinformationEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 			memberexpandinformationService.insertMemberexpandinformation(memberexpandinformationEntity);
 			return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
@@ -107,20 +118,34 @@ public class MemberexpandinformationController {
 		String strInformationid = request.getParameter("strInformationid");
 		String strInformationname = request.getParameter("strInformationname");
 		String strIsmust = request.getParameter("strIsmust");
+		String strType = request.getParameter("strType");
+		String strOptions = request.getParameter("strOptions");
 		if(ValidateTool.isEmptyStr(strInformationid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料ID不能为空", null);
 		}
 		if(ValidateTool.isEmptyStr(strInformationname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料名称不能为空", null);
 		}
+		if(ValidateTool.isEmptyStr(strType)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "类型不能为空", null);
+		}
 		if(ValidateTool.isEmptyStr(strIsmust)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "是否必填不能为空", null);
+		}
+		int intType = Integer.valueOf(strType);
+		if(intType==MemberexpandinformationTypeEnum.SELECT.getValue()||intType==MemberexpandinformationTypeEnum.CHECKBOX.getValue()) {
+			//select checkbox
+			if(ValidateTool.isEmptyStr(strOptions)) {
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "选项不能为空", null);
+			}
 		}
 		try {
 			MemberexpandinformationEntity memberexpandinformationEntity = new MemberexpandinformationEntity();
 			memberexpandinformationEntity.setStrInformationid(strInformationid);
 			memberexpandinformationEntity.setStrInformationname(strInformationname.trim());
 			memberexpandinformationEntity.setIntIsmust(Integer.valueOf(strIsmust));
+			memberexpandinformationEntity.setIntType(intType);
+			memberexpandinformationEntity.setStrOptions(DataTool.trimStr(strOptions));
 			memberexpandinformationEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 			memberexpandinformationService.updateMemberexpandinformation(memberexpandinformationEntity);
 			return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
@@ -168,6 +193,31 @@ public class MemberexpandinformationController {
 				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
 				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		
+	}
+	
+	
+	/**
+	 * 删除拓展资料
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("deleteMemberexpandinformation")
+	public String deleteMemberexpandinformation(HttpServletRequest request, HttpServletResponse response) {
+		String strInformationid = request.getParameter("strInformationid");
+		if(ValidateTool.isEmptyStr(strInformationid)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料ID不能为空", null);
+		}
+		try {
+			memberexpandinformationService.deleteMemberexpandinformation(strInformationid);
+			return DataTool.constructResponse(ResultCode.OK, "删除成功", null);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
