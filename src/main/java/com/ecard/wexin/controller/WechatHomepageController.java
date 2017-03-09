@@ -19,7 +19,7 @@ import com.ecard.util.WebSessionUtil;
  */
 @Controller
 @RequestMapping("/")
-public class HomepageController {
+public class WechatHomepageController {
 	
 	@Resource
 	private EmployeeService employeeService;

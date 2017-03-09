@@ -29,7 +29,7 @@ import com.ecard.util.WebSessionUtil;
  */
 @Controller
 @RequestMapping("/wexin/")
-public class LoginController {
+public class WechatLoginController {
 	
 	@Resource
 	private EmployeeService employeeService;
