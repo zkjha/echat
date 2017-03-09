@@ -8,7 +8,7 @@ require.config({
         	deps:['lib/angular'],
         	exports: 'angular-route'
         }
-      },
+      }
 });
 
 
@@ -19,10 +19,11 @@ requirejs([
 	'dirctive/tipsDirctive',
 	'lib/requestParamUtill',
 	'dirctive/menuDirective',
+    'lib/angular-resize',
 	'lib/angular-route'
 ],function(angular,remoteUrl,WeChatController){
 	
-	var app = angular.module('wechatApp',['ngRoute','menu','tips','httphelper']);
+	var app = angular.module('wechatApp',['ngRoute','menu','tips','httphelper','rt.resize']);
 	app.config(['$routeProvider',function($routeProvider){
 		$routeProvider.when('/wechatRight',{
 			templateUrl: "/static/temp/admin/wechat/wechatRight.html",//跳转到公众号管理界面
@@ -34,13 +35,24 @@ requirejs([
 	}])
 	
 
-app.controller('wechatCtr',['$scope','$http',function($scope,$http){
+app.controller('wechatCtr',['$scope','$http','$window','resize',function($scope,$http,$window,resize){
 	$scope.config = {};
 	//初始化菜单数据
 	$scope.menuData=[
 	                 {id:'wechatRight',link: '#!/wechatRight', name: "公众号管理",hasnext:false,next:[]}
 	               ];
-	
+    $scope.lpyMainCotentStyle={
+
+        "min-height":  $window.innerHeight-210
+    };
+
+    resize($scope).call(function () {
+
+        $scope.lpyMainCotentStyle={
+
+            "min-height":  $window.innerHeight-210
+        };
+    });
 	//初始化用户信息
 	 $http.post(remoteUrl.getLoginUserInfo).then(
 			 function(result){

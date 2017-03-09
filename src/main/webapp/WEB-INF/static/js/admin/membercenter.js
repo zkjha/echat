@@ -33,6 +33,7 @@ requirejs(
         'dirctive/fileUploadDirective',
         'service/fileReaderService',
         'lib/angular-route',
+        'lib/angular-resize',
         'dirctive/ng-pagination',
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
@@ -41,7 +42,7 @@ requirejs(
     ],
     function(angular,menbercentController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize']);
 
 //路由配置
         app.config(["$routeProvider", function($routeProvider) {
@@ -69,7 +70,7 @@ requirejs(
         }]);
 
 
-        app.controller('menbercentCtrl',['$scope','$http',function($scope,$http){
+        app.controller('menbercentCtrl',['$scope','$http','$window','resize',function($scope,$http,$window,resize){
             $scope.config = {};
             //初始化菜单数据
             $scope.menuData=[
@@ -79,6 +80,18 @@ requirejs(
                 {id:'expandinfo',link: '#!/expandinfo', name: "会员拓展资料",hasnext:false,next:[ ]}
             ];
 
+            $scope.lpyMainCotentStyle={
+
+                "min-height":  $window.innerHeight-210
+            };
+
+            resize($scope).call(function () {
+
+                $scope.lpyMainCotentStyle={
+
+                    "min-height":  $window.innerHeight-210
+                };
+            });
             //初始化用户信息
             $http.post(remoteUrl.getLoginUserInfo).then(
                 function(result){

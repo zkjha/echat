@@ -50,7 +50,7 @@
 
         <div ng-include="'/static/temp/admin/header.html'"></div>
 
-        <div class="-lpy-main-content " >
+        <div class="-lpy-main-content "  ng-style="lpyMainCotentStyle" >
         <div class="left-menu fl" >
         <menu></menu>
         </div>

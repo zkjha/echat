@@ -90,14 +90,14 @@ app.controller('homepageCtrl',['$scope','$http','$window','resize',function($sco
 
     $scope.lpyMainCotentStyle={
 
-        "min-height":  $window.innerHeight
+        "min-height":  $window.innerHeight-210
     };
 
     resize($scope).call(function () {
 
         $scope.lpyMainCotentStyle={
 
-            "min-height":  $window.innerHeight
+            "min-height":  $window.innerHeight-210
         };
     });
 	//初始化用户信息
