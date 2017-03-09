@@ -24,6 +24,9 @@ public interface MemberexpandinformationMapper {
 	//查询会员拓展资料列表
 	List<MemberexpandinformationEntity> listMemberexpandinformation(Map<String,Object> queryMap) throws Exception;
 	
+	//查询会员拓展资料总数量
+	int getMemberexpandinformationTotalCount(Map<String, Object> queryMap) throws Exception;
+	
 	//删除会员拓展资料
 	void deleteMemberexpandinformation(@Param("strInformationid")String strInformationid) throws Exception;
 	

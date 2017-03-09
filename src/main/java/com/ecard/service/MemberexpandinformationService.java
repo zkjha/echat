@@ -4,7 +4,6 @@ package com.ecard.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +40,16 @@ public class MemberexpandinformationService {
 	public List<MemberexpandinformationEntity> listMemberexpandinformation(Map<String,Object> queryMap) throws Exception {
 		return memberexpandinformationMapper.listMemberexpandinformation(queryMap);
 	}
+	
+	//查询会员拓展资料总数量
+	public int getMemberexpandinformationTotalCount(Map<String, Object> queryMap) throws Exception {
+		return memberexpandinformationMapper.getMemberexpandinformationTotalCount(queryMap);
+	}
 		
 	//删除会员拓展资料
-	public void deleteMemberexpandinformation(@Param("strInformationid")String strInformationid) throws Exception {
+	public void deleteMemberexpandinformation(String strInformationid) throws Exception {
 		memberexpandinformationMapper.deleteMemberexpandinformation(strInformationid);
 	}
+
 }
 

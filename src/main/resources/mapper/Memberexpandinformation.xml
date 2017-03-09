@@ -35,6 +35,26 @@
 	     SELECT STRINFORMATIONID AS strInformationid, STRINFORMATIONNAME AS strInformationname, INTISMUST AS intIsmust, INTTYPE AS intType,
 	            STRINSERTTIME AS strInserttime, STRUPDATETIME AS strUpdatetime
 	     FROM tb_member_expand_information
+	     <where>
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND STRINFORMATIONNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      	</if>
+      	 </where>
+      	 ORDER BY STRINSERTTIME DESC
+      	 <if test="pageSize != 0">
+	     	LIMIT #{pageFrom}, #{pageSize}	
+	     </if>
+	</select>
+	
+	<!-- 查询会员拓展资料列表 -->
+	<select id="getMemberexpandinformationTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(STRINFORMATIONID)
+	     FROM tb_member_expand_information
+	     <where>
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND STRINFORMATIONNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      	</if>
+	      </where>
 	</select>
 	
 
