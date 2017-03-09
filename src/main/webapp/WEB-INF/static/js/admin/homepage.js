@@ -30,6 +30,7 @@ requirejs(
 		  'dirctive/fileUploadDirective',
 		  'service/fileReaderService',
 		  'lib/angular-route',
+          'lib/angular-resize',
 		  'dirctive/ng-pagination',
 		  'lib/jquery',
           'filter/replaceEmployeeFilter',
@@ -39,7 +40,7 @@ requirejs(
 		  ],
 		function(angular,homepageController,remoteUrl) {
 
-var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','EmployeeFilter']);
+var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','EmployeeFilter','rt.resize']);
 
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
@@ -72,7 +73,7 @@ app.config(["$routeProvider", function($routeProvider) {
 }]);
 
 
-app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
+app.controller('homepageCtrl',['$scope','$http','$window','resize',function($scope,$http,$window,resize){
 	$scope.config = {};
 	//初始化菜单数据
 	$scope.menuData=[
@@ -84,8 +85,21 @@ app.controller('homepageCtrl',['$scope','$http',function($scope,$http){
 	                	      ]
 	                 },
 	                 {id:'frontinfo',link: '#!/frontinfo', name: "前端资料维护",hasnext:false}
-	               ]
-	
+	               ];
+
+
+    $scope.lpyMainCotentStyle={
+
+        "min-height":  $window.innerHeight
+    };
+
+    resize($scope).call(function () {
+
+        $scope.lpyMainCotentStyle={
+
+            "min-height":  $window.innerHeight
+        };
+    });
 	//初始化用户信息
 	 $http.post(remoteUrl.getLoginUserInfo).then(
 			 function(result){
