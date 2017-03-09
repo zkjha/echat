@@ -1,5 +1,8 @@
 /**
  * Created by liupengyan on 17/3/9.
+ */
+/**
+ * Created by liupengyan on 17/3/9.
  * 处理会员中心控制器
  */
 define(
