@@ -34,7 +34,12 @@ define([],function(){
 			insertDuty:" /admin/biz/duty/insertDuty",
 			//修改职务
 			updateDuty:"/admin/biz/duty/updateDuty",
-			//查询员工列表
+            //保存公众号信息
+            updateWechantconfig:"/admin/biz/wechantconfig/updateWechantconfig",
+            //查询公众号信息
+            getWechantconfig:"/admin/biz/wechantconfig/getWechantconfig",
+
+            //查询员工列表
 			listEmployee:"/admin/biz/employee/listEmployee",
 			//根据ID查询员工信息
 			getEmployeeById:"/admin/biz/employee/getEmployeeById",
@@ -42,8 +47,8 @@ define([],function(){
             listAllDuty:"/admin/biz/employee/listAllDuty",
             //新增员工信息
             insertEmployee:"/admin/biz/employee/insertEmployee"
-			
-	};
+
+    };
 	return remoteUrl;
 	
 });

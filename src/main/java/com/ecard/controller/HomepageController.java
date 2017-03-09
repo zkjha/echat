@@ -65,6 +65,21 @@ public class HomepageController {
 	}
 	
 	/**
+	 * 会员中心
+	 * @return
+	 */
+	@RequestMapping("/page/membercenter")
+	public ModelAndView membercenter(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/membercenter");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 得到后端登录用户信息
 	 * @return
 	 */

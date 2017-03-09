@@ -1,0 +1,42 @@
+
+	<div class="wechat-right-top">
+		<p class="wechat-right-tittle">微信互动&gt;&gt;公众号管理</p>
+	</div>
+	<div class="wechat-right-body">
+		<p class="wechat-body-tittle"><span>公众号管理</span></p>
+		<!--<form name="wechatPublic" method="post" ng-controller="wechatCtr" ng-submit="wechatBz()">-->
+			<form name="wechatPublic"  ng-submit="wechatBz()">
+			<div class="wechat-body-form">
+				<table border="0" cellspacing="10" cellpadding="0">
+					<tr>
+						<td>公众号ID <input type="" name="strAppid" id="" value="strAppid" ng-model="strAppid" required/></td>
+						<td>URL <input type="" name="strUrl" id="" value="strUrl" ng-model="strUrl" required/></td>
+					</tr>
+					<tr class="wechat-body-null">
+						<td><p ng-show="wechatPublic.strAppid.$dirty && wechatPublic.strAppid.$invalid || wechatIf"><span ng-show="wechatPublic.strAppid.$error.required">*公众号ID不能为空</span></p></td>
+						<td><p ng-show="wechatPublic.strUrl.$dirty && wechatPublic.strUrl.$invalid || wechatIf"><span ng-show="wechatPublic.strUrl.$error.required">*URL不能为空</span></p></td>
+					</tr>
+					<tr>
+						<td>公众号账号 <input type="" name="strAppname" id="" value="strAppname" ng-model="strAppname" required/></td>
+						<td>token <input type="" name="strToken" id="" value="strToken" ng-model="strToken" required/></td>
+					</tr>
+					<tr class="wechat-body-null">
+						<td><p ng-show="wechatPublic.strAppname.$dirty && wechatPublic.strAppname.$invalid || wechatIf"><span ng-show="wechatPublic.strAppname.$error.required">*公众账号不能为空</span></p></td>
+						<td><p ng-show="wechatPublic.strToken.$dirty && wechatPublic.strToken.$invalid || wechatIf"><span ng-show="wechatPublic.strToken.$error.required">*token不能为空</span></p></td>
+					</tr>					
+					<tr>
+						<td>授权状态  <select ng-model="intAuthoriNamesstatus" ng-options="item.Id as item.value for item in intAuthoriNames"></select></td>
+						<td>EncodingAESKey <input type="" name="strEncodingaeskey" id="" value="strEncodingaeskey" ng-model="strEncodingaeskey" required/></td>
+					</tr>
+					<tr class="wechat-body-null">
+						<td></td>
+						<td><p ng-show="wechatPublic.strEncodingaeskey.$dirty && wechatPublic.strEncodingaeskey.$invalid || wechatIf"><span ng-show="wechatPublic.strEncodingaeskey.$error.required">*EncodingAESKey不能为空</span></p></td>
+					</tr>
+				</table>
+			</div>
+			<div class="wechat-body-zc">
+				<span class="wechat-body-white"　 ng-click="wechatSc()">清空配置</span>
+				<input class="wechat-body-yellow small-btn small-btn-primary" type="submit" value="保存设置"/>
+			</div>
+		</form>
+	</div>

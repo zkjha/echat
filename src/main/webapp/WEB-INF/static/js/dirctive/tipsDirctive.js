@@ -60,7 +60,7 @@ define([ 'lib/angular'],     function (angular) {
 
 				$scope.showToast = function(msg, callback) {
 					$scope.isShowToast = true;
-					$scope.toastText = msg
+					$scope.toastText = msg;
 					$timeout(function() {
 						$scope.isShowToast = false;
 						if (callback && typeof (callback) == "function") {
