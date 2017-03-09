@@ -33,13 +33,13 @@
 			<div class="-lpy-input-container">
 				<span>工  号：</span><input type="text" ng-model="user.strLoginname" placeholder="请输入工号"/>
 				<div class="error-container" ng-show="useridIsError" >
-					<span class="error-ico fl"></span> <span class="error-info fl">{{useridErrorInfo}}</span>
+					<span class="error-ico fl"></span> <span class="error-info fl" ng-bind="useridErrorInfo"></span>
 				</div>
 			</div>
 			<div class="-lpy-input-container">
 				<span>密  码：</span><input type="password" ng-model="user.strPassword" placeholder="请输入密码"/>
 				<div class="error-container" ng-show="passwordIsError"> 
-					<span class="error-ico fl"></span> <span class="error-info fl">{{passwordErrorInfo}}</span>
+					<span class="error-ico fl"></span> <span class="error-info fl" ng-bind="passwordErrorInfo"></span>
 				</div>
 			</div>
 			

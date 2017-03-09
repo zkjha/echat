@@ -10,7 +10,7 @@ require.config({
             exports: 'angular-route'
         },
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor':{
-        	 deps:['lib/jquery'],
+        	 deps:['lib/jquery']
         },
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config':{
         	 deps:['metaumeditor/lib/umeditor/dist/utf8-php/umeditor']

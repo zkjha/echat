@@ -746,6 +746,7 @@ define(
                             $scope.showAlert(rs.msg);
                         } else if (code == -8) {
                             //暂无数据
+                            $scope.isNoData=true;
                             $scope.pageCount = 0;
                         }
 
@@ -1143,6 +1144,7 @@ define(
                             $scope.showAlert(rs.msg);
                         } else if (code == -8) {
                             //暂无数据
+                            $scope.isNoData=true;
                             $scope.pageCount = 0;
                         }
 

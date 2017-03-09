@@ -41,7 +41,7 @@ function logoImgError(_this)
 <title>E-card后台管理</title>
 </head>
 <body  ng-controller="wechatCtr" >
-    
+    <input type="hidden" ng-init="wechantinteract=true" ng-model="wechantinteract"/>
     <alert></alert>
 	<comfirm></comfirm>
 	<toast></toast>

@@ -72,7 +72,12 @@
 	 font-size: 24px !important;
 	 
 }
-
+.-lpy-homepage-header-center a:hover{
+    color: #ffcd00 !important;
+}
+.-lpy-homepage-header-center .selected{
+    color: #ffcd00 !important;
+}
 /* 头部开始结束 */
 
 

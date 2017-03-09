@@ -55,3 +55,21 @@ input{
 .errorinput{
 	border-color: red !important;
 }
+
+/*暂无数据*/
+.no-data-container{
+    width:132px;
+    margin:20px auto;
+    text-align: center;
+    cursor: pointer;
+}
+.no-data-container .no-data-add-btn{
+    width:132px;
+    height: 132px;
+    margin-top: 10px;
+    background:url("/static/images/admin/list_add_ico.png") ;
+
+}
+.no-data-container .no-data-info{
+    margin-top: 10px;
+}
