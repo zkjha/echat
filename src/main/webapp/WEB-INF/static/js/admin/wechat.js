@@ -15,7 +15,7 @@ require.config({
 requirejs([
 	'lib/angular', 
 	'lib/remoteUrl',
-	'controller/wechat/wechatController',
+	'controller/admin/wechatController',
 	'dirctive/tipsDirctive',
 	'lib/requestParamUtill',
 	'dirctive/menuDirective',
