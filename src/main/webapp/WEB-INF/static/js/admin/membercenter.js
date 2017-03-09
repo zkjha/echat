@@ -25,7 +25,7 @@ require.config({
 });
 requirejs(
     [ 'lib/angular',
-        'controller/admin/memberCentController',
+        'controller/admin/membercentController',
         'lib/remoteUrl',
         'dirctive/tipsDirctive',
         'lib/requestParamUtill',
