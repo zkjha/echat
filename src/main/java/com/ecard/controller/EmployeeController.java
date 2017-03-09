@@ -89,7 +89,7 @@ public class EmployeeController {
 		if(ValidateTool.isEmptyStr(strDutyid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务ID不能为空", null);
 		}
-		if(ValidateTool.isEmptyStr(strMobile)) {
+		if(!ValidateTool.isEmptyStr(strMobile)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "电话不能为空", null);
 		}
 		if(ValidateTool.isMobile(strMobile)) {
@@ -191,7 +191,7 @@ public class EmployeeController {
 		if(ValidateTool.isEmptyStr(strDutyid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务ID不能为空", null);
 		}
-		if(ValidateTool.isEmptyStr(strMobile)) {
+		if(!ValidateTool.isEmptyStr(strMobile)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "电话不能为空", null);
 		}
 		if(ValidateTool.isMobile(strMobile)) {
