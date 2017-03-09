@@ -32,13 +32,14 @@ requirejs(
 		  'lib/angular-route',
 		  'dirctive/ng-pagination',
 		  'lib/jquery',
+          'filter/replaceEmployeeFilter',
 		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
 		  'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
 		  'metaumeditor/src/meta.umeditor'
 		  ],
 		function(angular,homepageController,remoteUrl) {
 
-var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor']);
+var app = angular.module("homepage", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','EmployeeFilter']);
 
 //路由配置
 app.config(["$routeProvider", function($routeProvider) {
@@ -58,7 +59,7 @@ app.config(["$routeProvider", function($routeProvider) {
 		
 	}).when("/staffinfo", {//员工管理列表
 		templateUrl: "/static/temp/admin/homepage/staffinfo.html",
-		controller:homepageController.editFrontinfoController
+		controller:homepageController.staffinfoController
 		
 	}).when("/duty", {//职务管理列表
 		templateUrl: "/static/temp/admin/homepage/duty.html",

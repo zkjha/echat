@@ -45,6 +45,7 @@ define([],function(){
             //查询所有职务
             listAllDuty:"/admin/biz/employee/listAllDuty"
 	
+	
 	}
 	return remoteUrl;
 	

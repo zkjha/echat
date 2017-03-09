@@ -725,7 +725,7 @@ define(
 					// set pagecount in $scope
 
 				},
-				getDutyList : function($scope, $http, pagenum) {
+				getDutyList : function($scope, $http) {
 					
 					var data = {
 						'pagenum' : $scope.currentPage,
@@ -764,7 +764,212 @@ define(
 								}
 
 							}, function(result) {
-								$scope.editFrontinfoisActive = true;
+								
+								var status = result.status;
+								if (status == -1) {
+									$scope.showAlert("服务器错误")
+								} else if (status >= 404 && status < 500) {
+									$scope.showAlert("请求路径错误")
+								} else if (status >= 500) {
+									$scope.showAlert("服务器错误")
+								}
+							});
+				},
+				//员工列表控制器
+				staffinfoController:function($scope, $http){
+
+                    $scope.employee={};
+                    //初始化弹窗中 职务select数据
+                    HomePageContor.initDutySelectData($scope,$http)
+                    //初始化弹窗中 用户状态select 数据
+                     $scope.employeeStatus = [{id:1,value: "激活"},{id:0,value:"禁用"}] ;
+                    //默认选中用户状态为激活
+                     $scope.employee.intStatus=1;
+					 $scope.isShowListMenu=[];
+					 $scope.currentPage=1;
+					 $scope.pageSize=5;
+						HomePageContor.getStaffinfoList($scope, $http);
+					$scope.onPageChange = function() {
+						// ajax request to load data
+						$scope.employeeEntityList={};
+						HomePageContor.getStaffinfoList($scope, $http);
+						
+					};
+                    //提交新增用户数据
+                    $scope.sumbitemployee=function(){
+                        //表单数据不合法
+                        if( $scope.addEmployeeForm.$invalid){
+
+                            return;
+                        }else{
+
+                            //开始提交表单数据
+                        }
+
+                    };
+						
+						
+					//列表显示
+					$scope.openCtrMenu=function($index,type){
+						for(var i=0;i<$scope.employeeEntityList.length;i++){
+							 $scope.isShowListMenu[i]=false;
+						}
+						if(type=='over'){
+							$scope.isShowListMenu[$index]=!$scope.isShowListMenu[$index];
+						}
+						
+					};
+					
+					
+					
+					//关闭弹窗
+					$scope.clostStaffWindow=function(){
+						$scope.showStaffWindow=false;
+						
+					};
+					//新建员工按钮事件 打开弹窗
+					$scope.newStaff=function(){
+						$scope.showStaffWindow=true;
+						$scope.isAddNewStaff=true;
+						$scope.strStaffid="";
+					};
+					//修改员工信心 打开弹窗
+					$scope.updataStaff=function(strEmployeeid){
+					
+						$scope.strStaffid=strEmployeeid;
+						var data = {
+								'strEmployeeid' : strEmployeeid
+							};
+
+							$http.post(remoteUrl.getEmployeeById, data).then(
+									function(result) {
+
+										var rs = result.data;
+										var code = rs.code;
+										var data = rs.data;
+										if (code == 1) {
+											
+											$scope.showStaffWindow=true;
+											$scope.isAddNewStaff=false;
+											$scope.employeeInfo=data;
+										
+
+										} else if (code == -1) {
+											window.location.href = "/admin/login?url="
+													+ window.location.pathname
+													+ window.location.search
+													+ window.location.hash;
+											//未登录
+										} else if (code <= -2 && code >= -7) {
+											//必填字段未填写
+											$scope.showAlert(rs.msg);
+										} else if (code == -8) {
+											//暂无数据
+											$scope.showAlert("暂无权限数据")
+										}
+
+									}, function(result) {
+										$scope.editFrontinfoisActive = true;
+										var status = result.status;
+										if (status == -1) {
+											$scope.showAlert("服务器错误")
+										} else if (status >= 404 && status < 500) {
+											$scope.showAlert("请求路径错误")
+										} else if (status >= 500) {
+											$scope.showAlert("服务器错误")
+										}
+									});
+					}
+					
+					
+					
+				}
+                //初始化职务类型select数据
+                ,initDutySelectData:function($scope,$http){
+
+                    $http.post(remoteUrl.listAllDuty).then(
+                      function(result) {
+
+                          var rs = result.data;
+                          var code = rs.code;
+                          var data = rs.data;
+                          if (code == 1) {
+
+                             $scope.dutyEntityList=data.dutyEntityList;
+
+                              if( $scope.dutyEntityList.length>0){
+                                  $scope.employee.strDutyid=$scope.dutyEntityList[0].strDutyid;
+                              }
+
+
+                          } else if (code == -1) {
+                              window.location.href = "/admin/login?url="
+                              + window.location.pathname
+                              + window.location.search
+                              + window.location.hash;
+                              //未登录
+                          } else if (code <= -2 && code >= -7) {
+                              //必填字段未填写
+                              $scope.showAlert(rs.msg);
+                          } else if (code == -8) {
+                              //暂无数据
+                              $scope.showAlert("暂无权限数据")
+                          }
+
+                      }, function(result) {
+                          $scope.editFrontinfoisActive = true;
+                          var status = result.status;
+                          if (status == -1) {
+                              $scope.showAlert("服务器错误")
+                          } else if (status >= 404 && status < 500) {
+                              $scope.showAlert("请求路径错误")
+                          } else if (status >= 500) {
+                              $scope.showAlert("服务器错误")
+                          }
+                      });
+               }
+				//获取员工列表
+				,getStaffinfoList : function($scope, $http) {
+					
+					var data = {
+						'strSearchkey':"",
+						'pagenum' : $scope.currentPage,
+						"pagesize" : $scope.pageSize
+					};
+
+					$http.post(remoteUrl.listEmployee, data).then(
+							function(result) {
+
+								var rs = result.data;
+								var code = rs.code;
+								var data = rs.data;
+								//code=-8;
+								if (code == 1) {
+									//图片跟路径
+									
+									$scope.pageCount = data.iTotalPage;
+									$scope.employeeEntityList=data.employeeEntityList;
+									
+									for(var i=0;i<$scope.employeeEntityList.length;i++){
+										 $scope.isShowListMenu[i]=false;
+									}
+
+								} else if (code == -1) {
+									window.location.href = "/admin/login?url="
+											+ window.location.pathname
+											+ window.location.search
+											+ window.location.hash;
+									//未登录
+								} else if (code <= -2 && code >= -7) {
+									//必填字段未填写
+									$scope.showAlert(rs.msg);
+								} else if (code == -8) {
+									//暂无数据
+									$scope.pageCount=0;
+								}
+
+							}, function(result) {
+							
 								var status = result.status;
 								if (status == -1) {
 									$scope.showAlert("服务器错误")
@@ -775,6 +980,8 @@ define(
 								}
 							});
 				}
+				
+				
 			}
 	  return HomePageContor;
 		});
