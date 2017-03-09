@@ -44,7 +44,7 @@ define([ 'lib/angular'],     function (angular) {
 					}
 
 				};
-				$scope.showComfirm = function(msg, callback) {
+				$scope.showConfirm = function(msg, callback) {
 					callbackFn = callback;
 					$scope.isShowComfirm = true;
 					$scope.comfirmText = msg

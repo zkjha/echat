@@ -775,11 +775,24 @@ define(
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
                 HomePageContor.getStaffinfoList($scope, $http);
+                //分页按钮监听
                 $scope.onPageChange = function () {
                     // ajax request to load data
                     $scope.employeeEntityList = {};
                     HomePageContor.getStaffinfoList($scope, $http);
 
+                };
+                //重置用户密码
+                $scope.updataStaffPasswd=function(strEmployeeid){
+
+                    $scope.showConfirm("确认重置密码为123456？",function(rs){
+                        if(rs){
+
+                            //重置用户密码为123456
+                            HomePageContor.resetEmployeePassword($scope,$http,strEmployeeid);
+
+                        }
+                    })
                 };
                 //提交新增用户数据
                 $scope.sumbitemployee = function () {
@@ -951,6 +964,45 @@ define(
             }
 
 
+            //重置用户密码为123456
+            ,resetEmployeePassword:function($scope,$http,strEmployeeid){
+                var data={"strEmployeeid":strEmployeeid};
+                $http.post(remoteUrl.resetEmployeePassword,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        if (code == 1) {
+
+                            $scope.showAlert("密码重置成功");
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.showAlert("暂无权限数据")
+                        }
+
+                    }, function (result) {
+                        $scope.editFrontinfoisActive = true;
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
             //保存员工信息
             ,saveEmployee:function($scope,$http,data,$location){
                 var url="";

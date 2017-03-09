@@ -48,7 +48,9 @@ define([],function(){
             //新增员工信息
             insertEmployee:"/admin/biz/employee/insertEmployee",
             //修改员工信息
-            updateEmployee:"/admin/biz/employee/updateEmployee"
+            updateEmployee:"/admin/biz/employee/updateEmployee",
+            //重置员工密码
+            resetEmployeePassword:"/admin/biz/employee/resetEmployeePassword"
 
     };
 	return remoteUrl;
