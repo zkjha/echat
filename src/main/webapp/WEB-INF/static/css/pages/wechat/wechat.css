@@ -1,0 +1,76 @@
+select{
+	width: 143px;
+	padding: 0 3px;
+	border-radius: 3px;
+}
+.mechat{
+	width: 1190px;
+	margin: 20px auto;
+	height: 500px;
+}
+.wechat-right{
+	width: 1025px;
+	height: 500px;
+	float: right;
+}
+.wechat-right-top{
+	border-bottom: 1px solid #FEBC06;
+}
+.wechat-right-tittle{
+	margin-left: 10px;
+	line-height: 25px;
+}
+.wechat-right-body{
+	margin-top: 10px;
+	background-color: #EEEEEE;
+	height: 460px;
+}
+.wechat-body-tittle{
+	background-color: #CCCCCC;
+}
+.wechat-body-tittle span{
+	line-height: 20px;
+	margin-left: 5px;
+}
+.wechat-body-form{
+	width: 960px;
+	margin: 0 auto;
+	margin-top: 10px;
+	background-color: white;
+	padding: 20px;
+}
+.wechat-body-form table{
+	width: 600px;
+}
+.wechat-body-form tr td{
+	width: 300px;
+	text-align: right;
+}
+.wechat-body-zc{
+	margin-top: 10px;
+}
+.wechat-body-zc span{
+	float: right;
+	/*margin-left: 40px;*/
+	margin-right: 20px;
+	padding: 3px 5px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.wechat-body-yellow{
+	background-color: #FEBC06;
+	color: white;
+	float: right;
+}
+.wechat-body-white{
+	border: 1px solid gainsboro;
+}
+/*判断输入内容能不能为空*/
+.wechat-body-null{
+	color: red;
+	text-align: right;
+	height: 20px;
+}
+.wechat-body-null td{
+	width: 300px;
+}
