@@ -28,7 +28,7 @@ import com.ecard.util.WebSessionUtil;
  *
  */
 @Controller
-@RequestMapping("/wexin/")
+@RequestMapping("/weixin/")
 public class WechatLoginController {
 	
 	@Resource
@@ -48,7 +48,7 @@ public class WechatLoginController {
 	
 		ModelAndView mv = new ModelAndView();
 		String url = request.getParameter("url");
-		mv.setViewName("wexin/login");
+		mv.setViewName("weixin/login");
 		if(null==url){
 			url ="";
 		}
