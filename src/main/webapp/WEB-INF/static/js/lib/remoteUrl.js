@@ -68,7 +68,11 @@ define([],function(){
             //查询会员拓展资料列表
             listMemberexpandinformation:"/admin/biz/memberexpandinformation/listMemberexpandinformation",
             //删除会员拓展资料
-            deleteMemberexpandinformation:"/admin/biz/memberexpandinformation/deleteMemberexpandinformation"
+            deleteMemberexpandinformation:"/admin/biz/memberexpandinformation/deleteMemberexpandinformation",
+            //新增会员拓展资料
+            insertMemberexpandinformation:"/admin/biz/memberexpandinformation/insertMemberexpandinformation",
+            //根据ID查询会员拓展资料
+            getMemberexpandinformationById:"/admin/biz/memberexpandinformation/getMemberexpandinformationById"
         ////////////会员部分结束/////////////////////////////
 
 

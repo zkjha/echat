@@ -142,6 +142,64 @@ define(
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
                 $scope.isShowListMenu = [];
+                $scope.memberexpandinformationEntity={};
+                $scope.mustInputTypes=[{"id":1,value:"必填"},{"id":0,value:"非必填"}];
+                $scope.inputTypes=[{"id":2,value:"多选"},{"id":1,value:"下拉选择"},{"id":0,value:"输入框"}];
+                //选择列表
+                $scope.optionsArray=[];
+
+                $scope.memberexpandinformationEntity.options=[];
+                $scope.typeChange=function(){
+
+                    if($scope.memberexpandinformationEntity.intType==0){
+                        $scope.optionsArray.length=0;
+                    }else{
+                        $scope.optionsArray.push(0);
+
+                    }
+                };
+                //保存
+                $scope.submitExpandinfo=function(){
+
+                    var intType =$scope.memberexpandinformationEntity.intType;
+                    if(intType==1||intType==2){
+                        $scope.memberexpandinformationEntity.strOptions = $scope.memberexpandinformationEntity.options.join(",");
+
+                    }
+
+                    console.log($scope.memberexpandinformationEntity);
+                    //调用保存接口
+                   MemberCenter.saveExpand($scope.memberexpandinformationEntity,$scope, $http);
+
+                };
+
+                //减少选项
+                $scope.subOption=function(index){
+                    console.log(index);
+
+                    $scope.optionsArray.splice(index,1);
+                    $scope.memberexpandinformationEntity.options.splice(index,1);
+
+                    if($scope.optionsArray.length>1){
+                        $scope.optionIsMoreOne=true;
+                    }else{
+                        $scope.optionIsMoreOne=false;
+                    }
+
+                };
+
+                //增加选项
+                $scope.addOption=function(index){
+
+                    $scope.optionsArray.push(Math.random());
+                    if($scope.optionsArray.length>1){
+                        $scope.optionIsMoreOne=true;
+                    }else{
+                        $scope.optionIsMoreOne=false;
+                    }
+                };
+
+
                 MemberCenter.getExpandInfoList($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
@@ -159,9 +217,28 @@ define(
                     }
 
                 };
+                //关闭窗口
+                $scope.clostExpandWindow=function(){
+                    $scope.showExpandInfoWindow=false;
+                    $scope.memberexpandinformationEntity={};
+                };
                 //新建会员拓展资料点击按钮事件
                 $scope.newExpandinginfo=function(){
 
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=true;
+                    //初始化是否必填选择框
+                    $scope.memberexpandinformationEntity.intIsmust=0;
+                    //初始化拓展类型
+                    $scope.memberexpandinformationEntity.intType=0;
+                    $scope.optionsArray=[];
+                };
+                //修改会员拓展资料点击按钮事件
+                $scope.updataExpand=function(strInformationid){
+
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=false;
+                    MemberCenter.selectExpand(strInformationid,$scope, $http);
                 };
                 //删除拓展资料
                 $scope.delectExpand=function(strInformationid,strInformationname){
@@ -175,6 +252,98 @@ define(
                     })
                 }
 
+            },
+            //查询拓展资料详情
+            selectExpand:function(strInformationid,$scope, $http) {
+
+                var data={"strInformationid":strInformationid}
+                $http.post(remoteUrl.getMemberexpandinformationById, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+                        if (code == 1) {
+                            $scope.optionsArray=[];
+                            data.options= data.strOptions.split(",");
+                            //console.log(data);
+                            for(var i=0;i< data.options.length;i++){
+                                $scope.optionsArray.push(Math.random());
+                            }
+                            $scope.memberexpandinformationEntity=data ;
+
+                            if($scope.optionsArray.length>1){
+                                $scope.optionIsMoreOne=true;
+                            }else{
+                                $scope.optionIsMoreOne=false;
+                            }
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+             ,
+            //保存拓展资料
+            saveExpand:function(data,$scope, $http){
+                $http.post(remoteUrl.insertMemberexpandinformation, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+                        if (code == 1) {
+
+                            $scope.showAlert("保存成功",function(){
+                                window.location.reload();
+                            });
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                 });
             }
             ,
             //删除拓展资料请求
@@ -191,7 +360,6 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        console.log(data)
 
                         if (code == 1) {
 
@@ -238,7 +406,7 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        console.log(data)
+
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
