@@ -78,6 +78,12 @@ public final class ResultCode {
 	 * 手机号格式错误
 	 */
 	public static final int MOBILE_FORMAT_ERROR = 100007;
+	/**
+	 * 会员级别已经被使用
+	 */
+	public static final int LEVELS_HAVE_MEMBERS = 100008;
+	
+	
 	//========================接口返回状态标识结束==========================
 	
 

@@ -45,8 +45,8 @@ public class MemberexpandinformationController {
 	@RequestMapping("insertMemberexpandinformation")
 	public String insertMemberexpandinformation(HttpServletRequest request, HttpServletResponse response) {
 		String strInformationname = request.getParameter("strInformationname");
-		String strIsmust = request.getParameter("strIsmust");
-		String strType = request.getParameter("strType");
+		String strIsmust = request.getParameter("intIsmust");
+		String strType = request.getParameter("intType");
 		String strOptions = request.getParameter("strOptions");
 		if(ValidateTool.isEmptyStr(strInformationname)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料名称不能为空", null);
@@ -117,8 +117,8 @@ public class MemberexpandinformationController {
 	public String updateMemberexpandinformation(HttpServletRequest request, HttpServletResponse response) {
 		String strInformationid = request.getParameter("strInformationid");
 		String strInformationname = request.getParameter("strInformationname");
-		String strIsmust = request.getParameter("strIsmust");
-		String strType = request.getParameter("strType");
+		String strIsmust = request.getParameter("intIsmust");
+		String strType = request.getParameter("intType");
 		String strOptions = request.getParameter("strOptions");
 		if(ValidateTool.isEmptyStr(strInformationid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "拓展资料ID不能为空", null);

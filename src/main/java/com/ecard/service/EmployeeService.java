@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.commontools.data.DataTool;
-import com.ecard.config.ResultCode;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.mapper.EmployeeMapper;
 
@@ -29,23 +27,13 @@ public class EmployeeService {
 	}
 	
 	//新增员工
-	public String insertEmployee(EmployeeEntity employeeEntity) throws Exception {
-		
-		String flag = employeeMapper.judgeEmployeeLoginNameIsExist(employeeEntity.getStrEmployeeid(), employeeEntity.getStrLoginname());
-		if("false".equals(flag)) {
-			employeeMapper.insertEmployee(employeeEntity);
-			return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
-		} else {
-			//该职务名称存在
-			return DataTool.constructResponse(ResultCode.CANTNOTREPEAT_PARAM_ISREPEAT, "登录名已经存在", null);
-		}
-		
+	public void insertEmployee(EmployeeEntity employeeEntity) throws Exception {
+		employeeMapper.insertEmployee(employeeEntity);
 	}
 	
 	//修改员工
-	public String updateEmployee(EmployeeEntity employeeEntity) throws Exception {
+	public void updateEmployee(EmployeeEntity employeeEntity) throws Exception {
 		employeeMapper.updateEmployee(employeeEntity);
-		return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
 	}
 	
 	//重置用户密码

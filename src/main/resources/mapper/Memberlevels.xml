@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.MemberlevelsMapper">
+	
+	<!-- 判断会员级别名称是否存在 -->
+	<select id="judgeLevelsNameIsExist" resultType="string">
+		SELECT (CASE WHEN COUNT(STRLEVELSID)>0 THEN 'true' ELSE 'false' END) FROM tb_member_levels
+		<where>
+			<!-- 级别ID -->
+			<if test="strLevelsid != null and strLevelsid != ''">	
+				AND STRLEVELSID!=#{strLevelsid}
+			</if>
+			<!-- 会员级别名称 -->
+			<if test="strLevelsname != null and strLevelsname != ''">	
+				AND STRLEVELSNAME=#{strLevelsname}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 新增会员级别 -->
+	<insert id="insertMemberlevelsEntity" parameterType="com.ecard.entity.MemberlevelsEntity">
+		INSERT INTO tb_member_levels (STRLEVELSID, STRLEVELSNAME, STRINSERTTIME)
+									 VALUES
+									 (#{strLevelsid}, #{strLevelsname}, #{strInserttime})
+	</insert>
+	
+	<!-- 修改会员级别 -->
+	<update id="updateMemberlevelsEntity" parameterType="com.ecard.entity.MemberlevelsEntity">
+		UPDATE tb_member_levels SET STRLEVELSNAME=#{strLevelsname}, STRUPDATETIME=#{strUpdatetime}
+		WHERE STRLEVELSID=#{strLevelsid}
+	</update>
+	
+	<!-- 根据级别ID查询会员级别 -->
+	<select id="getMemberlevelsById" parameterType="string" resultType="com.ecard.entity.MemberlevelsEntity">
+	     SELECT STRLEVELSID AS strLevelsid, STRLEVELSNAME AS strLevelsname, STRINSERTTIME AS strInserttime
+	      FROM tb_member_levels
+	     WHERE STRLEVELSID=#{strLevelsid}
+	</select>
+	
+	<!-- 查询会员级别列表 -->
+	<select id="listMemberlevels" parameterType="map" resultType="com.ecard.entity.MemberlevelsEntity">
+	     SELECT STRLEVELSID AS strLevelsid, STRLEVELSNAME AS strLevelsname, STRINSERTTIME AS strInserttime
+	      FROM tb_member_levels
+	      <where>
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND STRLEVELSNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      	</if>
+	      </where>
+	      ORDER BY STRINSERTTIME DESC
+	      LIMIT #{pageFrom}, #{pageSize}
+	</select>
+	
+	<!-- 查询员工总数量 -->
+	<select id="getMemberlevelsTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(STRLEVELSID)
+      	 FROM tb_member_levels
+   	  	 <where>
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND STRLEVELSNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      	</if>
+        </where>
+	</select>
+	
+	<!-- 禁用会员级别 -->
+	<update id="forbiddenMemberlevels" parameterType="string">
+		UPDATE tb_member_levels SET INTSTATUS=0 WHERE STRLEVELSID=#{strLevelsid}
+	</update>
+	
+	<!-- 判断会员级别名称是否存在 -->
+	<select id="judgeLevelsHaveMembers" parameterType="string" resultType="string">
+		SELECT (CASE WHEN COUNT(STRMEMBERID)>0 THEN 'true' ELSE 'false' END) FROM tb_member
+		WHERE STRLEVELSID=#{strLevelsid}
+	</select>
+
+</mapper>

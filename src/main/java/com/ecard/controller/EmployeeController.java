@@ -99,20 +99,28 @@ public class EmployeeController {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "真实姓名不能为空", null);
 		}
 		try {
-			EmployeeEntity loginemployeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
-					request, response).getAttribute("employeeEntity");
-			EmployeeEntity employeeEntity = new EmployeeEntity();
-			employeeEntity.setStrEmployeeid(DataTool.getUUID());
-			employeeEntity.setStrLoginname(strLoginname.trim());
-			employeeEntity.setStrPassword(MD5Tool.createMd5(strPassword));
-			employeeEntity.setStrHeadportrait(DataTool.trimStr(strHeadportrait));
-			employeeEntity.setStrDutyid(strDutyid);
-			employeeEntity.setStrMobile(strMobile.trim());
-			employeeEntity.setStrRealname(strRealname.trim());
-			employeeEntity.setIntStatus(intStatus);
-			employeeEntity.setStrMerchantid(loginemployeeEntity.getStrMerchantid());
-			employeeEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			return employeeService.insertEmployee(employeeEntity);
+			
+			String flag = employeeService.judgeEmployeeLoginNameIsExist("", strLoginname.trim());
+			if("false".equals(flag)) {
+				EmployeeEntity loginemployeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+						request, response).getAttribute("employeeEntity");
+				EmployeeEntity employeeEntity = new EmployeeEntity();
+				employeeEntity.setStrEmployeeid(DataTool.getUUID());
+				employeeEntity.setStrLoginname(strLoginname.trim());
+				employeeEntity.setStrPassword(MD5Tool.createMd5(strPassword));
+				employeeEntity.setStrHeadportrait(DataTool.trimStr(strHeadportrait));
+				employeeEntity.setStrDutyid(strDutyid);
+				employeeEntity.setStrMobile(strMobile.trim());
+				employeeEntity.setStrRealname(strRealname.trim());
+				employeeEntity.setIntStatus(intStatus);
+				employeeEntity.setStrMerchantid(loginemployeeEntity.getStrMerchantid());
+				employeeEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
+			} else {
+				//该职务名称存在
+				return DataTool.constructResponse(ResultCode.CANTNOTREPEAT_PARAM_ISREPEAT, "登录名已经存在", null);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -209,7 +217,8 @@ public class EmployeeController {
 			employeeEntity.setStrRealname(strRealname.trim());
 			employeeEntity.setIntStatus(intStatus);
 			employeeEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			return employeeService.updateEmployee(employeeEntity);
+			employeeService.updateEmployee(employeeEntity);
+			return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -217,7 +226,7 @@ public class EmployeeController {
 	}
 	
 	/**
-	 * 修改员工
+	 * 重置员工密码
 	 * @param request
 	 * @param response
 	 * @return

@@ -1,6 +1,5 @@
 package com.ecard.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.commontools.data.DataTool;
-import com.commontools.date.DateStyle;
-import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
@@ -82,11 +79,8 @@ public class DutyController {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
 		}
 		try {
-			DutyEntity dutyEntity = new DutyEntity();
-			dutyEntity.setStrDutyid(DataTool.getUUID());
-			dutyEntity.setStrDutyname(strDutyname.trim());
-			dutyEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			return dutyService.insertDuty(dutyEntity,arrPrivilegeid);
+			
+			return dutyService.insertDuty(strDutyname.trim(),arrPrivilegeid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -149,11 +143,7 @@ public class DutyController {
 		}
 		
 		try {
-			DutyEntity dutyEntity = new DutyEntity();
-			dutyEntity.setStrDutyid(strDutyid);
-			dutyEntity.setStrDutyname(strDutyname.trim());
-			dutyEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-			return dutyService.updateDuty(dutyEntity,arrPrivilegeid);
+			return dutyService.updateDuty(strDutyid, strDutyname.trim(),arrPrivilegeid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
