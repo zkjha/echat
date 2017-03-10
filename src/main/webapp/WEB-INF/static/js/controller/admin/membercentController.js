@@ -11,15 +11,16 @@ define(
 
         var MemberCenter = {
 
+            ////////////////////会员章程设置部分开始/////////////////////////
             //会员章程展示控制器
             regulationsController:function($scope, $http, $sce){
-                MemberCenter.getRegulationsinfo($scope, $http, $sce, 1)
+                MemberCenter.getRegulationsinfo($scope, $http, $sce, 1);
             },
             //修改会员章程控制器
             editRegulationsController:function($scope, $http, $sce){
 
                 // 回显数据
-                MemberCenter.getRegulationsinfo($scope, $http, $sce, 2)
+                MemberCenter.getRegulationsinfo($scope, $http, $sce, 2);
                 $scope.frontinfoHtml = {};
 
                 $scope.editFrontinfoisActive = true;
@@ -124,7 +125,160 @@ define(
                     }
                 );
 
+            },
+
+            ////////////////////会员章程设置部分结束/////////////////////////
+
+
+
+
+
+
+            ////////////////////会员拓展资料部分开始/////////////////////////
+
+            expandinfoController:function($scope, $http){
+
+
+                $scope.currentPage = 1;
+                $scope.pageSize = 5;
+                $scope.isShowListMenu = [];
+                MemberCenter.getExpandInfoList($scope, $http);
+                $scope.onPageChange = function () {
+                    // ajax request to load data
+                    $scope.memberexpandinformationEntityList = {};
+                    MemberCenter.getExpandInfoList($scope, $http);
+
+                };
+
+                $scope.openCtrMenu = function ($index, type) {
+                    for (var i = 0; i < $scope.memberexpandinformationEntityList.length; i++) {
+                        $scope.isShowListMenu[i] = false;
+                    }
+                    if (type == 'over') {
+                        $scope.isShowListMenu[$index] = !$scope.isShowListMenu[$index];
+                    }
+
+                };
+                //新建会员拓展资料点击按钮事件
+                $scope.newExpandinginfo=function(){
+
+                };
+                //删除拓展资料
+                $scope.delectExpand=function(strInformationid,strInformationname){
+
+                    $scope.showConfirm("确认要删除" +strInformationname+"？",function(rs){
+                        //调用删除拓展资料函数
+                        if(rs){
+                            MemberCenter.deleteExpand(strInformationid,$scope, $http);
+                        }
+
+                    })
+                }
+
             }
+            ,
+            //删除拓展资料请求
+            deleteExpand:function(strInformationid,$scope, $http){
+
+                var data = {
+                    'strInformationid': strInformationid
+
+                };
+
+                $http.post(remoteUrl.deleteMemberexpandinformation, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        console.log(data)
+
+                        if (code == 1) {
+
+                            window.location.reload();
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+            ,
+            //获取会员拓展资料列表
+            getExpandInfoList: function ($scope, $http) {
+
+                var data = {
+                    'pagenum': $scope.currentPage,
+                    "pagesize": $scope.pageSize,
+                    "strSearchkey":""
+                };
+
+                $http.post(remoteUrl.listMemberexpandinformation, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        console.log(data)
+                        //code=-8;
+                        if (code == 1) {
+                            //图片跟路径
+
+                            $scope.pageCount = data.iTotalPage;
+                            $scope.memberexpandinformationEntityList = data.memberexpandinformationEntityList;
+
+                            for (var i = 0; i < $scope.memberexpandinformationEntityList.length; i++) {
+                                $scope.isShowListMenu[i] = false;
+                            }
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+            ////////////////////会员拓展资料部分结束/////////////////////////
+
         };
 
         return MemberCenter;
