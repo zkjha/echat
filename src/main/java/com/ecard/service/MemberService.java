@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.mapper.MemberMapper;
 import com.ecard.vo.MemberVO;
 
@@ -41,6 +42,11 @@ public class MemberService {
 	public MemberEntity getLoginUserInfoById(String strMemberid) throws Exception {
 		return memberMapper.getLoginUserInfoById(strMemberid);
 	}
+	
+	//查询所有可用的会员级别
+	public List<MemberlevelsEntity> listAllMemberLevels(int intStatus) throws Exception {
+		return memberMapper.listAllMemberLevels(intStatus);
+	}
 
 	//查询会员列表
 	public List<MemberVO> listMember(Map<String, Object> queryMap) throws Exception {
@@ -51,6 +57,6 @@ public class MemberService {
 	public int getMemberTotalCount(Map<String, Object> queryMap) throws Exception {
 		return memberMapper.getMemberTotalCount(queryMap);
 	}
-	
+
 }
 

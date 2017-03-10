@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.vo.MemberVO;
 
 /**
@@ -24,6 +25,9 @@ public interface MemberMapper {
 
 	//根据会员ID查询会员详细信息
 	MemberEntity getLoginUserInfoById(String strMemberid) throws Exception;
+	
+	//查询所有可用的会员级别
+	List<MemberlevelsEntity> listAllMemberLevels(int intStatus) throws Exception;
 	
 	//查询会员列表
 	List<MemberVO> listMember(Map<String, Object> queryMap) throws Exception;

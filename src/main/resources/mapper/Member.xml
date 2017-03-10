@@ -38,6 +38,13 @@
 		FROM tb_member TM, tb_member_levels TML WHERE TM.STRLEVELSID=TML.STRLEVELSID AND TM.STRMEMBERID=#{strMemberid}
 	</select>
 	
+	<!-- 查询所有会员级别信息 -->
+	<select id="listAllMemberLevels" parameterType="map" resultType="com.ecard.entity.MemberlevelsEntity">
+	     SELECT STRLEVELSID AS strLevelsid, STRLEVELSNAME AS strLevelsname, INTSTATUS AS intStatus
+	      FROM tb_member_levels WHERE INTSTATUS=#{intStatus} ORDER BY STRINSERTTIME DESC
+	</select>
+	
+	<!-- 会员列表返回参数Map -->
 	<resultMap id="memberVO" type="com.ecard.vo.MemberVO">
 		<id property="strMemberid" column="STRMEMBERID"></id>
 		<result property="strRealname" column="STRREALNAME"></result>

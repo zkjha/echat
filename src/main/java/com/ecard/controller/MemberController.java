@@ -16,6 +16,8 @@ import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.MemberlevelsEntity;
+import com.ecard.enumeration.MemberlevelsStatusEnum;
 import com.ecard.service.MemberService;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
@@ -25,7 +27,7 @@ import com.ecard.vo.MemberVO;
  *
  */
 @Controller
-@RequestMapping("/admin/")
+@RequestMapping("/admin/biz/member/")
 public class MemberController {
 	
 	@Resource
@@ -33,6 +35,30 @@ public class MemberController {
 	@Resource
 	private WebSessionUtil webSessionUtil;
 	
+	
+	
+	/**
+	 * 查询所有的职务信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("listAllMemberLevels")
+	public String listAllMemberLevels(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			List<MemberlevelsEntity> memberlevelsEntityList = memberService.listAllMemberLevels(MemberlevelsStatusEnum.ACTIVATE.getValue()); //查询所有可用的会员级别
+			if(memberlevelsEntityList==null||memberlevelsEntityList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
+			}
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("memberlevelsEntityList", memberlevelsEntityList);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+	}
 	
 	/**
 	 * 查询员工列表
