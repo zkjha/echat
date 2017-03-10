@@ -1,12 +1,16 @@
 package com.ecard.service;
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecard.entity.MemberEntity;
 import com.ecard.mapper.MemberMapper;
+import com.ecard.vo.MemberVO;
 
 /**
  * 会员操作service
@@ -36,6 +40,16 @@ public class MemberService {
 	//查询会员ID查询会员登录信息
 	public MemberEntity getLoginUserInfoById(String strMemberid) throws Exception {
 		return memberMapper.getLoginUserInfoById(strMemberid);
+	}
+
+	//查询会员列表
+	public List<MemberVO> listMember(Map<String, Object> queryMap) throws Exception {
+		return memberMapper.listMember(queryMap);
+	}
+
+	//查询会员总数量
+	public int getMemberTotalCount(Map<String, Object> queryMap) throws Exception {
+		return memberMapper.getMemberTotalCount(queryMap);
 	}
 	
 }

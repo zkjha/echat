@@ -38,4 +38,56 @@
 		FROM tb_member TM, tb_member_levels TML WHERE TM.STRLEVELSID=TML.STRLEVELSID AND TM.STRMEMBERID=#{strMemberid}
 	</select>
 	
+	<resultMap id="memberVO" type="com.ecard.vo.MemberVO">
+		<id property="strMemberid" column="STRMEMBERID"></id>
+		<result property="strRealname" column="STRREALNAME"></result>
+		<result property="strMobile" column="STRMOBILE"></result>
+		<result property="strMembercardnum" column="STRMEMBERCARDNUM"></result>
+		<result property="intStatus" column="INTSTATUS"></result>
+		<result property="intIntegral" column="INTINTEGRAL"></result>
+		<result property="dBalance" column="DBALANCE"></result>
+		<result property="strLevelsname" column="STRLEVELSNAME"></result>
+		<result property="strInserttime" column="STRINSERTTIME"></result>
+		<association property="intVouchers" column="STRMEMBERID" select="getIntVouchersByMemberid"></association>
+	</resultMap>
+	
+	<!-- 查询会员优惠券数量 -->
+	<select id="getIntVouchersByMemberid" parameterType="string" resultType="int">
+		SELECT 5
+	</select>
+	
+	<!-- 查询会员列表 -->
+	<select id="listMember" parameterType="map" resultMap="memberVO">
+	     SELECT TM.STRMEMBERID, TM.STRREALNAME, TM.STRMOBILE, TM.STRMEMBERCARDNUM, TM.INTSTATUS, TM.INTINTEGRAL, TM.DBALANCE, TM.STRINSERTTIME, TML.STRLEVELSNAME
+      	 FROM tb_member TM, tb_member_levels TML
+	      <where>
+	      	TM.STRLEVELSID=TML.STRLEVELSID
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND (TM.STRREALNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      		     OR TM.STRMOBILE LIKE CONCAT('%',#{strSearchkey}) 
+	      		     OR TM.STRMEMBERCARDNUM LIKE CONCAT('%',#{strSearchkey})
+	      		     OR TML.STRLEVELSNAME=#{strSearchkey}
+	      		     ) 
+	      	</if>
+	      </where>
+	      ORDER BY STRINSERTTIME DESC
+	      LIMIT #{pageFrom}, #{pageSize}
+	</select>
+	
+	<!-- 查询会员总数量-->
+	<select id="getMemberTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(TM.STRMEMBERID)
+      	 FROM tb_member TM, tb_member_levels TML
+	      <where>
+	      	TM.STRLEVELSID=TML.STRLEVELSID
+	      	<if test="strSearchkey != null and strSearchkey != ''">
+	      		AND (TM.STRREALNAME LIKE CONCAT('%',#{strSearchkey},'%') 
+	      		     OR TM.STRMOBILE LIKE CONCAT('%',#{strSearchkey}) 
+	      		     OR TM.STRMEMBERCARDNUM LIKE CONCAT('%',#{strSearchkey})
+	      		     OR TML.STRLEVELSNAME=#{strSearchkey}
+	      		     ) 
+	      	</if>
+	      </where>
+	</select>
+	
 </mapper>
