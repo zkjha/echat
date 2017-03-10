@@ -64,7 +64,11 @@ define([],function(){
             //得到会员章程
             getMemberarticles:"/admin/biz/memberarticles/getMemberarticles",
             //保存会员章程
-            updateMemberarticles:"/admin/biz/memberarticles/updateMemberarticles"
+            updateMemberarticles:"/admin/biz/memberarticles/updateMemberarticles",
+            //查询会员拓展资料列表
+            listMemberexpandinformation:"/admin/biz/memberexpandinformation/listMemberexpandinformation",
+            //删除会员拓展资料
+            deleteMemberexpandinformation:"/admin/biz/memberexpandinformation/deleteMemberexpandinformation"
         ////////////会员部分结束/////////////////////////////
 
 

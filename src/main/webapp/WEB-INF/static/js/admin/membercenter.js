@@ -34,6 +34,7 @@ requirejs(
         'service/fileReaderService',
         'lib/angular-route',
         'lib/angular-resize',
+        'filter/replaceExpandTypeFilter',
         'dirctive/ng-pagination',
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
@@ -42,7 +43,7 @@ requirejs(
     ],
     function(angular,memberCentController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType']);
 
 //路由配置
         app.config(["$routeProvider", function($routeProvider) {
@@ -60,8 +61,8 @@ requirejs(
                 templateUrl: "/static/temp/admin/membercenter/editRegulations.html",
                 controller:memberCentController.editRegulationsController
             }).when("/expandinfo", {//会员拓展资料
-                templateUrl: "/static/temp/admin/membercenter/expandinfo.html"
-
+                templateUrl: "/static/temp/admin/membercenter/expandinfo.html",
+                controller:memberCentController.expandinfoController
 
             }).otherwise({
                 redirectTo: "/memberSet"
