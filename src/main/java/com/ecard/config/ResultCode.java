@@ -82,6 +82,18 @@ public final class ResultCode {
 	 * 会员级别已经被使用
 	 */
 	public static final int LEVELS_HAVE_MEMBERS = 100008;
+	/**
+	 * 手机号暂不是会员
+	 */
+	public static final int MOBILE_ISNOT_MEMBER = 100009;
+	/**
+	 * 验证码失效
+	 */
+	public static final int CAPTCHA_FAILURE = 100010;
+	/**
+	 * 验证码错误
+	 */
+	public static final int CAPTCHA_ERROR = 100011;
 	
 	
 	//========================接口返回状态标识结束==========================

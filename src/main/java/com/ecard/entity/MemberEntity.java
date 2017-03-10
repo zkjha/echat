@@ -1,5 +1,6 @@
 package com.ecard.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -7,8 +8,13 @@ import java.math.BigDecimal;
  * @author Administrator
  *
  */
-public class MemberEntity {
+public class MemberEntity implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	/**
 	 * 主键
 	 */

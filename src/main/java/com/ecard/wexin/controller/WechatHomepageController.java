@@ -1,16 +1,23 @@
 package com.ecard.wexin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ecard.service.DutyService;
-import com.ecard.service.EmployeeService;
-import com.ecard.service.PrivilegeService;
+import com.commontools.data.DataTool;
+import com.commontools.validate.ValidateTool;
+import com.ecard.config.ResultCode;
+import com.ecard.entity.MemberEntity;
+import com.ecard.service.MemberService;
+import com.ecard.util.QRCodeTool;
 import com.ecard.util.WebSessionUtil;
 /**
  * 微信端首页
@@ -22,11 +29,7 @@ import com.ecard.util.WebSessionUtil;
 public class WechatHomepageController {
 	
 	@Resource
-	private EmployeeService employeeService;
-	@Resource
-	private DutyService dutyService;
-	@Resource
-	private PrivilegeService privilegeService;
+	private MemberService memberService;
 	@Resource
 	private WebSessionUtil webSessionUtil;
 	/**
@@ -42,5 +45,38 @@ public class WechatHomepageController {
 		
 		return mv;
 		
+	}
+	
+	/**
+	 * 查询会员基本信息
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/getLoginUserInfo")
+	@ResponseBody
+	public String getLoginUserInfo(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			// 当前登录的用户信息
+			String memberid = (String) webSessionUtil.getWeixinSession(
+					request, response).getAttribute("memberid");
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			if(!ValidateTool.isEmptyStr(memberid)) {
+				//登录用户不为空，查询登录用户对应的用户信息
+				MemberEntity memberEntity = memberService.getLoginUserInfoById(memberid);
+				if(!ValidateTool.isNull(memberEntity)) {
+					resultMap.put("strMembercardnum", memberEntity.getStrMembercardnum());
+					resultMap.put("intIntegral", memberEntity.getIntIntegral());
+					resultMap.put("dBalance", memberEntity.getdBalance());
+					resultMap.put("strLevelsname", memberEntity.getStrLevelsid());
+					String code_url_base64 = QRCodeTool.getQRCode(memberid);
+					resultMap.put("strQrCode", "data:image/png;base64," + code_url_base64);
+					resultMap.put("intVouchers", 5);
+				}
+			}
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		} 		
 	}
 }

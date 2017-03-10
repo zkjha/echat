@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.MemberMapper">
+	
+	<!-- 判断会员级别名称是否存在 -->
+	<select id="judgeMobileIsExist" resultType="string">
+		SELECT (CASE WHEN COUNT(STRMEMBERID)>0 THEN 'true' ELSE 'false' END) FROM tb_member
+		<where>
+			<!-- 级别ID -->
+			<if test="strMemberid != null and strMemberid != ''">	
+				AND STRMEMBERID!=#{strMemberid}
+			</if>
+			<!-- 会员手机号-->
+			<if test="strMobile != null and strMobile != ''">	
+				AND STRMOBILE=#{strMobile}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据手机号查询会员信息 -->
+	<select id="getMemberEntityByMobile" parameterType="string" resultType="com.ecard.entity.MemberEntity">
+		SELECT STRMEMBERID AS strMemberid, STRMEMBERCARDNUM AS strMembercardnum FROM tb_member WHERE STRMOBILE=#{strMobile} LIMIT 1
+	</select>
+	
+	<!-- 根据会员ID查询会员信息 -->
+	<select id="getMemberEntityById" parameterType="string" resultType="com.ecard.entity.MemberEntity">
+		SELECT STRMEMBERID AS strMemberid, STRREALNAME AS strRealname, STRIDCARD AS strIdcard, STRMOBILE AS strMobile,
+		       INTAGE AS intAge, STRMEMBERCARDNUM AS strMembercardnum, STRLEVELSID AS strLevelsid, INTSEX AS intSex,
+		       INTSTATUS AS intStatus, INTINTEGRAL AS intIntegral, DBALANCE AS dBalance
+		FROM tb_member WHERE STRMEMBERID=#{strMemberid}
+	</select>
+	
+	<!-- 根据会员ID查询会员登录需要的信息 -->
+	<select id="getLoginUserInfoById" parameterType="string" resultType="com.ecard.entity.MemberEntity">
+		SELECT TM.STRMEMBERID AS strMemberid, TM.STRMEMBERCARDNUM AS strMembercardnum, TML.STRLEVELSNAME AS strLevelsid,
+		       TM.INTINTEGRAL AS intIntegral, TM.DBALANCE AS dBalance
+		FROM tb_member TM, tb_member_levels TML WHERE TM.STRLEVELSID=TML.STRLEVELSID AND TM.STRMEMBERID=#{strMemberid}
+	</select>
+	
+</mapper>

@@ -122,7 +122,7 @@ public class LoginController {
 							response);
 					session.setAttribute("employeeEntity", employeeEntity);
 					session.setAttribute("privilegeList", privilegeList);
-					webSessionUtil.updateWebSession(session);
+					webSessionUtil.updateSession(session);
 					return DataTool.constructResponse(ResultCode.OK, "登录成功", null);
 				} else {
 					//密码不匹配

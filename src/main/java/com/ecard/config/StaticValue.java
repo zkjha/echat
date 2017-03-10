@@ -12,9 +12,17 @@ public final class StaticValue {
 	 */
 	public static final Long USER_SESSION_EXPIRE_TIME = 604800L;
 	/**
+	 * 验证码过期时间（秒）
+	 */
+	public static final Long CAPTCHA_VALID_TIME = 300L;
+	/**
 	 * cookie name
 	 */
 	public static final String COOKIENAME ="ecardid";
+	/**
+	 * cookie name（微信端）
+	 */
+	public static final String WX_COOKIENAME = "wxecardid";
 	/**
 	 * cookie domain
 	 */
