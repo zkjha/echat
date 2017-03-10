@@ -48,7 +48,7 @@ public class MemberdetailEntity {
 	/**
 	 * 使用性质
 	 */
-	private int strUsenature;
+	private String strUsenature;
 	/**
 	 * 注册日期
 	 */
@@ -151,10 +151,10 @@ public class MemberdetailEntity {
 	public void setStrAddress(String strAddress) {
 		this.strAddress = strAddress;
 	}
-	public int getStrUsenature() {
+	public String getStrUsenature() {
 		return strUsenature;
 	}
-	public void setStrUsenature(int strUsenature) {
+	public void setStrUsenature(String strUsenature) {
 		this.strUsenature = strUsenature;
 	}
 	public String getStrRegisterdate() {

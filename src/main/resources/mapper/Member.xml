@@ -97,4 +97,34 @@
 	      </where>
 	</select>
 	
+	<!-- 新增会员 -->
+	<insert id="insertMember" parameterType="com.ecard.entity.MemberEntity">
+		INSERT INTO tb_member (STRMEMBERID, STRREALNAME, STRIDCARD, STRMOBILE, INTAGE, STRMEMBERCARDNUM,
+		                         STRLEVELSID, INTSEX, INTSTATUS, STRINSERTTIME)
+								VALUES
+							(#{strMemberid}, #{strRealname}, #{strIdcard}, #{strMobile}, #{intAge}, #{strMembercardnum},
+	                         #{strLevelsid}, #{intSex}, #{intStatus}, #{strInserttime})
+	</insert>
+	
+	<!-- 新增会员详细信息 -->
+	<insert id=insertMemberDetail parameterType="com.ecard.entity.MemberdetailEntity">
+		INSERT INTO tb_member_detail (STRMEMBERDETAILID, STRMEMBERID, STRMODELOFCAR, STRCARLICENSE, STRCARCOLOR, STRCARTYPE,
+		                         DBUYPRICE, STRBUYDATE, STRADDRESS, STRUSENATURE, STRREGISTERDATE, STRCARIDENTIFYCODE, STRDATEOFISSUE, STRENGINENUMBER,
+		                         STRPOSTPROVINCE, STRPOSTCITY, STRPOSTAREA, STRPOSTSTREET, STRPOSTDETAILADDRESS, STRPOSTCODE, STRINSERTTIME)
+								VALUES
+								(#{strMemberdetailid}, #{strMemberid}, #{strModelofcar}, #{strCarlicense}, #{strCarcolor}, #{strCartype},
+								(#{dBuyprice}, #{strBuydate}, #{strAddress}, #{strUsenature}, #{strRegisterdate}, #{strCaridentifycode}, #{strDateofissue}, #{strEnginenumber},
+		                         #{strPostprovince}, #{strPostcity}, #{strPostarea}, #{strPoststreet}), #{strPostdetailaddress}, #{strPostcode}, #{strInserttime}
+		                         )
+	</insert>
+	
+	<!-- 批量插入会员拓展属性 -->
+	<insert id="batchInsertMemberexpandattribute" parameterType="list">
+		INSERT INTO tb_member_expand_attribute (STRATTRIBUTEID, STRMEMBERID, STRINFORMATIONID, STRATTRIBUTEVALUE, STRINSERTTIME)
+								VALUES
+							    <foreach collection="attributeList" item="attribute" index="index" separator=",">
+						    		(#{strAttributeid}, #{strMemberid}, #{strInformationid}, #{strAttributevalue}, #{strInserttime})
+							    </foreach>	
+	</insert>
+	
 </mapper>
