@@ -16,6 +16,10 @@ public class MemberexpandinformationEntity {
 	 */
 	private String strInformationname;
 	/**
+	 * 表单键值
+	 */
+	private String strFormname;
+	/**
 	 * 拓展资料是否必填0：否 1：是
 	 */
 	private int intIsmust;
@@ -46,6 +50,12 @@ public class MemberexpandinformationEntity {
 	}
 	public void setStrInformationname(String strInformationname) {
 		this.strInformationname = strInformationname;
+	}
+	public String getStrFormname() {
+		return strFormname;
+	}
+	public void setStrFormname(String strFormname) {
+		this.strFormname = strFormname;
 	}
 	public int getIntIsmust() {
 		return intIsmust;

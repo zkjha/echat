@@ -34,7 +34,7 @@ public class MemberEntity implements Serializable {
 	/**
 	 * 年龄
 	 */
-	private String intAge;
+	private int intAge;
 	/**
 	 * 会员卡号
 	 */
@@ -91,10 +91,10 @@ public class MemberEntity implements Serializable {
 	public void setStrMobile(String strMobile) {
 		this.strMobile = strMobile;
 	}
-	public String getIntAge() {
+	public int getIntAge() {
 		return intAge;
 	}
-	public void setIntAge(String intAge) {
+	public void setIntAge(int intAge) {
 		this.intAge = intAge;
 	}
 	public String getStrMembercardnum() {

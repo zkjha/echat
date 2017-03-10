@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberdetailEntity;
+import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.vo.MemberVO;
 
@@ -34,4 +36,13 @@ public interface MemberMapper {
 
 	//查询会员总数量
 	public int getMemberTotalCount(Map<String, Object> queryMap) throws Exception;
+
+	//新增会员
+	void insertMember(MemberEntity memberEntity) throws Exception;
+
+	//新增会员详细信息
+	void insertMemberDetail(MemberdetailEntity memberdetailEntity) throws Exception;
+
+	//批量插入会员拓展属性
+	void batchInsertMemberexpandattribute(@Param("attributeList")List<MemberexpandattributeEntity> attributeList) throws Exception;
 }

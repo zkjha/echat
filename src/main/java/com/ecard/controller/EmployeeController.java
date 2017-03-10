@@ -115,6 +115,7 @@ public class EmployeeController {
 				employeeEntity.setIntStatus(intStatus);
 				employeeEntity.setStrMerchantid(loginemployeeEntity.getStrMerchantid());
 				employeeEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				employeeService.insertEmployee(employeeEntity);
 				return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
 			} else {
 				//该职务名称存在

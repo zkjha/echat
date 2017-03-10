@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberdetailEntity;
+import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.mapper.MemberMapper;
 import com.ecard.vo.MemberVO;
@@ -56,6 +58,20 @@ public class MemberService {
 	//查询会员总数量
 	public int getMemberTotalCount(Map<String, Object> queryMap) throws Exception {
 		return memberMapper.getMemberTotalCount(queryMap);
+	}
+
+	//新增会员
+	@Transactional(rollbackFor=Exception.class)
+	public void insertMember(MemberEntity memberEntity, MemberdetailEntity memberdetailEntity,
+			List<MemberexpandattributeEntity> attributeList) throws Exception {
+		//1.新增会员
+		memberMapper.insertMember(memberEntity);
+		//2.新增会员详细信息
+		memberMapper.insertMemberDetail(memberdetailEntity);
+		if(attributeList!=null&&attributeList.size()>0) {
+			//3.新增会员详细信息对应的拓展资料
+			memberMapper.batchInsertMemberexpandattribute(attributeList);
+		}
 	}
 
 }
