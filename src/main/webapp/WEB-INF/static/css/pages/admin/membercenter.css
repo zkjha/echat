@@ -10,3 +10,14 @@
 .mt60{
     margin-top: 60px;
 }
+.form-container select{
+    width: 135px;
+    height: 20px;
+}
+
+.option-controller-span{
+    color: #fdc204;
+    margin-left: 5px;
+    cursor: pointer;
+    padding: 5px;
+}

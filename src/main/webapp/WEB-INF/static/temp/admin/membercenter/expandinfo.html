@@ -55,69 +55,50 @@
         </div>
     </div>
 
-    <div class="-lpy-mengban"  ng-show="showStaffWindow"></div>
-    <div class="-lpy-big-alert-window w650" ng-show="showStaffWindow">
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
-            <div  ng-switch="isAddNewStaff">
-                <div class="fl" ng-switch-default>新增员工</div>
-                <div class="fl" ng-switch-when="false">修改员工</div>
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>新增拓展信息</div>
+                <div class="fl" ng-switch-when="false">修改拓展信息</div>
             </div>
-            <div class="fr  close_btn" ng-click="clostStaffWindow()">x</div>
+            <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
         <div class="-lpy-alert-window-main-content ">
 
             <div class="-lpy-edit-staff-content">
-                <div class="header-container">
-                    <div class="user-header">
-                        <img alt="" ng-src="{{imageSrc}}" onerror="userHeadImgError(this)" />
-                    </div>
-                    <div>（最大120px*120px）</div>
-                    <div class=" upload-btn-group">
-                        <a class="small-btn  small-btn-default">上传头像</a>
-                        <input class="file-input" type="file" file-model="myFile"/>
-                    </div>
-                </div>
-                <form  name="addEmployeeForm" ng-submit="sumbitemployee()">
+
+                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
-                        <div class="fl w300">
-                            <div class="mt20"><span class="red-require">*</span> 登陆名：<input type="text" ng-value="employee.strLoginname"  ng-readonly="!isAddNewStaff" name="strLoginname"   ng-model="employee.strLoginname" ng-minlength="6" maxlength="15" ngTrim="true" required/>
+                        <div class=" w300 center">
 
-                                   <span  ng-show="addEmployeeForm.strLoginname.$error.minlength" class="ml5">
-                                    <span class="error-ico-min "></span>
-                                    <span class="error-info">至少6位</span>
-                                   </span>
-                            </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 姓名：<input type="text" ng-value="employee.strRealname" name="strRealname"   ng-model="employee.strRealname" ngTrim="true" ng-maxlength="5" required/></div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 状态：
-                                <select ng-model="employee.intStatus" ng-options="employee.id as employee.value for employee in employeeStatus"></select>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
+                                <input type="text" ng-value="memberexpandinformationEntity.strInformationname" name="strInformationname"   ng-model="memberexpandinformationEntity.strInformationname" ngTrim="true" ng-maxlength="8" required/>
+
 
                             </div>
 
-                        </div>
-                        <div class="fl w300">
-                            <div class="mt20" ng-if="isAddNewStaff"><span class="red-require">*</span> 登陆密码：<input type="password" ng-value="employee.strPassword"  name="strPassword"   ng-model="employee.strPassword" ng-minlength="6" ngTrim="true" required/>
-                                  <span  ng-show="addEmployeeForm.strPassword.$error.minlength" class="ml5">
-                                    <span class="error-ico-min "></span>
-                                    <span class="error-info">至少6位</span>
-                                   </span>
-                            </div>
-                            <div class="mt20"><span class="red-require">*</span> 手机号码：<input type="number" ng-value="employee.strMobile" name="strMobile"    ng-model="employee.strMobile" ngTrim="true" ng-minlength="11" ng-maxlength="11"  required/>
-                                   <span  ng-show="addEmployeeForm.strMobile.$error.minlength" class="ml5">
-                                    <span class="error-ico-min "></span>
-                                    <span class="error-info">至少11位</span>
-                                   </span>
-                            </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 职务：
-                                <select ng-model="employee.strDutyid" ng-options="dutyEntity.strDutyid as dutyEntity.strDutyname  for   dutyEntity in dutyEntityList"></select>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 是否必填：
+                                <select ng-model="memberexpandinformationEntity.intIsmust" ng-options="mustInput.id as mustInput.value for mustInput in mustInputTypes"></select>
 
                             </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
+                                <select ng-disabled="!isAddNewExpand" ng-change="typeChange()" ng-model="memberexpandinformationEntity.intType" ng-options="inputType.id as inputType.value for inputType in inputTypes"></select>
+
+                            </div>
+
+                            <div ng-repeat="option in  optionsArray"    class="mt20" >&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项：
+                                <input type="text" ng-value="memberexpandinformationEntity.options[$index]" name="strRealname"   ng-model="memberexpandinformationEntity.options[$index]" ngTrim="true" ng-maxlength="8" required/>
+                                <span ng-if="optionIsMoreOne" ng-click="subOption($index)" class="option-controller-span">-</span> <span ng-click="addOption($index)" class="option-controller-span">+</span>
+                            </div>
+
 
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="mt10"></div>
                     </div>
 
                     <div class="w150 center ">
-                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostStaffWindow()">取消</a>
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
                     </div>
                 </form>
             </div>
