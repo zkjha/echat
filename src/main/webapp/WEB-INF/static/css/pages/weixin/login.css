@@ -1,0 +1,78 @@
+body{
+	background-color:#FCD975 ;
+}
+.z-login-top{
+	height: 5rem;
+	width: 100%;
+	background-color: #FEC629;
+	position: relative;
+}
+.z-login-top-center{
+	height: 3rem;
+	width: 6.5rem;
+	position: absolute;
+	top: 1rem;
+	left: .5rem;
+}
+.z-login-top-center p{
+	margin-top: .2rem;
+}
+.z-login-top-center p:last-child{
+	margin-top: .5rem;
+}
+.z-login-body{
+	padding: .4rem;
+	width: 6.7rem;
+	background-color:#FCD975 ;
+}
+/*登陆页公共字体样式*/
+.z-login-commonText{
+	color: #000000;
+	font-size: .25rem;
+	font-weight: bold;
+}
+.z-login-input input{
+	height: .45rem;
+	width: 3.8rem;
+	font-size: .25rem;
+	padding-left: .2rem;
+}
+.z-login-click{
+	height: .45rem;
+	width: 2rem;
+	float: right;
+	display: inline-block; 
+	font-size: .25rem;
+	background-color: #000000;
+	text-align: center;
+	line-height: .45rem;
+	border: 1px solid white;
+}
+.z-login-click a{
+	color: white;
+}
+.z-login-last-true{
+	margin-top: .4rem;
+	text-align: center;
+}
+.z-login-click-ture{
+	float: none;
+	height: .45rem;
+	width: 2rem;
+	display: inline-block; 
+	font-size: .25rem;
+	background-color: #000000;
+	color: white;
+	text-align: center;
+	line-height: .45rem;
+	border: 1px solid white;
+	cursor: pointer;
+}
+.z-login-orderBy{
+	font-size: .25rem;
+	line-height: .25rem;
+	margin: 5px 0px;
+}
+.z-login-warm{
+	margin-top: .4rem;
+}

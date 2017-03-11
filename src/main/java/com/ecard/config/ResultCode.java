@@ -94,6 +94,10 @@ public final class ResultCode {
 	 * 验证码错误
 	 */
 	public static final int CAPTCHA_ERROR = 100011;
+	/**
+	 * 该手机号已经是会员了
+	 */
+	public static final int MOBILE_IS_MEMBER = 100012;
 	
 	
 	//========================接口返回状态标识结束==========================
