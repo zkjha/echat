@@ -35,6 +35,7 @@ requirejs(
         'lib/angular-route',
         'lib/angular-resize',
         'filter/replaceExpandTypeFilter',
+        'filter/replaceEmployeeFilter',
         'dirctive/ng-pagination',
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
@@ -43,12 +44,13 @@ requirejs(
     ],
     function(angular,memberCentController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter']);
 
-//路由配置
+        //路由配置
         app.config(["$routeProvider", function($routeProvider) {
             $routeProvider.when("/memberSet", {
-                templateUrl: "/static/temp/admin/membercenter/memberSet.html"
+                templateUrl: "/static/temp/admin/membercenter/memberSet.html",
+                controller:memberCentController.memberSetController
 
             }).when("/levelSet", {//会员级别及权益设置
                 templateUrl: "/static/temp/admin/membercenter/levelSet.html"
