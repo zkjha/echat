@@ -107,7 +107,7 @@
 	</insert>
 	
 	<!-- 新增会员详细信息 -->
-	<insert id=insertMemberDetail parameterType="com.ecard.entity.MemberdetailEntity">
+	<insert id="insertMemberDetail" parameterType="com.ecard.entity.MemberdetailEntity">
 		INSERT INTO tb_member_detail (STRMEMBERDETAILID, STRMEMBERID, STRMODELOFCAR, STRCARLICENSE, STRCARCOLOR, STRCARTYPE,
 		                         DBUYPRICE, STRBUYDATE, STRADDRESS, STRUSENATURE, STRREGISTERDATE, STRCARIDENTIFYCODE, STRDATEOFISSUE, STRENGINENUMBER,
 		                         STRPOSTPROVINCE, STRPOSTCITY, STRPOSTAREA, STRPOSTSTREET, STRPOSTDETAILADDRESS, STRPOSTCODE, STRINSERTTIME)
