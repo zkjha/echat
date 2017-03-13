@@ -461,7 +461,12 @@ define(
                 $scope.isShowListMenu = [];
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
+                $scope.member={};
+                $scope.sexs=[{"id":0,"value":"男"},{"id":1,"value":"女"}];
+                $scope.memberstatusList=[{"id":0,"value":"禁用"},{"id":1,"value":"激活"}];
 
+
+                MemberCenter.initExpandInfoList($scope, $http);
                 MemberCenter.getMemberList($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
@@ -484,11 +489,117 @@ define(
 
                     $scope.showEditMemberInfoWindow=true;
                     $scope.isAddNewMember=true;
+                    $scope.nowStep=2;
+                    $scope.member={};
+                    //默认会员激活状态
+                    $scope.member.intStatus=1;
+                    //初始化会员级别信息
+                    MemberCenter.initMemberLevelsSelectData($scope, $http);
+
                 };
                 $scope.closeEditMemberInfoWindow=function(){
                     $scope.showEditMemberInfoWindow=false;
+                };
+
+                //回到第一步
+                $scope.backToFirstStep=function(){
+                    $scope.nowStep=1;
+                };
+                //第一步提交
+                $scope.submitMemberFirstinfo=function(){
+
+                    $scope.nowStep=2;
+
                 }
 
+            },
+            //初始化拓展资料数据
+            initExpandInfoList:function($scope, $http){
+                var data ={"strMemberid":"1"};
+                $http.post(remoteUrl.listAllExpandInfo,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+
+                        if (code == 1) {
+
+                            $scope.expandData=  data.memberexpandinformationVOList;
+
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            //初始化会员级别选择列表数据
+            initMemberLevelsSelectData:function($scope, $http){
+                $http.post(remoteUrl.listAllMemberLevels).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+
+                        if (code == 1) {
+
+                          $scope.memberlevelsEntityList=  data.memberlevelsEntityList;
+                            if($scope.memberlevelsEntityList.length>0){
+                                $scope.member.strLevelsname=$scope.memberlevelsEntityList[0].strLevelsid;
+                            }
+
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
             },
             //查询会员列表
             getMemberList:function($scope, $http){

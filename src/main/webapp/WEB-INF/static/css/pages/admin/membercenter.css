@@ -21,3 +21,19 @@
     cursor: pointer;
     padding: 5px;
 }
+.small-span{
+    border: 1px solid #e7e7e7;
+    text-align: center;
+    /* line-height: 20px; */
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    margin: 0 5px;
+    display: inline-block;
+    padding: 0 5px;
+}
+.small-span-primary{
+    background: #ffa038;
+    color: #ffffff;
+    border: 1px solid #ffa038;
+}

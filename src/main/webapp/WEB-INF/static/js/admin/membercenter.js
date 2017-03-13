@@ -37,6 +37,7 @@ requirejs(
         'filter/replaceExpandTypeFilter',
         'filter/replaceEmployeeFilter',
         'dirctive/ng-pagination',
+        'dirctive/ExpandListDirective',
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
@@ -44,7 +45,7 @@ requirejs(
     ],
     function(angular,memberCentController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList']);
 
         //路由配置
         app.config(["$routeProvider", function($routeProvider) {

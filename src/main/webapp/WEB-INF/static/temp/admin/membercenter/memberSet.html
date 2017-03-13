@@ -85,41 +85,188 @@
         </div>
         <div class="-lpy-alert-window-main-content ">
 
+            <div class="mt10 ">
+                    <span class="small-span " ng-class="{'small-span-primary':nowStep==1}">基本资料</span><span class="small-span " ng-class="{'small-span-primary':nowStep==2}">详细资料</span>
+              <hr>
+
+            </div>
             <div class="-lpy-edit-staff-content">
 
-                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
+
+                <form  name="member" ng-submit="submitMemberFirstinfo()">
+                    <div  ng-if="nowStep==1">
                     <div class="form-container">
-                        <div class=" w300 center">
+                        <div class=" w300 fl">
 
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
-                                <input type="text" ng-value="memberexpandinformationEntity.strInformationname" name="strInformationname"   ng-model="memberexpandinformationEntity.strInformationname" ngTrim="true" ng-maxlength="8" required/>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：
+                                <input type="text" ng-value="member.strRealname" name="strRealname"   ng-model="member.strRealname" ngTrim="true" ng-maxlength="8" required/>
+
+
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：
+                                <input type="text" ng-value="member.strMobile" name="strMobile"   ng-model="member.strMobile" ngTrim="true" ng-maxlength="11" required/>
 
 
                             </div>
-
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 是否必填：
-                                <select ng-model="memberexpandinformationEntity.intIsmust" ng-options="mustInput.id as mustInput.value for mustInput in mustInputTypes"></select>
-
-                            </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
-                                <select ng-disabled="!isAddNewExpand" ng-change="typeChange()" ng-model="memberexpandinformationEntity.intType" ng-options="inputType.id as inputType.value for inputType in inputTypes"></select>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+                                <select  ng-model="member.intSex" ng-options="sex.id as sex.value for sex in sexs"></select>
 
                             </div>
 
-                            <div ng-repeat="option in  optionsArray"    class="mt20" >&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项：
-                                <input type="text" ng-value="memberexpandinformationEntity.options[$index]" name="strRealname"   ng-model="memberexpandinformationEntity.options[$index]" ngTrim="true" ng-maxlength="8" required/>
-                                <span ng-if="optionIsMoreOne" ng-click="subOption($index)" class="option-controller-span">-</span> <span ng-click="addOption($index)" class="option-controller-span">+</span>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 会员级别：
+                                <select ng-model="member.strLevelsname" ng-options="memberlevelsEntity.strLevelsid as memberlevelsEntity.strLevelsname for memberlevelsEntity in memberlevelsEntityList"></select>
+
                             </div>
+
+
+
 
 
                         </div>
-                        <div class="mt10"></div>
+
+                        <div class=" w300 fl">
+
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 身份证号：
+                                <input type="text" ng-value="member.strIdcard" name="strIdcard"   ng-model="member.strIdcard" ngTrim="true" ng-maxlength="18" required/>
+
+
+                            </div>
+
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：
+                                <input type="text" ng-value="member.intAge" name="intAge"   ng-model="member.intAge" ngTrim="true" ng-maxlength="3" />
+
+
+                            </div>
+                            <!--<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 会员卡号：-->
+                                <!--<input type="text" ng-value="member.strMembercardnum" name="strMembercardnum"   ng-model="member.strMembercardnum" ngTrim="true" ng-maxlength="8" required/>-->
+
+
+                            <!--</div>-->
+
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 会员状态：
+                                <select  ng-model="member.intStatus" ng-options="memberstatus.id as memberstatus.value for memberstatus in memberstatusList"></select>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="mt10 clearfix"></div>
                     </div>
 
-                    <div class="w150 center ">
-                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
+
+                    <div class="h50"></div>
+                    <div class="w100 center ">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="下一步"/>
                     </div>
+                   </div>
                 </form>
+
+
+
+                    <form  name="member2" ng-submit="submitMemberFirstinfo()">
+                        <div ng-if="nowStep==2">
+                        <div class="form-container" >
+                            <div class=" w300 fl">
+
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 品牌型号：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 颜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 购买价格：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 购买日期：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 注册日期：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 发证日期：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+
+                            </div>
+
+                            <div class=" w300 fl">
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 省&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 车辆类型：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 住&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 使用性质：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 车辆识别码：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 发动机号：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="mt10 clearfix"></div>
+                            <hr>
+                             <h1 class="pl10">邮寄地址</h1>
+                            <hr>
+                            <div class=" w300 fl">
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 省&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;县：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;详细地址：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+
+                            </div>
+
+                            <div class=" w300 fl">
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 城&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp; 街&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;道：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" />
+                                </div>
+                                <div class="mt20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编：
+                                    <input type="text" ng-value="member2.a" name="strRealname"   ng-model="member2.a" ngTrim="true" ng-maxlength="8" required/>
+                                </div>
+                            </div>
+                            <div class="mt10 clearfix"></div>
+
+
+                            <hr>
+                            <h1 class="pl10">拓展资料</h1>
+                            <hr>
+
+                            <div>
+                                <expandlist expand-data="expandData" ></expandlist>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="h20"></div>
+                        <div class="w150 center ">
+                            <a class=" small-btn small-btn-primary" ng-click="backToFirstStep()" >上一步</a>   <input class=" small-btn small-btn-primary" type="submit" value="保存"/>
+                        </div>
+                         <div class="h20"></div>
+                        </div>
+                    </form>
+
             </div>
         </div>
     </div>

@@ -48,6 +48,21 @@ public class WechatHomepageController {
 	}
 	
 	/**
+	 * 个人中心二维码页面
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/userBarCode")
+	public ModelAndView userBarCode(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/userBarCode");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 查询会员基本信息
 	 * @return
 	 */

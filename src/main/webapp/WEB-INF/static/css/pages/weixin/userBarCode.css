@@ -1,0 +1,26 @@
+body{
+	background-color: #FEC629;
+}
+.z-vipCard-QRcode{
+	width: 6.5rem;
+	height: 8rem;
+	margin-top: 2rem;
+	margin-left: .5rem;
+	/*background-color: white;*/
+}
+.z-vipCard-QRcode-img{
+	border: 1px solid white;
+	width: 6.33rem;
+	height: 6.33rem;
+	padding: .1rem;
+}
+.z-vipCard-QRcode-img img{
+	height: 100%;
+	width: 100%;
+}
+.z-vipCard-QRcode p{
+	margin-top: .5rem;
+	text-align: center;
+	color: #000000;
+	font-size:.35rem;
+}

@@ -15,6 +15,7 @@ import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberexpandinformationEntity;
 import com.ecard.entity.MemberlevelsEntity;
+import com.ecard.enumeration.MemberexpandinformationMustEnum;
 import com.ecard.mapper.MemberMapper;
 import com.ecard.mapper.MemberexpandinformationMapper;
 import com.ecard.vo.MemberVO;
@@ -128,7 +129,12 @@ public class MemberService {
 					memberexpandinformationVO.setStrOptions(buildOptionsArr(memberexpandinformationEntity.getStrOptions()));
 					memberexpandinformationVO.setIntIsmust(memberexpandinformationEntity.getIntIsmust());
 					memberexpandinformationVO.setIntType(memberexpandinformationEntity.getIntType());
-					memberexpandinformationVO.setStrValue("");
+					if(memberexpandinformationEntity.getIntIsmust()==MemberexpandinformationMustEnum.MUST_TRUE.getValue()&&memberexpandinformationEntity.getIntType()==1) {
+						memberexpandinformationVO.setStrValue(buildOptionsArr(memberexpandinformationEntity.getStrOptions())[0]);
+					} else {
+						memberexpandinformationVO.setStrValue("");
+					}
+					
 					memberexpandinformationVOList.add(memberexpandinformationVO);
 				}
 			} else {

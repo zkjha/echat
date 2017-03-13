@@ -63,7 +63,7 @@ define(
             editFrontinfoController: function ($scope, $http, $routeParams,
                                                $location, $sce) {
                 // 回显数据
-                HomePageContor.getFromeinfo($scope, $http, $sce, 2)
+                HomePageContor.getFromeinfo($scope, $http, $sce, 2);
                 $scope.frontinfoHtml = {};
 
                 $scope.editFrontinfoisActive = true;
