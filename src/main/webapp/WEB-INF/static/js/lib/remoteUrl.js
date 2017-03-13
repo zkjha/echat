@@ -75,6 +75,10 @@ define([],function(){
             getMemberexpandinformationById:"/admin/biz/memberexpandinformation/getMemberexpandinformationById",
             //查询会员列表
             listMember:"/admin/biz/member/listMember",
+            //查询会员级别select
+            listAllMemberLevels:"/admin/biz/member/listAllMemberLevels",
+            //会员拓展资料选项信息
+            listAllExpandInfo:"/admin/biz/member/listAllExpandInfo",
         ////////////会员部分结束/////////////////////////////
 
 
