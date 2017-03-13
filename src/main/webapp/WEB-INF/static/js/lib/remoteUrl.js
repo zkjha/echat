@@ -86,7 +86,9 @@ define([],function(){
 			//发送验证码
 			weixinsendAuthcode:"/weixin/sendAuthcode",
 			//认证
-			weixinloginCertification:"loginCertification"
+			weixinloginCertification:"/weixin/loginCertification",
+			//得到登陆的用户信息
+			 weixingetLoginUserInfo:" /weixin/biz/getLoginUserInfo"
     };
 	return remoteUrl;
 	

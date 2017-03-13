@@ -19,21 +19,30 @@
 <script type="text/javascript">
 	
     (function(){
-    var hotcss = '<script src="'+ TK.STATIC_ROOT+'js/lib/mobile_hotcss.js" ><\/script>';
-	    document.write(hotcss);	
+    var hotcss = '<script src="'+ EK.STATIC_ROOT+'js/lib/mobile_hotcss.js" ><\/script>';
+	    document.write(hotcss);
     	
     var css ='<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/base.css">'
     +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/libs/global.css">'
-    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/weixin/weixinGlobe.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/weixin/weixinGlobal.css">'
+    +'<link type="text/css" rel="stylesheet" href="'+ EK.STATIC_ROOT+'css/pages/weixin/index.css">'
     document.write(css);
     })();
 </script>
 
 <title>微信首页</title>
 </head>
-<body>
-	<div class="mobile_content">
-		微信首页
-	</div>
+<body ng-controller="homepage">
+	<alert></alert>
+	<comfirm></comfirm>
+	<toast></toast>
+	<div ng-include="'/static/temp/weixin/index.html'"></div>
 </body>
 </html>
+<script type="text/javascript">
+    (function(){
+    var footer = '<script src="'+ EK.STATIC_ROOT+'js/lib/require.js" data-main="'+ EK.STATIC_ROOT+'js/weixin/homepage"><\/script>';
+    document.write(footer);
+    })();
+
+</script>

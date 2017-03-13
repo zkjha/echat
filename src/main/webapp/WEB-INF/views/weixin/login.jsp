@@ -39,16 +39,25 @@
 		<div class="z-login-top">
 			<div class="z-login-top-center">
 				<p class="z-login-commonText">手机号：</p>
-				<p class="z-login-input"><input type="" name="" id="" value="strMobile" ng-model="strMobile"/> <button class="z-login-click" ng-click="send()"><resend-code></resend-code></button></p>
+				<p class="z-login-input"><input type="" name="" id="" value="" ng-model="strMobile"/> <button class="z-login-click"><resend-code></resend-code></button></p>
 				<p class="z-login-commonText">验证码：</p>
-				<p class="z-login-input"><input type="" name="" id="" value="strAuthcode" ng-model="strAuthcode"/></p>
+				<p class="z-login-input"><input type="" name="" id="" value="" ng-model="strAuthcode"/></p>
 				<p class="z-login-last-true"><span class="z-login-click-ture" ng-click="login()">认证 </span></p>
 			</div>
 		</div>
 		<div class="z-login-body">
 			<ul>
 				<li class="z-login-commonText">进行车辆认证后，你将获得更多服务:</li>
-				<li class="z-login-orderBy">1、无需。。。。</li>
+				<li class="z-login-orderBy">1、无需携带会员卡，可凭二维码直接进店消费。</li>
+				<li class="z-login-orderBy">2、实时查询会员卡账户信息</li>
+				<li class="z-login-orderBy">3、在线查询会员卡各项优惠详情</li>
+				<li class="z-login-orderBy">4、在线查阅积分可兑换礼品</li>
+			</ul>
+			<ul>
+				<li class="z-login-commonText">认证方法:</li>
+				<li class="z-login-orderBy">1、输入会员系统中预留的手机号码。</li>
+				<li class="z-login-orderBy">2、点击获取验证码</li>
+				<li class="z-login-orderBy">3、输入验证码后点击"认证"</li>
 			</ul>
 			<p class="z-login-commonText z-login-warm">注意：<br />若你输入的手机号码与预留号码不一致，则不能认证成功。</p>
 		</div>
@@ -61,5 +70,4 @@
     var footer = '<script src="'+ EK.STATIC_ROOT+'js/lib/require.js" data-main="'+ EK.STATIC_ROOT+'js/weixin/login"><\/script>';
     document.write(footer);
     })();
-
 </script>

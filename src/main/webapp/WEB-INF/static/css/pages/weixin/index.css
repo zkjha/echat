@@ -1,0 +1,178 @@
+body{
+	background-color: #D8D8D8;
+	overflow: hidden;
+}
+.z-homepage-all{
+	padding: .3rem .2rem;
+	width: 7.1rem;
+	background-color: #D8D8D8;
+}
+.z-homepage-card{
+	height: 3.1rem;
+	background-color: #E8E8E8;
+	padding: .2rem 0px;
+	text-align: center;
+}
+.z-homepage-card-vip{
+	height: 3.1rem;
+	width: 4.6rem;
+	border-radius: 30px;
+	display: inline-block;
+	background-color: #000000;
+	position: relative;
+}
+.z-homepage-card-vip-class{
+	width: 1.8rem;
+	right: 0px;
+	top: 0px;
+	color: white;
+	height: 3.1rem;
+	position: absolute;
+	z-index: 1;
+}
+.z-homepage-card-vip-class p{
+	width: 100%;
+	text-align: center;
+}
+.z-homepage-card-vip-class-img{
+	height: 3.1rem;
+	width: 4.6rem;
+	position: absolute;
+	z-index: 0;
+}
+.z-homepage-card-vip-class-img img{
+	height: 100%;
+	width: 100%;
+}
+.z-homepage-card-vip-class-name{
+	position: absolute;
+	top:40%;
+	font-size:.25rem;
+}
+.z-homepage-card-vip-class-number{
+	position: absolute;
+	bottom:.4rem;
+	font-size:.20rem;
+	color: gainsboro;
+}
+.z-homepage-card-vip-class-number span{
+	font-size: .18rem;
+}
+.z-homepage-body{
+	margin-top: .1rem;
+	width: 6.88rem;
+	padding: .06rem .1rem;
+
+	border: 1px solid white;
+}
+/*三个中心*/
+.z-homepage-top,.z-homepage-buttom{
+	
+	border: 1px solid white;
+}
+.z-homepage-middle{
+	margin: .1rem 0px;
+}
+.z-homepage-top-Threeall{
+	display: -webkit-box;
+}
+.z-homepage-three{
+	-webkit-box-flex: 1;
+	height: 1.8rem;
+	border: 1px solid white;
+	text-align: center;
+	background-color: #777777;
+}
+.z-homepage-three-img{
+	margin-top: .2rem;
+	position: relative;
+}
+.z-homepage-three-img p{
+	position: absolute;
+	top: -.6rem;
+	left: 50%;
+	margin-left: -.04rem;
+}
+.z-homepage-three-img img{
+	height: 100%;
+	height: .5rem;
+}
+.z-homepage-three-score{
+	color: #F37F44;
+	font-size: .35rem;
+}
+.z-homepage-three-name{
+	color: white;
+	font-size: .18rem;
+}
+/*赛车图片*/
+.z-homepage-buttom-img{
+	width: 100%;
+}
+.z-homepage-buttom-img img{
+	width: 100%;
+}
+/*二维码处*/
+.z-homepage-middle-fourall{
+	display: -webkit-box;
+}
+.z-homepage-four-top{
+	margin-top: .11rem;
+	padding:8px;
+	border: 1px solid #777;
+	max-width: 2rem;
+	max-height: 2rem;
+}
+.z-homepage-four-top img{
+	width: 100%;
+	height: 100%;
+}
+.z-homepage-four{
+	height: 2.2rem;
+	width: 2.2rem;
+	-webkit-box-flex: 1;
+}
+.z-homepage-four-middle{
+	margin: .1rem;
+	border: 1px solid white;
+	text-align: center;
+	background-color: #FEC629;
+	color: white;
+}
+.z-homepage-four-middle p{
+	margin-top: .7rem;
+	font-size: .18rem;
+	line-height: .4rem;
+}
+.z-homepage-four-middle p img{
+	width: .5rem;
+}
+.z-homepage-four-one,.z-homepage-four-two{
+	 height: 1rem;
+	 border: 1px solid white;
+	 margin-top: .1rem;
+	 background-color: #FEC629;
+	 color: white;
+}
+.z-homepage-four-one div{
+	float: left;
+}
+.z-homepage-four-one-img{
+	height: 1rem;
+	margin-left: .1rem;
+}
+.z-homepage-four-one-img img{
+	width: .5rem;
+	margin-top: .25rem;
+}
+.z-homepage-four-one-text{
+	line-height: 1rem;
+	font-size: .25rem;
+	padding-left: .25rem;
+}
+.z-homepage-four-two{
+	margin-top: .15rem;
+}
+.z-homepage-four-two div{
+	float: left;
+}
