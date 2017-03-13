@@ -1,0 +1,20 @@
+<div>
+<div ng-repeat="expand in expandData">
+    <div ng-if="expand.intType==0">
+        {{expand.strInformationname}} :
+
+            <input ng-if="expand.intIsmust==1" type="text" ng-model="test[$index]" ng-value="expand.strValue" />
+
+
+            <input ng-if="expand.intIsmust==0" type="text" ng-model="test[$index]" ng-value="expand.strValue" required/>
+
+
+    </div>
+    <div ng-if="expand.intType==1">
+
+        {{expand.strInformationname}} :
+        <select  ng-model="test[$index]" ng-init="test[$index]=expand.strValue" ng-change="changeselect()" ng-options="option as option for option  in  expand.strOptions">
+        </select>
+    </div>
+</div>
+</div>
