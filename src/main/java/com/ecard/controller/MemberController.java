@@ -39,7 +39,7 @@ import com.ecard.vo.MemberexpandinformationVO;
  *
  */
 @Controller
-@RequestMapping("/admin/")
+@RequestMapping("/admin/biz/member")
 public class MemberController {
 	
 	@Resource
@@ -134,6 +134,7 @@ public class MemberController {
 		//会员详细信息结束
 		try {
 			String strMemberid = DataTool.getUUID();
+			String strInserttime = DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 			List<MemberexpandinformationEntity> memberexpandinfoList = memberexpandinformationService.listMemberexpandinformation(null);
 			List<MemberexpandattributeEntity> attributeList = new LinkedList<MemberexpandattributeEntity>();
 			if(memberexpandinfoList!=null&&memberexpandinfoList.size()>0) {
@@ -154,7 +155,7 @@ public class MemberController {
 						memberexpandattributeEntity.setStrMemberid(strMemberid);
 						memberexpandattributeEntity.setStrInformationid(memberexpandinformationEntity.getStrInformationid());
 						memberexpandattributeEntity.setStrAttributevalue(params.trim());
-						memberexpandattributeEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+						memberexpandattributeEntity.setStrInserttime(strInserttime);
 						attributeList.add(memberexpandattributeEntity);
 					}
 				}
@@ -173,7 +174,7 @@ public class MemberController {
 				memberEntity.setIntSex(intSex);
 				memberEntity.setStrLevelsid(strLevelsid.trim());
 				memberEntity.setIntStatus(intStatus);
-				memberEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				memberEntity.setStrInserttime(strInserttime);
 				
 				//会员详细资料
 				MemberdetailEntity memberdetailEntity = new MemberdetailEntity();
@@ -197,7 +198,7 @@ public class MemberController {
 				memberdetailEntity.setStrPoststreet(DataTool.trimStr(strPoststreet));
 				memberdetailEntity.setStrPostdetailaddress(DataTool.trimStr(strPostdetailaddress));
 				memberdetailEntity.setStrPostcode(DataTool.trimStr(strPostcode));
-				memberdetailEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				memberdetailEntity.setStrInserttime(strInserttime);
 				
 				
 				memberService.insertMember(memberEntity, memberdetailEntity, attributeList);
@@ -335,6 +336,7 @@ public class MemberController {
 		
 		//会员详细信息结束
 		try {
+			String strUpdatetime = DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 			List<MemberexpandinformationEntity> memberexpandinfoList = memberexpandinformationService.listMemberexpandinformation(null);
 			List<MemberexpandattributeEntity> attributeList = new LinkedList<MemberexpandattributeEntity>();
 			if(memberexpandinfoList!=null&&memberexpandinfoList.size()>0) {
@@ -355,7 +357,7 @@ public class MemberController {
 						memberexpandattributeEntity.setStrMemberid(strMemberid);
 						memberexpandattributeEntity.setStrInformationid(memberexpandinformationEntity.getStrInformationid());
 						memberexpandattributeEntity.setStrAttributevalue(params.trim());
-						memberexpandattributeEntity.setStrInserttime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+						memberexpandattributeEntity.setStrInserttime(strUpdatetime);
 						attributeList.add(memberexpandattributeEntity);
 					}
 				}
@@ -372,7 +374,7 @@ public class MemberController {
 			memberEntity.setIntSex(intSex);
 			memberEntity.setStrLevelsid(strLevelsid.trim());
 			memberEntity.setIntStatus(intStatus);
-			memberEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+			memberEntity.setStrUpdatetime(strUpdatetime);
 			
 			//会员详细资料
 			MemberdetailEntity memberdetailEntity = new MemberdetailEntity();
@@ -396,7 +398,7 @@ public class MemberController {
 			memberdetailEntity.setStrPoststreet(DataTool.trimStr(strPoststreet));
 			memberdetailEntity.setStrPostdetailaddress(DataTool.trimStr(strPostdetailaddress));
 			memberdetailEntity.setStrPostcode(DataTool.trimStr(strPostcode));
-			memberdetailEntity.setStrUpdatetime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+			memberdetailEntity.setStrUpdatetime(strUpdatetime);
 			
 			
 			memberService.updateMember(memberEntity, memberdetailEntity, attributeList);

@@ -28,7 +28,7 @@ import com.ecard.service.MemberexpandinformationService;
  *
  */
 @Controller
-@RequestMapping("/admin/biz/memberexpandinformation/")
+@RequestMapping("/admin/biz/memberexpandinformation")
 public class MemberexpandinformationController {
 	
 	@Resource

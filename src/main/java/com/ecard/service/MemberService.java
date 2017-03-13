@@ -125,7 +125,7 @@ public class MemberService {
 					MemberexpandinformationVO memberexpandinformationVO = new MemberexpandinformationVO();
 					memberexpandinformationVO.setStrInformationid(memberexpandinformationEntity.getStrInformationid());
 					memberexpandinformationVO.setStrInformationname(memberexpandinformationEntity.getStrInformationname());
-					memberexpandinformationVO.setStrOptions(memberexpandinformationEntity.getStrOptions());
+					memberexpandinformationVO.setStrOptions(buildOptionsArr(memberexpandinformationEntity.getStrOptions()));
 					memberexpandinformationVO.setIntIsmust(memberexpandinformationEntity.getIntIsmust());
 					memberexpandinformationVO.setIntType(memberexpandinformationEntity.getIntType());
 					memberexpandinformationVO.setStrValue("");
@@ -139,7 +139,7 @@ public class MemberService {
 					MemberexpandinformationVO memberexpandinformationVO = new MemberexpandinformationVO();
 					memberexpandinformationVO.setStrInformationid(memberexpandinformationEntity.getStrInformationid());
 					memberexpandinformationVO.setStrInformationname(memberexpandinformationEntity.getStrInformationname());
-					memberexpandinformationVO.setStrOptions(memberexpandinformationEntity.getStrOptions());
+					memberexpandinformationVO.setStrOptions(buildOptionsArr(memberexpandinformationEntity.getStrOptions()));
 					memberexpandinformationVO.setIntIsmust(memberexpandinformationEntity.getIntIsmust());
 					memberexpandinformationVO.setIntType(memberexpandinformationEntity.getIntType());
 					memberexpandinformationVO.setStrValue(findExpandinfo(memberexpandattributeList, memberexpandinformationEntity.getStrInformationid()));
@@ -164,6 +164,15 @@ public class MemberService {
 			
 		}
 		return value;
+	}
+	
+	//构建选项数组
+	private String[] buildOptionsArr(String strOptions) {
+		String [] options = {};
+		if(!ValidateTool.isEmptyStr(strOptions)) {
+			options = strOptions.split(",");
+		}
+		return options;
 	}
 
 }

@@ -26,7 +26,7 @@ public class MemberexpandinformationVO {
 	/**
 	 * 选项JSON数据
 	 */
-	private String strOptions;
+	private String [] strOptions;
 	/**
 	 * 存放会员已经保存了的该拓展资料的值
 	 */
@@ -55,10 +55,10 @@ public class MemberexpandinformationVO {
 	public void setIntType(int intType) {
 		this.intType = intType;
 	}
-	public String getStrOptions() {
+	public String[] getStrOptions() {
 		return strOptions;
 	}
-	public void setStrOptions(String strOptions) {
+	public void setStrOptions(String[] strOptions) {
 		this.strOptions = strOptions;
 	}
 	public String getStrValue() {
