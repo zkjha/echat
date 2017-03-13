@@ -444,8 +444,110 @@ define(
                             $scope.showAlert("服务器错误")
                         }
                     });
-            }
+            },
             ////////////////////会员拓展资料部分结束/////////////////////////
+
+
+
+
+
+
+
+
+            ////////////////////会员管理部分开始/////////////////////////
+
+            memberSetController:function($scope, $http){
+
+                $scope.isShowListMenu = [];
+                $scope.currentPage = 1;
+                $scope.pageSize = 5;
+
+                MemberCenter.getMemberList($scope, $http);
+                $scope.onPageChange = function () {
+                    // ajax request to load data
+
+                    MemberCenter.getExpandInfoList($scope, $http);
+
+                };
+
+                $scope.openCtrMenu = function ($index, type) {
+                    for (var i = 0; i < $scope.memberList.length; i++) {
+                        $scope.isShowListMenu[i] = false;
+                    }
+                    if (type == 'over') {
+                        $scope.isShowListMenu[$index] = !$scope.isShowListMenu[$index];
+                    }
+
+                };
+                //新增会员信息
+                $scope.newMemberinfo=function(){
+
+                    $scope.showEditMemberInfoWindow=true;
+                    $scope.isAddNewMember=true;
+                };
+                $scope.closeEditMemberInfoWindow=function(){
+                    $scope.showEditMemberInfoWindow=false;
+                }
+
+            },
+            //查询会员列表
+            getMemberList:function($scope, $http){
+                var data = {
+                    'pagenum': $scope.currentPage,
+                    "pagesize": $scope.pageSize,
+                    "strSearchkey":""
+                };
+
+                $http.post(remoteUrl.listMember, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+                        //code=-8;
+                        if (code == 1) {
+                            //图片跟路径
+
+                            $scope.pageCount = data.iTotalPage;
+                            $scope.memberList = data.memberList;
+
+                            for (var i = 0; i < $scope.memberList.length; i++) {
+                                $scope.isShowListMenu[i] = false;
+                            }
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                 });
+            }
+
+
+
+
+            ////////////////////会员管理部分结束/////////////////////////
 
         };
 

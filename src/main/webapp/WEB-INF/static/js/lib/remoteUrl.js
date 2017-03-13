@@ -72,15 +72,21 @@ define([],function(){
             //新增会员拓展资料
             insertMemberexpandinformation:"/admin/biz/memberexpandinformation/insertMemberexpandinformation",
             //根据ID查询会员拓展资料
-            getMemberexpandinformationById:"/admin/biz/memberexpandinformation/getMemberexpandinformationById"
+            getMemberexpandinformationById:"/admin/biz/memberexpandinformation/getMemberexpandinformationById",
+            //查询会员列表
+            listMember:"/admin/biz/member/listMember",
         ////////////会员部分结束/////////////////////////////
 
 
         /**
          * 微信前端部分
          */
-
-
+		////////////登陆认证/////////////////////////////
+			
+			//发送验证码
+			weixinsendAuthcode:"/weixin/sendAuthcode",
+			//认证
+			weixinloginCertification:"loginCertification"
     };
 	return remoteUrl;
 	
