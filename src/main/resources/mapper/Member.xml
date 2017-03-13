@@ -127,4 +127,53 @@
 							    </foreach>	
 	</insert>
 	
+	<!-- 查询会员基本信息 -->
+	<select id="getMemberById" parameterType="string" resultType="com.ecard.entity.MemberEntity">
+		SELECT STRMEMBERID AS strMemberid, STRREALNAME AS strRealname, STRIDCARD AS strIdcard, STRMOBILE AS strMobile, INTAGE AS intAge, 
+		       STRMEMBERCARDNUM AS strMembercardnum, STRLEVELSID AS strLevelsid, INTSEX AS intSex, INTSTATUS AS intStatus
+		FROM tb_member
+		WHERE STRMEMBERID=#{strMemberid}
+	</select>
+	
+	<!-- 查询会员详细信息 -->
+	<select id="getMemberdetailById" parameterType="string" resultType="com.ecard.entity.MemberdetailEntity">
+		SELECT STRMEMBERDETAILID AS strMemberdetailid, STRMEMBERID AS strMemberid, STRMODELOFCAR AS strModelofcar, STRCARLICENSE AS strCarlicense, 
+		　　　　　 STRCARCOLOR AS strCarcolor, STRCARTYPE AS strCartype, DBUYPRICE AS dBuyprice, STRBUYDATE AS strBuydate, STRADDRESS AS strAddress, 
+		       STRUSENATURE AS strUsenature, STRREGISTERDATE AS strRegisterdate, STRCARIDENTIFYCODE AS strCaridentifycode, STRDATEOFISSUE AS strDateofissue, 
+		       STRENGINENUMBER AS strEnginenumber, STRPOSTPROVINCE AS strPostprovince, STRPOSTCITY AS strPostcity, STRPOSTAREA AS strPostarea, 
+		       STRPOSTSTREET AS strPoststreet, STRPOSTDETAILADDRESS AS strPostdetailaddress, STRPOSTCODE AS strPostcode
+		FROM tb_member_detail
+		WHERE STRMEMBERID=#{strMemberid} LIMIT 1
+	</select>
+	
+	<!-- 查询会员拓展资料信息 -->
+	<select id="listMemberExpandInfoById" parameterType="string" resultType="com.ecard.entity.MemberexpandattributeEntity">
+		SELECT STRATTRIBUTEID AS strAttributeid, STRMEMBERID AS strMemberid, STRINFORMATIONID AS strInformationid, STRATTRIBUTEVALUE AS strAttributevalue
+		FROM tb_member_expand_attribute
+		WHERE STRMEMBERID=#{strMemberid}
+	</select>
+	
+	<!-- 修改会员基本信息 -->
+	<update id="updateMember" parameterType="com.ecard.entity.MemberEntity">
+		UPDATE tb_member SET STRREALNAME=#{strRealname}, STRIDCARD=#{strIdcard}, INTAGE=#{intAge}, STRLEVELSID=#{strLevelsid}, INTSEX=#{intSex}, 
+		                     INTSTATUS=#{intStatus}, STRUPDATETIME=#{strUpdatetime}
+		WHERE STRMEMBERID=#{strMemberid}
+	</update>
+	
+	<!-- 修改会员详细信息 -->
+	<update id="updateMemberDetail" parameterType="com.ecard.entity.MemberdetailEntity">
+		UPDATE tb_member_detail SET STRMODELOFCAR=#{strModelofcar}, STRCARLICENSE=#{strCarlicense}, STRCARCOLOR=#{strCarcolor}, STRCARTYPE=#{strCartype},
+		 							DBUYPRICE=#{dBuyprice}, STRBUYDATE=#{strBuydate}, STRADDRESS=#{strAddress}, STRUSENATURE=#{strUsenature}, 
+		 							STRREGISTERDATE=#{strRegisterdate}, STRCARIDENTIFYCODE=#{strCaridentifycode}, STRDATEOFISSUE=#{strDateofissue}, 
+		 							STRENGINENUMBER=#{strEnginenumber}, STRPOSTPROVINCE=#{strPostprovince}, STRPOSTCITY=#{strPostcity}, STRPOSTAREA=#{strPostarea}, 
+		 							STRPOSTSTREET=#{strPoststreet}, STRPOSTDETAILADDRESS=#{strPostdetailaddress}, STRPOSTCODE=#{strPostcode}, STRUPDATETIME=#{strUpdatetime}
+		WHERE STRMEMBERID=#{strMemberid}
+	</update>
+	
+	<!-- 删除会员拓展资料信息 -->
+	<delete id="deleteMemberexpandattribute" parameterType="string">
+		DELETE FROM tb_member_expand_attribute WHERE STRMEMBERID=#{strMemberid}
+	</delete>
+	
+	
 </mapper>

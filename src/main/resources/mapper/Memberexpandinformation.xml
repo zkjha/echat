@@ -41,7 +41,7 @@
 	      	</if>
       	 </where>
       	 ORDER BY STRINSERTTIME DESC
-      	 <if test="pageSize != 0">
+      	 <if test="pageSize != null and pageSize != 0">
 	     	LIMIT #{pageFrom}, #{pageSize}	
 	     </if>
 	</select>

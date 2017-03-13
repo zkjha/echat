@@ -1,11 +1,11 @@
-package com.ecard.entity;
+package com.ecard.vo;
 
 /**
- * 会员拓展资料信息实体
+ * 会员拓展资料VO
  * @author Administrator
  *
  */
-public class MemberexpandinformationEntity {
+public class MemberexpandinformationVO {
 
 	/**
 	 * 主键
@@ -28,13 +28,9 @@ public class MemberexpandinformationEntity {
 	 */
 	private String strOptions;
 	/**
-	 * 新增时间
+	 * 存放会员已经保存了的该拓展资料的值
 	 */
-	private String strInserttime;
-	/**
-	 * 修改时间
-	 */
-	private String strUpdatetime;
+	private String strValue;
 	public String getStrInformationid() {
 		return strInformationid;
 	}
@@ -65,17 +61,10 @@ public class MemberexpandinformationEntity {
 	public void setStrOptions(String strOptions) {
 		this.strOptions = strOptions;
 	}
-	public String getStrInserttime() {
-		return strInserttime;
+	public String getStrValue() {
+		return strValue;
 	}
-	public void setStrInserttime(String strInserttime) {
-		this.strInserttime = strInserttime;
+	public void setStrValue(String strValue) {
+		this.strValue = strValue;
 	}
-	public String getStrUpdatetime() {
-		return strUpdatetime;
-	}
-	public void setStrUpdatetime(String strUpdatetime) {
-		this.strUpdatetime = strUpdatetime;
-	}
-	
 } 

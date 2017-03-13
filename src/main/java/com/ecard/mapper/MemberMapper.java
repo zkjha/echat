@@ -45,4 +45,22 @@ public interface MemberMapper {
 
 	//批量插入会员拓展属性
 	void batchInsertMemberexpandattribute(@Param("attributeList")List<MemberexpandattributeEntity> attributeList) throws Exception;
+	
+	//查询会员基本信息
+	MemberEntity getMemberById(String strMemberid)  throws Exception;
+	
+	//查询会员详细信息
+	public MemberdetailEntity getMemberdetailById(String strMemberid) throws Exception;
+	
+	//查询会员拓展资料信息List
+	List<MemberexpandattributeEntity> listMemberExpandInfoById(String strMemberid) throws Exception;
+
+	//修改会员基本信息
+	void updateMember(MemberEntity memberEntity) throws Exception;
+
+	//修改会员详细信息
+	void updateMemberDetail(MemberdetailEntity memberdetailEntity) throws Exception;
+
+	//删除会员拓展资料信息
+	void deleteMemberexpandattribute(String strMemberid) throws Exception;
 }
