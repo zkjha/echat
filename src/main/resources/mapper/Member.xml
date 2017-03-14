@@ -138,7 +138,7 @@
 	<!-- 查询会员详细信息 -->
 	<select id="getMemberdetailById" parameterType="string" resultType="com.ecard.entity.MemberdetailEntity">
 		SELECT STRMEMBERDETAILID AS strMemberdetailid, STRMEMBERID AS strMemberid, STRMODELOFCAR AS strModelofcar, STRCARLICENSE AS strCarlicense, 
-		　　　　　 STRCARCOLOR AS strCarcolor, STRCARTYPE AS strCartype, DBUYPRICE AS dBuyprice, STRBUYDATE AS strBuydate, STRADDRESS AS strAddress, 
+		       STRCARCOLOR AS strCarcolor, STRCARTYPE AS strCartype, DBUYPRICE AS dBuyprice, STRBUYDATE AS strBuydate, STRADDRESS AS strAddress, 
 		       STRUSENATURE AS strUsenature, STRREGISTERDATE AS strRegisterdate, STRCARIDENTIFYCODE AS strCaridentifycode, STRDATEOFISSUE AS strDateofissue, 
 		       STRENGINENUMBER AS strEnginenumber, STRPOSTPROVINCE AS strPostprovince, STRPOSTCITY AS strPostcity, STRPOSTAREA AS strPostarea, 
 		       STRPOSTSTREET AS strPoststreet, STRPOSTDETAILADDRESS AS strPostdetailaddress, STRPOSTCODE AS strPostcode

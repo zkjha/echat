@@ -241,8 +241,8 @@ public class MemberController {
 				resultMap.put("memberEntity", memberEntity);
 				resultMap.put("memberdetailEntity", memberdetailEntity);
 			} else {
-				resultMap.put("memberEntity", new MemberEntity());
-				resultMap.put("memberdetailEntity", new MemberdetailEntity());
+				resultMap.put("memberEntity", new Object());
+				resultMap.put("memberdetailEntity", new Object());
 			}
 			List<MemberlevelsEntity> memberlevelsEntityList = memberService.listAllMemberLevels(MemberlevelsStatusEnum.ACTIVATE.getValue()); //查询所有可用的会员级别
 			if(memberlevelsEntityList==null||memberlevelsEntityList.size()<=0) {
