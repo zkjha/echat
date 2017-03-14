@@ -113,8 +113,8 @@
 		                         STRPOSTPROVINCE, STRPOSTCITY, STRPOSTAREA, STRPOSTSTREET, STRPOSTDETAILADDRESS, STRPOSTCODE, STRINSERTTIME)
 								VALUES
 								(#{strMemberdetailid}, #{strMemberid}, #{strModelofcar}, #{strCarlicense}, #{strCarcolor}, #{strCartype},
-								(#{dBuyprice}, #{strBuydate}, #{strAddress}, #{strUsenature}, #{strRegisterdate}, #{strCaridentifycode}, #{strDateofissue}, #{strEnginenumber},
-		                         #{strPostprovince}, #{strPostcity}, #{strPostarea}, #{strPoststreet}), #{strPostdetailaddress}, #{strPostcode}, #{strInserttime}
+								 #{dBuyprice}, #{strBuydate}, #{strAddress}, #{strUsenature}, #{strRegisterdate}, #{strCaridentifycode}, #{strDateofissue}, #{strEnginenumber},
+		                         #{strPostprovince}, #{strPostcity}, #{strPostarea}, #{strPoststreet}, #{strPostdetailaddress}, #{strPostcode}, #{strInserttime}
 		                         )
 	</insert>
 	
