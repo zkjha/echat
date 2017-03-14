@@ -156,7 +156,7 @@
 	<!-- 修改会员基本信息 -->
 	<update id="updateMember" parameterType="com.ecard.entity.MemberEntity">
 		UPDATE tb_member SET STRREALNAME=#{strRealname}, STRIDCARD=#{strIdcard}, INTAGE=#{intAge}, STRLEVELSID=#{strLevelsid}, INTSEX=#{intSex}, 
-		                     INTSTATUS=#{intStatus}, STRUPDATETIME=#{strUpdatetime}
+		                     INTSTATUS=#{intStatus}, STRUPDATETIME=#{strUpdatetime},INTINTEGRAL=#{intIntegral}
 		WHERE STRMEMBERID=#{strMemberid}
 	</update>
 	

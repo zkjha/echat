@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,8 @@ import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.EmployeeEntity;
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
@@ -30,6 +33,7 @@ import com.ecard.enumeration.MemberexpandinformationMustEnum;
 import com.ecard.enumeration.MemberlevelsStatusEnum;
 import com.ecard.service.MemberService;
 import com.ecard.service.MemberexpandinformationService;
+import com.ecard.service.ModUserIntergal;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
 import com.ecard.vo.MemberexpandinformationVO;
@@ -48,6 +52,8 @@ public class MemberController {
 	private MemberexpandinformationService memberexpandinformationService;
 	@Resource
 	private WebSessionUtil webSessionUtil;
+	@Resource
+	private ModUserIntergal modUserIntegral;
 	
 	
 	/**
@@ -504,5 +510,89 @@ public class MemberController {
 		}
 		
 	}
+	
+	
+	/**
+	 * 修改会员卡积分
+	 * @param request
+	 * @param response
+	 * @return
+	 * localhost:8080/admin/biz/member/modMemberIntegral?strAddOrCutFlag=0&strMemberId=e8b9c2cabd364e15ade4cce6480c7b7d&strIntegralNum=3&strDesc=1nianiqinieni
+	 */
+	@ResponseBody
+	@RequestMapping("modMemberIntegral")
+	public String ModMemIntegral(HttpServletRequest request, HttpServletResponse response) {
+		String strAddOrCutFlag = request.getParameter("strAddOrCutFlag");
+		String strMemberId = request.getParameter("strMemberId");
+		String strIntegralNum = request.getParameter("strIntegralNum");
+		String strDesc = request.getParameter("strDesc");
+		
+		int iAddOrCutFlag = 0;
+		
+		if (strAddOrCutFlag.isEmpty())
+		{
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "增加或减少标记不能为空", null);
+		}
+		
+		if (strMemberId.isEmpty())
+		{
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
+		}
+		
+		if (strIntegralNum.isEmpty())
+		{
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "积分数量不能为空", null);
+		}
+		
+		if (StringUtils.isNumeric(strIntegralNum) == false)
+		{
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "积分数量不是数字", null);
+		}
+		else {
+			iAddOrCutFlag = Integer.parseInt(strIntegralNum);
+			if(strAddOrCutFlag.equals("0"))
+			{
+				iAddOrCutFlag = -iAddOrCutFlag;
+			}
+		}
+		
+		
+		/*
+		try {
+			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+					request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		IntegralModRecord integralModRecord = new IntegralModRecord();
+		integralModRecord.setiIntegralNum(iAddOrCutFlag);
+		integralModRecord.setStrMemberId(strMemberId);
+		integralModRecord.setStrDesc(strDesc);
+		integralModRecord.setStrRecordId(DataTool.getUUID());
+		
+		// 测试先占位
+		integralModRecord.setStrEmployId("12345");
+		integralModRecord.setStrEmployName("34567");
+		integralModRecord.setStrEmployLoginName("admin");
+		
+		integralModRecord.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+		
+		try {
+			modUserIntegral.InsertNewRecord(integralModRecord);
+			
+			return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		
+	}
+	
 	
 }
