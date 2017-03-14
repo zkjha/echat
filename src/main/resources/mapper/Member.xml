@@ -123,7 +123,7 @@
 		INSERT INTO tb_member_expand_attribute (STRATTRIBUTEID, STRMEMBERID, STRINFORMATIONID, STRATTRIBUTEVALUE, STRINSERTTIME)
 								VALUES
 							    <foreach collection="attributeList" item="attribute" index="index" separator=",">
-						    		(#{strAttributeid}, #{strMemberid}, #{strInformationid}, #{strAttributevalue}, #{strInserttime})
+						    		(#{attribute.strAttributeid}, #{attribute.strMemberid}, #{attribute.strInformationid}, #{attribute.strAttributevalue}, #{attribute.strInserttime})
 							    </foreach>	
 	</insert>
 	
