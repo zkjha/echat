@@ -64,7 +64,7 @@ public class MemberController {
 		String strIdcard = request.getParameter("strIdcard");
 		String strMobile = request.getParameter("strMobile");
 		String strAge = request.getParameter("intAge");
-		String strMembercardnum = request.getParameter("strMembercardnum");
+		//String strMembercardnum = request.getParameter("strMembercardnum");
 		int intSex = Integer.valueOf(request.getParameter("intSex"));
 		String strLevelsid = request.getParameter("strLevelsid");
 		int intStatus = Integer.valueOf(request.getParameter("intStatus"));
@@ -83,9 +83,9 @@ public class MemberController {
 		if(ValidateTool.isEmptyStr(strAge)) {
 			strAge = "0";
 		}
-		if(ValidateTool.isEmptyStr(strMembercardnum)) {
+		/*if(ValidateTool.isEmptyStr(strMembercardnum)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员卡号不能为空", null);
-		}
+		}*/
 		if(ValidateTool.isEmptyStr(strLevelsid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员级别不能为空", null);
 		}
@@ -170,7 +170,7 @@ public class MemberController {
 				memberEntity.setStrIdcard(strIdcard.trim());
 				memberEntity.setStrMobile(strMobile.trim());
 				memberEntity.setIntAge(Integer.valueOf(strAge));
-				memberEntity.setStrMembercardnum(strMembercardnum.trim());
+				memberEntity.setStrMembercardnum(DataTool.generatRandomDigit(8));
 				memberEntity.setIntSex(intSex);
 				memberEntity.setStrLevelsid(strLevelsid.trim());
 				memberEntity.setIntStatus(intStatus);
@@ -217,7 +217,7 @@ public class MemberController {
 	
 
 	/**
-	 * 根据会员ID查询会员信息
+	 * 根据会员ID查询会员信息（如果ID不传就返回新增需要初始化的信息，例如会员等级，会员拓展资料）
 	 * @param request
 	 * @param response
 	 * @return
@@ -226,22 +226,37 @@ public class MemberController {
 	@RequestMapping("getMemberById")
 	public String getMemberById(HttpServletRequest request, HttpServletResponse response) {
 		String strMemberid = request.getParameter("strMemberid");
-		if(ValidateTool.isEmptyStr(strMemberid)) {
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
-		}
 		try {
-			MemberEntity memberEntity = memberService.getMemberById(strMemberid);
-			if(ValidateTool.isNull(memberEntity)) {
-				return DataTool.constructResponse(ResultCode.NO_DATA, "会员不存在", null);
-			}
-			MemberdetailEntity memberdetailEntity = memberService.getMemberdetailById(strMemberid);
-			if(ValidateTool.isNull(memberdetailEntity)) {
-				return DataTool.constructResponse(ResultCode.NO_DATA, "会员不存在", null);
-			}
+			
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("memberEntity", memberEntity);
-			resultMap.put("memberdetailEntity", memberdetailEntity);
+			if(!ValidateTool.isEmptyStr(strMemberid)) {
+				MemberEntity memberEntity = memberService.getMemberById(strMemberid);
+				if(ValidateTool.isNull(memberEntity)) {
+					return DataTool.constructResponse(ResultCode.NO_DATA, "会员不存在", null);
+				}
+				MemberdetailEntity memberdetailEntity = memberService.getMemberdetailById(strMemberid);
+				if(ValidateTool.isNull(memberdetailEntity)) {
+					return DataTool.constructResponse(ResultCode.NO_DATA, "会员不存在", null);
+				}
+				resultMap.put("memberEntity", memberEntity);
+				resultMap.put("memberdetailEntity", memberdetailEntity);
+			} else {
+				resultMap.put("memberEntity", new MemberEntity());
+				resultMap.put("memberdetailEntity", new MemberdetailEntity());
+			}
+			List<MemberlevelsEntity> memberlevelsEntityList = memberService.listAllMemberLevels(MemberlevelsStatusEnum.ACTIVATE.getValue()); //查询所有可用的会员级别
+			if(memberlevelsEntityList==null||memberlevelsEntityList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
+			}
+			resultMap.put("memberlevelsEntityList", memberlevelsEntityList);
+			
+			List<MemberexpandinformationVO> memberexpandinformationVOList = memberService.listAllExpandInfo(strMemberid); //查询并组装会员拓展资料信息
+			if(memberexpandinformationVOList==null||memberexpandinformationVOList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
+			}
+			resultMap.put("memberexpandinformationVOList", memberexpandinformationVOList);
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
