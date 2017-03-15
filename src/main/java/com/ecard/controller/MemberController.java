@@ -32,6 +32,7 @@ import com.ecard.entity.MemberexpandinformationEntity;
 import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.enumeration.MemberexpandinformationMustEnum;
 import com.ecard.enumeration.MemberlevelsStatusEnum;
+import com.ecard.exception.LackIntegralException;
 import com.ecard.service.MemberService;
 import com.ecard.service.MemberexpandinformationService;
 import com.ecard.service.ModUserIntergal;
@@ -597,6 +598,9 @@ public class MemberController {
 		try {
 			return modUserIntegral.modMemberIntegral(integralModRecord);
 			
+		} catch(LackIntegralException e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "积分不足", null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);

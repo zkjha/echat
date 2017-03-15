@@ -98,6 +98,10 @@ public final class ResultCode {
 	 * 该手机号已经是会员了
 	 */
 	public static final int MOBILE_IS_MEMBER = 100012;
+	/**
+	 * 该手机号已经是会员了
+	 */
+	public static final int LACK_INTEGRAL = 100013;
 	
 	
 	//========================接口返回状态标识结束==========================

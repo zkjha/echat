@@ -15,6 +15,7 @@ import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.exception.LackIntegralException;
 import com.ecard.mapper.IntegralRecordOperMapper;
 import com.ecard.mapper.MemberMapper;
 
@@ -45,6 +46,10 @@ public class ModUserIntergal {
 		
 		// 增加用户积分
 		memMapper.updateMemberIntegral(integralModRecord);
+		MemberEntity afterUpdateMemEntity = memMapper.getMemberEntityById(integralModRecord.getStrMemberId());
+		if (afterUpdateMemEntity.getIntIntegral()<0) {
+			throw new LackIntegralException("积分余额不足");
+		}
 		// 向数据库中插入变更记录数据
 		integralRecordOperMapper.insertNewRecord(integralModRecord);
 		
