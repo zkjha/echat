@@ -79,6 +79,16 @@ define([],function(){
             listAllMemberLevels:"/admin/biz/member/listAllMemberLevels",
             //会员拓展资料选项信息
             listAllExpandInfo:"/admin/biz/member/listAllExpandInfo",
+            //新增会员
+            insertMember:"/admin/biz/member/insertMember",
+            //修改会员
+            updateMember:"/admin/biz/member/updateMember",
+            //根据会员ID查询会员信息
+            getMemberById:"/admin/biz/member/getMemberById",
+            //修改用户积分
+            modMemberIntegral:"/admin/biz/member/modMemberIntegral",
+            //修改会员禁用和启用状态
+            updateMemberStatus:"/admin/biz/member/updateMemberStatus",
         ////////////会员部分结束/////////////////////////////
 
 

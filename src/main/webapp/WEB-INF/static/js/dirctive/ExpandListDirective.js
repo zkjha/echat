@@ -10,16 +10,23 @@ define(['lib/angular'],function(angular){
             restrict: "E", //default: EA
             replace: true,
             templateUrl: "/static/temp/admin/expandList.html",
-            //scope:{
-            //    expandData:"=",
-            //    changeselect:"&"
-            //},
-            link:function($scope, $element, $attrs, $transclude){
-                console.log($scope.expandData);
-                $scope.test=[];
-                $scope.changeselect=function(){
+            scope:{
 
-                }
+                expandData:"=",
+                modelData:"=",
+                getModelDataObject:"&",
+                testFunction:"&"
+
+            },
+            controller:function($scope, $element, $attrs){
+
+                $scope.modelData=[];
+                $scope.modelDataObject={};
+
+
+
+
+
             }
         };
 
