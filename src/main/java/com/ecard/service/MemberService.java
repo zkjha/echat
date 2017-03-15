@@ -204,7 +204,7 @@ public class MemberService {
 		// 增加充值记录
 		memberMapper.insertMemberRechargeRecord(tMemberRechargeRecord);
 		
-		return DataTool.constructResponse(ResultCode.NO_DATA, "储值充值成功", null);
+		return DataTool.constructResponse(ResultCode.OK, "储值充值成功", null);
 	}
 
 	//禁用或者启用会员
