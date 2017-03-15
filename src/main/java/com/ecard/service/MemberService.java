@@ -210,12 +210,12 @@ public class MemberService {
 	//禁用或者启用会员
 	public String forbiddenMember(String strMemberId, String strOperateType) throws Exception {
 		if ("1".equals(strOperateType)) {
-			//启用会员
-			memberMapper.updateMemberStatus(strMemberId, 1);
-			
-		} else if ("0".equals(strOperateType)) {
 			//禁用会员
 			memberMapper.updateMemberStatus(strMemberId, 0);
+			
+		} else if ("0".equals(strOperateType)) {
+			//启用会员
+			memberMapper.updateMemberStatus(strMemberId, 1);
 		} else {
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "未知操作类型", null);
 		}
