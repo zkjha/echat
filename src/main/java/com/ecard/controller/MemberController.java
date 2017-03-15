@@ -25,6 +25,7 @@ import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberRechargeRecord;
 import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberexpandinformationEntity;
@@ -544,6 +545,7 @@ public class MemberController {
 		
 		int iAddOrCutFlag = 0;
 		
+		// 判断输入参数是否有效 
 		if (strAddOrCutFlag.isEmpty())
 		{
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "增加或减少标记不能为空", null);
@@ -582,6 +584,7 @@ public class MemberController {
 		}
 		*/
 		
+		// 赋值
 		IntegralModRecord integralModRecord = new IntegralModRecord();
 		integralModRecord.setiIntegralNum(iAddOrCutFlag);
 		integralModRecord.setStrMemberId(strMemberId);
@@ -606,6 +609,96 @@ public class MemberController {
 			
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
+		
+	}
+	
+	
+	/**
+	 * 后台为用户充值
+	 * @param request
+	 * @param response
+	 * @return
+	 * localhost:8080/admin/biz/member/backgroundRechargForMember?strMemberId=e8b9c2cabd364e15ade4cce6480c7b7d&strRechargeAmount=3
+	 */
+	@ResponseBody
+	@RequestMapping("backgroundRechargForMember")
+	public String BackgroundRechargForMember(HttpServletRequest request, HttpServletResponse response) {
+		String strMemberId = request.getParameter("strMemberId");
+		String strRechargeAmount = request.getParameter("strRechargeAmount");
+
+		/*
+		String strRechargeId = request.getParameter("strRechargeId");
+		String strMemberId = request.getParameter("strMemberId");
+		String strMemberCardNum = request.getParameter("strMemberCardNum");
+		String strMemberName = request.getParameter("strMemberName");
+		String dBalance = request.getParameter("dBalance");
+		String strEmployeeId = request.getParameter("strEmployeeId");
+		String strEmployeeRealName = request.getParameter("strEmployeeRealName");
+		String strEmployeeLoginName = request.getParameter("strEmployeeLoginName");
+		String strInsertTime = request.getParameter("strInsertTime");
+		String strReserved = request.getParameter("strReserved");
+		*/
+		
+		if(strMemberId ==null || strMemberId.isEmpty()){
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
+		}
+		
+		/*
+		if(strRechargeAmount ==null || strRechargeAmount.isEmpty()){
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值金额不能为空", null);
+		}
+		*/
+		
+		// 判断必须是数字＋小数点
+		for(int iLoop = strRechargeAmount.length(); --iLoop>=0;){  
+            int chr=strRechargeAmount.charAt(iLoop);  
+            System.out.println(chr);  
+            if(chr<48 || chr>57) {  
+              if(chr != 46)  
+              {
+                return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值数量不是数字", null);  
+              }
+            }  
+         }
+		BigDecimal bgAmount = new BigDecimal(strRechargeAmount);
+		
+		
+		/*
+		try {
+			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+					request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+
+		// 赋值
+		MemberRechargeRecord tMemberRechargeRecord=new MemberRechargeRecord();
+		tMemberRechargeRecord.setStrRechargeId(DataTool.getUUID());
+		tMemberRechargeRecord.setStrMemberId(strMemberId);
+		tMemberRechargeRecord.setStrMemberCardNum("");
+		tMemberRechargeRecord.setStrMemberName("");
+		tMemberRechargeRecord.setdBalance(bgAmount);
+		tMemberRechargeRecord.setStrEmployeeId("11");
+		tMemberRechargeRecord.setStrEmployeeRealName("11");
+		tMemberRechargeRecord.setStrEmployeeLoginName("23");
+		tMemberRechargeRecord.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+		tMemberRechargeRecord.setiRechargeType(1);
+		tMemberRechargeRecord.setStrReserved("");
+		
+		
+		//执行后台充值
+		try {
+			memberService.backGroundRechargForMember(tMemberRechargeRecord);
+			
+			return DataTool.constructResponse(ResultCode.OK, "充值成功", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+
 		
 	}
 	

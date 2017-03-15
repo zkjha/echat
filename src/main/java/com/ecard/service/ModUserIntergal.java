@@ -44,10 +44,8 @@ public class ModUserIntergal {
 			integralModRecord.setStrMemberCardNum(memEntity.getStrMembercardnum());
 			integralModRecord.setStrMemberName(memEntity.getStrRealname());
 			
-			// 增加用户的积分值
-			int iNewCount = memEntity.getIntIntegral() + integralModRecord.getiIntegralNum();
-			memEntity.setIntIntegral(iNewCount);
-			memMapper.updateMember(memEntity);
+			// 增加用户积分
+			memMapper.updateMemberIntegral(integralModRecord);
 		}
 		else
 		{

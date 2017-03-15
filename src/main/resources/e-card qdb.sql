@@ -283,6 +283,30 @@ CREATE INDEX memberid_index ON tb_integral_change_record(STRMEMBERID);
 CREATE INDEX membercardnum_index ON tb_integral_change_record(STRMEMBERCARDNUM);
 
 
+-- ==============================================================
+-- Table: tb_recharge_record     【后台记录表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_recharge_record;
+CREATE TABLE tb_recharge_record
+(
+  strRechargeId              VARCHAR(50) NOT NULL,      -- 主键
+  strMemberId                VARCHAR(50) NOT NULL,      -- 会员ID
+  strMemberCardNum           VARCHAR(50) NOT NULL,       -- 会员卡号
+  strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名   
+  dBalance                  DECIMAL(11,2) DEFAULT 0.00, -- 会员卡余额
+  strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeRealName       VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strInsertTime             VARCHAR(50) NOT NULL,       -- 录入时间
+  iRechargeType             int not null default 0,     -- 充值类型 0:会员在线充值 1后台管理人员充值
+  strReserved               VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strRechargeId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxRechargeRecordOnRechargeId on tb_recharge_record(strRechargeId);
+create index indxRechargeRecordOnMemberCardId  on tb_recharge_record(strMemberCardNum);
+create index indxRechargeRecordOnInsertTime   on tb_recharge_record(strInsertTime);
+
+
 
 
 

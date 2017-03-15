@@ -1,6 +1,7 @@
 package com.ecard.service;
 
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.validate.ValidateTool;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberRechargeRecord;
 import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberexpandinformationEntity;
@@ -179,6 +181,43 @@ public class MemberService {
 			options = strOptions.split(",");
 		}
 		return options;
+	}
+	
+	
+	// 后台管理人员为会员充值
+	@Transactional(rollbackFor=Exception.class)
+	public void backGroundRechargForMember(MemberRechargeRecord tMemberRechargeRecord) throws Exception
+	{
+		// 用户余额增加
+		if(tMemberRechargeRecord.getStrMemberId() != null) 
+		{
+			// 查询会员用户信息
+			MemberEntity memEntity = new MemberEntity();
+			memEntity = memberMapper.getMemberEntityById(tMemberRechargeRecord.getStrMemberId());
+			
+			tMemberRechargeRecord.setStrMemberCardNum(memEntity.getStrMembercardnum());
+			tMemberRechargeRecord.setStrMemberName(memEntity.getStrRealname());
+			
+			// 增加用户余额
+			/*
+			BigDecimal dOldAmount = new BigDecimal("0.00");
+			BigDecimal dAddAmount = new BigDecimal("0.00");
+			//BigDecimal dNewAmount = new BigDecimal("0.00");
+			dOldAmount = memEntity.getdAfterstoredbalance();
+			dAddAmount = tMemberRechargeRecord.getdBalance();
+			dAddAmount.add(dOldAmount);
+			//dNewAmount.add(memEntity.getdAfterstoredbalance());
+			//BigDecimal dNewAmount = new BigDecimal(dOldAmount.add(dAddAmount).doubleValue());
+			//dNewAmount = dOldAmount.add(dAddAmount).doubleValue();
+			
+			//memEntity.setdAfterstoredbalance(dAddAmount);
+			 * */
+			
+			memberMapper.updateMemberBgrechargeById(tMemberRechargeRecord);
+		}
+		
+		// 增加充值记录
+		memberMapper.insertMemberRechargeRecord(tMemberRechargeRecord);
 	}
 
 }

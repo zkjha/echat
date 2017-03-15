@@ -130,7 +130,7 @@
 	<!-- 查询会员基本信息 -->
 	<select id="getMemberById" parameterType="string" resultType="com.ecard.entity.MemberEntity">
 		SELECT STRMEMBERID AS strMemberid, STRREALNAME AS strRealname, STRIDCARD AS strIdcard, STRMOBILE AS strMobile, INTAGE AS intAge, 
-		       STRMEMBERCARDNUM AS strMembercardnum, STRLEVELSID AS strLevelsid, INTSEX AS intSex, INTSTATUS AS intStatus
+		       STRMEMBERCARDNUM AS strMembercardnum, STRLEVELSID AS strLevelsid, INTSEX AS intSex, INTSTATUS AS intStatus, DAFTERSTOREDBALANCE AS dAfterstoredbalance
 		FROM tb_member
 		WHERE STRMEMBERID=#{strMemberid}
 	</select>
@@ -156,7 +156,7 @@
 	<!-- 修改会员基本信息 -->
 	<update id="updateMember" parameterType="com.ecard.entity.MemberEntity">
 		UPDATE tb_member SET STRREALNAME=#{strRealname}, STRIDCARD=#{strIdcard}, INTAGE=#{intAge}, STRLEVELSID=#{strLevelsid}, INTSEX=#{intSex}, 
-		                     INTSTATUS=#{intStatus}, STRUPDATETIME=#{strUpdatetime},INTINTEGRAL=#{intIntegral}
+		                     INTSTATUS=#{intStatus}, STRUPDATETIME=#{strUpdatetime},INTINTEGRAL=#{intIntegral},DAFTERSTOREDBALANCE=#{dAfterstoredbalance}
 		WHERE STRMEMBERID=#{strMemberid}
 	</update>
 	
@@ -175,5 +175,23 @@
 		DELETE FROM tb_member_expand_attribute WHERE STRMEMBERID=#{strMemberid}
 	</delete>
 	
+	<!-- 新增一条充值记录 -->
+    <insert id="insertMemberRechargeRecord" parameterType="com.ecard.entity.MemberRechargeRecord">
+    insert into tb_recharge_record(strRechargeId,strMemberId,strMemberCardNum,strMemberName,dBalance,strEmployeeId,strEmployeeRealName,strEmployeeLoginName,strInsertTime,iRechargeType,strReserved)
+    values(#{strRechargeId},#{strMemberId},#{strMemberCardNum},#{strMemberName},#{dBalance},#{strEmployeeId},#{strEmployeeRealName},#{strEmployeeLoginName},#{strInsertTime},#{iRechargeType},#{strReserved})
+    </insert>
+    
+    
+    <!-- 增加会后后台充值金额 -->
+	<update id="updateMemberBgrechargeById" parameterType="com.ecard.entity.MemberRechargeRecord">
+		UPDATE tb_member SET  DAFTERSTOREDBALANCE=DAFTERSTOREDBALANCE+#{dBalance}
+		WHERE STRMEMBERID=#{strMemberId}
+	</update>
+	
+    <!-- 增加会员积分 -->
+	<update id="updateMemberIntegral" parameterType="com.ecard.entity.IntegralModRecord">
+		UPDATE tb_member SET  INTINTEGRAL=INTINTEGRAL+#{iIntegralNum}
+		WHERE STRMEMBERID=#{strMemberId}
+	</update>
 	
 </mapper>

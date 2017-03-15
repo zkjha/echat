@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberRechargeRecord;
 import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberlevelsEntity;
@@ -63,4 +65,13 @@ public interface MemberMapper {
 
 	//删除会员拓展资料信息
 	void deleteMemberexpandattribute(String strMemberid) throws Exception;
+	
+	//会员充值  added by qidongbo 20170315 10:40
+	void insertMemberRechargeRecord(MemberRechargeRecord tMemberRechargeRecord);
+	
+	//修改会员积分  added by qidongbo 20170315 12:40
+	void  updateMemberIntegral(IntegralModRecord tIntegralModRecord);
+	
+	//修改会员充值金额（后台人员操作）  added by qidongbo 20170315 12:40
+	void  updateMemberBgrechargeById(MemberRechargeRecord tMemberRechargeRecord);
 }
