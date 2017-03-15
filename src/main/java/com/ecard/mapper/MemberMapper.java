@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.ecard.entity.IntegralModRecord;
+import com.ecard.entity.IntegralModEntity;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberRechargeRecord;
 import com.ecard.entity.MemberdetailEntity;
@@ -70,7 +70,7 @@ public interface MemberMapper {
 	void insertMemberRechargeRecord(MemberRechargeRecord tMemberRechargeRecord) throws Exception;
 	
 	//修改会员积分  added by qidongbo 20170315 12:40
-	void  updateMemberIntegral(IntegralModRecord tIntegralModRecord) throws Exception;
+	int  updateMemberIntegral(IntegralModEntity integralModEntity) throws Exception;
 	
 	//修改会员充值金额（后台人员操作）  added by qidongbo 20170315 12:40
 	void  updateMemberBgrechargeById(MemberRechargeRecord tMemberRechargeRecord) throws Exception;

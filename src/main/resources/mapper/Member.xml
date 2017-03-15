@@ -53,6 +53,7 @@
 		<result property="intStatus" column="INTSTATUS"></result>
 		<result property="intIntegral" column="INTINTEGRAL"></result>
 		<result property="dBalance" column="DBALANCE"></result>
+		<result property="dAfterstoredbalance" column="DAFTERSTOREDBALANCE"></result>
 		<result property="strLevelsname" column="STRLEVELSNAME"></result>
 		<result property="strInserttime" column="STRINSERTTIME"></result>
 		<association property="intVouchers" column="STRMEMBERID" select="getIntVouchersByMemberid"></association>
@@ -65,7 +66,7 @@
 	
 	<!-- 查询会员列表 -->
 	<select id="listMember" parameterType="map" resultMap="memberVO">
-	     SELECT TM.STRMEMBERID, TM.STRREALNAME, TM.STRMOBILE, TM.STRMEMBERCARDNUM, TM.INTSTATUS, TM.INTINTEGRAL, TM.DBALANCE, TM.STRINSERTTIME, TML.STRLEVELSNAME
+	     SELECT TM.STRMEMBERID, TM.STRREALNAME, TM.STRMOBILE, TM.STRMEMBERCARDNUM, TM.INTSTATUS, TM.INTINTEGRAL, TM.DBALANCE, TM.DAFTERSTOREDBALANCE, TM.STRINSERTTIME, TML.STRLEVELSNAME
       	 FROM tb_member TM, tb_member_levels TML
 	      <where>
 	      	TM.STRLEVELSID=TML.STRLEVELSID
@@ -189,9 +190,15 @@
 	</update>
 	
     <!-- 增加会员积分 -->
-	<update id="updateMemberIntegral" parameterType="com.ecard.entity.IntegralModRecord">
-		UPDATE tb_member SET  INTINTEGRAL=INTINTEGRAL+#{iIntegralNum}
-		WHERE STRMEMBERID=#{strMemberId}
+	<update id="updateMemberIntegral" parameterType="com.ecard.entity.IntegralModEntity">
+		UPDATE tb_member SET INTINTEGRAL=INTINTEGRAL+#{iIntegralNum}
+		<where>
+			STRMEMBERID=#{strMemberId}
+			<!-- 表示是减少积分 ，剩余的积分必须比需要减少的积分大或者相等-->
+			<if test="strType == 'reduce'">
+				AND INTINTEGRAL>=ABS(#{iIntegralNum})
+			</if>
+		</where>
 	</update>
 	
 	 <!-- 修改会员状态 -->

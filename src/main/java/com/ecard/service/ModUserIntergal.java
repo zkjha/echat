@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.IntegralModEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
-import com.ecard.exception.LackIntegralException;
 import com.ecard.mapper.IntegralRecordOperMapper;
 import com.ecard.mapper.MemberMapper;
 
@@ -44,12 +44,21 @@ public class ModUserIntergal {
 		integralModRecord.setStrMemberCardNum(memEntity.getStrMembercardnum());
 		integralModRecord.setStrMemberName(memEntity.getStrRealname());
 		
-		// 增加用户积分
-		memMapper.updateMemberIntegral(integralModRecord);
-		MemberEntity afterUpdateMemEntity = memMapper.getMemberEntityById(integralModRecord.getStrMemberId());
-		if (afterUpdateMemEntity.getIntIntegral()<0) {
-			throw new LackIntegralException("积分余额不足");
+		IntegralModEntity integralModEntity = new IntegralModEntity();
+		integralModEntity.setStrMemberId(integralModRecord.getStrMemberId());
+		integralModEntity.setiIntegralNum(integralModRecord.getiIntegralNum());
+		if (integralModRecord.getiIntegralNum()<0) {
+			integralModEntity.setStrType("reduce");
+		} else {
+			integralModEntity.setStrType("increase");
 		}
+		
+		// 增加或者减少用户积分
+		int affectRecord = memMapper.updateMemberIntegral(integralModEntity); //执行修改影响行数，如果等于0，积分变更失败
+		if (affectRecord==0) {
+			//积分余额不足
+			return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "积分余额不足", null);
+		} 
 		// 向数据库中插入变更记录数据
 		integralRecordOperMapper.insertNewRecord(integralModRecord);
 		
