@@ -144,7 +144,8 @@ define(
                 $scope.isShowListMenu = [];
                 $scope.memberexpandinformationEntity={};
                 $scope.mustInputTypes=[{"id":1,value:"必填"},{"id":0,value:"非必填"}];
-                $scope.inputTypes=[{"id":2,value:"多选"},{"id":1,value:"下拉选择"},{"id":0,value:"输入框"}];
+                //$scope.inputTypes=[{"id":2,value:"多选"},{"id":1,value:"下拉选择"},{"id":0,value:"输入框"}];
+                $scope.inputTypes=[{"id":1,value:"下拉选择"},{"id":0,value:"输入框"}];
                 //选择列表
                 $scope.optionsArray=[];
 
@@ -466,7 +467,9 @@ define(
                 $scope.memberstatusList=[{"id":0,"value":"禁用"},{"id":1,"value":"激活"}];
 
 
-                MemberCenter.initExpandInfoList($scope, $http);
+
+
+               // MemberCenter.initExpandInfoList($scope, $http);
                 MemberCenter.getMemberList($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
@@ -486,21 +489,47 @@ define(
                 };
                 //新增会员信息
                 $scope.newMemberinfo=function(){
-
+                    $scope.isDisableSubmit=false;
                     $scope.showEditMemberInfoWindow=true;
                     $scope.isAddNewMember=true;
-                    $scope.nowStep=2;
+                    $scope.nowStep=1;
                     $scope.member={};
+                    $scope.member2={};
                     //默认会员激活状态
-                    $scope.member.intStatus=1;
+
                     //初始化会员级别信息
-                    MemberCenter.initMemberLevelsSelectData($scope, $http);
+                   // MemberCenter.initMemberLevelsSelectData($scope, $http);
+                    $scope.strMemberid="";
+                    MemberCenter.getMemberById($scope, $http);
 
                 };
+                //显示会员详情弹窗
+                $scope.memberDetail=function(strMemberid){
+                    $scope.showDetailMemberInfoWindow=true;
+
+                    $scope.strMemberid=strMemberid;
+                    MemberCenter.getMemberById($scope, $http);
+
+                };
+                //关闭会员详情弹窗
+                $scope.closeDetailMemberInfoWindow=function(){
+                    $scope.showDetailMemberInfoWindow=false;
+                };
+                //关闭编辑弹窗
                 $scope.closeEditMemberInfoWindow=function(){
                     $scope.showEditMemberInfoWindow=false;
                 };
 
+                //打开编辑会员弹窗
+                $scope.showUpdateMemberWindow=function(){
+                    $scope.isDisableSubmit=false;
+                    $scope.showEditMemberInfoWindow=true;
+                    $scope.isAddNewMember=false;
+                    $scope.nowStep=1;
+                    $scope.member={};
+                    $scope.member2={};
+
+                };
                 //回到第一步
                 $scope.backToFirstStep=function(){
                     $scope.nowStep=1;
@@ -510,13 +539,165 @@ define(
 
                     $scope.nowStep=2;
 
+                };
+
+                //禁用或者启用用户
+                $scope.updateMemberStatus=function(intStatus){
+                    var msg;
+                    if(intStatus==0){
+                        msg= "确定要启用该用户?";
+                    }else{
+                        msg= "确定要禁用该用户?";
+                    }
+                    $scope.showConfirm(msg,function(rs){
+                        if(rs){
+                            var data={};
+                            data.strOperateType=intStatus;
+                            data.strMemberId=$scope.strMemberid;
+                            MemberCenter.changeMemberStatus($scope, $http,data);
+                        }
+                    })
+                };
+                //修改用户积分
+                $scope.updateMemberIntegral=function(){
+
+                    $scope.showMemberintegralInfoWindow=true;
+                    $scope.integral.strIntegralNum=0;
+                    $scope.integral.strDesc=""
+                };
+
+                //关闭用户积分修改弹窗
+                $scope.closeMemberintegralInfoWindow=function(){
+                    $scope.showMemberintegralInfoWindow=false;
+                };
+
+                //修改用户积分
+                $scope.submitIntegralinfo=function(){
+
+                    $scope.integral.strMemberId=$scope.strMemberid;
+
+                    $http.post(remoteUrl.modMemberIntegral,$scope.integral).then(
+                        function (result) {
+
+                            var rs = result.data;
+                            var code = rs.code;
+                            var data = rs.data;
+
+
+                            if (code == 1) {
+
+                                $scope.showAlert("变更积分成功",function(){
+                                    $scope.closeMemberintegralInfoWindow();
+                                })
+
+
+                            } else if (code == -1) {
+                                window.location.href = "/admin/login?url="
+                                + window.location.pathname
+                                + window.location.search
+                                + window.location.hash;
+                                //未登录
+                            } else if (code == 100007|| code == 100012) {
+
+                                $scope.showAlert(rs.msg);
+                            } else if (code <= -2 && code >= -7) {
+                                //必填字段未填写
+                                $scope.showAlert(rs.msg);
+                            } else if (code == -8) {
+                                //暂无数据
+
+
+                            }
+                            $scope.isDisableSubmit=false;
+                        }, function (result) {
+
+                            var status = result.status;
+                            if (status == -1) {
+                                $scope.showAlert("服务器错误")
+                            } else if (status >= 404 && status < 500) {
+                                $scope.showAlert("请求路径错误")
+                            } else if (status >= 500) {
+                                $scope.showAlert("服务器错误")
+                            }
+                            $scope.isDisableSubmit=false;
+                        });
+
+                };
+
+                //提交数据
+                $scope.submitMemberSecondinfo=function(){
+
+                    $scope.isDisableSubmit=true;
+
+                    var url;
+                    //新增会员
+                    if( $scope.isAddNewMember==true){
+                        url=remoteUrl.insertMember
+                    }else{
+                        $scope.member.strMemberid=$scope.strMemberid;
+                        url=remoteUrl.updateMember;
+                    }
+
+                   // $scope.modelDataObject={};
+                    for(var key in $scope.modelData){
+                        $scope.member[key]=$scope.modelData[key];
+                    }
+
+                    $http.post(remoteUrl.insertMember,$scope.member).then(
+                        function (result) {
+
+                            var rs = result.data;
+                            var code = rs.code;
+                            var data = rs.data;
+
+
+                            if (code == 1) {
+
+                                $scope.showAlert("新增会员成功",function(){
+                                    window.location.reload();
+                                })
+
+
+                            } else if (code == -1) {
+                                window.location.href = "/admin/login?url="
+                                + window.location.pathname
+                                + window.location.search
+                                + window.location.hash;
+                                //未登录
+                            } else if (code == 100007|| code == 100012) {
+
+                                $scope.showAlert(rs.msg);
+                            } else if (code <= -2 && code >= -7) {
+                                //必填字段未填写
+                                $scope.showAlert(rs.msg);
+                            } else if (code == -8) {
+                                //暂无数据
+
+
+                            }
+                            $scope.isDisableSubmit=false;
+                        }, function (result) {
+
+                            var status = result.status;
+                            if (status == -1) {
+                                $scope.showAlert("服务器错误")
+                            } else if (status >= 404 && status < 500) {
+                                $scope.showAlert("请求路径错误")
+                            } else if (status >= 500) {
+                                $scope.showAlert("服务器错误")
+                            }
+                            $scope.isDisableSubmit=false;
+                        });
+
+
                 }
 
+
+
             },
-            //初始化拓展资料数据
-            initExpandInfoList:function($scope, $http){
-                var data ={"strMemberid":"1"};
-                $http.post(remoteUrl.listAllExpandInfo,data).then(
+            //修改会员启用禁用状态
+          changeMemberStatus:function($scope, $http,data){
+          $http.post(remoteUrl.updateMemberStatus,data).then(
                     function (result) {
 
                         var rs = result.data;
@@ -525,10 +706,8 @@ define(
 
 
                         if (code == 1) {
-
-                            $scope.expandData=  data.memberexpandinformationVOList;
-
-
+                            $scope.member.intStatus=$scope.intStatus=data;
+                            $scope.showAlert("操作成功");
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -555,10 +734,13 @@ define(
                             $scope.showAlert("服务器错误")
                         }
                     });
-            },
-            //初始化会员级别选择列表数据
-            initMemberLevelsSelectData:function($scope, $http){
-                $http.post(remoteUrl.listAllMemberLevels).then(
+            }
+            ,
+            //根据会员ID查询会员信息
+            getMemberById:function($scope, $http){
+                var data={'strMemberid':$scope.strMemberid};
+
+                $http.post(remoteUrl.getMemberById,data).then(
                     function (result) {
 
                         var rs = result.data;
@@ -568,12 +750,22 @@ define(
 
                         if (code == 1) {
 
-                          $scope.memberlevelsEntityList=  data.memberlevelsEntityList;
+                            console.log(data);
+
+                            $scope.member=data.memberEntity;
+
+                            $scope.member2=data.memberdetailEntity;
+                            $scope.expandData= data.memberexpandinformationVOList;
+                            $scope.memberlevelsEntityList=  data.memberlevelsEntityList;
                             if($scope.memberlevelsEntityList.length>0){
-                                $scope.member.strLevelsname=$scope.memberlevelsEntityList[0].strLevelsid;
+                                $scope.member.strLevelsid=$scope.memberlevelsEntityList[0].strLevelsid;
+                            }
+                            //新增
+                            if($scope.strMemberid==""){
+                                $scope.member.intStatus=1;
+                                $scope.member.intSex=0;
                             }
 
-
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -601,6 +793,7 @@ define(
                         }
                     });
             },
+
             //查询会员列表
             getMemberList:function($scope, $http){
                 var data = {

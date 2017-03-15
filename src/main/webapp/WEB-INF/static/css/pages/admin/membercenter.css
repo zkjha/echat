@@ -37,3 +37,33 @@
     color: #ffffff;
     border: 1px solid #ffa038;
 }
+.expandListTitle{
+    display: inline-block;
+    width: 82px;
+    text-align: right;
+}
+.w300{
+    width: 300px;
+}
+
+.center-content{
+    width:500px;
+    margin: auto;
+
+}
+.zindex1005{
+    z-index: 1005 !important;
+}
+
+
+.integral-content select,.integral-content input{
+    width: 50px;
+    vertical-align: bottom;
+}
+
+.integral-content textarea{
+    vertical-align: top;
+    width: 400px;
+    height: 100px;
+    border: 1px solid #cccccc;
+}

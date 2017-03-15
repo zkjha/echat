@@ -1,20 +1,23 @@
 <div>
 <div ng-repeat="expand in expandData">
-    <div ng-if="expand.intType==0">
-        {{expand.strInformationname}} :
+    <div ng-if="expand.intType==0" class="mt15 fl w300">
+        <span class="expandListTitle">{{expand.strInformationname}} :</span>
 
-            <input ng-if="expand.intIsmust==1" type="text" ng-model="test[$index]" ng-value="expand.strValue" />
+            <input ng-if="expand.intIsmust==1" type="text"  ng-model="modelData[expand.strInformationid]"  ng-value="expand.strValue" />
 
 
-            <input ng-if="expand.intIsmust==0" type="text" ng-model="test[$index]" ng-value="expand.strValue" required/>
+            <input ng-if="expand.intIsmust==0" type="text"  ng-model="modelData[expand.strInformationid]"   ng-value="expand.strValue" required/>
 
 
     </div>
-    <div ng-if="expand.intType==1">
+    <div ng-if="expand.intType==1" class="mt15 fl w300">
 
-        {{expand.strInformationname}} :
-        <select  ng-model="test[$index]" ng-init="test[$index]=expand.strValue" ng-change="changeselect()" ng-options="option as option for option  in  expand.strOptions">
+        <span class="expandListTitle">{{expand.strInformationname}} :</span>
+        <select  ng-model="modelData[expand.strInformationid]" ng-init="modelData[expand.strInformationid]=expand.strValue"  ng-options="option as option for option  in  expand.strOptions">
         </select>
     </div>
+
+
 </div>
+
 </div>
