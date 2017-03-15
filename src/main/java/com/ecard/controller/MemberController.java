@@ -102,7 +102,7 @@ public class MemberController {
 		String strCarlicense = request.getParameter("strCarlicense");
 		String strCarcolor = request.getParameter("strCarcolor");
 		String strCartype = request.getParameter("strCartype");
-		String dBuyprice = request.getParameter("dBuyprice");
+		String strBuyprice = request.getParameter("strBuyprice");
 		String strBuydate = request.getParameter("strBuydate");
 		String strAddress = request.getParameter("strAddress");
 		String strUsenature = request.getParameter("strUsenature");
@@ -191,7 +191,7 @@ public class MemberController {
 				memberdetailEntity.setStrCarlicense(strCarlicense.trim());
 				memberdetailEntity.setStrCarcolor(DataTool.trimStr(strCarcolor));
 				memberdetailEntity.setStrCartype(strCartype.trim());
-				memberdetailEntity.setdBuyprice(new BigDecimal(DataTool.trimStr(dBuyprice)));
+				memberdetailEntity.setStrBuyprice(DataTool.trimStr(strBuyprice));
 				memberdetailEntity.setStrBuydate(DataTool.trimStr(strBuydate));
 				memberdetailEntity.setStrAddress(strAddress.trim());
 				memberdetailEntity.setStrUsenature(strUsenature.trim());
@@ -320,7 +320,7 @@ public class MemberController {
 		String strCarlicense = request.getParameter("strCarlicense");
 		String strCarcolor = request.getParameter("strCarcolor");
 		String strCartype = request.getParameter("strCartype");
-		String dBuyprice = request.getParameter("dBuyprice");
+		String strBuyprice = request.getParameter("strBuyprice");
 		String strBuydate = request.getParameter("strBuydate");
 		String strAddress = request.getParameter("strAddress");
 		String strUsenature = request.getParameter("strUsenature");
@@ -406,7 +406,7 @@ public class MemberController {
 			memberdetailEntity.setStrCarlicense(strCarlicense.trim());
 			memberdetailEntity.setStrCarcolor(DataTool.trimStr(strCarcolor));
 			memberdetailEntity.setStrCartype(strCartype.trim());
-			memberdetailEntity.setdBuyprice(new BigDecimal(DataTool.trimStr(dBuyprice)));
+			memberdetailEntity.setStrBuyprice(DataTool.trimStr(strBuyprice));
 			memberdetailEntity.setStrBuydate(DataTool.trimStr(strBuydate));
 			memberdetailEntity.setStrAddress(strAddress.trim());
 			memberdetailEntity.setStrUsenature(strUsenature.trim());
@@ -537,7 +537,7 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@RequestMapping("modMemberIntegral")
-	public String ModMemIntegral(HttpServletRequest request, HttpServletResponse response) {
+	public String modMemberIntegral(HttpServletRequest request, HttpServletResponse response) {
 		String strAddOrCutFlag = request.getParameter("strAddOrCutFlag");
 		String strMemberId = request.getParameter("strMemberId");
 		String strIntegralNum = request.getParameter("strIntegralNum");
@@ -572,41 +572,33 @@ public class MemberController {
 				iAddOrCutFlag = -iAddOrCutFlag;
 			}
 		}
-		
-		
-		/*
+		EmployeeEntity employeeEntity = null;
 		try {
-			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+			employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 					request, response).getAttribute("employeeEntity");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
-		*/
-		
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
 		// 赋值
 		IntegralModRecord integralModRecord = new IntegralModRecord();
+		integralModRecord.setStrRecordId(DataTool.getUUID());
 		integralModRecord.setiIntegralNum(iAddOrCutFlag);
 		integralModRecord.setStrMemberId(strMemberId);
 		integralModRecord.setStrDesc(strDesc);
-		integralModRecord.setStrRecordId(DataTool.getUUID());
-		
-		// 测试先占位
-		integralModRecord.setStrEmployId("12345");
-		integralModRecord.setStrEmployName("34567");
-		integralModRecord.setStrEmployLoginName("admin");
-		
+		integralModRecord.setStrEmployId(employeeEntity.getStrEmployeeid());
+		integralModRecord.setStrEmployName(employeeEntity.getStrRealname());
+		integralModRecord.setStrEmployLoginName(employeeEntity.getStrLoginname());
 		integralModRecord.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 		
 		try {
-			modUserIntegral.InsertNewRecord(integralModRecord);
-			
-			return DataTool.constructResponse(ResultCode.OK, "修改成功", null);
+			return modUserIntegral.modMemberIntegral(integralModRecord);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
 		
@@ -622,32 +614,17 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@RequestMapping("backgroundRechargForMember")
-	public String BackgroundRechargForMember(HttpServletRequest request, HttpServletResponse response) {
+	public String backgroundRechargForMember(HttpServletRequest request, HttpServletResponse response) {
 		String strMemberId = request.getParameter("strMemberId");
 		String strRechargeAmount = request.getParameter("strRechargeAmount");
 
-		/*
-		String strRechargeId = request.getParameter("strRechargeId");
-		String strMemberId = request.getParameter("strMemberId");
-		String strMemberCardNum = request.getParameter("strMemberCardNum");
-		String strMemberName = request.getParameter("strMemberName");
-		String dBalance = request.getParameter("dBalance");
-		String strEmployeeId = request.getParameter("strEmployeeId");
-		String strEmployeeRealName = request.getParameter("strEmployeeRealName");
-		String strEmployeeLoginName = request.getParameter("strEmployeeLoginName");
-		String strInsertTime = request.getParameter("strInsertTime");
-		String strReserved = request.getParameter("strReserved");
-		*/
-		
 		if(strMemberId ==null || strMemberId.isEmpty()){
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
 		}
 		
-		/*
 		if(strRechargeAmount ==null || strRechargeAmount.isEmpty()){
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值金额不能为空", null);
 		}
-		*/
 		
 		// 判断必须是数字＋小数点
 		for(int iLoop = strRechargeAmount.length(); --iLoop>=0;){  
@@ -656,43 +633,41 @@ public class MemberController {
             if(chr<48 || chr>57) {  
               if(chr != 46)  
               {
-                return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值数量不是数字", null);  
+                return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "充值数量不是数字", null);  
               }
             }  
          }
 		BigDecimal bgAmount = new BigDecimal(strRechargeAmount);
 		
-		
-		/*
+		EmployeeEntity employeeEntity = null;
 		try {
-			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+			employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 					request, response).getAttribute("employeeEntity");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
-		*/
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
 
 		// 赋值
 		MemberRechargeRecord tMemberRechargeRecord=new MemberRechargeRecord();
 		tMemberRechargeRecord.setStrRechargeId(DataTool.getUUID());
 		tMemberRechargeRecord.setStrMemberId(strMemberId);
-		tMemberRechargeRecord.setStrMemberCardNum("");
-		tMemberRechargeRecord.setStrMemberName("");
 		tMemberRechargeRecord.setdBalance(bgAmount);
-		tMemberRechargeRecord.setStrEmployeeId("11");
-		tMemberRechargeRecord.setStrEmployeeRealName("11");
-		tMemberRechargeRecord.setStrEmployeeLoginName("23");
+		tMemberRechargeRecord.setStrEmployeeId(employeeEntity.getStrEmployeeid());
+		tMemberRechargeRecord.setStrEmployeeRealName(employeeEntity.getStrRealname());
+		tMemberRechargeRecord.setStrEmployeeLoginName(employeeEntity.getStrLoginname());
 		tMemberRechargeRecord.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
-		tMemberRechargeRecord.setiRechargeType(1);
+		tMemberRechargeRecord.setiRechargeType(1); //表示是售后充值
 		tMemberRechargeRecord.setStrReserved("");
 		
 		
 		//执行后台充值
 		try {
-			memberService.backGroundRechargForMember(tMemberRechargeRecord);
+			return memberService.backGroundRechargForMember(tMemberRechargeRecord);
 			
-			return DataTool.constructResponse(ResultCode.OK, "充值成功", null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

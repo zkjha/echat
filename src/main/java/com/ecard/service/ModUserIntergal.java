@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.commontools.data.DataTool;
+import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.mapper.IntegralRecordOperMapper;
@@ -30,31 +32,22 @@ public class ModUserIntergal {
 	@Autowired
 	private MemberMapper memMapper;
 	
-	
 	@Transactional(rollbackFor=Exception.class)
-	public String InsertNewRecord(IntegralModRecord integralModRecord) throws Exception {
+	public String modMemberIntegral(IntegralModRecord integralModRecord) throws Exception {
 		
-		// 根据会员卡号查询需要调整积分的用户基本信息写入到积分记录表中
-		if (integralModRecord.getStrMemberId() != null)
-		{
-			// 查询会员用户信息
-			MemberEntity memEntity = new MemberEntity();
-			memEntity = memMapper.getMemberEntityById(integralModRecord.getStrMemberId());
-			
-			integralModRecord.setStrMemberCardNum(memEntity.getStrMembercardnum());
-			integralModRecord.setStrMemberName(memEntity.getStrRealname());
-			
-			// 增加用户积分
-			memMapper.updateMemberIntegral(integralModRecord);
+		// 查询会员用户信息
+		MemberEntity memEntity = memMapper.getMemberEntityById(integralModRecord.getStrMemberId());
+		if (memEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "该会员不存在", null); 
 		}
-		else
-		{
-			return "用户会员卡号不能为空";
-		}
+		integralModRecord.setStrMemberCardNum(memEntity.getStrMembercardnum());
+		integralModRecord.setStrMemberName(memEntity.getStrRealname());
 		
-		// 向数据库中插入数据
-		integralRecordOperMapper.InsertNewRecord(integralModRecord);
+		// 增加用户积分
+		memMapper.updateMemberIntegral(integralModRecord);
+		// 向数据库中插入变更记录数据
+		integralRecordOperMapper.insertNewRecord(integralModRecord);
 		
-		return null; 
+		return DataTool.constructResponse(ResultCode.OK, "积分变更成功", null); 
 	}
 }

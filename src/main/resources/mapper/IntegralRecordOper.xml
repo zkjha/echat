@@ -4,7 +4,7 @@
 <mapper namespace="com.ecard.mapper.IntegralRecordOperMapper">
 
 	<!-- 新增积分记录 -->
-	<insert id="InsertNewRecord" parameterType="com.ecard.entity.IntegralModRecord">
+	<insert id="insertNewRecord" parameterType="com.ecard.entity.IntegralModRecord">
 		INSERT INTO tb_integral_change_record 
 		(STRRECORDID,STRMEMBERID,STRMEMBERCARDNUM,STRMEMBERNAME,INTINTEGRAL,STREMPLOYEEID,STREMPLOYEEREALNAME,STREMPLOYEELOGINNAME,STRINSERTTIME,strDesc)
 		VALUES

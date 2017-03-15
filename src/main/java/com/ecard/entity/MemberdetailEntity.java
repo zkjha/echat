@@ -1,7 +1,5 @@
 package com.ecard.entity;
 
-import java.math.BigDecimal;
-
 /**
  * 会员详细信息实体
  * @author Administrator
@@ -36,7 +34,7 @@ public class MemberdetailEntity {
 	/**
 	 * 购买价格
 	 */
-	private BigDecimal dBuyprice;
+	private String strBuyprice;
 	/**
 	 * 购买日期
 	 */
@@ -133,11 +131,11 @@ public class MemberdetailEntity {
 	public void setStrCartype(String strCartype) {
 		this.strCartype = strCartype;
 	}
-	public BigDecimal getdBuyprice() {
-		return dBuyprice;
+	public String getStrBuyprice() {
+		return strBuyprice;
 	}
-	public void setdBuyprice(BigDecimal dBuyprice) {
-		this.dBuyprice = dBuyprice;
+	public void setStrBuyprice(String strBuyprice) {
+		this.strBuyprice = strBuyprice;
 	}
 	public String getStrBuydate() {
 		return strBuydate;

@@ -16,7 +16,7 @@ import com.ecard.entity.IntegralModRecord;
 public interface IntegralRecordOperMapper {
 	
 	 // 新插入记录
-     void InsertNewRecord(IntegralModRecord IntegralModRecord) throws Exception;
+     void insertNewRecord(IntegralModRecord integralModRecord) throws Exception;
      
      
 }

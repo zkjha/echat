@@ -226,7 +226,7 @@ CREATE TABLE tb_member_detail
   STRCARLICENSE             VARCHAR(50) NOT NULL,      -- 车牌号码
   STRCARCOLOR               VARCHAR(50) DEFAULT '',    -- 颜色
   STRCARTYPE                VARCHAR(50) NOT NULL,      -- 车辆类型
-  DBUYPRICE                 DECIMAL(11,2) DEFAULT 0.00,-- 购买价格
+  STRBUYPRICE               VARCHAR(50) DEFAULT '',    -- 购买价格
   STRBUYDATE                VARCHAR(50) DEFAULT '',    -- 购买日期
   STRADDRESS                VARCHAR(100) NOT NULL,     -- 住址
   STRUSENATURE              VARCHAR(50) NOT NULL,      -- 使用性质
