@@ -212,14 +212,16 @@ public class MemberService {
 		if ("1".equals(strOperateType)) {
 			//禁用会员
 			memberMapper.updateMemberStatus(strMemberId, 0);
+			return DataTool.constructResponse(ResultCode.OK, "操作成功", 0);
 			
 		} else if ("0".equals(strOperateType)) {
 			//启用会员
 			memberMapper.updateMemberStatus(strMemberId, 1);
+			return DataTool.constructResponse(ResultCode.OK, "操作成功", 1);
 		} else {
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "未知操作类型", null);
 		}
-		return DataTool.constructResponse(ResultCode.OK, "操作成功", null);
+		
 	}
 
 }
