@@ -546,17 +546,17 @@ public class MemberController {
 		int iAddOrCutFlag = 0;
 		
 		// 判断输入参数是否有效 
-		if (strAddOrCutFlag.isEmpty())
+		if (ValidateTool.isEmptyStr(strAddOrCutFlag))
 		{
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "增加或减少标记不能为空", null);
 		}
 		
-		if (strMemberId.isEmpty())
+		if (ValidateTool.isEmptyStr(strMemberId))
 		{
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
 		}
 		
-		if (strIntegralNum.isEmpty())
+		if (ValidateTool.isEmptyStr(strIntegralNum))
 		{
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "积分数量不能为空", null);
 		}
@@ -618,11 +618,11 @@ public class MemberController {
 		String strMemberId = request.getParameter("strMemberId");
 		String strRechargeAmount = request.getParameter("strRechargeAmount");
 
-		if(strMemberId ==null || strMemberId.isEmpty()){
+		if(ValidateTool.isEmptyStr(strMemberId)){
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
 		}
 		
-		if(strRechargeAmount ==null || strRechargeAmount.isEmpty()){
+		if(ValidateTool.isEmptyStr(strRechargeAmount)){
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值金额不能为空", null);
 		}
 		
