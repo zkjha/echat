@@ -56,9 +56,13 @@ public class MemberEntity implements Serializable {
 	 */
 	private int intIntegral;
 	/**
-	 * 会员卡余额
+	 * 会员卡现金充值余额
 	 */
 	private BigDecimal dBalance;
+	/**
+	 * 会员卡售后储值余额
+	 */
+	private BigDecimal dAfterstoredbalance;
 	/**
 	 * 录入时间
 	 */
@@ -132,6 +136,12 @@ public class MemberEntity implements Serializable {
 	}
 	public void setdBalance(BigDecimal dBalance) {
 		this.dBalance = dBalance;
+	}
+	public BigDecimal getdAfterstoredbalance() {
+		return dAfterstoredbalance;
+	}
+	public void setdAfterstoredbalance(BigDecimal dAfterstoredbalance) {
+		this.dAfterstoredbalance = dAfterstoredbalance;
 	}
 	public String getStrInserttime() {
 		return strInserttime;
