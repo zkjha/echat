@@ -194,4 +194,10 @@
 		WHERE STRMEMBERID=#{strMemberId}
 	</update>
 	
+	 <!-- 修改会员状态 -->
+	<update id="updateMemberStatus">
+		UPDATE tb_member SET  INTSTATUS=#{intStatus}
+		WHERE STRMEMBERID=#{strMemberId}
+	</update>
+	
 </mapper>

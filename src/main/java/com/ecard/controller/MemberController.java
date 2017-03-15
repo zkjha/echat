@@ -563,7 +563,7 @@ public class MemberController {
 		
 		if (StringUtils.isNumeric(strIntegralNum) == false)
 		{
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "积分数量不是数字", null);
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "积分数量不是数字", null);
 		}
 		else {
 			iAddOrCutFlag = Integer.parseInt(strIntegralNum);
@@ -675,6 +675,31 @@ public class MemberController {
 		}
 
 		
+	}
+	
+	/**
+	 * 禁用或者启用会员
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("updateMemberStatus")
+	public String updateMemberStatus(HttpServletRequest request, HttpServletResponse response) {
+		String strMemberId = request.getParameter("strMemberId");
+		String strOperateType = request.getParameter("strOperateType");
+		if(ValidateTool.isEmptyStr(strMemberId)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
+		}
+		if(ValidateTool.isEmptyStr(strOperateType)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "操作类型不能为空", null);
+		}
+		try {
+			return memberService.forbiddenMember(strMemberId, strOperateType);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
 	}
 	
 	

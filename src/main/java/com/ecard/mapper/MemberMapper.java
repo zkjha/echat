@@ -67,11 +67,14 @@ public interface MemberMapper {
 	void deleteMemberexpandattribute(String strMemberid) throws Exception;
 	
 	//会员充值  added by qidongbo 20170315 10:40
-	void insertMemberRechargeRecord(MemberRechargeRecord tMemberRechargeRecord);
+	void insertMemberRechargeRecord(MemberRechargeRecord tMemberRechargeRecord) throws Exception;
 	
 	//修改会员积分  added by qidongbo 20170315 12:40
-	void  updateMemberIntegral(IntegralModRecord tIntegralModRecord);
+	void  updateMemberIntegral(IntegralModRecord tIntegralModRecord) throws Exception;
 	
 	//修改会员充值金额（后台人员操作）  added by qidongbo 20170315 12:40
-	void  updateMemberBgrechargeById(MemberRechargeRecord tMemberRechargeRecord);
+	void  updateMemberBgrechargeById(MemberRechargeRecord tMemberRechargeRecord) throws Exception;
+
+	//修改会员状态
+	void updateMemberStatus(@Param("strMemberId")String strMemberId, @Param("intStatus")int intStatus) throws Exception;
 }
