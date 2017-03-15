@@ -272,6 +272,7 @@ CREATE TABLE tb_integral_change_record
   STRMEMBERCARDNUM          VARCHAR(50) NOT NULL,      -- 会员卡号
   STRMEMBERNAME             VARCHAR(50) NOT NULL,      -- 会员姓名
   INTINTEGRAL               INT DEFAULT 0,             -- 变更积分值
+  STRDESC                   VARCHAR(50) DEFAULT '',    -- 变更描述
   STREMPLOYEEID             VARCHAR(50) NOT NULL,      -- 操作员工ID
   STREMPLOYEEREALNAME       VARCHAR(50) NOT NULL,      -- 操作员工姓名
   STREMPLOYEELOGINNAME      VARCHAR(50) NOT NULL,      -- 操作员工登录账号
@@ -289,9 +290,9 @@ CREATE INDEX membercardnum_index ON tb_integral_change_record(STRMEMBERCARDNUM);
 DROP TABLE IF EXISTS tb_recharge_record;
 CREATE TABLE tb_recharge_record
 (
-  strRechargeId              VARCHAR(50) NOT NULL,      -- 主键
-  strMemberId                VARCHAR(50) NOT NULL,      -- 会员ID
-  strMemberCardNum           VARCHAR(50) NOT NULL,       -- 会员卡号
+  strRechargeId             VARCHAR(50) NOT NULL,       -- 主键
+  strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID
+  strMemberCardNum          VARCHAR(50) NOT NULL,       -- 会员卡号
   strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名   
   dBalance                  DECIMAL(11,2) DEFAULT 0.00, -- 会员卡余额
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
