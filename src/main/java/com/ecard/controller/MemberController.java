@@ -48,7 +48,7 @@ import com.ecard.vo.MemberexpandinformationVO;
  *
  */
 @Controller
-@RequestMapping("/admin/")
+@RequestMapping("/admin/biz/member")
 public class MemberController {
 	
 	@Resource
