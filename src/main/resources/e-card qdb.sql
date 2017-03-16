@@ -329,6 +329,45 @@ CREATE TABLE tb_recharge_order
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxRechargeOrderOnMemberId on tb_recharge_order(STRMEMBERID);
 
+-- ==============================================================
+-- Table: tb_goods                                      【商品信息表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_goods;
+CREATE TABLE tb_goods
+(
+  STRGOODSID                VARCHAR(50) NOT NULL,       -- 主键
+  STRGOODSNAME              VARCHAR(50) NOT NULL,       -- 用户姓名
+  DPRICE                    DECIMAL(11,2) DEFAULT 0.00, -- 价格
+  STRINSERTTIME             VARCHAR(50) NOT NULL,       -- 录入时间
+  STRUPDATETIME             VARCHAR(50) DEFAULT '',     -- 修改时间
+  PRIMARY KEY (STRGOODSID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================
+-- Table: tb_goods_order                            【商品订单表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_goods_order;
+CREATE TABLE tb_goods_order
+(
+  STRORDERID                VARCHAR(50) NOT NULL,       -- 主键
+  STRMEMBERID               VARCHAR(50) NOT NULL,       -- 会员ID
+  STRMEMBERCARDNUM          VARCHAR(50) NOT NULL,       -- 会员卡号
+  STRMEMBERNAME             VARCHAR(50) NOT NULL,       -- 用户姓名
+  STRGOODSID                VARCHAR(50) NOT NULL,       -- 商品ID
+  STRGOODSNAME              VARCHAR(50) NOT NULL,       -- 商品名称
+  INTCOUNT                  INT DEFAULT 0,              -- 数量
+  DPRICE                    DECIMAL(11,2) DEFAULT 0.00, -- 商品单价
+  DAMOUNT                   DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额
+  STRINSERTTIME             VARCHAR(50) NOT NULL,       -- 录入时间
+  INTSTATUS                 INT DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
+  STRPAYTIME                VARCHAR(50) DEFAULT '',     -- 支付时间
+  INTPAYTYPE                INT DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付
+  STRTHIRDPARTYTRADEFLOW    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
+  STREXPRESSNUMBER          VARCHAR(50) DEFAULT '',     -- 快递单号
+  STREXPRESSCOMPANY         VARCHAR(50) DEFAULT '',     -- 快递公司
+  PRIMARY KEY (STRORDERID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxRechargeOrderOnMemberId on tb_goods_order(STRMEMBERID);
 
 
 

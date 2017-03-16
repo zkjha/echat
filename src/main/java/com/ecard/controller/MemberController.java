@@ -23,6 +23,7 @@ import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
+import com.ecard.entity.GoodsOrderEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberRechargeRecord;
@@ -33,6 +34,7 @@ import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.entity.RechargeOrderEntity;
 import com.ecard.enumeration.MemberexpandinformationMustEnum;
 import com.ecard.enumeration.MemberlevelsStatusEnum;
+import com.ecard.service.GoodsOrderService;
 import com.ecard.service.MemberService;
 import com.ecard.service.MemberexpandinformationService;
 import com.ecard.service.ModUserIntergal;
@@ -46,7 +48,7 @@ import com.ecard.vo.MemberexpandinformationVO;
  *
  */
 @Controller
-@RequestMapping("/admin/biz/member")
+@RequestMapping("/admin/")
 public class MemberController {
 	
 	@Resource
@@ -59,6 +61,8 @@ public class MemberController {
 	private ModUserIntergal modUserIntegral;
 	@Resource
 	private RechargeOrderService rechargeOrderService;
+	@Resource
+	private GoodsOrderService goodsOrderService;
 	
 	/**
 	 * 新增会员
@@ -795,6 +799,55 @@ public class MemberController {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
+	}
+	
+	/**
+	 * 查询用户订单列表
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("listMemberGoodsOrder")
+	public String listMemberGoodsOrder(HttpServletRequest request, HttpServletResponse response) {
+		String strPayType = request.getParameter("strPayType");
+		String pagenum = request.getParameter("pagenum");
+		String pagesize = request.getParameter("pagesize");
+		String strOrderId = request.getParameter("strOrderId");
+		String strMemberId = request.getParameter("strMemberId");
+		
+		if(ValidateTool.isEmptyStr(pagenum)) {
+			pagenum = "1";
+		}
+		int iPagesize = StaticValue.PAGE_SIZE;
+		if(!ValidateTool.isEmptyStr(pagesize)) {
+			iPagesize = Integer.valueOf(pagesize);
+		}
+		
+		int pageFrom = (Integer.parseInt(pagenum)-1)*iPagesize;
+		try {
+			Map<String,Object> queryMap = new HashMap<String, Object>();
+			queryMap.put("pageFrom", pageFrom);
+			queryMap.put("pageSize", iPagesize);
+			queryMap.put("strPayType", strPayType);
+			queryMap.put("strOrderId", DataTool.trimStr(strOrderId));
+			queryMap.put("strMemberId", strMemberId);
+			List<GoodsOrderEntity> orderList = goodsOrderService.listOrder(queryMap);
+			if(ValidateTool.isNull(orderList)||orderList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无订单", null);
+			} else {
+				int totalrecord = goodsOrderService.getOrderTotalCount(queryMap); //查询会员总数量
+				Map<String,Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("orderList", orderList);
+				resultMap.put("iTotalRecord", totalrecord);
+				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		
 	}
 	
 	

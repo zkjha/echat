@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.GoodsOrderMapper">
+
+	<!-- 查询订单列表 -->
+	<select id="listOrder" parameterType="map" resultType="com.ecard.vo.GoodsOrderVO">
+	     SELECT STRORDERID AS strOrderId, STRMEMBERNAME AS strMemberName, STRGOODSNAME AS strGoodsName, DAMOUNT AS dAmount,
+	            STRINSERTTIME AS strInsertTime, INTPAYTYPE AS intPayType, STREXPRESSNUMBER AS strExpressNumber,
+	            STREXPRESSCOMPANY AS strExpressCompany
+	     FROM tb_goods_order
+	     <where>
+	     	<!-- 会员ID -->
+     		<if test="strMemberId != null and strMemberId != ''">
+                STRMEMBERID=#{strMemberId}
+            </if>
+            <!-- 订单号 -->
+	     	<if test="strOrderId != null and strOrderId != ''">
+	     		AND STRORDERID=#{strOrderId}
+	     	</if>
+     	 	<!-- 支付类型 -->
+	     	<if test="strPayType != null and strPayType != ''">
+	     		AND INTPAYTYPE=#{strPayType}
+	     	</if>
+	     </where>
+	      ORDER BY STRINSERTTIME DESC
+	     <if test="pageSize != 0">
+	     	LIMIT #{pageFrom}, #{pageSize}	
+	     </if>
+	</select>
+	
+	<!-- 查询订单总数量 -->
+	<select id="getOrderTotalCount" parameterType="map"  resultType="int">
+	     SELECT COUNT(STRORDERID)
+	     FROM tb_goods_order
+      	 <where>
+	     	<!-- 会员ID -->
+	     	<if test="strMemberId != null and strMemberId != ''">
+                STRMEMBERID=#{strMemberId}
+            </if>
+            <!-- 订单号 -->
+	     	<if test="strOrderId != null and strOrderId != ''">
+	     		AND STRORDERID=#{strOrderId}
+	     	</if>
+     	 	<!-- 支付类型 -->
+	     	<if test="strPayType != null and strPayType != ''">
+	     		AND INTPAYTYPE=#{strPayType}
+	     	</if>
+	     </where>
+	</select>
+	
+</mapper>
