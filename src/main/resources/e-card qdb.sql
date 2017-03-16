@@ -283,9 +283,8 @@ CREATE TABLE tb_integral_change_record
 CREATE INDEX memberid_index ON tb_integral_change_record(STRMEMBERID);
 CREATE INDEX membercardnum_index ON tb_integral_change_record(STRMEMBERCARDNUM);
 
-
 -- ==============================================================
--- Table: tb_recharge_record     【后台记录表】                          
+-- Table: tb_recharge_record                【后台售后充值记录表】                          
 -- ==============================================================
 DROP TABLE IF EXISTS tb_recharge_record;
 CREATE TABLE tb_recharge_record
@@ -294,18 +293,41 @@ CREATE TABLE tb_recharge_record
   strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID
   strMemberCardNum          VARCHAR(50) NOT NULL,       -- 会员卡号
   strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名   
-  dBalance                  DECIMAL(11,2) DEFAULT 0.00, -- 会员卡余额
+  dBalance                  DECIMAL(11,2) DEFAULT 0.00, -- 金额
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeRealName       VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
   strInsertTime             VARCHAR(50) NOT NULL,       -- 录入时间
-  iRechargeType             int not null default 0,     -- 充值类型 0:会员在线充值 1后台管理人员充值
+  iRechargeType             INT DEFAULT 0,              -- 充值类型 0:现金充值 1售后储值充值
   strReserved               VARCHAR(500) NULL,          -- 预留字段
   PRIMARY KEY (strRechargeId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxRechargeRecordOnRechargeId on tb_recharge_record(strRechargeId);
 create index indxRechargeRecordOnMemberCardId  on tb_recharge_record(strMemberCardNum);
 create index indxRechargeRecordOnInsertTime   on tb_recharge_record(strInsertTime);
+
+-- ==============================================================
+-- Table: tb_recharge_order                 【会员现金充值订单表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_recharge_order;
+CREATE TABLE tb_recharge_order
+(
+  STRORDERID                VARCHAR(50) NOT NULL,       -- 主键
+  STRMEMBERID               VARCHAR(50) NOT NULL,       -- 会员ID
+  STRMEMBERCARDNUM          VARCHAR(50) NOT NULL,       -- 会员卡号
+  STRMEMBERNAME             VARCHAR(50) NOT NULL,       -- 用户姓名   
+  DBALANCE                  DECIMAL(11,2) DEFAULT 0.00, -- 充值金额
+  STREMPLOYEEID             VARCHAR(50) NOT NULL,       -- 操作员工ID
+  STREMPLOYEEREALNAME       VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  STREMPLOYEELOGINNAME      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  STRINSERTTIME             VARCHAR(50) NOT NULL,       -- 录入时间
+  INTSTATUS                 INT DEFAULT 0,              -- 订单状态0：待支付 1：已支付
+  STRPAYTIME                VARCHAR(50) DEFAULT '',     -- 支付时间
+  INTPAYTYPE                INT DEFAULT 0,              -- 支付方式 0：现金支付 1：微信支付 2：支付宝支付
+  STRTHIRDPARTYTRADEFLOW    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
+  PRIMARY KEY (STRORDERID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxRechargeOrderOnMemberId on tb_recharge_order(STRMEMBERID);
 
 
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.RechargeOrderMapper">
+
+	<!-- 新增充值订单-->
+	<insert id="insertRechargeOrder" parameterType="com.ecard.entity.RechargeOrderEntity">
+		INSERT INTO tb_recharge_order 
+		(STRORDERID,STRMEMBERID,STRMEMBERCARDNUM,STRMEMBERNAME,DBALANCE,STREMPLOYEEID,STREMPLOYEEREALNAME,STREMPLOYEELOGINNAME,STRINSERTTIME,INTSTATUS,STRPAYTIME, INTPAYTYPE)
+		VALUES
+		(#{strOrderId}, #{strMemberId}, #{strMemberCardNum},#{strMemberName},#{dBalance}, #{strEmployeeId}, #{strEmployeeRealName},#{strEmployeeLoginName},#{strInsertTime},#{intStatus},#{strPayTime}, #{intPayType})
+	</insert>
+	
+	<!-- 修改订单状态 -->
+	<update id="updateOrderPayInfo" parameterType="com.ecard.entity.RechargeOrderEntity">
+		UPDATE tb_recharge_order SET INTSTATUS=#{intStatus}, STRPAYTIME=#{strPayTime}, INTPAYTYPE=#{intPayType}, STRTHIRDPARTYTRADEFLOW=#{strThirdPartyTradeFlow}
+		WHERE STRRECORDID=#{strOrderId}
+	</update>
+	
+	<!-- 查询订单详细信息 -->
+	<select id="getRechargeOrderById" parameterType="string" resultType="com.ecard.entity.RechargeOrderEntity">
+		SELECT STRORDERID AS strOrderId,STRMEMBERID AS strMemberId,STRMEMBERCARDNUM AS strMemberCardNum,STRMEMBERNAME AS strMemberName,DBALANCE AS dBalance,STREMPLOYEEID AS strEmployeeId,
+		       STREMPLOYEEREALNAME AS strEmployeeRealName, STREMPLOYEELOGINNAME AS strEmployeeLoginName, INTSTATUS AS intStatus
+		FROM tb_recharge_order
+		WHERE STRRECORDID=#{strOrderId}
+	</select>
+	
+</mapper>

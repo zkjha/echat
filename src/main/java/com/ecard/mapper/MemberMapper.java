@@ -72,9 +72,12 @@ public interface MemberMapper {
 	//修改会员积分  added by qidongbo 20170315 12:40
 	int  updateMemberIntegral(IntegralModEntity integralModEntity) throws Exception;
 	
-	//修改会员充值金额（后台人员操作）  added by qidongbo 20170315 12:40
+	//修改会员售后充值金额（后台人员操作）  added by qidongbo 20170315 12:40
 	void  updateMemberBgrechargeById(MemberRechargeRecord tMemberRechargeRecord) throws Exception;
 
 	//修改会员状态
 	void updateMemberStatus(@Param("strMemberId")String strMemberId, @Param("intStatus")int intStatus) throws Exception;
+
+	//修改会员现金充值金额
+	void updateMemberCashAmountById(MemberRechargeRecord memberRechargeRecord) throws Exception;
 }

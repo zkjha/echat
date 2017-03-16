@@ -183,9 +183,15 @@
     </insert>
     
     
-    <!-- 增加会后后台充值金额 -->
+    <!-- 增加会售后储值金额 -->
 	<update id="updateMemberBgrechargeById" parameterType="com.ecard.entity.MemberRechargeRecord">
 		UPDATE tb_member SET  DAFTERSTOREDBALANCE=DAFTERSTOREDBALANCE+#{dBalance}
+		WHERE STRMEMBERID=#{strMemberId}
+	</update>
+	
+ 	<!-- 增加会员现金充值金额 -->
+	<update id="updateMemberCashAmountById" parameterType="com.ecard.entity.MemberRechargeRecord">
+		UPDATE tb_member SET  DBALANCE=DBALANCE+#{dBalance}
 		WHERE STRMEMBERID=#{strMemberId}
 	</update>
 	

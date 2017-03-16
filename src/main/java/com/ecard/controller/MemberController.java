@@ -606,7 +606,7 @@ public class MemberController {
 	
 	
 	/**
-	 * 后台为用户充值
+	 * 用户售后储值充值
 	 * @param request
 	 * @param response
 	 * @return
@@ -669,7 +669,65 @@ public class MemberController {
 			return memberService.backGroundRechargForMember(tMemberRechargeRecord);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+	}
+	
+	/**
+	 * 现金充值
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("cashMoneyRechargForMember")
+	public String cashMoneyRechargForMember(HttpServletRequest request, HttpServletResponse response) {
+		String strMemberId = request.getParameter("strMemberId");
+		String strRechargeAmount = request.getParameter("strRechargeAmount");
+		String strPayType = request.getParameter("strPayType");
+
+		if(ValidateTool.isEmptyStr(strMemberId)){
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
+		}
+		
+		if(ValidateTool.isEmptyStr(strRechargeAmount)){
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "充值金额不能为空", null);
+		}
+		
+		// 判断必须是数字＋小数点
+		for(int iLoop = strRechargeAmount.length(); --iLoop>=0;) {
+            int chr=strRechargeAmount.charAt(iLoop);  
+            System.out.println(chr);  
+            if(chr<48 || chr>57) {  
+              if(chr != 46)  
+              {
+                return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "充值数量不是数字", null);  
+              }
+            }  
+		}
+		
+		if(ValidateTool.isEmptyStr(strPayType)){
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "支付方式不能为空", null);
+		}
+		BigDecimal bgAmount = new BigDecimal(strRechargeAmount);
+		
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+					request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		//执行充值
+		try {
+			return memberService.cashMoneyRechargForMember(employeeEntity, strMemberId, bgAmount, strPayType);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}

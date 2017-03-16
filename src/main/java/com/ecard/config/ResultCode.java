@@ -102,6 +102,10 @@ public final class ResultCode {
 	 * 该手机号已经是会员了
 	 */
 	public static final int LACK_INTEGRAL = 100013;
+	/**
+	 * 生成预支付订单失败
+	 */
+	public static final int PAY_ERROR = 100014;
 	
 	
 	//========================接口返回状态标识结束==========================
