@@ -262,6 +262,7 @@ public class MemberService {
 		rechargeOrderEntity.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 		
 		Map<String,Object> returnMap = new HashMap<String,Object>(); //返回参数
+		returnMap.put("strOrderId", rechargeOrderEntity.getStrOrderId()); //返回订单号
 		//1.删除所有未支付过的订单
 		if ("0".equals(strPayType)) {
 			//现金充值

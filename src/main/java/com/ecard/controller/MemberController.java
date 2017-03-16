@@ -30,11 +30,13 @@ import com.ecard.entity.MemberdetailEntity;
 import com.ecard.entity.MemberexpandattributeEntity;
 import com.ecard.entity.MemberexpandinformationEntity;
 import com.ecard.entity.MemberlevelsEntity;
+import com.ecard.entity.RechargeOrderEntity;
 import com.ecard.enumeration.MemberexpandinformationMustEnum;
 import com.ecard.enumeration.MemberlevelsStatusEnum;
 import com.ecard.service.MemberService;
 import com.ecard.service.MemberexpandinformationService;
 import com.ecard.service.ModUserIntergal;
+import com.ecard.service.RechargeOrderService;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
 import com.ecard.vo.MemberexpandinformationVO;
@@ -55,7 +57,8 @@ public class MemberController {
 	private WebSessionUtil webSessionUtil;
 	@Resource
 	private ModUserIntergal modUserIntegral;
-	
+	@Resource
+	private RechargeOrderService rechargeOrderService;
 	
 	/**
 	 * 新增会员
@@ -731,8 +734,43 @@ public class MemberController {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
-
 		
+	}
+	
+	/**
+	 * @描述：轮询检测订单是否支付成功
+	 * @作者:丁洪星
+	 * @部门：伏守科技项目开发部
+	 * @日期： 2016年11月16日下午3:22:40 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("checkIsPayed")
+	public String checkIsPayed(HttpServletRequest request, HttpServletResponse response) {
+		String strOrderId = request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId)) {
+			//订单id为空
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单号不能为空", null);
+		}
+		try {
+			RechargeOrderEntity rechargeOrderEntity = rechargeOrderService.getRechargeOrderById(strOrderId);
+			if(ValidateTool.isNull(rechargeOrderEntity)) {
+				//还未支付成功
+				return DataTool.constructResponse(ResultCode.NOT_PAY, "还未支付成功", null);
+			} else {
+				if(2==rechargeOrderEntity.getIntStatus()
+						 &&1==rechargeOrderEntity.getIntPayType()) {
+					//支持成功，并且支付方式为微信
+					return DataTool.constructResponse(ResultCode.OK, "支付成功", null);
+				} else {
+					//未支付成功
+					return DataTool.constructResponse(ResultCode.NOT_PAY, "还未支付成功", null);
+				}
+			}
+		}  catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
 	}
 	
 	/**

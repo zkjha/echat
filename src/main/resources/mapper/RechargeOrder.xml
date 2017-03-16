@@ -14,15 +14,15 @@
 	<!-- 修改订单状态 -->
 	<update id="updateOrderPayInfo" parameterType="com.ecard.entity.RechargeOrderEntity">
 		UPDATE tb_recharge_order SET INTSTATUS=#{intStatus}, STRPAYTIME=#{strPayTime}, INTPAYTYPE=#{intPayType}, STRTHIRDPARTYTRADEFLOW=#{strThirdPartyTradeFlow}
-		WHERE STRRECORDID=#{strOrderId}
+		WHERE STRORDERID=#{strOrderId}
 	</update>
 	
 	<!-- 查询订单详细信息 -->
 	<select id="getRechargeOrderById" parameterType="string" resultType="com.ecard.entity.RechargeOrderEntity">
 		SELECT STRORDERID AS strOrderId,STRMEMBERID AS strMemberId,STRMEMBERCARDNUM AS strMemberCardNum,STRMEMBERNAME AS strMemberName,DBALANCE AS dBalance,STREMPLOYEEID AS strEmployeeId,
-		       STREMPLOYEEREALNAME AS strEmployeeRealName, STREMPLOYEELOGINNAME AS strEmployeeLoginName, INTSTATUS AS intStatus
+		       STREMPLOYEEREALNAME AS strEmployeeRealName, STREMPLOYEELOGINNAME AS strEmployeeLoginName, INTSTATUS AS intStatus, INTPAYTYPE AS intPayType
 		FROM tb_recharge_order
-		WHERE STRRECORDID=#{strOrderId}
+		WHERE STRORDERID=#{strOrderId}
 	</select>
 	
 </mapper>
