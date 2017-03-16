@@ -42,6 +42,10 @@ public class MemberVO {
 	 */
 	private BigDecimal dBalance;
 	/**
+	 * 售后储值余额
+	 */
+	private BigDecimal dAfterstoredbalance;
+	/**
 	 * 录入时间
 	 */
 	private String strInserttime;
@@ -98,6 +102,12 @@ public class MemberVO {
 	}
 	public void setdBalance(BigDecimal dBalance) {
 		this.dBalance = dBalance;
+	}
+	public BigDecimal getdAfterstoredbalance() {
+		return dAfterstoredbalance;
+	}
+	public void setdAfterstoredbalance(BigDecimal dAfterstoredbalance) {
+		this.dAfterstoredbalance = dAfterstoredbalance;
 	}
 	public String getStrInserttime() {
 		return strInserttime;
