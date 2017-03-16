@@ -758,9 +758,8 @@ public class MemberController {
 				//还未支付成功
 				return DataTool.constructResponse(ResultCode.NOT_PAY, "还未支付成功", null);
 			} else {
-				if(2==rechargeOrderEntity.getIntStatus()
-						 &&1==rechargeOrderEntity.getIntPayType()) {
-					//支持成功，并且支付方式为微信
+				if(1==rechargeOrderEntity.getIntStatus()) {
+					//支持成功
 					return DataTool.constructResponse(ResultCode.OK, "支付成功", null);
 				} else {
 					//未支付成功
