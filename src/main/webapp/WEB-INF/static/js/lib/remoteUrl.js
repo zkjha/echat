@@ -89,6 +89,14 @@ define([],function(){
             modMemberIntegral:"/admin/biz/member/modMemberIntegral",
             //修改会员禁用和启用状态
             updateMemberStatus:"/admin/biz/member/updateMemberStatus",
+            //后台为会员售后充值
+            backgroundRechargForMember:"/admin/biz/member/backgroundRechargForMember",
+            //后台现金充值
+            cashMoneyRechargForMember:"/admin/biz/member/cashMoneyRechargForMember",
+            //查询充值订单是否支付成功
+            checkIsPayed:"/admin/biz/member/checkIsPayed",
+            //查询会员订单信息
+            listMemberGoodsOrder:"/admin/biz/member/listMemberGoodsOrder",
         ////////////会员部分结束/////////////////////////////
 
 

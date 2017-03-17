@@ -12,6 +12,7 @@ require.config({
             deps:['lib/angular'],
             exports: 'angular-route'
         },
+
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor':{
             deps:['lib/jquery']
         },
@@ -20,6 +21,9 @@ require.config({
         },
         'metaumeditor/src/meta.umeditor':{
             deps:['lib/angular','lib/jquery']
+        },
+        'lib/laydate':{
+            exports: 'lib/laydate'
         }
     }
 });
@@ -27,6 +31,7 @@ requirejs(
     [ 'lib/angular',
         'controller/admin/membercentController',
         'lib/remoteUrl',
+        'dirctive/layDateDirective',
         'dirctive/tipsDirctive',
         'lib/requestParamUtill',
         'dirctive/menuDirective',
@@ -36,6 +41,8 @@ requirejs(
         'lib/angular-resize',
         'filter/replaceExpandTypeFilter',
         'filter/replaceEmployeeFilter',
+        'filter/payTypeFilter',
+        'filter/orderStatusFilter',
         'dirctive/ng-pagination',
         'dirctive/ExpandListDirective',
         'lib/jquery',
@@ -45,7 +52,7 @@ requirejs(
     ],
     function(angular,memberCentController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList','defLaydate','payTypeFilter','orderStatusFilter']);
 
         //路由配置
         app.config(["$routeProvider", function($routeProvider) {

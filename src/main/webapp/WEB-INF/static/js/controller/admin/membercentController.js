@@ -457,7 +457,9 @@ define(
 
             ////////////////////会员管理部分开始/////////////////////////
 
-            memberSetController:function($scope, $http){
+            memberSetController:function($scope, $http,$interval,$sce){
+
+
 
                 $scope.isShowListMenu = [];
                 $scope.currentPage = 1;
@@ -474,7 +476,7 @@ define(
                 $scope.onPageChange = function () {
                     // ajax request to load data
 
-                    MemberCenter.getExpandInfoList($scope, $http);
+                    MemberCenter.getMemberList($scope, $http);
 
                 };
 
@@ -505,7 +507,7 @@ define(
                 };
                 //显示会员详情弹窗
                 $scope.memberDetail=function(strMemberid){
-                    $scope.showDetailMemberInfoWindow=true;
+
 
                     $scope.strMemberid=strMemberid;
                     MemberCenter.getMemberById($scope, $http);
@@ -514,6 +516,7 @@ define(
                 //关闭会员详情弹窗
                 $scope.closeDetailMemberInfoWindow=function(){
                     $scope.showDetailMemberInfoWindow=false;
+                    MemberCenter.getMemberList($scope, $http);
                 };
                 //关闭编辑弹窗
                 $scope.closeEditMemberInfoWindow=function(){
@@ -526,8 +529,7 @@ define(
                     $scope.showEditMemberInfoWindow=true;
                     $scope.isAddNewMember=false;
                     $scope.nowStep=1;
-                    $scope.member={};
-                    $scope.member2={};
+
 
                 };
                 //回到第一步
@@ -540,6 +542,78 @@ define(
                     $scope.nowStep=2;
 
                 };
+
+                //显示储值弹窗
+                $scope.openvirtualRechargWindow=function(){
+                    $scope.showVirtualRechargWindow=true;
+                    $scope.virtualRecharg={};
+                };
+                //关闭储值弹窗
+                $scope.closeVirtualRechargWindow=function(){
+                    $scope.showVirtualRechargWindow=false;
+                };
+                //提交售后储值
+                $scope.submitVirtualRecharg=function(){
+                    $scope.isDisableSubmit=true;
+                    var data={};
+                    data.strMemberId=$scope.strMemberid;;
+                    data.strRechargeAmount=$scope.virtualRecharg.strRechargeAmount;
+                    MemberCenter.virtualRecharg($scope, $http,data);
+                };
+
+                //打开现金充值窗口
+                $scope.openCashRechargWindow=function(){
+                    $scope.paySuccessInterval;
+                    $scope.cashRecharg={};
+                    $scope.showCashRechargWindow=true;
+                    $scope.cashRecharg.strPayType='1';
+                    $scope.hadPay="NO";
+                };
+                //关闭现金充值窗口
+                $scope.closeCashRechargWindow=function(){
+
+                    $scope.showCashRechargWindow=false;
+                    $interval.cancel( $scope.paySuccessInterval );
+                };
+
+                //提交现金支付信息
+                $scope.submitCashRecharg=function(){
+
+                    $scope.isDisableSubmit=true;
+                    $scope.cashRecharg.strMemberId=$scope.strMemberid;
+                    MemberCenter.cashRecharg($scope, $http,$interval,$sce,$scope.cashRecharg);
+                };
+
+
+
+                //展示用户订单列表
+                $scope.openOrderListWindow=function(){
+
+                    $scope.orderPageSize=4;
+                    $scope.showOrderListWindow=true;
+                    $scope.select={};
+                    $scope.select.strPayType="-1";
+                    MemberCenter.getOrderList($scope, $http);
+                };
+
+                //点击根据条件查询会员消费记录
+                $scope.selectAction=function(){
+                    $scope.orderCurrentPage=1;
+                    MemberCenter.getOrderList($scope, $http);
+                };
+
+                //用户订单列表翻页事件
+                $scope.orderOnPageChange = function () {
+
+                    MemberCenter.getOrderList($scope, $http);
+                };
+
+                //关闭用户订单列表
+                $scope.closeOrderListWindow=function(){
+                    $scope.showOrderListWindow=false;
+                };
+
+
 
                 //禁用或者启用用户
                 $scope.updateMemberStatus=function(intStatus){
@@ -597,7 +671,7 @@ define(
                                 + window.location.search
                                 + window.location.hash;
                                 //未登录
-                            } else if (code == 100007|| code == 100012) {
+                            } else if (code == 100013) {
 
                                 $scope.showAlert(rs.msg);
                             } else if (code <= -2 && code >= -7) {
@@ -624,6 +698,7 @@ define(
 
                 };
 
+
                 //提交数据
                 $scope.submitMemberSecondinfo=function(){
 
@@ -637,6 +712,8 @@ define(
                         $scope.member.strMemberid=$scope.strMemberid;
                         url=remoteUrl.updateMember;
                     }
+
+
 
                    // $scope.modelDataObject={};
                     for(var key in $scope.modelData){
@@ -690,14 +767,249 @@ define(
                         });
 
 
-                }
+                };
 
+
+                $scope.$on(
+                    "$destroy",
+                    function( event ) {
+                        $interval.cancel( $scope.paySuccessInterval );
+
+                    }
+                );
 
 
             },
+            //获取订单列表
+            getOrderList:function($scope, $http){
+                var data = {
+                    'pagenum': $scope.orderCurrentPage,
+                    "pagesize": $scope.orderPageSize,
+                    "strMemberId":$scope.strMemberid,
+                    "strPayType" :$scope.select.strPayType,
+                    "strOrderId"  : $scope.select.strOrderId,
+                    "strStartTime"  : $scope.select.strStartTime,
+                    "strEndTime"  : $scope.select.strEndTime
+
+
+
+                };
+
+                $http.post(remoteUrl.listMemberGoodsOrder, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+                        //code=-8;
+                        if (code == 1) {
+                            //图片跟路径
+
+                            $scope.isNoOrderData=false;
+                            $scope.orderPageCount = data.iTotalPage;
+                            $scope.orderList = data.orderList;
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoOrderData=true;
+                            $scope.orderPageCount = 0;
+                            $scope.orderList = [];
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+
+
+            },
+            //查询支付结果
+            getPayStatus:function(strOrderId,$http,$scope,$interval){
+
+                var data={"strOrderId":strOrderId};
+                $http.post(remoteUrl.checkIsPayed,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+
+                        if (code == 1) {
+                            $scope.cashRecharg.strPayType='ok';
+                            $interval.cancel( $scope.paySuccessInterval );
+
+
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+
+
+                        }
+                        $scope.isDisableSubmit=true;
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                        $scope.isDisableSubmit=true;
+                    });
+            },
+            //完成现金支付
+            cashRecharg:function($scope, $http,$interval,$sce,data){
+
+                $http.post(remoteUrl.cashMoneyRechargForMember,data).then(
+                    function (result) {
+
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+
+                        if (code == 1) {
+                            $scope.hadPay="YES";
+                            var cashRecharg =  $scope.cashRecharg.strPayType= data.strPayType;
+
+
+
+
+                            if(cashRecharg=='0'){
+                                //现金
+                            }else if(cashRecharg=='1'){//微信
+                                //支付订单号
+                                var strOrderId=data.strOrderId;
+                                $scope.qrCode=data.qrCode;
+                                var getPayStatus = function () {
+
+                                    MemberCenter.getPayStatus(strOrderId,$http,$scope,$interval);
+
+                                };
+                              $scope.paySuccessInterval =  $interval(getPayStatus, 3000);
+
+                            }else if(cashRecharg=='2'){//支付宝
+                                //支付订单号
+                                var strOrderId=data.strOrderId;
+                                var getPayStatus = function () {
+
+                                    MemberCenter.getPayStatus(strOrderId,$http,$scope,$interval);
+
+                                };
+                                $scope.paySuccessInterval =  $interval(getPayStatus, 3000);
+
+                                $scope.sHtmlText = $sce
+                                    .trustAsHtml(data.sHtmlText);
+
+                            }
+
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code == 100014) {
+                            //微信生成与支付订单失败
+                            $scope.showAlert(rs.msg);
+                        }else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+
+
+                        }
+                        $scope.isDisableSubmit=false;
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                        $scope.isDisableSubmit=false;
+                    });
+            },
+            //售后充值
+            virtualRecharg:function($scope, $http,data){
+
+
+                $http.post(remoteUrl.backgroundRechargForMember,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+
+
+                        if (code == 1) {
+                            $scope.showAlert("操作成功",function(){
+                                $scope.closeVirtualRechargWindow();
+                            });
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+
+
+                        }
+                        $scope.isDisableSubmit=false;
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                        $scope.isDisableSubmit=false;
+                    });
+            },
             //修改会员启用禁用状态
           changeMemberStatus:function($scope, $http,data){
-          $http.post(remoteUrl.updateMemberStatus,data).then(
+                $http.post(remoteUrl.updateMemberStatus,data).then(
                     function (result) {
 
                         var rs = result.data;
@@ -750,7 +1062,7 @@ define(
 
                         if (code == 1) {
 
-                            console.log(data);
+
 
                             $scope.member=data.memberEntity;
 
@@ -764,6 +1076,8 @@ define(
                             if($scope.strMemberid==""){
                                 $scope.member.intStatus=1;
                                 $scope.member.intSex=0;
+                            }else{
+                                $scope.showDetailMemberInfoWindow=true;
                             }
 
                         } else if (code == -1) {
