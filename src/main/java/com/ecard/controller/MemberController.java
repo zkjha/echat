@@ -48,7 +48,7 @@ import com.ecard.vo.MemberexpandinformationVO;
  *
  */
 @Controller
-@RequestMapping("/admin/biz/member")
+@RequestMapping("/admin/")
 public class MemberController {
 	
 	@Resource
@@ -817,6 +817,9 @@ public class MemberController {
 		String strMemberId = request.getParameter("strMemberId");
 		String strStartTime = request.getParameter("strStartTime");
 		String strEndTime = request.getParameter("strEndTime");
+		if(ValidateTool.isEmptyStr(strMemberId)) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员ID不能为空", null);
+		}
 		if(ValidateTool.isEmptyStr(pagenum)) {
 			pagenum = "1";
 		}
@@ -824,7 +827,6 @@ public class MemberController {
 		if(!ValidateTool.isEmptyStr(pagesize)) {
 			iPagesize = Integer.valueOf(pagesize);
 		}
-		
 		int pageFrom = (Integer.parseInt(pagenum)-1)*iPagesize;
 		try {
 			Map<String,Object> queryMap = new HashMap<String, Object>();

@@ -19,7 +19,7 @@
 	     		AND STRORDERID=#{strOrderId}
 	     	</if>
      	 	<!-- 支付类型 -->
-	     	<if test="strPayType != null and strPayType != '' and !='-1'">
+	     	<if test="strPayType != null and strPayType != '' and strPayType!='-1'">
 	     		AND INTPAYTYPE=#{strPayType}
 	     	</if>
      		<!-- 开始时间 -->
@@ -51,7 +51,7 @@
 	     		AND STRORDERID=#{strOrderId}
 	     	</if>
      	 	<!-- 支付类型 -->
-	     	<if test="strPayType != null and strPayType != '' and !='-1'">
+	     	<if test="strPayType != null and strPayType != '' and strPayType!='-1'">
 	     		AND INTPAYTYPE=#{strPayType}
 	     	</if>
 	     	<!-- 开始时间 -->
