@@ -815,7 +815,8 @@ public class MemberController {
 		String pagesize = request.getParameter("pagesize");
 		String strOrderId = request.getParameter("strOrderId");
 		String strMemberId = request.getParameter("strMemberId");
-		
+		String strStartTime = request.getParameter("strStartTime");
+		String strEndTime = request.getParameter("strEndTime");
 		if(ValidateTool.isEmptyStr(pagenum)) {
 			pagenum = "1";
 		}
@@ -832,6 +833,8 @@ public class MemberController {
 			queryMap.put("strPayType", strPayType);
 			queryMap.put("strOrderId", DataTool.trimStr(strOrderId));
 			queryMap.put("strMemberId", strMemberId);
+			queryMap.put("strStartTime", strStartTime);
+			queryMap.put("strEndTime", strEndTime);
 			List<GoodsOrderEntity> orderList = goodsOrderService.listOrder(queryMap);
 			if(ValidateTool.isNull(orderList)||orderList.size()<=0) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无订单", null);
