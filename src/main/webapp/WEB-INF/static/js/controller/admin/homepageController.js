@@ -783,6 +783,12 @@ define(
                     HomePageContor.getStaffinfoList($scope, $http);
 
                 };
+
+                //搜索员工信息
+                $scope.searchStaffinfo=function(){
+                    $scope.currentPage = 1;
+                    HomePageContor.getStaffinfoList($scope, $http);
+                };
                 //重置用户密码
                 $scope.updataStaffPasswd=function(strEmployeeid){
 
@@ -1111,7 +1117,7 @@ define(
             , getStaffinfoList: function ($scope, $http) {
 
                 var data = {
-                    'strSearchkey': "",
+                    'strSearchkey':$scope.strSearchkey,
                     'pagenum': $scope.currentPage,
                     "pagesize": $scope.pageSize
                 };
@@ -1146,6 +1152,7 @@ define(
                             //暂无数据
                             $scope.isNoData=true;
                             $scope.pageCount = 0;
+                            $scope.employeeEntityList=[];
                         }
 
                     }, function (result) {

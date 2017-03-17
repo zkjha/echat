@@ -480,6 +480,10 @@ define(
 
                 };
 
+                $scope.searchMemberinfo=function(){
+                    $scope.currentPage = 1;
+                    MemberCenter.getMemberList($scope, $http);
+                };
                 $scope.openCtrMenu = function ($index, type) {
                     for (var i = 0; i < $scope.memberList.length; i++) {
                         $scope.isShowListMenu[i] = false;
@@ -1113,7 +1117,7 @@ define(
                 var data = {
                     'pagenum': $scope.currentPage,
                     "pagesize": $scope.pageSize,
-                    "strSearchkey":""
+                    "strSearchkey":$scope.strSearchkey
                 };
 
                 $http.post(remoteUrl.listMember, data).then(
@@ -1126,7 +1130,7 @@ define(
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
-
+                            $scope.isNoData=false;
                             $scope.pageCount = data.iTotalPage;
                             $scope.memberList = data.memberList;
 
@@ -1145,6 +1149,7 @@ define(
                             $scope.showAlert(rs.msg);
                         } else if (code == -8) {
                             //暂无数据
+                            $scope.memberList=[];
                             $scope.isNoData=true;
                             $scope.pageCount = 0;
                         }

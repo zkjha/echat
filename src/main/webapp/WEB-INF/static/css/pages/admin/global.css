@@ -382,3 +382,18 @@
 
 
 /*  权限弹窗*/
+/*收缩框*/
+.search-box{
+margin: 10px;
+}
+.search-box input{
+ border-radius: 0 !important;
+    vertical-align: top;
+}
+.search-box .searchBtn{
+    display: inline-block;
+    width:20px;
+    height: 20px;
+    background: red;
+    cursor: pointer;
+}
