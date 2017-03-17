@@ -7,12 +7,14 @@
 	<select id="listOrder" parameterType="map" resultType="com.ecard.vo.GoodsOrderVO">
 	     SELECT STRORDERID AS strOrderId, STRMEMBERNAME AS strMemberName, STRGOODSNAME AS strGoodsName, DAMOUNT AS dAmount,
 	            STRINSERTTIME AS strInsertTime, INTPAYTYPE AS intPayType, STREXPRESSNUMBER AS strExpressNumber,
-	            STREXPRESSCOMPANY AS strExpressCompany
+	            STREXPRESSCOMPANY AS strExpressCompany, STRTHIRDPARTYTRADEFLOW AS strThirdPartyTradeFlow, INTSTATUS AS intStatus
+	            
 	     FROM tb_goods_order
 	     <where>
+	     	INTSTATUS!=-1
 	     	<!-- 会员ID -->
      		<if test="strMemberId != null and strMemberId != ''">
-                STRMEMBERID=#{strMemberId}
+                AND STRMEMBERID=#{strMemberId}
             </if>
             <!-- 订单号 -->
 	     	<if test="strOrderId != null and strOrderId != ''">
@@ -42,9 +44,10 @@
 	     SELECT COUNT(STRORDERID)
 	     FROM tb_goods_order
       	 <where>
+      	 	INTSTATUS!=-1
 	     	<!-- 会员ID -->
 	     	<if test="strMemberId != null and strMemberId != ''">
-                STRMEMBERID=#{strMemberId}
+                AND STRMEMBERID=#{strMemberId}
             </if>
             <!-- 订单号 -->
 	     	<if test="strOrderId != null and strOrderId != ''">

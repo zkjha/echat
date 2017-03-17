@@ -17,6 +17,7 @@ public class GoodsOrderVO {
 	private String intPayType; // 支付方式 0：积分兑换 1：微信支付 2：支付宝支付
 	private String strExpressNumber; // 快递单号
 	private String strExpressCompany; // 快递公司
+	private String strThirdPartyTradeFlow; // 三方支付流水号
 	public String getStrOrderId() {
 		return strOrderId;
 	}
@@ -70,5 +71,11 @@ public class GoodsOrderVO {
 	}
 	public void setStrExpressCompany(String strExpressCompany) {
 		this.strExpressCompany = strExpressCompany;
+	}
+	public String getStrThirdPartyTradeFlow() {
+		return strThirdPartyTradeFlow;
+	}
+	public void setStrThirdPartyTradeFlow(String strThirdPartyTradeFlow) {
+		this.strThirdPartyTradeFlow = strThirdPartyTradeFlow;
 	}
 }
