@@ -19,7 +19,7 @@ import com.ecard.entity.MemberarticlesEntity;
 import com.ecard.service.MemberarticlesService;
 /**
  * 会员章程资料信息控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

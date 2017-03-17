@@ -11,11 +11,11 @@ import java.util.Map;
 import com.commontools.validate.ValidateTool;
 
 
-/* *
- *类名：AlipayTool
- *功能：参数签名
+/**
+ * 支付宝构建HTML工具类
+ * @author dinghongxing
+ *
  */
-
 public class AlipayTool {
     
 	/**
@@ -32,26 +32,19 @@ public class AlipayTool {
 	private static final String DEFAULT_CHARSET = "UTF-8";
 	
 	/**
-	 * 
-	 * @功能： 进行参数签名，并返回表单参数
-	 * @作者：dinghongxing
-	 * @文件名：AlipayTool.java 
-	 * @包名：com.alipay.util 
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午8:39:44 
-	 * @版本：V1.0 
-	 * @param out_trade_no 商户订单号，商户网站订单系统中唯一订单号，必填
-	 * @param subject  产品主题，必填
-	 * @param total_fee  付款金额，必填，单位元，精确到小数点后两位
-	 * @param body 商品描述，可空
-	 * @param deadtime 支付失效时间
+	 * 进行参数签名，并返回表单参数
+	 * @param out_trade_no
+	 * @param subject
+	 * @param total_fee
+	 * @param body
+	 * @param notify_url
+	 * @param return_url
+	 * @param deadtime
 	 * @return
 	 */
 	public static String tradePrecreate(String out_trade_no, String subject, 
 			                                String total_fee, String body,
 			                                  String notify_url, String return_url, String deadtime) {
-		
 		//把请求参数打包成数组
 		Map<String, String> sParaTemp = new HashMap<String, String>();
 		sParaTemp.put("service", AlipayConfig.service);
@@ -70,28 +63,19 @@ public class AlipayTool {
 		if(!ValidateTool.isEmptyStr(deadtime)) {
 			sParaTemp.put("it_b_pay", deadtime);
 		}
-		
 		//建立请求
 		String sHtmlText = AlipaySubmit.buildRequest(sParaTemp,"get","确认");
 		return sHtmlText;
 	}
 	
 	/**
-	 * 
-	 * @功能： 创建订单信息（手机支付）
-	 * @作者：dinghongxing
-	 * @文件名：AlipayTool.java 
-	 * @包名：com.alipay.util 
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午8:39:44 
-	 * @版本：V1.0 
-	 * @param out_trade_no 商户订单号，商户网站订单系统中唯一订单号，必填
-	 * @param subject  产品主题，必填
-	 * @param total_fee  付款金额，必填，单位元，精确到小数点后两位
-	 * @param body 商品描述，不可空
-	 * @param notify_url 异步回调地址
-	 * @param return_url 同步回调地址
+	 * 进行参数签名，并返回表单参数（手机支付）
+	 * @param out_trade_no
+	 * @param subject
+	 * @param total_fee
+	 * @param body
+	 * @param notify_url
+	 * @param return_url
 	 * @return
 	 */
 	public static String mobileTradePrecreate(String out_trade_no, String subject, 
@@ -145,15 +129,7 @@ public class AlipayTool {
 	}
 	
 	/**
-	 * 
-	 * @功能：生成签名
-	 * @作者：dinghongxing
-	 * @文件名：AlipayTool.java 
-	 * @包名：com.alipay.util 
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年5月3日 上午10:11:15 
-	 * @版本：V1.0 
+	 * 生成签名
 	 * @param content
 	 * @param privateKey
 	 * @return
@@ -181,15 +157,7 @@ public class AlipayTool {
 	}
 
 	/**
-	 * 
-	 * @功能：获取签名方式
-	 * @作者：dinghongxing
-	 * @文件名：AlipayTool.java 
-	 * @包名：com.alipay.util 
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年5月3日 上午10:10:55 
-	 * @版本：V1.0 
+	 * 获取签名方式
 	 * @return
 	 */
 	private static String getSignType() {

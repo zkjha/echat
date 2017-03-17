@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 /**
  * 权限信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class PrivilegeEntity {

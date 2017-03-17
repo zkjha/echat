@@ -19,7 +19,7 @@ import com.ecard.entity.FrontInformationEntity;
 import com.ecard.service.FrontInformationService;
 /**
  * 前端注册页面资料信息控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

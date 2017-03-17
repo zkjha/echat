@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 员工信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class EmployeeEntity implements Serializable {

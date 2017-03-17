@@ -25,7 +25,7 @@ import com.ecard.service.MerchantService;
 import com.ecard.util.WebSessionUtil;
 /**
  * 商家资料控制层
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

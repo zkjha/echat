@@ -2,7 +2,7 @@ package com.ecard.util;
 
 /**
  * 控制台输出类
- * @author Administrator
+ * @author zhengwei
  *
  */
 public class PrintUtil {

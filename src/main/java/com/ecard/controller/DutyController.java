@@ -22,7 +22,7 @@ import com.ecard.service.DutyService;
 import com.ecard.util.WebSessionUtil;
 /**
  * 职务控制层
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

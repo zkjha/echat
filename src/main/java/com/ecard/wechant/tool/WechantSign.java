@@ -11,15 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 
- * @功能：微信支付取得签名
- * @作者：dinghongxing
- * @文件名：WxSign.java 
- * @包名：com.wxpay.util 
- * @项目名：zhuanquanquan
- * @部门：伏守科技项目开发部
- * @日期：2015年12月28日 下午1:38:43 
- * @版本：V1.0
+ * 微信支付签名工具类
+ * @author dinghongxing
+ *
  */
 public class WechantSign {
 	/**

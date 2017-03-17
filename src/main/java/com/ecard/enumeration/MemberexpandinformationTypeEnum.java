@@ -1,7 +1,7 @@
 package com.ecard.enumeration;
 /**
  * 会员拓展资料类型Enum
- * @author Administrator
+ * @author zhengwei
  *
  */
 public enum MemberexpandinformationTypeEnum {

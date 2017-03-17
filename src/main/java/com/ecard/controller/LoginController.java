@@ -24,7 +24,7 @@ import com.ecard.util.Session;
 import com.ecard.util.WebSessionUtil;
 /**
  * 登录控制层
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

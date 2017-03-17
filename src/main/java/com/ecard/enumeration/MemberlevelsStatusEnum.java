@@ -1,7 +1,7 @@
 package com.ecard.enumeration;
 /**
  * 会员级别状态枚举类
- * @author Administrator
+ * @author zhengwei
  *
  */
 public enum MemberlevelsStatusEnum {

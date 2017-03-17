@@ -26,11 +26,9 @@ import com.ecard.service.RechargeOrderService;
 import com.ecard.wechant.tool.WechantConfig;
 import com.ecard.wechant.tool.WechantSign;
 /**
- * @描述：支付成功回调
- * @作者:丁洪星
- * @部门：伏守科技项目开发部
- * @日期： 2016年11月15日下午5:07:30
- * @版本： V1.0 
+ * 支付成功回调
+ * @author dinghongxing
+ *
  */
 @Controller
 @RequestMapping("/callback")
@@ -41,11 +39,8 @@ public class CallbackController {
 	private  RechargeOrderService rechargeOrderService;
 	
 	/**
-	 * @描述：现金充值支付宝支付成功回调
-	 * @作者:丁洪星
-	 * @部门：伏守科技项目开发部
-	 * @日期： 2016年11月16日下午3:22:40 
-	 * @版本： V1.0 
+	 * 现金充值支付宝支付成功回调
+	 * @param request
 	 * @return
 	 */
 	@ResponseBody
@@ -122,15 +117,12 @@ public class CallbackController {
 		}
 	}
 	
-	
 	/**
-	 * @描述：现金充值微信支付成功回调
-	 * @作者:丁洪星
-	 * @部门：伏守科技项目开发部
-	 * @日期： 2016年11月16日下午3:22:40 
-	 * @版本： V1.0 
+	 * 现金充值微信支付成功回调
+	 * @param request
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("callbackRechargeBywechant")
     public void callbackRechargeBywechant(HttpServletRequest request, HttpServletResponse response) {
 		Map<String,Object> returnMap = new HashMap<String, Object>();

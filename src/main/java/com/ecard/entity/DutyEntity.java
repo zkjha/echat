@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 /**
  * 职务信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class DutyEntity {

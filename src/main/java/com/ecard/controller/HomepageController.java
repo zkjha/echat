@@ -23,7 +23,7 @@ import com.ecard.util.WebSessionUtil;
 
 /**
  * 主页
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

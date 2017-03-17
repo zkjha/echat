@@ -24,7 +24,7 @@ import com.ecard.enumeration.MemberexpandinformationTypeEnum;
 import com.ecard.service.MemberexpandinformationService;
 /**
  * 会员拓展资料信息控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

@@ -2,7 +2,7 @@ package com.ecard.vo;
 
 /**
  * 会员拓展资料VO
- * @author Administrator
+ * @author zhengwei
  *
  */
 public class MemberexpandinformationVO {

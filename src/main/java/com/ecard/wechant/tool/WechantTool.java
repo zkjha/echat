@@ -17,28 +17,21 @@ import com.commontools.data.DataTool;
 import com.commontools.xml.XmlTool;
 import com.ecard.util.HttpRequestTool;
 
-/* *
- *类名：WechantTool
- *功能：参数签名
+/**
+ * 微信支付进行签名
+ * @author dinghongxing
+ *
  */
 public class WechantTool {
 
 	/**
-	 * 
-	 * @功能：生成微信预支付订单(WEB)
-	 * @作者：dinghongxing
-	 * @文件名：WechantTool.java
-	 * @包名：com.wechant.util
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午10:50:41
-	 * @版本：V1.0
+	 * 生成微信预支付订单(WEB)
 	 * @param out_trade_no
 	 * @param subject
 	 * @param spbill_create_ip
 	 * @param total_fee
 	 * @param notifyurl
-	 * @param tradeType 
+	 * @param tradeType
 	 * @return
 	 * @throws Exception
 	 */
@@ -75,21 +68,13 @@ public class WechantTool {
 	}
 	
 	/**
-	 * 
-	 * @功能：生成微信预支付订单(JSAPI)
-	 * @作者：dinghongxing
-	 * @文件名：WechantTool.java
-	 * @包名：com.wechant.util
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午10:50:41
-	 * @版本：V1.0
+	 * 生成微信预支付订单(JSAPI)
 	 * @param out_trade_no
 	 * @param subject
 	 * @param spbill_create_ip
 	 * @param total_fee
 	 * @param notifyurl
-	 * @param tradeType 
+	 * @param tradeType
 	 * @param openid
 	 * @return
 	 * @throws Exception
@@ -127,15 +112,7 @@ public class WechantTool {
 	}
 	
 	/**
-	 * 
-	 * @功能：公众号支付退款
-	 * @作者：dinghongxing
-	 * @文件名：WechantTool.java
-	 * @包名：com.wechant.util
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午10:50:41
-	 * @版本：V1.0
+	 * 公众号支付退款
 	 * @param out_trade_no
 	 * @param total_fee
 	 * @return
@@ -186,15 +163,7 @@ public class WechantTool {
 	}
 	
 	/**
-	 * 
-	 * @功能：查询退款信息
-	 * @作者：dinghongxing
-	 * @文件名：WechantTool.java
-	 * @包名：com.wechant.util
-	 * @项目名：tongkeapi
-	 * @部门：伏守科技项目开发部
-	 * @日期：2016年4月15日 下午10:50:41
-	 * @版本：V1.0
+	 * 查询退款信息
 	 * @param out_trade_no
 	 * @return
 	 * @throws Exception

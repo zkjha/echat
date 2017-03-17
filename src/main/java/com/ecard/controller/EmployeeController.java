@@ -27,7 +27,7 @@ import com.ecard.service.EmployeeService;
 import com.ecard.util.WebSessionUtil;
 /**
  * 员工控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

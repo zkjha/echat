@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 /**
  * 会员拓展资料信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class MemberexpandinformationEntity {

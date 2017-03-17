@@ -19,7 +19,7 @@ import com.ecard.entity.WechantconfigEntity;
 import com.ecard.service.WechantconfigService;
 /**
  * 微信配置信息控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

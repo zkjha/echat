@@ -21,7 +21,7 @@ import com.ecard.service.MemberlevelsService;
 import com.ecard.util.WebSessionUtil;
 /**
  * 会员级别控制层
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

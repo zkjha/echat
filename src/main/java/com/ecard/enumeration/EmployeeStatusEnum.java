@@ -1,7 +1,7 @@
 package com.ecard.enumeration;
 /**
  * 员工状态枚举类
- * @author Administrator
+ * @author zhengwei
  *
  */
 public enum EmployeeStatusEnum {

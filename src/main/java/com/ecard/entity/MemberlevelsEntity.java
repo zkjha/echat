@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 /**
  * 会员等级信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class MemberlevelsEntity {

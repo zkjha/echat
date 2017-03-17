@@ -25,7 +25,7 @@ import com.ecard.config.StaticValue;
 import com.ecard.util.WebSessionUtil;
 /**
  * 文件上传控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

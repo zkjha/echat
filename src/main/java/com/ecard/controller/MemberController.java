@@ -44,7 +44,7 @@ import com.ecard.vo.MemberVO;
 import com.ecard.vo.MemberexpandinformationVO;
 /**
  * 会员级别控制层
- * @author Administrator
+ * @author dinghongxing
  *
  */
 @Controller

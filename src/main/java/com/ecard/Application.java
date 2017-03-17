@@ -14,7 +14,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
-
+/**
+ * 程序主入口
+ * @author dinghongxing
+ *
+ */
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan

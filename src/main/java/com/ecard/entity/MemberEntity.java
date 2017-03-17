@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 /**
  * 会员信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class MemberEntity implements Serializable {

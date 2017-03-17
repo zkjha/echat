@@ -20,7 +20,7 @@ import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.PrivilegeVO;
 /**
  * 权限控制层
- * @author Administrator
+ * @author zhengwei
  *
  */
 @Controller

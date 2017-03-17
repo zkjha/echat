@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 /**
  * 前端注册页面资料信息实体
- * @author Administrator
+ * @author dinghongxing
  *
  */
 public class FrontInformationEntity {
