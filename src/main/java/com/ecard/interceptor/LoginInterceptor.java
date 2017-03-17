@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		PrintUtil.println("登录拦截器");
+		//PrintUtil.println("登录拦截器");
 		response.setContentType("text/html;charset=UTF-8");
 		String x_requested_with=(String)request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWebSession(request, response);
