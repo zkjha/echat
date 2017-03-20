@@ -370,6 +370,25 @@ CREATE TABLE tb_goods_order
 create index indxRechargeOrderOnMemberId on tb_goods_order(STRMEMBERID);
 
 
+-- ==============================================================
+-- Table: tb_measurement_unit                【计量单位表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_measurement_unit;
+CREATE TABLE tb_measurement_unit
+(
+  strUnitId             VARCHAR(50) NOT NULL,       -- 主键
+  strUnitName           VARCHAR(50) NOT NULL,       -- 计量单位名称
+  strUnitDesc           VARCHAR(255) NOT NULL,       -- 计量描述
+  strReserved           VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strUnitId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxMeasurementUnitOnUnitId on tb_measurement_unit(strUnitId);
+create index indxMeasurementUnitOnUnitName  on tb_measurement_unit(strUnitName);
+
+
+
+
+
 
 
 

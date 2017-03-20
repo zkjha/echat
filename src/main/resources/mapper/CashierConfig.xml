@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.CashierConfigMapper">
+
+<!-- 新增一条计量记录 -->
+<insert id="addMeasurementUnit" parameterType="com.ecard.entity.MeasurementUnitEntity">
+insert into tb_measurement_unit(strUnitId,strUnitName,strUnitDesc,strReserved)
+ values(#{strUnitId},#{strUnitName},#{strUnitDesc},#{strReserved})
+</insert>
+
+<!-- 删除单条计量记录 -->
+<delete id="delMeasurementUnitById">
+delete from tb_measurement_unit where strUnitId=#{strUnitId}
+</delete>
+
+<!-- 更新一条计量记录 -->
+<update id="updateMeasurementUnit" parameterType="com.ecard.entity.MeasurementUnitEntity">
+update tb_measurement_unit set strUnitName=#{strUnitName},strUnitDesc=#{strUnitDesc},strReserved=#{strReserved}
+ where strUnitId=#{strUnitId}
+</update>
+
+<!-- 获取单条计量记录 -->
+<select id="getMeasurementUnitById" parameterType="string" resultType="com.ecard.entity.MeasurementUnitEntity">
+select strUnitId,strUnitName,strUnitDesc,strReserved from tb_measurement_unit where 
+strUnitId=#{strUnitId} limit 0,1
+</select>
+
+<!-- 分页获取计量记录 -->
+<select id="getMeasurementUnitList" parameterType="map" resultMap="com.ecard.entity.MeasurementUnitEntity">
+select strUnitId,strUnitName,strUnitDesc,strReserved from tb_measurement_unit 
+limit #{pageFrom},#{pageSize}
+</select>
+
+
+	<!-- 查询计量单位记录总数量-->
+	<select id="getMeasurementUnitTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(strUnitId)
+      	 FROM tb_measurement_unit
+	</select>
+
+</mapper>
