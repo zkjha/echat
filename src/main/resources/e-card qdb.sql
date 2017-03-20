@@ -386,6 +386,22 @@ create index indxMeasurementUnitOnUnitId on tb_measurement_unit(strUnitId);
 create index indxMeasurementUnitOnUnitName  on tb_measurement_unit(strUnitName);
 
 
+-- ==============================================================
+-- Table: tb_goods_type                【商品分类】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_goods_type;
+CREATE TABLE tb_goods_type
+(
+  strGoodsTypeId             VARCHAR(50) NOT NULL,       -- 主键
+  strGoodsTypeName           VARCHAR(50) NOT NULL,       -- 计量单位名称
+  strGoodsTypeDesc           VARCHAR(255) NOT NULL,       -- 计量描述
+  strReserved           VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strGoodsTypeId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxGoodsTypeOnTypeId on tb_goods_type(strGoodsTypeId);
+create index indxGoodsTypeOnTypeName  on tb_goods_type(strGoodsTypeName);
+
+
 
 
 

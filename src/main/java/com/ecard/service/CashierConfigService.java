@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.entity.MeasurementUnitEntity;
 import com.ecard.mapper.CashierConfigMapper;
 
@@ -29,6 +30,7 @@ public class CashierConfigService {
 
 	@Autowired
 	private CashierConfigMapper tCashierConfigMapper;
+	
 	
 	// 新增加一条计量单位
 	@Transactional(rollbackFor=Exception.class)
@@ -117,5 +119,52 @@ public class CashierConfigService {
 	public List<MeasurementUnitEntity> listMeasurementUnit(Map<String, Object> queryMap) throws Exception {
 		return tCashierConfigMapper.getMeasurementUnitList(queryMap);
 	}
+	
+	
+	
+	//获取一条GoodsTypeConfigEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public GoodsTypeConfigEntity getGoodsTypeConfigEntity(String strGoodsTypeId) throws Exception{
+	    return tCashierConfigMapper.getGoodsTypeConfigEntity(strGoodsTypeId);
+	}
+	//新增一条GoodsTypeConfigEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public String insertGoodsTypeConfigEntity(GoodsTypeConfigEntity tGoodsTypeConfigEntity) throws Exception{
+	    int iAffectNum = tCashierConfigMapper.insertGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+	    if (0 == iAffectNum)
+	    {
+	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"添加成功", null);
+	}
+	//更新一条GoodsTypeConfigEntity记录
+	public String updateGoodsTypeConfigEntity(GoodsTypeConfigEntity tGoodsTypeConfigEntity) throws Exception{
+	    int iAffectNum = tCashierConfigMapper.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+	    if (0 == iAffectNum)
+	    {
+	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"修改成功", null);
+	}
+	//删除一条GoodsTypeConfigEntity记录
+	public String deleteGoodsTypeConfigEntity(String strGoodsTypeId) throws Exception{
+	    int iAffectNum = tCashierConfigMapper.deleteGoodsTypeConfigEntity(strGoodsTypeId);
+	    if (0 == iAffectNum)
+	    {
+	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
+	}
+	//获取GoodsTypeConfigEntity列表
+	public List<GoodsTypeConfigEntity> getListGoodsTypeConfigEntity(Map<String, Object> queryMap) throws Exception{
+	    return tCashierConfigMapper.getListGoodsTypeConfigEntity(queryMap);
+	}
+	
+	//查询商品类型总数量
+	public int getGoodsTypeTotalCount(Map<String, Object> queryMap) throws Exception {
+		return tCashierConfigMapper.getGoodsTypeTotalCount(queryMap);
+	}
+	
+
 	
 }

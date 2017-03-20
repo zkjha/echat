@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.entity.MeasurementUnitEntity;
 
 /**
@@ -36,5 +37,26 @@ public interface CashierConfigMapper {
 
 	//删除单条计量单位记录
 	public int delMeasurementUnitById(@Param(value="strUnitId") String strUnitId) throws Exception;
+	
+	
+	
+	// 收银-商品分类，分类的新增，修改，查询列表，根据ID查询详情，删除（如果该分类下有商品应该不能删除）
+	//分页获取列表
+	public List<GoodsTypeConfigEntity> getListGoodsTypeConfigEntity(Map<String, Object> queryMap) throws RuntimeException;
+
+	//获取单个对象
+	public GoodsTypeConfigEntity getGoodsTypeConfigEntity(String strGoodsTypeId) throws RuntimeException;
+
+	//新增单条记录
+	public int insertGoodsTypeConfigEntity(GoodsTypeConfigEntity bean) throws RuntimeException;
+
+	//更新单条记录
+	public int updateGoodsTypeConfigEntity(GoodsTypeConfigEntity obj) throws RuntimeException;
+
+	//删除单条记录
+	public int deleteGoodsTypeConfigEntity(String strGoodsTypeId) throws RuntimeException;
+	
+	//获取商品总数量
+	public int getGoodsTypeTotalCount(Map<String, Object> queryMap) throws Exception;
 
 }

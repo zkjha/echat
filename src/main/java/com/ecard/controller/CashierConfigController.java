@@ -23,6 +23,7 @@ import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.entity.MeasurementUnitEntity;
 import com.ecard.service.CashierConfigService;
 
@@ -160,7 +161,7 @@ public class CashierConfigController {
 			List<MeasurementUnitEntity> unitList = tCashierConfigService.listMeasurementUnit(queryMap);
 			
 			if(ValidateTool.isNull(unitList)||unitList.size()<=0) {
-				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员", null);
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
 			} else {
 				int totalrecord = tCashierConfigService.getMeasurementUnitTotalCount(queryMap); //查询会员总数量
 				Map<String,Object> resultMap = new HashMap<String, Object>();
@@ -178,4 +179,156 @@ public class CashierConfigController {
 		
 		//return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
 	}
+	
+	
+	// 插入一条商品类型
+	@ResponseBody
+	@RequestMapping("insertGoodsType")
+	public String insertGoodsType(HttpServletRequest request, HttpServletResponse response) {
+		//String strGoodsTypeId = request.getParameter("strGoodsTypeId");
+		String strGoodsTypeName = request.getParameter("strGoodsTypeName");
+		String strGoodsTypeDesc = request.getParameter("strGoodsTypeDesc");
+		String strReserved = request.getParameter("strReserved");
+
+		if(strGoodsTypeName ==null || strGoodsTypeName.isEmpty()){
+			return DataTool.constructResponse(ResultCode.OK, "商品类型名称不能为空", null);
+		}
+
+		GoodsTypeConfigEntity tGoodsTypeConfigEntity=new GoodsTypeConfigEntity();
+		tGoodsTypeConfigEntity.setStrGoodsTypeId(DataTool.getUUID());
+		tGoodsTypeConfigEntity.setStrGoodsTypeName(strGoodsTypeName);
+		tGoodsTypeConfigEntity.setStrGoodsTypeDesc(strGoodsTypeDesc);
+		tGoodsTypeConfigEntity.setStrReserved(strReserved);
+
+
+		//生成调用请求
+		//获取一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.getGoodsTypeConfigEntity(strGoodsTypeId);
+		//新增一条GoodsTypeConfigEntity记录
+		try {
+			tCashierConfigService.insertGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+			return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return DataTool.constructResponse(ResultCode.OK, "新增失败", null);
+		}
+		//更新一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+		//删除一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.deleteGoodsTypeConfigEntity(strGoodsTypeId);
+
+	}
+	
+	// 更新一条商品类型
+	@ResponseBody
+	@RequestMapping("updateGoodsType")
+	public String updateGoodsType(HttpServletRequest request, HttpServletResponse response) {
+		String strGoodsTypeId = request.getParameter("strGoodsTypeId");
+		String strGoodsTypeName = request.getParameter("strGoodsTypeName");
+		String strGoodsTypeDesc = request.getParameter("strGoodsTypeDesc");
+		String strReserved = request.getParameter("strReserved");
+		
+		if(strGoodsTypeId ==null || strGoodsTypeId.isEmpty()){
+			return DataTool.constructResponse(ResultCode.OK, "商品类型ID不能为空", null);
+		}
+
+		if(strGoodsTypeName ==null || strGoodsTypeName.isEmpty()){
+			return DataTool.constructResponse(ResultCode.OK, "商品类型名称不能为空", null);
+		}
+
+		GoodsTypeConfigEntity tGoodsTypeConfigEntity=new GoodsTypeConfigEntity();
+		tGoodsTypeConfigEntity.setStrGoodsTypeId(strGoodsTypeId);
+		tGoodsTypeConfigEntity.setStrGoodsTypeName(strGoodsTypeName);
+		tGoodsTypeConfigEntity.setStrGoodsTypeDesc(strGoodsTypeDesc);
+		tGoodsTypeConfigEntity.setStrReserved(strReserved);
+
+
+		//生成调用请求
+		//获取一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.getGoodsTypeConfigEntity(strGoodsTypeId);
+		//新增一条GoodsTypeConfigEntity记录
+		try {
+			tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+			return DataTool.constructResponse(ResultCode.OK, "更新成功", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return DataTool.constructResponse(ResultCode.OK, "更新失败", null);
+		}
+		//更新一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
+		//删除一条GoodsTypeConfigEntity记录
+		//tCashierConfigService.deleteGoodsTypeConfigEntity(strGoodsTypeId);
+
+	}
+	
+	// 删除一条商品类型
+	@ResponseBody
+	@RequestMapping("delGoodsType")
+	public String delGoodsType(HttpServletRequest request, HttpServletResponse response) {
+		String strGoodsTypeId = request.getParameter("strGoodsTypeId");
+
+		if(strGoodsTypeId ==null || strGoodsTypeId.isEmpty()){
+			return DataTool.constructResponse(ResultCode.OK, "商品类型ID不能为空", null);
+		}
+
+		//生成调用请求
+		try {
+			tCashierConfigService.deleteGoodsTypeConfigEntity(strGoodsTypeId);
+			return DataTool.constructResponse(ResultCode.OK, "删除成功", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return DataTool.constructResponse(ResultCode.OK, "删除失败", null);
+		}
+	}
+	
+	// 分页查询商品类型列表
+	@ResponseBody
+	@RequestMapping("selGoodsTypeList")
+	public String selGoodsTypeList(HttpServletRequest request, HttpServletResponse response) {
+		String pagenum = request.getParameter("pagenum");
+		String pagesize = request.getParameter("pagesize");
+		
+		if(ValidateTool.isEmptyStr(pagenum)) {
+			pagenum = "1";
+		}
+		int iPagesize = StaticValue.PAGE_SIZE;
+		if(!ValidateTool.isEmptyStr(pagesize)) {
+			iPagesize = Integer.valueOf(pagesize);
+		}
+		
+		int pageFrom = (Integer.parseInt(pagenum)-1)*iPagesize;
+		
+		Map<String,Object> queryMap = new HashMap<String, Object>();
+		queryMap.put("pageFrom", pageFrom);
+		queryMap.put("pageSize", iPagesize);
+		
+		try {
+			List<GoodsTypeConfigEntity> goodsTypeList = tCashierConfigService.getListGoodsTypeConfigEntity(queryMap);
+		
+			if(ValidateTool.isNull(goodsTypeList)||goodsTypeList.size()<=0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无商品类型", null);
+			} else {
+				int totalrecord = tCashierConfigService.getGoodsTypeTotalCount(queryMap); //查询会员总数量
+				Map<String,Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("goodsTypeList", goodsTypeList);
+				resultMap.put("iTotalRecord", totalrecord);
+				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
+			
+		}
+
+	}
+
 }

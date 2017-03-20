@@ -38,5 +38,40 @@ limit #{pageFrom},#{pageSize}
 	     SELECT COUNT(strUnitId)
       	 FROM tb_measurement_unit
 	</select>
+	
+	
+	
+<!-- 新增一条tb_goods_type记录 -->
+<insert id="insertGoodsTypeConfigEntity" parameterType="GoodsTypeConfigEntity">
+insert into tb_goods_type(strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved)
+ values(#{strGoodsTypeId},#{strGoodsTypeName},#{strGoodsTypeDesc},#{strReserved})</insert>
+
+<!-- 删除单条tb_goods_type记录 -->
+<delete id="deleteGoodsTypeConfigEntity" parameterType="string">
+delete from tb_goods_type where strGoodsTypeId=#{strGoodsTypeId}
+</delete>
+
+<!-- 更新tb_goods_type记录 -->
+<update id="updateGoodsTypeConfigEntity" parameterType="GoodsTypeConfigEntity">
+update tb_goods_type set strGoodsTypeName=#{strGoodsTypeName},strGoodsTypeDesc=#{strGoodsTypeDesc},strReserved=#{strReserved}
+ where strGoodsTypeId=#{strGoodsTypeId}
+</update>
+
+<!-- 获取单条记录 -->
+<select id="getGoodsTypeConfigEntity" parameterType="string" resultType="GoodsTypeConfigEntity">
+select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_goods_type where 
+where strGoodsTypeId=#{strGoodsTypeId}\r\n
+</select>
+
+<!-- 分页获取记录 -->
+<select id="getListGoodsTypeConfigEntity" resultType="GoodsTypeConfigEntity">select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_goods_type 
+limit #{pageFrom},#{pageSize}
+</select>
+
+	<!-- 查询计量单位记录总数量-->
+	<select id="getGoodsTypeTotalCount" parameterType="map" resultType="int">
+	     SELECT COUNT(strGoodsTypeId)
+      	 FROM tb_goods_type
+	</select>
 
 </mapper>
