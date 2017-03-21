@@ -378,7 +378,7 @@ CREATE TABLE tb_measurement_unit
 (
   strUnitId             VARCHAR(50) NOT NULL,       -- 主键
   strUnitName           VARCHAR(50) NOT NULL,       -- 计量单位名称
-  strUnitDesc           VARCHAR(255) NOT NULL,       -- 计量描述
+  strUnitDesc           VARCHAR(255) NULL,       -- 计量描述
   strReserved           VARCHAR(500) NULL,          -- 预留字段
   PRIMARY KEY (strUnitId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -394,7 +394,7 @@ CREATE TABLE tb_goods_type
 (
   strGoodsTypeId             VARCHAR(50) NOT NULL,       -- 主键
   strGoodsTypeName           VARCHAR(50) NOT NULL,       -- 计量单位名称
-  strGoodsTypeDesc           VARCHAR(255) NOT NULL,       -- 计量描述
+  strGoodsTypeDesc           VARCHAR(255) NULL,       -- 计量描述
   strReserved           VARCHAR(500) NULL,          -- 预留字段
   PRIMARY KEY (strGoodsTypeId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

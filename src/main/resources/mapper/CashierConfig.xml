@@ -5,12 +5,12 @@
 
 <!-- 新增一条计量记录 -->
 <insert id="addMeasurementUnit" parameterType="com.ecard.entity.MeasurementUnitEntity">
-insert into tb_measurement_unit(strUnitId,strUnitName,strUnitDesc,strReserved)
+ insert into tb_measurement_unit(strUnitId,strUnitName,strUnitDesc,strReserved)
  values(#{strUnitId},#{strUnitName},#{strUnitDesc},#{strReserved})
 </insert>
 
 <!-- 删除单条计量记录 -->
-<delete id="delMeasurementUnitById">
+<delete id="delMeasurementUnitById" parameterType="string">
 delete from tb_measurement_unit where strUnitId=#{strUnitId}
 </delete>
 
@@ -27,7 +27,7 @@ strUnitId=#{strUnitId} limit 0,1
 </select>
 
 <!-- 分页获取计量记录 -->
-<select id="getMeasurementUnitList" parameterType="map" resultMap="com.ecard.entity.MeasurementUnitEntity">
+<select id="getMeasurementUnitList" parameterType="map" resultType="com.ecard.entity.MeasurementUnitEntity">
 select strUnitId,strUnitName,strUnitDesc,strReserved from tb_measurement_unit 
 limit #{pageFrom},#{pageSize}
 </select>
@@ -42,7 +42,7 @@ limit #{pageFrom},#{pageSize}
 	
 	
 <!-- 新增一条tb_goods_type记录 -->
-<insert id="insertGoodsTypeConfigEntity" parameterType="GoodsTypeConfigEntity">
+<insert id="insertGoodsTypeConfigEntity" parameterType="com.ecard.entity.GoodsTypeConfigEntity">
 insert into tb_goods_type(strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved)
  values(#{strGoodsTypeId},#{strGoodsTypeName},#{strGoodsTypeDesc},#{strReserved})</insert>
 
@@ -52,19 +52,20 @@ delete from tb_goods_type where strGoodsTypeId=#{strGoodsTypeId}
 </delete>
 
 <!-- 更新tb_goods_type记录 -->
-<update id="updateGoodsTypeConfigEntity" parameterType="GoodsTypeConfigEntity">
+<update id="updateGoodsTypeConfigEntity" parameterType="com.ecard.entity.GoodsTypeConfigEntity">
 update tb_goods_type set strGoodsTypeName=#{strGoodsTypeName},strGoodsTypeDesc=#{strGoodsTypeDesc},strReserved=#{strReserved}
  where strGoodsTypeId=#{strGoodsTypeId}
 </update>
 
 <!-- 获取单条记录 -->
-<select id="getGoodsTypeConfigEntity" parameterType="string" resultType="GoodsTypeConfigEntity">
+<select id="getGoodsTypeConfigEntity" parameterType="string" resultType="com.ecard.entity.GoodsTypeConfigEntity">
 select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_goods_type where 
-where strGoodsTypeId=#{strGoodsTypeId}\r\n
+strGoodsTypeId=#{strGoodsTypeId}
 </select>
 
 <!-- 分页获取记录 -->
-<select id="getListGoodsTypeConfigEntity" resultType="GoodsTypeConfigEntity">select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_goods_type 
+<select id="getListGoodsTypeConfigEntity" parameterType="map" resultType="com.ecard.entity.GoodsTypeConfigEntity">
+select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_goods_type 
 limit #{pageFrom},#{pageSize}
 </select>
 
@@ -73,5 +74,4 @@ limit #{pageFrom},#{pageSize}
 	     SELECT COUNT(strGoodsTypeId)
       	 FROM tb_goods_type
 	</select>
-
 </mapper>

@@ -36,31 +36,34 @@ public class CashierConfigService {
 	@Transactional(rollbackFor=Exception.class)
 	public String insertMeasurementUnitRecord(MeasurementUnitEntity tMeasurementUnitEntity) throws Exception 
 	{
-       int iAffectRecord = 0;
 	   try {
-		   iAffectRecord = tCashierConfigMapper.addMeasurementUnit(tMeasurementUnitEntity);
+		   tCashierConfigMapper.addMeasurementUnit(tMeasurementUnitEntity);
 	   } catch (Exception e) {
 		// TODO Auto-generated catch block
 		  e.printStackTrace();
 		  
 		  return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null); 
 	   }
-       
-       if (0 == iAffectRecord)
-       {
-    	   return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
-       }
 		
        return DataTool.constructResponse(ResultCode.OK, "添加计量单位成功", null); 
 	}
 	
 	
     // 修改一条计量单位 
+	@Transactional(rollbackFor=Exception.class)
 	public String updateMeasurementUnitRecord(MeasurementUnitEntity tMeasurementUnitEntity) throws Exception 
 	{
        int iAffectRecord = 0;
 	   try {
 		   iAffectRecord = tCashierConfigMapper.updateMeasurementUnit(tMeasurementUnitEntity);
+		   
+	       if (0 == iAffectRecord)
+	       {
+	    	   return DataTool.constructResponse(ResultCode.NO_DATA, "无记录更新", null);
+	       }
+	       
+	       return DataTool.constructResponse(ResultCode.OK, "修改计量单位成功", null); 
+		   
 	   } catch (Exception e) {
 		// TODO Auto-generated catch block
 		  e.printStackTrace();
@@ -68,12 +71,16 @@ public class CashierConfigService {
 		  return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null); 
 	   }
        
+	   /*
        if (0 == iAffectRecord)
        {
-    	   return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+    	   return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "该ID不存在", null);
        }
+       
+       return DataTool.constructResponse(ResultCode.OK, "修改计量单位成功", null); 
+       */
 		
-       return DataTool.constructResponse(ResultCode.OK, "添加计量单位成功", null); 
+       
 	}
 	
 	// 删除一条计量单位
@@ -92,10 +99,10 @@ public class CashierConfigService {
        
        if (0 == iAffectRecord)
        {
-    	   return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "该计量单位不存在", null);
+    	   return DataTool.constructResponse(ResultCode.NO_DATA, "该计量单位不存在", null);
        }
 		
-       return DataTool.constructResponse(ResultCode.OK, "添加计量单位成功", null); 
+       return DataTool.constructResponse(ResultCode.OK, "删除计量单位成功", null); 
 	}
 	
 	// 查询计量单位详情 
@@ -133,7 +140,7 @@ public class CashierConfigService {
 	    int iAffectNum = tCashierConfigMapper.insertGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
 	    if (0 == iAffectNum)
 	    {
-	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	        return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
 	    }
 	    return DataTool.constructResponse(ResultCode.OK,"添加成功", null);
 	}
@@ -142,7 +149,7 @@ public class CashierConfigService {
 	    int iAffectNum = tCashierConfigMapper.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
 	    if (0 == iAffectNum)
 	    {
-	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	       return DataTool.constructResponse(ResultCode.NO_DATA, "无数据更新", null);
 	    }
 	    return DataTool.constructResponse(ResultCode.OK,"修改成功", null);
 	}
@@ -151,7 +158,7 @@ public class CashierConfigService {
 	    int iAffectNum = tCashierConfigMapper.deleteGoodsTypeConfigEntity(strGoodsTypeId);
 	    if (0 == iAffectNum)
 	    {
-	    return DataTool.constructResponse(ResultCode.LACK_INTEGRAL, "数据库操作失败", null);
+	        return DataTool.constructResponse(ResultCode.NO_DATA, "无数据更新", null);
 	    }
 	    return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
 	}

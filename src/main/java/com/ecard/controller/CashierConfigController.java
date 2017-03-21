@@ -39,6 +39,7 @@ public class CashierConfigController {
 	private CashierConfigService tCashierConfigService;
 	
 	// 新增计量单位
+	// localhost:8080/admin/biz/Cashier/insertUnit?strUnitName=克&strUnitDesc=单位描述
 	@ResponseBody
 	@RequestMapping("insertUnit")
 	public String insertUnit(HttpServletRequest request, HttpServletResponse response) {
@@ -71,6 +72,7 @@ public class CashierConfigController {
 	}
 	
     // 修改计量单位
+	// localhost:8080/admin/biz/Cashier/updateUnit?strUnitId=25836c37bf76437aa4d7a14755daf5d1&strUnitName=千克&strUnitDesc=你好好
 	@ResponseBody
 	@RequestMapping("updateUnit")
 	public String updateUnit(HttpServletRequest request, HttpServletResponse response) {
@@ -86,12 +88,15 @@ public class CashierConfigController {
 		if(strUnitName ==null || strUnitName.isEmpty()){
 			return DataTool.constructResponse(ResultCode.OK, "计量单位名称不能为空", null);
 		}
+
 		if(strUnitDesc ==null || strUnitDesc.isEmpty()){
-			strUnitDesc = " ";
+			return DataTool.constructResponse(ResultCode.OK, "计量描述不能为空", null);
+			//strUnitDesc = " ";
 		}
+		
 
 		MeasurementUnitEntity tMeasurementUnitEntity=new MeasurementUnitEntity();
-		tMeasurementUnitEntity.setStrUnitId(DataTool.getUUID());
+		tMeasurementUnitEntity.setStrUnitId(strUnitId);
 		tMeasurementUnitEntity.setStrUnitName(strUnitName);
 		tMeasurementUnitEntity.setStrUnitDesc(strUnitDesc);
 		tMeasurementUnitEntity.setStrReserved("");
@@ -108,27 +113,46 @@ public class CashierConfigController {
 	}
 	
 	// 删除计量单位
+	// localhost:8080/admin/biz/Cashier/delUnit?strUnitId=123
 	@ResponseBody
 	@RequestMapping("delUnit")
 	public String delUnit(HttpServletRequest request, HttpServletResponse response) {
-		
-		return DataTool.constructResponse(ResultCode.OK, "删除成功", null);
+		String strUnitId = request.getParameter("strUnitId");
+		try {
+			return tCashierConfigService.deleteMeasurementUnitRecord(strUnitId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.OK, "删除失败", null);
+		}
 	}
 	
 	// 查询计量详情
+	// localhost:8080/admin/biz/Cashier/selUnitDetail?strUnitId=25836c37bf76437aa4d7a14755daf5d1
 	@ResponseBody
 	@RequestMapping("selUnitDetail")
 	public String selUnitDetail(HttpServletRequest request, HttpServletResponse response) {
-		String strUnitId = request.getParameter("strUnitId");
+		String strUnitId = request.getParameter("strUnitId");		
+		Map<String,Object> resultMap = new HashMap<String, Object>();
 
 		if(strUnitId ==null || strUnitId.isEmpty())
 		{
-			return DataTool.constructResponse(ResultCode.OK, "计量单位ID不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "计量单位ID不能为空", null);
 		}
 		
 		try {
-			return tCashierConfigService.deleteMeasurementUnitRecord(strUnitId);
-
+			MeasurementUnitEntity tMeasurementUnitEntity = tCashierConfigService.getMeasurementUnitDetailById(strUnitId);
+			
+			if (tMeasurementUnitEntity == null || tMeasurementUnitEntity.getStrUnitId().isEmpty() || tMeasurementUnitEntity.getStrUnitId() == null)
+			{
+				return DataTool.constructResponse(ResultCode.NO_DATA, "会员不存在", null);
+			}
+			else 
+			{
+				resultMap.put("MeasurementUnit", tMeasurementUnitEntity);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,6 +161,7 @@ public class CashierConfigController {
 	}
 	
 	// 分页查询计量列表
+	// localhost:8080/admin/biz/Cashier/selUnitList?pagenum=1&pagesize=2
 	@ResponseBody
 	@RequestMapping("selUnitList")
 	public String selUnitList(HttpServletRequest request, HttpServletResponse response) {
@@ -182,6 +207,7 @@ public class CashierConfigController {
 	
 	
 	// 插入一条商品类型
+	// localhost:8080/admin/biz/Cashier/insertGoodsType?strGoodsTypeName=shangp1&strGoodsTypeDesc=nihao
 	@ResponseBody
 	@RequestMapping("insertGoodsType")
 	public String insertGoodsType(HttpServletRequest request, HttpServletResponse response) {
@@ -222,6 +248,7 @@ public class CashierConfigController {
 	}
 	
 	// 更新一条商品类型
+	// localhost:8080/admin/biz/Cashier/updateGoodsType?strGoodsTypeName=shangp11111&strGoodsTypeDesc=nihao1111&strGoodsTypeId=ba4480c93a81487cb743e054ac48d4c2
 	@ResponseBody
 	@RequestMapping("updateGoodsType")
 	public String updateGoodsType(HttpServletRequest request, HttpServletResponse response) {
@@ -250,8 +277,7 @@ public class CashierConfigController {
 		//tCashierConfigService.getGoodsTypeConfigEntity(strGoodsTypeId);
 		//新增一条GoodsTypeConfigEntity记录
 		try {
-			tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
-			return DataTool.constructResponse(ResultCode.OK, "更新成功", null);
+			return tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -266,6 +292,7 @@ public class CashierConfigController {
 	}
 	
 	// 删除一条商品类型
+	// localhost:8080/admin/biz/Cashier/delGoodsType?strGoodsTypeId=ba4480c93a81487cb743e054ac48d4c2
 	@ResponseBody
 	@RequestMapping("delGoodsType")
 	public String delGoodsType(HttpServletRequest request, HttpServletResponse response) {
@@ -277,8 +304,7 @@ public class CashierConfigController {
 
 		//生成调用请求
 		try {
-			tCashierConfigService.deleteGoodsTypeConfigEntity(strGoodsTypeId);
-			return DataTool.constructResponse(ResultCode.OK, "删除成功", null);
+			return tCashierConfigService.deleteGoodsTypeConfigEntity(strGoodsTypeId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -287,7 +313,9 @@ public class CashierConfigController {
 		}
 	}
 	
+	
 	// 分页查询商品类型列表
+	//localhost:8080/admin/biz/Cashier/selGoodsTypeList?pagenum=1&pagesize=2
 	@ResponseBody
 	@RequestMapping("selGoodsTypeList")
 	public String selGoodsTypeList(HttpServletRequest request, HttpServletResponse response) {
@@ -328,7 +356,39 @@ public class CashierConfigController {
 			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
 			
 		}
+	}
+	
+	// 查询计量详情
+	// localhost:8080/admin/biz/Cashier/selGoodsTypeDetail?strGoodsTypeId=9a803c2e1c4844559c8b5ec58eb9a816
+	@ResponseBody
+	@RequestMapping("selGoodsTypeDetail")
+	public String selGoodsTypeDetail(HttpServletRequest request, HttpServletResponse response) {
+		String strGoodsTypeId = request.getParameter("strGoodsTypeId");	
+		Map<String,Object> resultMap = new HashMap<String, Object>();
 
+		if(strGoodsTypeId ==null || strGoodsTypeId.isEmpty())
+		{
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "ID不能为空", null);
+		}
+		
+		try {
+			GoodsTypeConfigEntity tGoodsTypeConfigEntity = tCashierConfigService.getGoodsTypeConfigEntity(strGoodsTypeId);
+			
+			if (tGoodsTypeConfigEntity == null || tGoodsTypeConfigEntity.getStrGoodsTypeId().isEmpty() || tGoodsTypeConfigEntity.getStrGoodsTypeId() == null)
+			{
+				return DataTool.constructResponse(ResultCode.NO_DATA, "不存在数据", null);
+			}
+			else 
+			{
+				resultMap.put("goodsType", tGoodsTypeConfigEntity);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
+		}
 	}
 
 }
