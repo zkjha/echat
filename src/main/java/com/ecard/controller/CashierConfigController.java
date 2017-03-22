@@ -25,6 +25,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.entity.MeasurementUnitEntity;
+import com.ecard.entity.ServiceTypeEntity;
 import com.ecard.service.CashierConfigService;
 
 /**
@@ -388,6 +389,200 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	//获取一条ServiceType记录
+	//localhost:8082/admin/biz/Cashier/getServiceType?strServiceTypeId=0318871acb2e41beb5e988ed6e48e13d
+	@ResponseBody
+	@RequestMapping("getServiceType")
+	public String getServiceType(HttpServletRequest request, HttpServletResponse response){
+
+	    String strServiceTypeId = request.getParameter("strServiceTypeId");
+	    Map<String,Object> resultMap = new HashMap<String, Object>();
+	  
+	    if(strServiceTypeId == null || strServiceTypeId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceTypeId不能为空", null);
+	    }
+	    try{
+	        ServiceTypeEntity tServiceType= tCashierConfigService.getServiceType(strServiceTypeId);
+	        if (tServiceType == null || tServiceType.getStrServiceTypeId().isEmpty() || tServiceType.getStrServiceTypeId() == null)
+	        {
+	            return DataTool.constructResponse(ResultCode.NO_DATA, "数据不存在", null);
+	        }
+	        else
+	        {
+	            resultMap.put("ServiceType", tServiceType);
+	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	         }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
+	    }
+	}
+
+
+	//新增一条ServiceType记录
+	//localhost:8082/admin/biz/Cashier/insertServiceType?strServiceTypeName=qidongbo&strServiceTypeDesc=nihaodehen
+	@ResponseBody
+	@RequestMapping("insertServiceType")
+	public String insertServiceType(HttpServletRequest request, HttpServletResponse response){
+
+	    //获取传入参数
+	    String strServiceTypeName = request.getParameter("strServiceTypeName");
+	    /*
+	    String strEmployeeId = request.getParameter("strEmployeeId");
+	    String strEmployeeName = request.getParameter("strEmployeeName");
+	    String strEmployeeLoginName = request.getParameter("strEmployeeLoginName");
+	    */
+	    String strServiceTypeDesc = request.getParameter("strServiceTypeDesc");
+	    String strReserved = request.getParameter("strReserved");
+
+
+	    //判断参数有效性
+
+	    if(strServiceTypeName == null || strServiceTypeName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceTypeName不能为空", null);
+	    }
+
+	    if(strServiceTypeDesc == null || strServiceTypeDesc.isEmpty())
+	    {
+	    	strServiceTypeDesc = "";
+	        //return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceTypeDesc不能为空", null);
+	    }
+
+
+	    //对象设置
+	    ServiceTypeEntity tServiceType=new ServiceTypeEntity();
+	    tServiceType.setStrServiceTypeId(DataTool.getUUID());
+	    tServiceType.setStrServiceTypeName(strServiceTypeName);
+	    tServiceType.setStrEmployeeId("111");
+	    tServiceType.setStrEmployeeName("222");
+	    tServiceType.setStrEmployeeLoginName("333");
+	    tServiceType.setStrServiceTypeDesc(strServiceTypeDesc);
+	    tServiceType.setStrReserved(strReserved);
+
+
+	    try{
+	        return tCashierConfigService.insertServiceType(tServiceType);
+	    }
+	    catch(Exception e)
+	    {
+	        e.printStackTrace();
+	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "新增失败", null);
+	    }
+	}
+
+
+	// 更新一条ServiceType记录
+	//localhost:8082/admin/biz/Cashier/updateServiceType?strServiceTypeId=0318871acb2e41beb5e988ed6e48e13d&strServiceTypeName=qidongbo&strServiceTypeDesc=nihaodehen
+
+	@ResponseBody
+	@RequestMapping("updateServiceType")
+	public String updateServiceType(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String strServiceTypeId = request.getParameter("strServiceTypeId");
+		String strServiceTypeName = request.getParameter("strServiceTypeName");
+		/*
+		 * String strEmployeeId = request.getParameter("strEmployeeId"); String
+		 * strEmployeeName = request.getParameter("strEmployeeName"); String
+		 * strEmployeeLoginName = request.getParameter("strEmployeeLoginName");
+		 */
+		String strServiceTypeDesc = request.getParameter("strServiceTypeDesc");
+		String strReserved = request.getParameter("strReserved");
+		if (strServiceTypeId == null || strServiceTypeId.isEmpty()) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,
+					"参数strServiceTypeId不能为空", null);
+		}
+		ServiceTypeEntity tServiceType = new ServiceTypeEntity();
+		tServiceType.setStrServiceTypeId(strServiceTypeId);
+		tServiceType.setStrServiceTypeName(strServiceTypeName);
+		tServiceType.setStrEmployeeId("333");
+		tServiceType.setStrEmployeeName("nihao");
+		tServiceType.setStrEmployeeLoginName("hello");
+		tServiceType.setStrServiceTypeDesc(strServiceTypeDesc);
+		tServiceType.setStrReserved(strReserved);
+		try {
+			return tCashierConfigService.updateServiceType(tServiceType);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "更新失败",
+					null);
+		}
+	}
+
+	// 删除一条ServiceType记录
+	//localhost:8082/admin/biz/Cashier/delServiceType?strServiceTypeId=0318871acb2e41beb5e988ed6e48e13d
+	@ResponseBody
+	@RequestMapping("delServiceType")
+	public String delServiceType(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String strServiceTypeId = request.getParameter("strServiceTypeId");
+		if (strServiceTypeId == null || strServiceTypeId.isEmpty()) {
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,
+					"参数strServiceTypeId不能为空", null);
+		}
+		try {
+			return tCashierConfigService.deleteServiceType(strServiceTypeId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "删除失败",
+					null);
+		}
+	}
+
+	// 获取ServiceType列表
+	//localhost:8082/admin/biz/Cashier/getListServiceType?pagenum=1&pagesize=2
+
+	@ResponseBody
+	@RequestMapping("getListServiceType")
+	public String getListServiceType(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String pagenum = request.getParameter("pagenum");
+		String pagesize = request.getParameter("pagesize");
+
+		if (ValidateTool.isEmptyStr(pagenum)) {
+			pagenum = "1";
+		}
+		int iPagesize = StaticValue.PAGE_SIZE;
+		if (!ValidateTool.isEmptyStr(pagesize)) {
+			iPagesize = Integer.valueOf(pagesize);
+		}
+		int pageFrom = (Integer.parseInt(pagenum) - 1) * iPagesize;
+		Map<String, Object> queryMap = new HashMap<String, Object>();
+		queryMap.put("pageFrom", pageFrom);
+		queryMap.put("pageSize", iPagesize);
+		try {
+			List<ServiceTypeEntity> listServiceType = tCashierConfigService.getListServiceType(queryMap);
+			if (ValidateTool.isNull(listServiceType)
+					|| listServiceType.size() <= 0) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据",
+						null);
+			} else {
+				int totalrecord = tCashierConfigService.getServiceTypeTotalCount(queryMap);
+				Map<String, Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("listServiceType", listServiceType);
+				resultMap.put("iTotalRecord", totalrecord);
+				resultMap.put("iTotalPage",
+						totalrecord % iPagesize == 0 ? totalrecord / iPagesize
+								: totalrecord / iPagesize + 1);
+				return DataTool.constructResponse(ResultCode.OK, "查询成功",
+						resultMap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败",
+					null);
 		}
 	}
 

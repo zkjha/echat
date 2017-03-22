@@ -412,6 +412,26 @@ create index indxGoodsTypeOnTypeId on tb_goods_type(strGoodsTypeId);
 create index indxGoodsTypeOnTypeName  on tb_goods_type(strGoodsTypeName);
 
 
+-- ==============================================================
+-- Table: tb_service_type                【服务项目分类】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_service_type;
+CREATE TABLE tb_service_type
+(
+  strServiceTypeId             VARCHAR(50) NOT NULL,       -- 主键
+  strServiceTypeName           VARCHAR(50) NOT NULL,       -- 服务类别名称
+  strEmployeeId                VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeName              VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName         VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strServiceTypeDesc           VARCHAR(255) NULL,          -- 服务类别描述
+  strReserved                  VARCHAR(500) NULL,                 -- 预留字段
+  PRIMARY KEY (strServiceTypeId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxServiceTypeOnTypeId on tb_service_type(strServiceTypeId);
+create index indxServiceTypeOnTypeName  on tb_service_type(strServiceTypeName);
+create index indxServiceTypeOnEmployeedId  on tb_service_type(strEmployeeId);
+
+
 
 
 
