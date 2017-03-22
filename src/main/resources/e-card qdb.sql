@@ -335,13 +335,23 @@ create index indxRechargeOrderOnMemberId on tb_recharge_order(STRMEMBERID);
 DROP TABLE IF EXISTS tb_goods;
 CREATE TABLE tb_goods
 (
-  STRGOODSID                VARCHAR(50) NOT NULL,       -- 主键
-  STRGOODSNAME              VARCHAR(50) NOT NULL,       -- 用户姓名
-  DPRICE                    DECIMAL(11,2) DEFAULT 0.00, -- 价格
-  STRINSERTTIME             VARCHAR(50) NOT NULL,       -- 录入时间
-  STRUPDATETIME             VARCHAR(50) DEFAULT '',     -- 修改时间
+  strGoodsId                VARCHAR(50) NOT NULL,       -- 主键
+  strGoodsName              VARCHAR(50) NOT NULL,       -- 商品名称
+  strGoodsTypeId            VARCHAR(50) NOT NULL,       -- 商品类型ID
+  strGoodsTypeName          VARCHAR(50) NOT NULL,       -- 计量单位名称
+  dEnterPrice               DECIMAL(11,2) DEFAULT 0.00, -- 商品进价
+  dSalePrice                DECIMAL(11,2) DEFAULT 0.00, -- 商品销售价格
+  iStock                    int DEFAULT 0,              -- 商品库存
+  strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strInsertTime             VARCHAR(50) NOT NULL,       -- 录入时间
+  strUpdateTime             VARCHAR(50) DEFAULT '',     -- 修改时间
   PRIMARY KEY (STRGOODSID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxGoodsOnGoodsId  on tb_goods(strGoodsId);
+create index indxGoodsOnGoodsName  on tb_goods(strGoodsName);
+create index indxGoodsOnInsertTime  on tb_goods(strInsertTime);
 
 -- ==============================================================
 -- Table: tb_goods_order                            【商品订单表】                          

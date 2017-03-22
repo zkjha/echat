@@ -67,7 +67,7 @@ public class CashierConfigController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.OK, "新增失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "新增失败", null);
 		}
 	}
 	
@@ -83,15 +83,15 @@ public class CashierConfigController {
 
 		if(strUnitId ==null || strUnitId.isEmpty())
 		{
-			return DataTool.constructResponse(ResultCode.OK, "计量单位ID不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "计量单位ID不能为空", null);
 		}
 		if(strUnitName ==null || strUnitName.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "计量单位名称不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "计量单位名称不能为空", null);
 		}
 
 		if(strUnitDesc ==null || strUnitDesc.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "计量描述不能为空", null);
-			//strUnitDesc = " ";
+			//return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "计量描述不能为空", null);
+			strUnitDesc = " ";
 		}
 		
 
@@ -108,7 +108,7 @@ public class CashierConfigController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.OK, "修改失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "修改失败", null);
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class CashierConfigController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.OK, "删除失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "删除失败", null);
 		}
 	}
 	
@@ -156,7 +156,7 @@ public class CashierConfigController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.OK, "删除失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "删除失败", null);
 		}
 	}
 	
@@ -199,7 +199,7 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
 		}
 		
 		//return DataTool.constructResponse(ResultCode.OK, "新增成功", null);
@@ -217,7 +217,7 @@ public class CashierConfigController {
 		String strReserved = request.getParameter("strReserved");
 
 		if(strGoodsTypeName ==null || strGoodsTypeName.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "商品类型名称不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商品类型名称不能为空", null);
 		}
 
 		GoodsTypeConfigEntity tGoodsTypeConfigEntity=new GoodsTypeConfigEntity();
@@ -238,7 +238,7 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return DataTool.constructResponse(ResultCode.OK, "新增失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "新增失败", null);
 		}
 		//更新一条GoodsTypeConfigEntity记录
 		//tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
@@ -258,11 +258,11 @@ public class CashierConfigController {
 		String strReserved = request.getParameter("strReserved");
 		
 		if(strGoodsTypeId ==null || strGoodsTypeId.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "商品类型ID不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商品类型ID不能为空", null);
 		}
 
 		if(strGoodsTypeName ==null || strGoodsTypeName.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "商品类型名称不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商品类型名称不能为空", null);
 		}
 
 		GoodsTypeConfigEntity tGoodsTypeConfigEntity=new GoodsTypeConfigEntity();
@@ -282,7 +282,7 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return DataTool.constructResponse(ResultCode.OK, "更新失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "更新失败", null);
 		}
 		//更新一条GoodsTypeConfigEntity记录
 		//tCashierConfigService.updateGoodsTypeConfigEntity(tGoodsTypeConfigEntity);
@@ -299,7 +299,7 @@ public class CashierConfigController {
 		String strGoodsTypeId = request.getParameter("strGoodsTypeId");
 
 		if(strGoodsTypeId ==null || strGoodsTypeId.isEmpty()){
-			return DataTool.constructResponse(ResultCode.OK, "商品类型ID不能为空", null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "商品类型ID不能为空", null);
 		}
 
 		//生成调用请求
@@ -309,7 +309,7 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return DataTool.constructResponse(ResultCode.OK, "删除失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "删除失败", null);
 		}
 	}
 	
@@ -353,7 +353,7 @@ public class CashierConfigController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
 			
 		}
 	}
@@ -387,7 +387,7 @@ public class CashierConfigController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.OK, "查询失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
 		}
 	}
 

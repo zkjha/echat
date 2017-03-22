@@ -19,6 +19,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.entity.MeasurementUnitEntity;
 import com.ecard.mapper.CashierConfigMapper;
+import com.ecard.mapper.GoodsInfoMapper;
 
 /**
  * author:qidongbo
@@ -31,6 +32,8 @@ public class CashierConfigService {
 	@Autowired
 	private CashierConfigMapper tCashierConfigMapper;
 	
+	@Autowired
+	private GoodsInfoMapper tGoodsInfoMapper;
 	
 	// 新增加一条计量单位
 	@Transactional(rollbackFor=Exception.class)
@@ -155,6 +158,13 @@ public class CashierConfigService {
 	}
 	//删除一条GoodsTypeConfigEntity记录
 	public String deleteGoodsTypeConfigEntity(String strGoodsTypeId) throws Exception{
+		
+		// 首先判断该商品类型下是否有商品 如果有商品 不能删除
+		if (tGoodsInfoMapper.getGoodsInfoCountByGoodsType(strGoodsTypeId) > 0)
+		{
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "该商品类型下存在商品,无法删除!", null);
+		}
+		
 	    int iAffectNum = tCashierConfigMapper.deleteGoodsTypeConfigEntity(strGoodsTypeId);
 	    if (0 == iAffectNum)
 	    {
@@ -170,6 +180,11 @@ public class CashierConfigService {
 	//查询商品类型总数量
 	public int getGoodsTypeTotalCount(Map<String, Object> queryMap) throws Exception {
 		return tCashierConfigMapper.getGoodsTypeTotalCount(queryMap);
+	}
+	
+	//查询商品类型是否存在
+	public int isGoodsTypeExists(String strGoodsTypeId) throws Exception {
+		return tCashierConfigMapper.isGoodsTypeExists(strGoodsTypeId);
 	}
 	
 

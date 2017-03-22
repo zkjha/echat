@@ -69,9 +69,17 @@ select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from tb_good
 limit #{pageFrom},#{pageSize}
 </select>
 
-	<!-- 查询计量单位记录总数量-->
+	<!-- 查询商品类型记录总数量-->
 	<select id="getGoodsTypeTotalCount" parameterType="map" resultType="int">
 	     SELECT COUNT(strGoodsTypeId)
       	 FROM tb_goods_type
+	</select>
+	
+	
+	<!-- 查询商品类型是否存在-->
+	<select id="isGoodsTypeExists" parameterType="string" resultType="int">
+	     SELECT COUNT(strGoodsTypeId)
+      	 FROM tb_goods_type   
+      	 where strGoodsTypeId=#{strGoodsTypeId}
 	</select>
 </mapper>

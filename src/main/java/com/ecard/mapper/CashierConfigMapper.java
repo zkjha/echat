@@ -56,5 +56,8 @@ public interface CashierConfigMapper {
 	
 	//获取商品总数量
 	int getGoodsTypeTotalCount(Map<String, Object> queryMap) throws Exception;
+	
+	//获取商品类型是否存在
+	int isGoodsTypeExists(String strGoodsTypeId) throws Exception;
 
 }
