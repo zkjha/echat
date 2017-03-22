@@ -431,6 +431,31 @@ create index indxServiceTypeOnTypeId on tb_service_type(strServiceTypeId);
 create index indxServiceTypeOnTypeName  on tb_service_type(strServiceTypeName);
 create index indxServiceTypeOnEmployeedId  on tb_service_type(strEmployeeId);
 
+-- ==============================================================
+-- Table: tb_service_info                【服务项目信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_service_info;
+CREATE TABLE tb_service_info
+(
+  strServiceInfoId             VARCHAR(50) NOT NULL,       -- 主键
+  strServiceInfoName           VARCHAR(50) NOT NULL,       -- 服务类别名称
+  strServiceTypeId             VARCHAR(50) NOT NULL,       -- 主键
+  strServiceTypeName           VARCHAR(50) NOT NULL,       -- 服务类别名称 
+  dSalePrice                   DECIMAL(11,2) DEFAULT 0.00, -- 服务销售价格
+  strEmployeeId                VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeName              VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName         VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strServiceInfoDesc           VARCHAR(255) NULL,          -- 服务类别描述
+  strInsertTime                VARCHAR(50) NOT NULL,       -- 录入时间
+  strUpdateTime                VARCHAR(50) DEFAULT '',     -- 修改时间
+  strReserved                  VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strServiceInfoId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxServiceInfoOnServiceId on tb_service_info(strServiceInfoId);
+create index indxServiceInfoOnServiceName  on tb_service_info(strServiceInfoName);
+create index indxServiceInfoOnTypeId  on tb_service_info(strServiceTypeId);
+create index indxServiceInfoOnEmployeedId  on tb_service_info(strEmployeeId);
+
 
 
 

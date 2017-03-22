@@ -160,7 +160,7 @@
 	</select>
 
 	<!-- 查询商品类型是否存在 -->
-	<select id="isGoodsServiceTypeExists" parameterType="string"
+	<select id="isServiceTypeExists" parameterType="string"
 		resultType="int">
 		SELECT COUNT(strServiceTypeId)
 		FROM tb_service_type

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.ServiceInfoMapper">
+<!-- 新增一条tb_service_info记录 -->
+<insert id="insertServiceInfo" parameterType="com.ecard.entity.ServiceInfoEntity">
+insert into tb_service_info(strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved)
+ values(#{strServiceInfoId},#{strServiceInfoName},#{strServiceTypeId},#{strServiceTypeName},#{dSalePrice},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strServiceInfoDesc},#{strInsertTime},#{strUpdateTime},#{strReserved})
+ </insert>
+
+
+
+<!-- 删除单条tb_service_info记录 -->
+<delete id="deleteServiceInfoById" parameterType="string">
+delete from tb_service_info where strServiceInfoId=#{strServiceInfoId}
+</delete>
+
+
+
+<!-- 更新tb_service_info记录 -->
+<update id="updateServiceInfo" parameterType="com.ecard.entity.ServiceInfoEntity">
+update tb_service_info set strServiceInfoName=#{strServiceInfoName},strServiceTypeId=#{strServiceTypeId},strServiceTypeName=#{strServiceTypeName},dSalePrice=#{dSalePrice},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strServiceInfoDesc=#{strServiceInfoDesc},strUpdateTime=#{strUpdateTime},strReserved=#{strReserved}
+ where strServiceInfoId=#{strServiceInfoId}
+</update>
+
+
+<!-- 获取单条记录 -->
+<select id="getServiceInfo" parameterType="string" resultType="com.ecard.entity.ServiceInfoEntity">
+select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved from tb_service_info
+where strServiceInfoId=#{strServiceInfoId}\r\n</select>
+
+
+
+<!-- 分页获取记录 -->
+<select id="getListServiceInfo"  parameterType="map" resultType="com.ecard.entity.ServiceInfoEntity">
+select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved from tb_service_info 
+limit #{pageFrom},#{pageSize}
+</select>
+
+
+
+<!-- 获取tb_service_info总记录数 -->
+<select id="getServiceInfoTotalCount"  parameterType="map" resultType="int">
+select count(strServiceInfoId) from tb_service_info
+</select>
+
+<!-- 查询某条tb_service_info记录是否存在 -->
+<select id="isServiceInfoExists"  parameterType="string" resultType="int">
+select count(strServiceInfoId) from tb_service_info where strServiceInfoId=#{strServiceInfoId}
+</select>
+
+<!-- 查询某类服务类型下有多少服务项目 -->
+<select id="getServiceInfoCountByTypeId"  parameterType="string" resultType="int">
+select count(strServiceInfoId) from tb_service_info where strServiceTypeId=#{strServiceTypeId}
+</select>
+
+</mapper>

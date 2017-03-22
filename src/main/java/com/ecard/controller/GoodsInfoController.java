@@ -217,7 +217,6 @@ public class GoodsInfoController {
 	    tGoodsInfo.setStrEmployeeId("1111");
 	    tGoodsInfo.setStrEmployeeName("2222");
 	    tGoodsInfo.setStrEmployeeLoginName("3333");
-	    tGoodsInfo.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 	    tGoodsInfo.setStrUpdateTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 		 
 	    try{

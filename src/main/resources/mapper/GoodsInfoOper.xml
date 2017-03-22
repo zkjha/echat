@@ -19,7 +19,7 @@ delete from tb_goods where strGoodsId=#{strGoodsId}
 
 <!-- 更新tb_goods记录 -->
 <update id="updateGoodsInfo" parameterType="com.ecard.entity.GoodsInfoEntity">
-update tb_goods set strGoodsName=#{strGoodsName},strGoodsTypeId=#{strGoodsTypeId},strGoodsTypeName=#{strGoodsTypeName},dEnterPrice=#{dEnterPrice},dSalePrice=#{dSalePrice},iStock=#{iStock},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strInsertTime=#{strInsertTime},strUpdateTime=#{strUpdateTime}
+update tb_goods set strGoodsName=#{strGoodsName},strGoodsTypeId=#{strGoodsTypeId},strGoodsTypeName=#{strGoodsTypeName},dEnterPrice=#{dEnterPrice},dSalePrice=#{dSalePrice},iStock=#{iStock},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strUpdateTime=#{strUpdateTime}
  where strGoodsId=#{strGoodsId}
 </update>
 
