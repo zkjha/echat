@@ -36,7 +36,7 @@ where strGoodsId=#{strGoodsId}
 <!-- 分页获取记录 -->
 <select id="getListGoodsInfo"  parameterType="map" resultType="com.ecard.entity.GoodsInfoEntity">
 select strGoodsId,strGoodsName,strGoodsTypeId,strGoodsTypeName,dEnterPrice,dSalePrice,iStock,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_goods 
-limit #{pagFrom},#{pageSize}
+limit #{pageFrom},#{pageSize}
 </select>
 
 

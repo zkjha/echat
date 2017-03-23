@@ -27,7 +27,8 @@ update tb_service_info set strServiceInfoName=#{strServiceInfoName},strServiceTy
 <!-- 获取单条记录 -->
 <select id="getServiceInfo" parameterType="string" resultType="com.ecard.entity.ServiceInfoEntity">
 select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved from tb_service_info
-where strServiceInfoId=#{strServiceInfoId}\r\n</select>
+where strServiceInfoId=#{strServiceInfoId}
+</select>
 
 
 

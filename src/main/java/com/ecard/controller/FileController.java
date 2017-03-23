@@ -69,6 +69,7 @@ public class FileController {
 			String folder = df.format(new Date());
 			fileName = folder + "/" + DataTool.getUUID() + suffixName;
 			File destination = new File(filePath + fileName);
+			
 			// 检测是否存在目录
 			if (!destination.getParentFile().exists()) {
 				destination.getParentFile().mkdirs();

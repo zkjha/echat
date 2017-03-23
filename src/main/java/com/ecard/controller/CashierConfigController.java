@@ -129,7 +129,7 @@ public class CashierConfigController {
 	}
 	
 	// 查询计量详情
-	// localhost:8080/admin/biz/Cashier/selUnitDetail?strUnitId=25836c37bf76437aa4d7a14755daf5d1
+	// localhost:8082/admin/biz/Cashier/selUnitDetail?strUnitId=48dce1de4d5b40f48506e82450f45ebf
 	@ResponseBody
 	@RequestMapping("selUnitDetail")
 	public String selUnitDetail(HttpServletRequest request, HttpServletResponse response) {
@@ -398,7 +398,7 @@ public class CashierConfigController {
 	
 	
 	//获取一条ServiceType记录
-	//localhost:8082/admin/biz/Cashier/getServiceType?strServiceTypeId=0318871acb2e41beb5e988ed6e48e13d
+	//localhost:8082/admin/biz/Cashier/getServiceType?strServiceTypeId=20e3c241740e47438f25d91bdefc9d9d
 	@ResponseBody
 	@RequestMapping("getServiceType")
 	public String getServiceType(HttpServletRequest request, HttpServletResponse response){
@@ -520,7 +520,7 @@ public class CashierConfigController {
 	}
 
 	// 删除一条ServiceType记录
-	//localhost:8082/admin/biz/Cashier/delServiceType?strServiceTypeId=0318871acb2e41beb5e988ed6e48e13d
+	//localhost:8082/admin/biz/Cashier/delServiceType?strServiceTypeId=1a86d3a79c15437698255b72e4a0fde4
 	@ResponseBody
 	@RequestMapping("delServiceType")
 	public String delServiceType(HttpServletRequest request,

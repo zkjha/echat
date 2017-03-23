@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecard.mapper.LoopAdvPicMapper">
+<!-- 新增一条tb_advertispic_info记录 -->
+<insert id="insertLoopAdvPic" parameterType="com.ecard.entity.LoopAdvPicEntity">
+insert into tb_advertispic_info(strAdvPicId,strAdvPicName,iAdvPicWeight,strAdvLinkPage,strInsertTime,strReserved)
+ values(#{strAdvPicId},#{strAdvPicName},#{iAdvPicWeight},#{strAdvLinkPage},#{strInsertTime},#{strReserved})
+</insert>
+
+
+
+<!-- 删除单条tb_advertispic_info记录 -->
+<delete id="deleteLoopAdvPicById" parameterType="string">
+delete from tb_advertispic_info where strAdvPicId=#{strAdvPicId}
+</delete>
+
+
+
+<!-- 更新tb_advertispic_info记录 -->
+<update id="updateLoopAdvPic" parameterType="com.ecard.entity.LoopAdvPicEntity">
+update tb_advertispic_info set strAdvPicName=#{strAdvPicName},iAdvPicWeight=#{iAdvPicWeight},strAdvLinkPage=#{strAdvLinkPage},strInsertTime=#{strInsertTime},strReserved=#{strReserved}
+ where strAdvPicId=#{strAdvPicId}
+</update>
+
+
+<!-- 获取单条记录 -->
+<select id="getLoopAdvPic" parameterType="string" resultType="com.ecard.entity.LoopAdvPicEntity">
+select strAdvPicId,strAdvPicName,iAdvPicWeight,strAdvLinkPage,strInsertTime,strReserved from tb_advertispic_info
+where strAdvPicId=#{strAdvPicId}
+</select>
+
+
+<!-- 获取所有记录 -->
+<select id="getListLoopAdvPic"  resultType="com.ecard.entity.LoopAdvPicEntity">
+select strAdvPicId,strAdvPicName,iAdvPicWeight,strAdvLinkPage,strInsertTime,strReserved from tb_advertispic_info 
+where 1=1
+</select>
+
+
+
+<!-- 获取tb_advertispic_info总记录数 -->
+<select id="getLoopAdvPicTotalCount"  parameterType="map" resultType="int">
+select count(strAdvPicId) from tb_advertispic_info
+</select>
+
+<!-- 查询某条tb_advertispic_info记录是否存在 -->
+<select id="isLoopAdvPicExists"  parameterType="string" resultType="int">
+select count(strAdvPicId) from tb_advertispic_info where strAdvPicId=#{strAdvPicId}
+</select>
+
+</mapper>

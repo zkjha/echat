@@ -20,6 +20,7 @@ import com.ecard.entity.MeasurementUnitEntity;
 import com.ecard.entity.ServiceTypeEntity;
 import com.ecard.mapper.CashierConfigMapper;
 import com.ecard.mapper.GoodsInfoMapper;
+import com.ecard.mapper.ServiceInfoMapper;
 
 /**
  * author:qidongbo
@@ -34,6 +35,9 @@ public class CashierConfigService {
 
 	@Autowired
 	private GoodsInfoMapper tGoodsInfoMapper;
+	
+	@Autowired
+	private ServiceInfoMapper tServiceInfoMapper;
 
 	// 新增加一条计量单位
 	@Transactional(rollbackFor = Exception.class)
@@ -244,6 +248,11 @@ public class CashierConfigService {
 	// 删除一条ServiceType记录
 	@Transactional(rollbackFor = Exception.class)
 	public String deleteServiceType(String strServiceTypeId) throws Exception {
+		if(tServiceInfoMapper.getServiceInfoCountByTypeId(strServiceTypeId) >= 0)
+		{
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "该类型下还存在服务项目", null);
+		}
+		
 		int iAffectNum = tCashierConfigMapper
 				.deleteServiceTypeById(strServiceTypeId);
 		if (0 == iAffectNum) {

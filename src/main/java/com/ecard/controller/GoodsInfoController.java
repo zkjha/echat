@@ -44,7 +44,7 @@ public class GoodsInfoController {
 	private GoodsInfoService tGoodsInfoService;
 	
 	//获取一条GoodsInfo记录
-	// localhost:8080/admin/biz/goods/getGoodsInfo?strGoodsId=c1f5f284869d4e70b61d1bbaeb30d33b
+	// localhost:8080/admin/biz/goods/getGoodsInfo?strGoodsId=fcd7c396a09147e0b124976e9e224a1b
 	@ResponseBody
 	@RequestMapping("getGoodsInfo")
 	public String getGoodsInfo(HttpServletRequest request, HttpServletResponse reponse){
@@ -76,7 +76,7 @@ public class GoodsInfoController {
 
 
 	//新增一条GoodsInfo记录
-	// localhost:8080/admin/biz/goods/insertGoodsInfo?strGoodsName=1111&dEnterPrice=3&dSalePrice=6&strStock=100
+	// localhost:8082/admin/biz/goods/insertGoodsInfo?strGoodsTypeId=9a803c2e1c4844559c8b5ec58eb9a816&strGoodsTypeName=234&strGoodsName=1111&dEnterPrice=3&dSalePrice=6&strStock=100
 	@ResponseBody
 	@RequestMapping("insertGoodsInfo")
 	public String insertGoodsInfo(HttpServletRequest request, HttpServletResponse response){
@@ -186,7 +186,7 @@ public class GoodsInfoController {
 
 
 	//更新一条GoodsInfo记录
-	// localhost:8080/admin/biz/goods/updateGoodsInfo?strGoodsId=c1f5f284869d4e70b61d1bbaeb30d33b&strGoodsName=1111&dEnterPrice=3&dSalePrice=6&strStock=100
+	// localhost:8082/admin/biz/goods/updateGoodsInfo?strGoodsId=fcd7c396a09147e0b124976e9e224a1b&strGoodsName=1111&dEnterPrice=3&dSalePrice=6&strStock=100&strGoodsTypeId=9a803c2e1c4844559c8b5ec58eb9a816&strGoodsTypeName=234
 	@ResponseBody
 	@RequestMapping("updateGoodsInfo")
 	public String updateGoodsInfo(HttpServletRequest request, HttpServletResponse response){

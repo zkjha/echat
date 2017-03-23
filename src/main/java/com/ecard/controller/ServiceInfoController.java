@@ -31,7 +31,7 @@ import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.ServiceInfoService;
 
 /**
- * @author apple
+ * author kinglong
  *
  */
 @Controller
@@ -112,6 +112,37 @@ public class ServiceInfoController {
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "新增失败", null);
 	    }
 	}
+	
+	
+	//获取一条ServiceInfo记录
+	// http://localhost:8082/admin/biz/Service/getServiceInfo?strServiceInfoId=9ef2943cc57f4ce7bdd44a3db35f5fad
+	@ResponseBody
+	@RequestMapping("getServiceInfo")
+	public String getServiceInfo(HttpServletRequest request, HttpServletResponse response){
+
+	    String strServiceInfoId = request.getParameter("strServiceInfoId");
+	    Map<String,Object> resultMap = new HashMap<String, Object>();
+	  
+	    if(strServiceInfoId == null || strServiceInfoId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceInfoId不能为空", null);
+	    }
+	    try{
+	        ServiceInfoEntity tServiceInfo= tServiceInfoService.getServiceInfo(strServiceInfoId);
+	        if (tServiceInfo == null || tServiceInfo.getStrServiceInfoId().isEmpty() || tServiceInfo.getStrServiceInfoId() == null)
+	        {
+	            return DataTool.constructResponse(ResultCode.NO_DATA, "数据不存在", null);
+	        }
+	        else
+	        {
+	            resultMap.put("ServiceInfo", tServiceInfo);
+	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	         }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
+	    }
+	}
 
 
 	//更新一条ServiceInfo记录 29e9ab1eb97444348b8540d161bae5f8
@@ -125,6 +156,7 @@ public class ServiceInfoController {
 	    String strServiceTypeId = request.getParameter("strServiceTypeId");
 	    String strServiceTypeName = request.getParameter("strServiceTypeName");
 	    String dSalePrice = request.getParameter("dSalePrice");
+	    String strServiceInfoDesc = request.getParameter("strServiceInfoDesc");
 	    String strReserved = request.getParameter("strReserved");
 	    if(strServiceInfoId == null || strServiceInfoId.isEmpty())
 	    {
@@ -139,9 +171,10 @@ public class ServiceInfoController {
 	    BigDecimal bgAmount = new BigDecimal(dSalePrice);
 	    tServiceInfo.setdSalePrice(bgAmount);
 
+	    tServiceInfo.setStrEmployeeId("2222");
 	    tServiceInfo.setStrEmployeeName("22222");
 	    tServiceInfo.setStrEmployeeLoginName("22222");
-	    tServiceInfo.setStrServiceInfoDesc("22222");
+	    tServiceInfo.setStrServiceInfoDesc(strServiceInfoDesc);
 	    tServiceInfo.setStrUpdateTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 	    tServiceInfo.setStrReserved(strReserved);
 	    try{
@@ -175,7 +208,6 @@ public class ServiceInfoController {
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "删除失败", null);
 	    }
 	}
-
 
 	//获取ServiceInfo列表
 	// http://localhost:8082/admin/biz/Service/getListServiceInfo?pagenum=1&pagesize=1

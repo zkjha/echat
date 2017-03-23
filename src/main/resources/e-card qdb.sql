@@ -457,6 +457,25 @@ create index indxServiceInfoOnTypeId  on tb_service_info(strServiceTypeId);
 create index indxServiceInfoOnEmployeedId  on tb_service_info(strEmployeeId);
 
 
+-- ==============================================================
+-- Table: tb_advertispic_info                【首页广告轮播图片信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_advertispic_info;
+CREATE TABLE tb_advertispic_info
+(
+  strAdvPicId             VARCHAR(50) NOT NULL,       -- 主键
+  strAdvPicName           VARCHAR(100) NOT NULL,       -- 广告图片名称
+  iAdvPicWeight           int default 0,              -- 广告图片权重
+  strAdvLinkPage          VARCHAR(500)    NULL,       -- 页面链接地址
+  strInsertTime           VARCHAR(50) NOT NULL,       -- 录入时间
+  strReserved             VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strAdvPicId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxAdvPicInfoOnPicId on tb_advertispic_info(strAdvPicId);
+create index indxAdvPicInfoOnPicName on tb_advertispic_info(strAdvPicName);
+create index indxAdvPicInfoOnTime on tb_advertispic_info(strInsertTime);
+create index indxAdvPicInfoOnWeight on tb_advertispic_info(iAdvPicWeight);
+
 
 
 
