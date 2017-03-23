@@ -476,6 +476,21 @@ create index indxAdvPicInfoOnPicName on tb_advertispic_info(strAdvPicName);
 create index indxAdvPicInfoOnTime on tb_advertispic_info(strInsertTime);
 create index indxAdvPicInfoOnWeight on tb_advertispic_info(iAdvPicWeight);
 
+-- ==============================================================
+-- Table: tb_integralclear_rule                【首页广告轮播图片信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_integralclear_rule;
+CREATE TABLE tb_integralclear_rule
+(
+  strValidBeginTime         VARCHAR(50) NOT NULL,       -- 有效期开始时间
+  strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间
+  iIsValid                  int default 0,              -- 是否生效                       
+  strReserved               VARCHAR(500) NULL           -- 预留字段
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxIntegralClearOnEndTime on tb_integralclear_rule(strValidEndTime);
+create index indxIntegralClearOnTime on tb_integralclear_rule(strValidBeginTime,strValidEndTime);
+insert into tb_integralclear_rule(strValidBeginTime,strValidEndTime,strReserved) values('2017-03-01 00:00:00','2099-12-21 23:59:59','');
+
 
 
 

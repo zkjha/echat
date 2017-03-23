@@ -192,7 +192,7 @@ public class LoopAdvPicController {
 
 
 	//获取LoopAdvPic列表
-	//localhost:8082/admin/biz/advpic/getListLoopAdvPic?pagenum=1&pagesize=1
+	//localhost:8082/admin/biz/advpic/getListLoopAdvPic
 	@ResponseBody
 	@RequestMapping("getListLoopAdvPic")
 	public String getListLoopAdvPic(HttpServletRequest request, HttpServletResponse response){

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.ActivitySettingMapper">
+
+<!-- 更新tb_integralclear_rule记录 -->
+<update id="updateIntegralclearRule" parameterType="com.ecard.entity.IntegralclearRuleEntity">
+update tb_integralclear_rule set strValidEndTime=#{strValidEndTime},iIsValid=#{iIsValid},strReserved=#{strReserved}
+ where 1=1
+</update>
+
+
+<!-- 获取单条tb_integralclear_rule记录 -->
+<select id="getIntegralclearRule" resultType="com.ecard.entity.IntegralclearRuleEntity">
+select strValidBeginTime,strValidEndTime,iIsValid,strReserved from tb_integralclear_rule
+where 1=1
+</select>
+
+</mapper>
