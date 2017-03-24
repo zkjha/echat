@@ -80,6 +80,21 @@ public class HomepageController {
 	}
 	
 	/**
+	 * 收银台
+	 * @return
+	 */
+	@RequestMapping("/page/cashier")
+	public ModelAndView cashier(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/cashier");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 得到后端登录用户信息
 	 * @return
 	 */
