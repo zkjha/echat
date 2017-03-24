@@ -15,3 +15,4 @@
    <script type="text/javascript">
   var EK={STATIC_ROOT:"<%=static_baseUrl%>",webUrl:"<%=webUrl%>",imageBaseUrl:"<%=imageBaseUrl%>"}
 </script>
+
