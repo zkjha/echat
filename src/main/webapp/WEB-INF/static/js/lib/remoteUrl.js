@@ -100,6 +100,36 @@ define([],function(){
         ////////////会员部分结束/////////////////////////////
 
 
+
+		////////////会员收银管理/////////////////////////////
+			//商品类型－修改
+			updateGoodsType:" admin/biz/Cashier/updateGoodsType",
+			//商品类型－分页查询
+			selGoodsTypeList:" admin/biz/Cashier/selGoodsTypeList",
+			//商品类型－删除
+			delGoodsType:"admin/biz/Cashier/delGoodsType",
+			//商品类型－新增
+			insertGoodsType:"admin/biz/Cashier/insertGoodsType",
+			//商品类型－查询详情
+			selGoodsTypeDetail:"admin/biz/Cashier/selGoodsTypeDetail",
+			//商品－修改
+			updateGoodsInfo:" admin/biz/goods/updateGoodsInfo",
+			//商品－分页查询
+			getListGoodsInfoByPage:"admin/biz/goods/getListGoodsInfoByPage",
+			//商品－删除
+			delGoodsInfo:"admin/biz/goods/delGoodsInfo",
+			//商品－增加
+			insertGoodsInfo:"admin/biz/goods/insertGoodsInfo",
+			//商品－查询详情
+			getGoodsInfo:"admin/biz/goods/getGoodsInfo",
+			//服务类型－修改
+			updateServiceType:"admin/biz/Cashier/updateServiceType",
+			
+			
+			
+		////////////会员收银管理结束/////////////////////////////	
+			
+
         /**
          * 微信前端部分
          */
