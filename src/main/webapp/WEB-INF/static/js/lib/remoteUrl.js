@@ -103,29 +103,55 @@ define([],function(){
 
 		////////////会员收银管理/////////////////////////////
 			//商品类型－修改
-			updateGoodsType:" admin/biz/Cashier/updateGoodsType",
+			updateGoodsType:"/admin/biz/Cashier/updateGoodsType",
 			//商品类型－分页查询
-			selGoodsTypeList:" admin/biz/Cashier/selGoodsTypeList",
+			selGoodsTypeList:"/admin/biz/Cashier/selGoodsTypeList",
 			//商品类型－删除
-			delGoodsType:"admin/biz/Cashier/delGoodsType",
+			delGoodsType:"/admin/biz/Cashier/delGoodsType",
 			//商品类型－新增
-			insertGoodsType:"admin/biz/Cashier/insertGoodsType",
+			insertGoodsType:"/admin/biz/Cashier/insertGoodsType",
 			//商品类型－查询详情
-			selGoodsTypeDetail:"admin/biz/Cashier/selGoodsTypeDetail",
+			selGoodsTypeDetail:"/admin/biz/Cashier/selGoodsTypeDetail",
 			//商品－修改
-			updateGoodsInfo:" admin/biz/goods/updateGoodsInfo",
+			updateGoodsInfo:"/admin/biz/goods/updateGoodsInfo",
 			//商品－分页查询
-			getListGoodsInfoByPage:"admin/biz/goods/getListGoodsInfoByPage",
+			getListGoodsInfoByPage:"/admin/biz/goods/getListGoodsInfoByPage",
 			//商品－删除
-			delGoodsInfo:"admin/biz/goods/delGoodsInfo",
+			delGoodsInfo:"/admin/biz/goods/delGoodsInfo",
 			//商品－增加
-			insertGoodsInfo:"admin/biz/goods/insertGoodsInfo",
+			insertGoodsInfo:"/admin/biz/goods/insertGoodsInfo",
 			//商品－查询详情
-			getGoodsInfo:"admin/biz/goods/getGoodsInfo",
+			getGoodsInfo:"/admin/biz/goods/getGoodsInfo",
 			//服务类型－修改
-			updateServiceType:"admin/biz/Cashier/updateServiceType",
-			
-			
+			updateServiceType:"/admin/biz/Cashier/updateServiceType",
+			//服务类型－分页查询
+			getListServiceType:"/admin/biz/Cashier/getListServiceType",
+			//服务类型－删除
+			delServiceType:"/admin/biz/Cashier/delServiceType",
+			//服务类型－新增
+			insertServiceType:"admin/biz/Cashier/insertServiceType",
+			//服务类型－查询详情
+			getServiceType:"admin/biz/Cashier/getServiceType",
+			//服务项目－修改
+			updateServiceInfo:"admin/biz/Service/updateServiceInfo",
+			//服务项目－分页查询
+			getListServiceInfo:"admin/biz/Service/getListServiceInfo",
+			//服务项目－删除
+			delServiceInfo:"admin/biz/Service/delServiceInfo",
+			//服务项目－增加
+			insertServiceInfo:"admin/biz/Service/insertServiceInfo",
+			//服务项目－查询详情
+			getServiceInfo:"/admin/biz/Service/getServiceInfo",
+			//计量单位－修改
+			updateUnit:"/admin/biz/Cashier/updateUnit",
+			//计量单位－分页查询
+			selUnitList:"/admin/biz/Cashier/selUnitList",
+			//计量单位－删除
+			delUnit:"/admin/biz/Cashier/delUnit",
+			//计量单位－增加
+			insertUnit:"/admin/biz/Cashier/insertUnit",
+			//计量单位－查询详情
+			selUnitDetail:"/admin/biz/Cashier/selUnitDetail",
 			
 		////////////会员收银管理结束/////////////////////////////	
 			
