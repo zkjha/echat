@@ -1,0 +1,96 @@
+
+<!--职务管理  -->
+<div class="right-content-main">
+    <div class="right-content-header">
+        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">会员中心</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>会员拓展资料</a></div>
+        <div class="right-content-header-right-info fr">
+            <!-- <a class="small-btn fl">导入</a><a class="small-btn fl">导出</a> -->
+            <a class="small-btn small-btn-primary fl" ng-click="newExpandinginfo()">新增</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="merchant-info-container">
+        <table class="list-table">
+            <tr>
+                <th>序号</th>
+                <th>类别</th>
+                <th>操作员</th>
+                <th class="w40">操作</th>
+            </tr>
+
+            <tr ng-repeat='goodsTypeList  in goodsTypeList'>
+                <td>{{$index+(currentPage-1)*pageSize+1}}</td>
+                <td>{{goodsTypeList.strGoodsTypeName}}</td>
+                <td>{{goodsTypeList.strReserved}}</td>
+
+                <td>
+                    <div class="-lpy-list-control">
+                        <div class="-lpy-list-control-title" ng-mouseout="openCtrMenu($index,'out')" ng-mouseover="openCtrMenu($index,'over')">
+                            操作
+
+                            <ul ng-show="isShowListMenu[$index]">
+                                <li><a ng-click="updataExpand(goodsTypeList.strGoodsTypeId)">修改</a></li>
+                                <li><a ng-click="delectExpand(goodsTypeList.strGoodsTypeId,goodsTypeList.strGoodsTypeName)">删除</a></li>
+                                <!-- <li><a>修改2</a></li> -->
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </table>
+        <div class="no-data-container" ng-click="newExpandinginfo()" ng-if="isNoData">
+            <div class="no-data-add-btn" ></div>
+            <div class="no-data-info" >添加拓展资料</div>
+        </div>
+
+
+        <div class="bottom-pager" >
+            <pager class="fr"  page-count="pageCount"  current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text=">" prev-text="<" last-text="尾页"  goto-text="跳转"></pager>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>新增拓展信息</div>
+                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+            </div>
+            <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+
+                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
+                    <div class="form-container">
+                        <div class=" w300 center">
+                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型描述：
+                                <input type="text" ng-value="goodsTypeList.strGoodsTypeDesc" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeDesc" ngTrim="true" ng-maxlength="8" required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;商品类型ID：
+                                <input type="text" ng-value="goodsTypeList.strGoodsTypeId" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeId" ngTrim="true" ng-maxlength="8" required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型名称：
+                                <input type="text" ng-value="goodsTypeList.strGoodsTypeName" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeName" ngTrim="true" ng-maxlength="8" required/>
+                            </div>
+                        </div>
+                        <div class="mt10"></div>
+                    </div>
+
+                    <div class="w150 center ">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
