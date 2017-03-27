@@ -18,10 +18,10 @@
                 <th>操作员</th>
                 <th class="w40">操作</th>
             </tr>
-            <tr ng-repeat='goodsTypeList  in goodsTypeList'>
+            <tr ng-repeat='listServiceType  in listServiceType'>
                 <td>{{$index+(currentPage-1)*pageSize+1}}</td>
-                <td>{{goodsTypeList.strGoodsTypeName}}</td>
-                <td>{{goodsTypeList.strEmployeeLoginName }}</td>
+                <td>{{listServiceType.strServiceTypeName}}</td>
+                <td>{{listServiceType.strEmployeeLoginName }}</td>
 
                 <td>
                     <div class="-lpy-list-control">
@@ -29,8 +29,8 @@
                             操作
 
                             <ul ng-show="isShowListMenu[$index]">
-                                <li><a ng-click="updataExpand(goodsTypeList.strGoodsTypeId)">修改</a></li>
-                                <li><a ng-click="delectExpand(goodsTypeList.strGoodsTypeId,goodsTypeList.strGoodsTypeName)">删除</a></li>
+                                <li><a ng-click="updataExpand(listServiceType.strServiceTypeId)">修改</a></li>
+                                <li><a ng-click="delectExpand(listServiceType.strServiceTypeId,listServiceType.strServiceTypeName)">删除</a></li>
                                 <!-- <li><a>修改2</a></li> -->
                             </ul>
                         </div>
@@ -71,13 +71,13 @@
                     <div class="form-container">
                         <div class=" w300 center">
                         	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型描述：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeDesc" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeDesc" ngTrim="true" ng-maxlength="8" required/>
+                                <input type="text" ng-value="listServiceType.strServiceTypeDesc" name="strInformationname"   ng-model="listServiceType.strServiceTypeDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                             <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;商品类型ID：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeId" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeId" ngTrim="true" ng-maxlength="8" required/>
+                                <input type="text" ng-value="listServiceType.strServiceTypeId" name="strInformationname"   ng-model="listServiceType.strServiceTypeId" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                             <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型名称：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeName" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeName" ngTrim="true" ng-maxlength="8" required/>
+                                <input type="text" ng-value="listServiceType.strServiceTypeName" name="strInformationname"   ng-model="listServiceType.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                         </div>
                         <div class="mt10"></div>

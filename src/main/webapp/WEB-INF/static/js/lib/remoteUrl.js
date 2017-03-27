@@ -129,17 +129,17 @@ define([],function(){
 			//服务类型－删除
 			delServiceType:"/admin/biz/Cashier/delServiceType",
 			//服务类型－新增
-			insertServiceType:"admin/biz/Cashier/insertServiceType",
+			insertServiceType:"/admin/biz/Cashier/insertServiceType",
 			//服务类型－查询详情
-			getServiceType:"admin/biz/Cashier/getServiceType",
+			getServiceType:"/admin/biz/Cashier/getServiceType",
 			//服务项目－修改
-			updateServiceInfo:"admin/biz/Service/updateServiceInfo",
+			updateServiceInfo:"/admin/biz/Service/updateServiceInfo",
 			//服务项目－分页查询
-			getListServiceInfo:"admin/biz/Service/getListServiceInfo",
+			getListServiceInfo:"/admin/biz/Service/getListServiceInfo",
 			//服务项目－删除
-			delServiceInfo:"admin/biz/Service/delServiceInfo",
+			delServiceInfo:"/admin/biz/Service/delServiceInfo",
 			//服务项目－增加
-			insertServiceInfo:"admin/biz/Service/insertServiceInfo",
+			insertServiceInfo:"/admin/biz/Service/insertServiceInfo",
 			//服务项目－查询详情
 			getServiceInfo:"/admin/biz/Service/getServiceInfo",
 			//计量单位－修改

@@ -68,6 +68,9 @@ requirejs(
                 templateUrl: "/static/temp/admin/cashier/goodsMeasurement.html",
                 controller:memberCentController.goodsMeasurement
                 
+            }).when("/serversType", {
+                templateUrl: "/static/temp/admin/cashier/serversType.html",
+                controller:memberCentController.serversTypeController
             }).otherwise({
                 redirectTo: "/goodsType"
             });
@@ -89,7 +92,7 @@ requirejs(
 	                 	]
 	                 },
 	                 {id:'1',link: '###', name: "服务",hasnext:true,
-	                	 next:[ {id:'staffinfo',link: '#!/staffinfo', name: "服务分类",hasnext:false}
+	                	 next:[ {id:'serversType',link: '#!/serversType', name: "服务分类",hasnext:false}
 	                	      ,{id:'duty',link: '#!/duty', name: "服务管理",hasnext:false}
 	                	      ,{id:'duty',link: '#!/duty', name: "其他设置",hasnext:false}
 	                	      ]
