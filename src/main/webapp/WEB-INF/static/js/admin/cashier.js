@@ -81,7 +81,7 @@ requirejs(
             $scope.config = {};
             //初始化菜单数据
             $scope.menuData=[
-	                 {id:'goodsType',link: '#!/goodsType', name: "商品",hasnext:true,
+	                 {id:'',link: '', name: "商品",hasnext:true,
 	                 	next:[{id:'goodsType',link: '#!/goodsType', name: "商品分类",hasnext:false}
 	                	      ,{id:'goodsAdministration',link: '#!/goodsAdministration', name: "商品管理",hasnext:false}
 	                	      ,{id:'111',link: '#!/111', name: "库存管理",hasnext:false}
