@@ -17,7 +17,6 @@
                 <th>计量单位名称</th>
                 <th class="w40">操作</th>
             </tr>
-
             <tr ng-repeat='unitList  in unitList'>
                 <td>{{$index+(currentPage-1)*pageSize+1}}</td>
                 <td>{{unitList.strUnitName}}</td>
@@ -25,7 +24,6 @@
                     <div class="-lpy-list-control">
                         <div class="-lpy-list-control-title" ng-mouseout="openCtrMenu($index,'out')" ng-mouseover="openCtrMenu($index,'over')">
                             操作
-
                             <ul ng-show="isShowListMenu[$index]">
                                 <li><a ng-click="updataExpand(unitList.strUnitId)">修改</a></li>
                                 <li><a ng-click="delectExpand(unitList.strUnitId,unitList.strUnitName)">删除</a></li>
