@@ -208,7 +208,7 @@ public class CashierConfigController {
 	
 	
 	// 插入一条商品类型
-	// localhost:8080/admin/biz/Cashier/insertGoodsType?strGoodsTypeName=shangp1&strGoodsTypeDesc=nihao
+	// localhost:8082/admin/biz/Cashier/insertGoodsType?strGoodsTypeName=shangp1&strGoodsTypeDesc=nihao
 	@ResponseBody
 	@RequestMapping("insertGoodsType")
 	public String insertGoodsType(HttpServletRequest request, HttpServletResponse response) {
@@ -226,6 +226,10 @@ public class CashierConfigController {
 		tGoodsTypeConfigEntity.setStrGoodsTypeName(strGoodsTypeName);
 		tGoodsTypeConfigEntity.setStrGoodsTypeDesc(strGoodsTypeDesc);
 		tGoodsTypeConfigEntity.setStrReserved(strReserved);
+		
+		tGoodsTypeConfigEntity.setStrEmployeeId("aaaa");
+		tGoodsTypeConfigEntity.setStrEmployeeName("bbbb");
+		tGoodsTypeConfigEntity.setStrEmployeeLoginName("ccc");
 
 
 		//生成调用请求
@@ -271,6 +275,11 @@ public class CashierConfigController {
 		tGoodsTypeConfigEntity.setStrGoodsTypeName(strGoodsTypeName);
 		tGoodsTypeConfigEntity.setStrGoodsTypeDesc(strGoodsTypeDesc);
 		tGoodsTypeConfigEntity.setStrReserved(strReserved);
+		
+		
+		tGoodsTypeConfigEntity.setStrEmployeeId("1111");
+		tGoodsTypeConfigEntity.setStrEmployeeName("2222");
+		tGoodsTypeConfigEntity.setStrEmployeeLoginName("3333");
 
 
 		//生成调用请求
@@ -316,7 +325,7 @@ public class CashierConfigController {
 	
 	
 	// 分页查询商品类型列表
-	//localhost:8080/admin/biz/Cashier/selGoodsTypeList?pagenum=1&pagesize=2
+	//localhost:8082/admin/biz/Cashier/selGoodsTypeList?pagenum=1&pagesize=2
 	@ResponseBody
 	@RequestMapping("selGoodsTypeList")
 	public String selGoodsTypeList(HttpServletRequest request, HttpServletResponse response) {

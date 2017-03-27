@@ -15,8 +15,66 @@ public class GoodsTypeConfigEntity {
 	private String strGoodsTypeId="";
 	private String strGoodsTypeName="";
 	private String strGoodsTypeDesc="";
+	private String strEmployeeId="";
+	private String strEmployeeName="";
+	private String strEmployeeLoginName="";
 	private String strReserved="";
 	
+	
+	
+	/**
+	 * create time:2017年3月27日
+	 * @return the strEmployeeId
+	 */
+	public String getStrEmployeeId() {
+		return strEmployeeId;
+	}
+
+	
+	/**
+	 * create time:2017年3月27日
+	 * @param strEmployeeId the strEmployeeId to set
+	 */
+	public void setStrEmployeeId(String strEmployeeId) {
+		this.strEmployeeId = strEmployeeId;
+	}
+
+	
+	/**
+	 * create time:2017年3月27日
+	 * @return the strEmployeeName
+	 */
+	public String getStrEmployeeName() {
+		return strEmployeeName;
+	}
+
+	
+	/**
+	 * create time:2017年3月27日
+	 * @param strEmployeeName the strEmployeeName to set
+	 */
+	public void setStrEmployeeName(String strEmployeeName) {
+		this.strEmployeeName = strEmployeeName;
+	}
+
+	
+	/**
+	 * create time:2017年3月27日
+	 * @return the strEmployeeLoginName
+	 */
+	public String getStrEmployeeLoginName() {
+		return strEmployeeLoginName;
+	}
+
+	
+	/**
+	 * create time:2017年3月27日
+	 * @param strEmployeeLoginName the strEmployeeLoginName to set
+	 */
+	public void setStrEmployeeLoginName(String strEmployeeLoginName) {
+		this.strEmployeeLoginName = strEmployeeLoginName;
+	}
+
 	/**
 	 * create time:2017年3月20日
 	 * @return the strGoodsTypeId

@@ -12,12 +12,14 @@
 
 	<!-- 删除单条计量记录 -->
 	<delete id="delMeasurementUnitById" parameterType="string">
-		delete from tb_measurement_unit where strUnitId=#{strUnitId}
+		delete from
+		tb_measurement_unit where strUnitId=#{strUnitId}
 	</delete>
 
 	<!-- 更新一条计量记录 -->
 	<update id="updateMeasurementUnit" parameterType="com.ecard.entity.MeasurementUnitEntity">
-		update tb_measurement_unit set
+		update
+		tb_measurement_unit set
 		strUnitName=#{strUnitName},strUnitDesc=#{strUnitDesc},strReserved=#{strReserved}
 		where strUnitId=#{strUnitId}
 	</update>
@@ -54,35 +56,39 @@
 	<!-- 新增一条tb_goods_type记录 -->
 	<insert id="insertGoodsTypeConfigEntity" parameterType="com.ecard.entity.GoodsTypeConfigEntity">
 		insert into
-		tb_goods_type(strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved)
-		values(#{strGoodsTypeId},#{strGoodsTypeName},#{strGoodsTypeDesc},#{strReserved})
+		tb_goods_type(strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strEmployeeId,strEmployeeName,strEmployeeLoginName,strReserved)
+		values(#{strGoodsTypeId},#{strGoodsTypeName},#{strGoodsTypeDesc},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strReserved})
 	</insert>
+
 
 	<!-- 删除单条tb_goods_type记录 -->
 	<delete id="deleteGoodsTypeConfigEntity" parameterType="string">
-		delete from tb_goods_type where strGoodsTypeId=#{strGoodsTypeId}
+		delete
+		from tb_goods_type where strGoodsTypeId=#{strGoodsTypeId}
 	</delete>
 
 	<!-- 更新tb_goods_type记录 -->
 	<update id="updateGoodsTypeConfigEntity" parameterType="com.ecard.entity.GoodsTypeConfigEntity">
 		update tb_goods_type set
-		strGoodsTypeName=#{strGoodsTypeName},strGoodsTypeDesc=#{strGoodsTypeDesc},strReserved=#{strReserved}
+		strGoodsTypeName=#{strGoodsTypeName},strGoodsTypeDesc=#{strGoodsTypeDesc},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strReserved=#{strReserved}
 		where strGoodsTypeId=#{strGoodsTypeId}
 	</update>
 
 	<!-- 获取单条记录 -->
 	<select id="getGoodsTypeConfigEntity" parameterType="string"
 		resultType="com.ecard.entity.GoodsTypeConfigEntity">
-		select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from
-		tb_goods_type where
-		strGoodsTypeId=#{strGoodsTypeId}
+		select
+		strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strEmployeeId,strEmployeeName,strEmployeeLoginName,strReserved
+		from tb_goods_type
+		where strGoodsTypeId=#{strGoodsTypeId}
 	</select>
 
 	<!-- 分页获取记录 -->
 	<select id="getListGoodsTypeConfigEntity" parameterType="map"
 		resultType="com.ecard.entity.GoodsTypeConfigEntity">
-		select strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strReserved from
-		tb_goods_type
+		select
+		strGoodsTypeId,strGoodsTypeName,strGoodsTypeDesc,strEmployeeId,strEmployeeName,strEmployeeLoginName,strReserved
+		from tb_goods_type
 		limit #{pageFrom},#{pageSize}
 	</select>
 
@@ -99,14 +105,15 @@
 		resultType="int">
 		SELECT COUNT(strGoodsTypeId)
 		FROM tb_goods_type
-		where strGoodsTypeId=#{strGoodsTypeId}
+		where
+		strGoodsTypeId=#{strGoodsTypeId}
 	</select>
 
 
 
 
 
-    <!-- 服务类型相关数据库操作 -->
+	<!-- 服务类型相关数据库操作 -->
 	<!-- 新增一条tb_service_type记录 -->
 	<insert id="insertServiceType" parameterType="com.ecard.entity.ServiceTypeEntity">
 		insert into
@@ -118,14 +125,16 @@
 
 	<!-- 删除单条tb_service_type记录 -->
 	<delete id="deleteServiceTypeById" parameterType="string">
-		delete from tb_service_type where strServiceTypeId=#{strServiceTypeId}
+		delete from
+		tb_service_type where strServiceTypeId=#{strServiceTypeId}
 	</delete>
 
 
 
 	<!-- 更新tb_service_type记录 -->
 	<update id="updateServiceType" parameterType="com.ecard.entity.ServiceTypeEntity">
-		update tb_service_type set
+		update
+		tb_service_type set
 		strServiceTypeName=#{strServiceTypeName},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strServiceTypeDesc=#{strServiceTypeDesc},strReserved=#{strReserved}
 		where strServiceTypeId=#{strServiceTypeId}
 	</update>
@@ -164,7 +173,8 @@
 		resultType="int">
 		SELECT COUNT(strServiceTypeId)
 		FROM tb_service_type
-		where strServiceTypeId=#{strServiceTypeId}
+		where
+		strServiceTypeId=#{strServiceTypeId}
 	</select>
 
 
