@@ -49,7 +49,7 @@ select count(strGoodsId) from tb_goods
  
  <!-- 获取tb_goods总记录数 -->
 <select id="getGoodsInfoCountByGoodsType"  parameterType="string" resultType="int">
-select count(strGoodsId) from tb_goods where strGoodsTypeId ＝ #{strGoodsTypeId}
+select count(strGoodsId) from tb_goods where strGoodsTypeId=#{strGoodsTypeId}
 </select>
 
 

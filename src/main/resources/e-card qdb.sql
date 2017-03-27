@@ -489,7 +489,33 @@ CREATE TABLE tb_integralclear_rule
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxIntegralClearOnEndTime on tb_integralclear_rule(strValidEndTime);
 create index indxIntegralClearOnTime on tb_integralclear_rule(strValidBeginTime,strValidEndTime);
-insert into tb_integralclear_rule(strValidBeginTime,strValidEndTime,strReserved) values('2017-03-01 00:00:00','2099-12-21 23:59:59','');
+insert into tb_integralclear_rule(strValidBeginTime,strValidEndTime,iIsValid,strReserved) values('2017-03-01 00:00:00','2099-12-21 23:59:59',0,'');
+
+
+-- ==============================================================
+-- Table: tb_storedticket_rule               【储值卡规则信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_storedticket_rule;
+CREATE TABLE tb_storedticket_rule
+(
+  strTicketId               VARCHAR(50) NOT NULL,       -- 主键
+  strTicketName             VARCHAR(50) NOT NULL,       -- 处置券名称
+  dTicketAmount             DECIMAL(11,2) DEFAULT 0.00, -- 储值券金额
+  iTicketType               int default 0,              -- 储值券类型  0 售后储值 1 现金储值 
+  strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间
+  iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
+  strTicketRuleDesc         VARCHAR(500) NOT NULL,      -- 储值券使用规则描述                       
+  strReserved               VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strTicketId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxStoreTicketOnEndTime on tb_storedticket_rule(strValidEndTime);
+create index indxStoreTicketOnId on tb_storedticket_rule(strTicketId);
+insert into tb_storedticket_rule(strTicketId,strTicketName,dTicketAmount,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+values('100001','售后储值','0',0,'2099-03-01 00:00:00',0,'此券不能转让,不能流通销售','');
+insert into tb_storedticket_rule(strTicketId,strTicketName,dTicketAmount,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+values('100002','现金储值','0',1,'2099-03-01 00:00:00',0,'此券不能转让,不能流通销售','');
+
+
 
 
 

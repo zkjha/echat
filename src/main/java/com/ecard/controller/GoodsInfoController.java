@@ -236,6 +236,12 @@ public class GoodsInfoController {
 	@RequestMapping("delGoodsInfo")
 	public String delGoodsInfo(HttpServletRequest request, HttpServletResponse response){
 		String strGoodsId = request.getParameter("strGoodsId");
+	    if(strGoodsId == null || strGoodsId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strGoodsId不能为空", null);
+	    }
+	    
+		
 	    try
 	    {
 	        return tGoodsInfoService.deleteGoodsInfo(strGoodsId);
