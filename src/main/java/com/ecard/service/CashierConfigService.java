@@ -248,7 +248,7 @@ public class CashierConfigService {
 	// 删除一条ServiceType记录
 	@Transactional(rollbackFor = Exception.class)
 	public String deleteServiceType(String strServiceTypeId) throws Exception {
-		if(tServiceInfoMapper.getServiceInfoCountByTypeId(strServiceTypeId) >= 0)
+		if(tServiceInfoMapper.getServiceInfoCountByTypeId(strServiceTypeId) > 0)
 		{
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "该类型下还存在服务项目", null);
 		}
