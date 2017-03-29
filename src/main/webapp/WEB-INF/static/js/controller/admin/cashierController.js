@@ -1126,9 +1126,9 @@ define(
                 var data = {
                     'strServiceTypeId': strServiceTypeId
                 };
+                console.info(strServiceTypeId);
                 $http.post(remoteUrl.delServiceType,data).then(
                     function (result) {
-						console.info(strServiceTypeId);
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;

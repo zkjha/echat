@@ -34,6 +34,24 @@ public class HomepageController {
 	private MerchantService merchantService;
 	@Resource
 	private WebSessionUtil webSessionUtil;
+	
+	
+	/**
+	 * 活动界面
+	 * @return
+	 */
+	@RequestMapping("/page/activity")
+	public ModelAndView activity(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/activity");
+		
+		return mv;
+		
+	}
+	
+	
 	/**
 	 * 登录成功后跳转到主页面
 	 * @return
