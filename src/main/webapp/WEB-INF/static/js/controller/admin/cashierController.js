@@ -3,13 +3,13 @@
  */
 /**
  * Created by liupengyan on 17/3/9.
- * 处理会员中心控制器
+ * 处理收银控制器
  */
 define(
     ['lib/remoteUrl'], function (remoteUrl) {
         'use strict'
 
-        var MemberCenter = {
+        var cashierCtrl = {
         	 ////////////////////商品分类开始/////////////////////////
 
             goodsTypeController:function($scope, $http){
@@ -23,22 +23,22 @@ define(
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
 						//调用修改接口
-						 MemberCenter.updateGoodsType($scope.goodsTypeList,$scope, $http);
+						 cashierCtrl.updateGoodsType($scope.goodsTypeList,$scope, $http);
 					}
 					else{
 						 //调用保存接口
-                   		MemberCenter.insertGoodsType($scope.goodsTypeList,$scope, $http);
+                   		cashierCtrl.insertGoodsType($scope.goodsTypeList,$scope, $http);
 					}
                    
 
                 };
 
 
-                MemberCenter.selGoodsTypeList($scope, $http);
+                cashierCtrl.selGoodsTypeList($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
                     $scope.goodsTypeList = {};
-                    MemberCenter.selGoodsTypeList($scope, $http);
+                    cashierCtrl.selGoodsTypeList($scope, $http);
 
                 };
 
@@ -55,7 +55,7 @@ define(
                 $scope.clostExpandWindow=function(){
                     $scope.showExpandInfoWindow=false;
                     $scope.goodsTypeList={};
-                    MemberCenter.selGoodsTypeList($scope, $http);
+                    cashierCtrl.selGoodsTypeList($scope, $http);
                 };
                 //新建商品分类点击按钮事件
                 $scope.newExpandinginfo=function(){
@@ -73,7 +73,7 @@ define(
                     //判断执行添加还是修改
                     $scope.typePanduan = true;
                     //调用接口
-                    MemberCenter.selGoodsTypeDetail(strGoodsTypeId,$scope, $http);
+                    cashierCtrl.selGoodsTypeDetail(strGoodsTypeId,$scope, $http);
                 };
                 //删除商品分类
                 $scope.delectExpand=function(strGoodsTypeId,strGoodsTypeName){
@@ -82,7 +82,7 @@ define(
                         //调用删除拓展资料函数
                         if(rs){
                         	console.info(rs)
-                            MemberCenter.delGoodsType(strGoodsTypeId,$scope, $http);
+                            cashierCtrl.delGoodsType(strGoodsTypeId,$scope, $http);
                         }
 
                     })
@@ -264,10 +264,10 @@ define(
                     'pagenum': $scope.currentPage,
                     "pagesize": $scope.pageSize,
                 };
-
+					console.info(remoteUrl.selGoodsTypeList)
                 $http.post(remoteUrl.selGoodsTypeList, data).then(
                     function (result) {
-
+						
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
@@ -328,22 +328,22 @@ define(
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
 						//调用修改接口
-						 MemberCenter.updateUnit($scope.unitList,$scope, $http);
+						 cashierCtrl.updateUnit($scope.unitList,$scope, $http);
 					}
 					else{
 						 //调用保存接口
-                   		MemberCenter.insertUnit($scope.unitList,$scope, $http);
+                   		cashierCtrl.insertUnit($scope.unitList,$scope, $http);
 					}
                    
 
                 };
 
 
-                MemberCenter.selUnitList($scope, $http);
+                cashierCtrl.selUnitList($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
                     $scope.unitList = {};
-                    MemberCenter.selUnitList($scope, $http);
+                    cashierCtrl.selUnitList($scope, $http);
 
                 };
 
@@ -360,7 +360,7 @@ define(
                 $scope.clostExpandWindow=function(){
                     $scope.showExpandInfoWindow=false;
                     $scope.unitList={};
-                    MemberCenter.selUnitList($scope, $http);
+                    cashierCtrl.selUnitList($scope, $http);
                 };
                 //新建计量单位点击按钮事件
                 $scope.newExpandinginfo=function(){
@@ -378,7 +378,7 @@ define(
                     //判断执行添加还是修改
                     $scope.typePanduan = true;
                     //调用接口-查询详情
-                    MemberCenter.selUnitDetail(strUnitId,$scope, $http);
+                    cashierCtrl.selUnitDetail(strUnitId,$scope, $http);
                 };
                 //删除计量单位
                 $scope.delectExpand=function(strUnitId,strUnitName){
@@ -387,7 +387,7 @@ define(
                         //调用删除拓展资料函数
                         if(rs){
                         	console.info(rs)
-                            MemberCenter.delUnit(strUnitId,$scope, $http);
+                            cashierCtrl.delUnit(strUnitId,$scope, $http);
                         }
 
                     })
@@ -630,22 +630,22 @@ define(
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
 						//调用修改接口
-						 MemberCenter.updateGoodsInfo($scope.listGoodsInfo,$scope, $http);
+						 cashierCtrl.updateGoodsInfo($scope.listGoodsInfo,$scope, $http);
 					}
 					else{
 						 //调用保存接口
-                   		MemberCenter.insertGoodsInfo($scope.listGoodsInfo,$scope, $http);
+                   		cashierCtrl.insertGoodsInfo($scope.listGoodsInfo,$scope, $http);
 					}
                    
 
                 };
 
 
-                MemberCenter.getListGoodsInfoByPage($scope, $http);
+                cashierCtrl.getListGoodsInfoByPage($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
                     $scope.listGoodsInfo = {};
-                    MemberCenter.getListGoodsInfoByPage($scope, $http);
+                    cashierCtrl.getListGoodsInfoByPage($scope, $http);
 
                 };
 
@@ -662,7 +662,7 @@ define(
                 $scope.clostExpandWindow=function(){
                     $scope.showExpandInfoWindow=false;
                     $scope.listGoodsInfo={};
-                    MemberCenter.getListGoodsInfoByPage($scope, $http);
+                    cashierCtrl.getListGoodsInfoByPage($scope, $http);
                 };
                 //新建商品点击按钮事件
                 $scope.newExpandinginfo=function(){
@@ -680,7 +680,7 @@ define(
                     //判断执行添加还是修改
                     $scope.typePanduan = true;
                     //调用接口-查询详情
-                    MemberCenter.getGoodsInfo(strGoodsId,$scope, $http);
+                    cashierCtrl.getGoodsInfo(strGoodsId,$scope, $http);
                 };
                 //删除商品
                 $scope.delectExpand=function(strGoodsId,strGoodsName){
@@ -689,7 +689,7 @@ define(
                         //调用删除拓展资料函数
                         if(rs){
                         	console.info(rs)
-                            MemberCenter.delGoodsInfo(strGoodsId,$scope, $http);
+                            cashierCtrl.delGoodsInfo(strGoodsId,$scope, $http);
                         }
 
                     })
@@ -930,22 +930,22 @@ define(
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
 						//调用修改接口
-						 MemberCenter.updateServiceType($scope.listServiceType,$scope, $http);
+						 cashierCtrl.updateServiceType($scope.listServiceType,$scope, $http);
 					}
 					else{
 						 //调用保存接口
-                   		MemberCenter.insertServiceType($scope.listServiceType,$scope, $http);
+                   		cashierCtrl.insertServiceType($scope.listServiceType,$scope, $http);
 					}
                    
 
                 };
 
 
-                MemberCenter.getListServiceType($scope, $http);
+                cashierCtrl.getListServiceType($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
                     $scope.listServiceType = {};
-                    MemberCenter.getListServiceType($scope, $http);
+                    cashierCtrl.getListServiceType($scope, $http);
 
                 };
 
@@ -962,7 +962,7 @@ define(
                 $scope.clostExpandWindow=function(){
                     $scope.showExpandInfoWindow=false;
                     $scope.listServiceType={};
-                    MemberCenter.getListServiceType($scope, $http);
+                    cashierCtrl.getListServiceType($scope, $http);
                 };
                 //新建服务分类点击按钮事件
                 $scope.newExpandinginfo=function(){
@@ -980,7 +980,7 @@ define(
                     //判断执行添加还是修改
                     $scope.typePanduan = true;
                     //调用接口
-                    MemberCenter.getServiceType(strServiceTypeId,$scope, $http);
+                    cashierCtrl.getServiceType(strServiceTypeId,$scope, $http);
                 };
                 //删除服务分类
                 $scope.delectExpand=function(strServiceTypeId,strServiceTypeName){
@@ -988,7 +988,7 @@ define(
                         //调用删除拓展资料函数
                         if(rs){
                         	console.info(rs)
-                            MemberCenter.delServiceType(strServiceTypeId,$scope, $http);
+                            cashierCtrl.delServiceType(strServiceTypeId,$scope, $http);
                         }
 
                     })
@@ -1229,6 +1229,6 @@ define(
 
         };
 
-        return MemberCenter;
+        return cashierCtrl;
 
     });

@@ -154,8 +154,28 @@ define([],function(){
 			selUnitDetail:"/admin/biz/Cashier/selUnitDetail",
 			
 		////////////会员收银管理结束/////////////////////////////	
+		
+		////////////会员活动管理开始/////////////////////////////	
+		
+			//广告轮播－修改
+			updateLoopAdvPic:"/admin/biz/advpic/updateLoopAdvPic",
+			//广告轮播－删除单条
+			delLoopAdvPic:"/admin/biz/advpic/delLoopAdvPic",
+			//广告轮播－增加
+			insertLoopAdvPic:"/admin/biz/advpic/insertLoopAdvPic",
+			//广告轮播－查询单条
+			getLoopAdvPic:"/admin/biz/advpic/getLoopAdvPic",
+			//广告轮播－查询所有（权重降序）
+			getListLoopAdvPic:"/admin/biz/advpic/getListLoopAdvPic",
+			//积分清理规则－修改
+			updateIntegralclearRule:"/admin/biz/ActivitySetting/updateIntegralclearRule",
+			//积分清理规则－查询
+			getIntegralclearRule:"/admin/biz/ActivitySetting/getIntegralclearRule",
 			
-
+			
+			
+			
+		////////////会员活动管理结束/////////////////////////////	
         /**
          * 微信前端部分
          */

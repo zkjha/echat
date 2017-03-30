@@ -1,0 +1,113 @@
+.zjl-advertisementCycle-container{
+	margin-top: 20px;
+	height: 448px;
+	background-color:#F2F2F2 ;
+	padding-top: 2px;
+}
+.zjl-advertisementCycle-top{
+	margin: 0px 0px 10px 10px;
+	background-color: white;
+	height: 30px;
+	line-height: 30px;
+}
+.zjl-advertisementCycle-top span{
+	margin-left: -5px;
+}
+.zjl-advertisementCycle-body{
+	margin-left: 2px;
+}
+.zjl-advertisementCycle-body-left{
+	float: left;
+	height: 200px;
+	padding: 50px 0px;
+	width: 720px;
+	background-color: white;
+	position: relative;
+}
+.zjl-advertisementCycle-body-common{
+	position: absolute;
+	width: 720px;
+	height: 200px;
+	left: 0px;
+}
+.zjl-advertisementCycle-body-left-bot{
+	z-index: 5;
+	top: 50px;
+	overflow: hidden;
+}
+.zjl-advertisementCycle-body-left-bot img{
+	width: 722PX;
+	height: 202PX;
+	border-color: transparent;
+	margin-top: -1px;
+	margin-left: -1px;
+}
+.zjl-advertisementCycle-body-left-top{
+	position: relative;
+	z-index: 10;
+	height: 140PX;
+	padding-top: 60px;
+}
+#fileup{
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+	opacity:0;
+}
+.zjl-advertisementCycle-body-left-top:hover{
+	background-color: white;
+	/*z-index: 10;*/
+}
+.zjl-advertisementCycle-body-left-down p{
+	text-align: center;
+}
+.zjl-advertisementCycle-body-left-down p img{
+	height: 40px;
+	width: 40px;
+}
+.zjl-advertisementCycle-body-right{
+	float: left;
+	width: 180px;
+	height:280px ;
+	border: 10px solid white;
+	margin-left: 50px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.zjl-advertisementCycle-body-right div{
+	border-bottom: 1px solid white;
+	width: 180px;
+	height: 50px;
+	overflow: hidden;
+	position: relative;
+}
+.zjl-advertisementCycle-body-right div img{
+	width: 182px;
+	height: 52px;
+	margin-left: -1px;
+	margin-top: -1px;
+}
+.zjl-advertisementCycle-body-right div:hover .zjl-advertisementCycle-body-right-hiden{
+	display: block;
+}
+.zjl-advertisementCycle-body-right-hiden{
+	width: 180px;
+	height: 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: rgba(0,0,0,.5);
+	text-align: center;
+	display: none;
+}
+.zjl-advertisementCycle-body-right-hiden span{
+	line-height: 50px;
+	padding: 3px 10px;
+	background-color: #FEC629;
+	color: white;
+	border-radius: 5px;
+	margin: 0px 10px;
+	cursor: pointer;
+}

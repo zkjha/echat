@@ -1,0 +1,93 @@
+
+<!--活动-前端首页广告  -->
+<div class="right-content-main">
+    <div class="right-content-header">
+        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">活动</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>前端首页广告</a></div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="merchant-info-container">
+		<!--<form  name="merchantinfoForm">
+			<div class="fr w400">
+				<div class="mt40 relative">商家LOGO:<a class="small-btn  small-btn-default">上传</a><input class="file-input" type="file" file-model="myFile"/></div>
+				<div><img ng-src="{{imageSrc}}" onerror="logoImgError(this)" class="merchant-logo-image"/></div>
+				<div>(logo尺寸：120px * 120px)</div>
+				<div class="mt40">会 员 数：{{intMembercount}}</div>
+			</div>
+		</form>-->
+		<div class="zjl-advertisementCycle-container">
+			<div class="zjl-advertisementCycle-top">
+				<span>插入图片</span>
+			</div>
+			<div class="zjl-advertisementCycle-body">
+				<div class="zjl-advertisementCycle-body-left">
+					<form  name="merchantinfoForm">
+						<div class="zjl-advertisementCycle-body-left-bot zjl-advertisementCycle-body-common">
+								<div><img ng-src="{{imageSrc}}" onerror="logoImgError(this)" class="merchant-logo-image"/></div>
+						</div>
+						<div class="zjl-advertisementCycle-body-left-top zjl-advertisementCycle-body-common" id="fileupimg">
+							<div  class="zjl-advertisementCycle-body-left-down">
+								<p>
+									<img src="/static/images/admin/activity/updownload.png"/>
+									<input class="file-input" type="file" file-model="myFile" id="fileup"/>
+								</p>
+								<p>选择图片</p>
+								<p>注：尺寸为720*200px</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="zjl-advertisementCycle-body-right">
+					<div ng-repeat="listLoopAdvPic in listLoopAdvPic">
+						<img ng-src="{{listLoopAdvPic.strAdvPicName}}" onerror="logoImgError(this)" class="merchant-logo-image"/>
+						<p class="zjl-advertisementCycle-body-right-hiden"><span ng-click="delectExpand(listLoopAdvPic.strAdvPicId,listLoopAdvPic.strAdvPicName)">删除</span><span ng-click="updataExpand(listLoopAdvPic.strAdvPicId)">修改</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    
+    
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
+	<div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>新增拓展信息</div>
+                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+            </div>
+            <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+
+                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
+                    <div class="form-container">
+                        <div class=" w300 center">
+                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 图片权重：
+                                <input type="text" ng-value="LoopAdvPic.iAdvPicWeight" name="strInformationname"   ng-model="LoopAdvPic.iAdvPicWeight" ngTrim="true" ng-maxlength="8" required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>链接页面：
+                                <input type="text" ng-value="LoopAdvPic.strAdvLinkPage" name="strInformationname"   ng-model="LoopAdvPic.strAdvLinkPage" ngTrim="true" required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 图片地址：
+                                <input type="text" ng-value="LoopAdvPic.strAdvPicName" name="strInformationname"   ng-model="LoopAdvPic.strAdvPicName" ngTrim="true" required/>
+                            </div>
+                            <!--<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 图片名称：
+                                <input type="text" ng-value="strAdvPicName" name="strInformationname"   ng-model="strAdvPicName" ngTrim="true" ng-maxlength="8" required/>
+                            </div>-->
+                        </div>
+                        <div class="mt10"></div>
+                    </div>
+
+                    <div class="w150 center ">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
