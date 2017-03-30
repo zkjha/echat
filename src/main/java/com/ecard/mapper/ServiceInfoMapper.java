@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ecard.entity.ServiceInfoEntity;
+import com.ecard.entity.ServicePreferentialEntity;
 
 /**
  * @author apple
@@ -40,4 +41,22 @@ public interface ServiceInfoMapper {
 
 	//查询某类服务类型下有多少服务项目
 	public int getServiceInfoCountByTypeId(String strServiceTypeId) throws RuntimeException;
+	
+	
+	
+	// 以下是获取会员优惠信息的接口
+	//根据服务ID获取会员优惠信息
+	public List<ServicePreferentialEntity> getListServicePreferentialByServiceId(String strServiceInfoId) throws RuntimeException;
+
+	//获取单个对象
+	public ServicePreferentialEntity getServicePreferential(String strPreferentialId) throws RuntimeException;
+
+	//新增单条记录
+	public int insertServicePreferential(ServicePreferentialEntity bean) throws RuntimeException;
+
+	//更新单条记录
+	public int updateServicePreferential(ServicePreferentialEntity obj) throws RuntimeException;
+
+	//删除单条记录
+	public int deleteServicePreferentialById(String strPreferentialId) throws RuntimeException;
 }

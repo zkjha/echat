@@ -8,6 +8,7 @@
 package com.ecard.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.ServiceInfoEntity;
+import com.ecard.entity.ServicePreferentialEntity;
 import com.ecard.service.ServiceInfoService;
 
 /**
@@ -42,7 +44,7 @@ public class ServiceInfoController {
 	private ServiceInfoService tServiceInfoService;
 	
 	//插入一条服务项目信息
-	// http://localhost:8082/admin/biz/Service/insertServiceInfo?strServiceInfoName=qidongbo&strServiceTypeId=20e3c241740e47438f25d91bdefc9d9d&strServiceInfoDesc=nfiahfoahf&strServiceTypeName=你好好&dSalePrice=300
+	// http://localhost:8082/admin/biz/Service/insertServiceInfo?strServicePreferentialInfos=39111,好的,4666|222,好的2,56666|&txtServiceDescDetail=idididididididi&txtServiceDesc=nifahfiaidfhasdnfi&iState=1&iPreferentialType=1&strSupplierName=qidongbo&strUnitName=张&strUnitId=123&strServiceBarCode=123456789&strServiceTypeId=1a86d3a79c15437698255b72e4a0fde4&strServiceTypeName=234&strServiceInfoName=1111&dSalePrice=6&iStock=100	
 	@ResponseBody
 	@RequestMapping("insertServiceInfo")
 	public String insertServiceInfo(HttpServletRequest request, HttpServletResponse response){
@@ -52,13 +54,17 @@ public class ServiceInfoController {
 	    String strServiceTypeId = request.getParameter("strServiceTypeId");
 	    String strServiceTypeName = request.getParameter("strServiceTypeName");
 	    String dSalePrice = request.getParameter("dSalePrice");
-	    /*
-	    String strEmployeeId = request.getParameter("strEmployeeId");
-	    String strEmployeeName = request.getParameter("strEmployeeName");
-	    String strEmployeeLoginName = request.getParameter("strEmployeeLoginName");
-	    */
-	    String strServiceInfoDesc = request.getParameter("strServiceInfoDesc");
+	    String strServiceBarCode = request.getParameter("strServiceBarCode");
+	    String strUnitId = request.getParameter("strUnitId");
+	    String strUnitName = request.getParameter("strUnitName");
+	    String strSupplierName = request.getParameter("strSupplierName");
+	    String strPreferentialType = request.getParameter("iPreferentialType");
+	    String strState = request.getParameter("iState");
+	    String txtServiceDesc = request.getParameter("txtServiceDesc");
+	    String txtServiceDescDetail = request.getParameter("txtServiceDescDetail");
 	    String strReserved = request.getParameter("strReserved");
+	    
+	    String strServicePreferentialInfos = request.getParameter("strServicePreferentialInfos");
 
 
 	    //判断参数有效性
@@ -78,29 +84,116 @@ public class ServiceInfoController {
 	    {
 	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数dSalePrice不能为空", null);
 	    }
-	    if(strServiceInfoDesc == null || strServiceInfoDesc.isEmpty())
+	    if(strServiceBarCode == null || strServiceBarCode.isEmpty())
 	    {
-	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceInfoDesc不能为空", null);
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceBarCode不能为空", null);
+	    }
+	    if(strUnitId == null || strUnitId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strUnitId不能为空", null);
+	    }
+	    if(strUnitName == null || strUnitName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strUnitName不能为空", null);
+	    }
+	    if(strSupplierName == null || strSupplierName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strSupplierName不能为空", null);
+	    }
+	    if(strPreferentialType == null || strPreferentialType.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数iPreferentialType不能为空", null);
+	    }
+	    if(strState == null || strState.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数iState不能为空", null);
+	    }
+	    if (strPreferentialType.equals("1"))
+	    {
+		    if(strServicePreferentialInfos == null || strServicePreferentialInfos.isEmpty())
+		    {
+		        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServicePreferentialInfos不能为空", null);
+		    }
+		    
 	    }
 
 
 	    //对象设置
 	    ServiceInfoEntity tServiceInfo=new ServiceInfoEntity();
 	    tServiceInfo.setStrServiceInfoId(DataTool.getUUID());
-	    tServiceInfo.setStrServiceInfoName(strServiceInfoName);
-	    tServiceInfo.setStrServiceTypeId(strServiceTypeId);
-	    tServiceInfo.setStrServiceTypeName(strServiceTypeName);
 	    
 	    BigDecimal bgAmount = new BigDecimal(dSalePrice);
 	    tServiceInfo.setdSalePrice(bgAmount);
+
+	    tServiceInfo.setStrServiceInfoName(strServiceInfoName);
+	    tServiceInfo.setStrServiceTypeId(strServiceTypeId);
+	    tServiceInfo.setStrServiceTypeName(strServiceTypeName);
+	    tServiceInfo.setStrServiceBarCode(strServiceBarCode);
+	    tServiceInfo.setStrUnitId(strUnitId);
+	    tServiceInfo.setStrUnitName(strUnitName);
+	    tServiceInfo.setStrSupplierName(strSupplierName);
+	    tServiceInfo.setiPreferentialType(Integer.parseInt(strPreferentialType));
+	    tServiceInfo.setiState(Integer.parseInt(strState));
+	    tServiceInfo.setTxtServiceDesc(txtServiceDesc);
+	    tServiceInfo.setTxtServiceDescDetail(txtServiceDescDetail);
+	    
+		   /*
+			EmployeeEntity employeeEntity = null;
+			try {
+				employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+						request, response).getAttribute("employeeEntity");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+			}
+			if (employeeEntity==null) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+			}
+			*/
 	    
 	    tServiceInfo.setStrEmployeeId("11111");
 	    tServiceInfo.setStrEmployeeName("11111");
 	    tServiceInfo.setStrEmployeeLoginName("11111");
-	    tServiceInfo.setStrServiceInfoDesc(strServiceInfoDesc);
 	    tServiceInfo.setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 	    tServiceInfo.setStrUpdateTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 	    tServiceInfo.setStrReserved(strReserved);
+	    
+	    
+	    //解析商品会员优惠信息  会员ID1,会员名称1,兑换积分数1｜会员ID2,会员名称2,兑换积分数2｜
+	    String [] arrServicePreferentialInfos = strServicePreferentialInfos.split("\\|");
+	    System.out.println(strServicePreferentialInfos);
+	    List<ServicePreferentialEntity> listServicePreferentialEntity = new ArrayList<ServicePreferentialEntity>();
+	    if (arrServicePreferentialInfos != null)
+	    {
+	    	int iRight = 1;
+	    	
+	    	for (int iLoop = 0; iLoop < arrServicePreferentialInfos.length; iLoop++ )
+	    	{
+	    		ServicePreferentialEntity tServicePreferentialEntity = new ServicePreferentialEntity();
+	    		
+	    		// 解析单行
+	    		String [] arrOneLineStrings = arrServicePreferentialInfos[iLoop].split(",");
+	    		System.out.println(arrServicePreferentialInfos[iLoop]);
+	    		
+	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 3)
+	    		{
+	    			iRight = 0;
+	    			break;
+	    		}
+
+	    		tServicePreferentialEntity.setStrLevelsId(arrOneLineStrings[0]);
+	    		tServicePreferentialEntity.setStrLevelsName(arrOneLineStrings[1]);
+	    		tServicePreferentialEntity.setiRequiredIntegral(Integer.parseInt(arrOneLineStrings[2]));
+	    		
+	    		listServicePreferentialEntity.add(tServicePreferentialEntity);
+	    	}
+	    	
+	    	if (0 == iRight)
+	    	{
+	    		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "会员优惠数据格式错误", null);
+	    	}
+	    }
+	    tServiceInfo.setListServicePreferentialEntity(listServicePreferentialEntity);
 
 
 	    try{
@@ -115,7 +208,7 @@ public class ServiceInfoController {
 	
 	
 	//获取一条ServiceInfo记录
-	// http://localhost:8082/admin/biz/Service/getServiceInfo?strServiceInfoId=9ef2943cc57f4ce7bdd44a3db35f5fad
+	// http://localhost:8082/admin/biz/Service/getServiceInfo?strServiceInfoId=8e3a74c0e03a407ea5cecfbb79a76893
 	@ResponseBody
 	@RequestMapping("getServiceInfo")
 	public String getServiceInfo(HttpServletRequest request, HttpServletResponse response){
@@ -146,7 +239,8 @@ public class ServiceInfoController {
 
 
 	//更新一条ServiceInfo记录 29e9ab1eb97444348b8540d161bae5f8
-	// http://localhost:8082/admin/biz/Service/updateServiceInfo?strServiceInfoId=29e9ab1eb97444348b8540d161bae5f8&strServiceInfoName=qidddddongbo&strServiceTypeId=20e3c241740e47438f25d91bdefc9d9d&strServiceInfoDesc=nfiahfoahf&strServiceTypeName=你好好&dSalePrice=300
+	// http://localhost:8082/admin/biz/Service/updateServiceInfo?strServiceInfoId=8e3a74c0e03a407ea5cecfbb79a76893&strServicePreferentialInfos=45d5462e6ccf453c9ab967fe00650207,39111,好的,4666888|eb7bb36a12ef44429414b36bf15df694,222,好的2,58888|&txtServiceDescDetail=idididididididi&txtServiceDesc=nifahfiaidfhasdnfi&iState=1&iPreferentialType=1&strSupplierName=qidongbo&strUnitName=张&strUnitId=123&strServiceBarCode=123456789&strServiceTypeId=1a86d3a79c15437698255b72e4a0fde4&strServiceTypeName=234&strServiceInfoName=1111&dSalePrice=6&iStock=100	
+	
 	@ResponseBody
 	@RequestMapping("updateServiceInfo")
 	public String updateServiceInfo(HttpServletRequest request, HttpServletResponse response){
@@ -156,27 +250,150 @@ public class ServiceInfoController {
 	    String strServiceTypeId = request.getParameter("strServiceTypeId");
 	    String strServiceTypeName = request.getParameter("strServiceTypeName");
 	    String dSalePrice = request.getParameter("dSalePrice");
-	    String strServiceInfoDesc = request.getParameter("strServiceInfoDesc");
+	    String strServiceBarCode = request.getParameter("strServiceBarCode");
+	    String strUnitId = request.getParameter("strUnitId");
+	    String strUnitName = request.getParameter("strUnitName");
+	    String strSupplierName = request.getParameter("strSupplierName");
+	    String strPreferentialType = request.getParameter("iPreferentialType");
+	    String strState = request.getParameter("iState");
+	    String txtServiceDesc = request.getParameter("txtServiceDesc");
+	    String txtServiceDescDetail = request.getParameter("txtServiceDescDetail");
 	    String strReserved = request.getParameter("strReserved");
+	    
+	    String strServicePreferentialInfos = request.getParameter("strServicePreferentialInfos");
+
+
+	    //判断参数有效性
 	    if(strServiceInfoId == null || strServiceInfoId.isEmpty())
 	    {
 	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceInfoId不能为空", null);
 	    }
+	    if(strServiceInfoName == null || strServiceInfoName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceInfoName不能为空", null);
+	    }
+	    if(strServiceTypeId == null || strServiceTypeId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceTypeId不能为空", null);
+	    }
+	    if(strServiceTypeName == null || strServiceTypeName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceTypeName不能为空", null);
+	    }
+	    if(dSalePrice == null || dSalePrice.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数dSalePrice不能为空", null);
+	    }
+	    if(strServiceBarCode == null || strServiceBarCode.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceBarCode不能为空", null);
+	    }
+	    if(strUnitId == null || strUnitId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strUnitId不能为空", null);
+	    }
+	    if(strUnitName == null || strUnitName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strUnitName不能为空", null);
+	    }
+	    if(strSupplierName == null || strSupplierName.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strSupplierName不能为空", null);
+	    }
+	    if(strPreferentialType == null || strPreferentialType.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数iPreferentialType不能为空", null);
+	    }
+	    if(strState == null || strState.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数iState不能为空", null);
+	    }
+	    
+	    if (strPreferentialType.equals("1"))
+	    {
+		    if(strServicePreferentialInfos == null || strServicePreferentialInfos.isEmpty())
+		    {
+		        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServicePreferentialInfos不能为空", null);
+		    }
+		    
+	    }
+
+
+	    //对象设置
 	    ServiceInfoEntity tServiceInfo=new ServiceInfoEntity();
 	    tServiceInfo.setStrServiceInfoId(strServiceInfoId);
-	    tServiceInfo.setStrServiceInfoName(strServiceInfoName);
-	    tServiceInfo.setStrServiceTypeId(strServiceTypeId);
-	    tServiceInfo.setStrServiceTypeName(strServiceTypeName);
 	    
 	    BigDecimal bgAmount = new BigDecimal(dSalePrice);
 	    tServiceInfo.setdSalePrice(bgAmount);
 
+	    tServiceInfo.setStrServiceInfoName(strServiceInfoName);
+	    tServiceInfo.setStrServiceTypeId(strServiceTypeId);
+	    tServiceInfo.setStrServiceTypeName(strServiceTypeName);
+	    tServiceInfo.setStrServiceBarCode(strServiceBarCode);
+	    tServiceInfo.setStrUnitId(strUnitId);
+	    tServiceInfo.setStrUnitName(strUnitName);
+	    tServiceInfo.setStrSupplierName(strSupplierName);
+	    tServiceInfo.setiPreferentialType(Integer.parseInt(strPreferentialType));
+	    tServiceInfo.setiState(Integer.parseInt(strState));
+	    tServiceInfo.setTxtServiceDesc(txtServiceDesc);
+	    tServiceInfo.setTxtServiceDescDetail(txtServiceDescDetail);
+	    
+		   /*
+			EmployeeEntity employeeEntity = null;
+			try {
+				employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
+						request, response).getAttribute("employeeEntity");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+			}
+			if (employeeEntity==null) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+			}
+			*/
+
 	    tServiceInfo.setStrEmployeeId("2222");
 	    tServiceInfo.setStrEmployeeName("22222");
 	    tServiceInfo.setStrEmployeeLoginName("22222");
-	    tServiceInfo.setStrServiceInfoDesc(strServiceInfoDesc);
 	    tServiceInfo.setStrUpdateTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
 	    tServiceInfo.setStrReserved(strReserved);
+	    
+	    
+	    //解析商品会员优惠信息  优惠信息ID,会员ID1,会员名称1,兑换积分数1｜优惠信息ID,会员ID2,会员名称2,兑换积分数2｜
+	    String [] arrServicePreferentialInfos = strServicePreferentialInfos.split("\\|");
+	    List<ServicePreferentialEntity> listServicePreferentialEntity = new ArrayList<ServicePreferentialEntity>();
+	    if (arrServicePreferentialInfos != null)
+	    {
+	    	int iRight = 1;
+	    	
+	    	for (int iLoop = 0; iLoop < arrServicePreferentialInfos.length; iLoop++ )
+	    	{
+	    		ServicePreferentialEntity tServicePreferentialEntity = new ServicePreferentialEntity();
+	    		
+	    		// 解析单行
+	    		String [] arrOneLineStrings = arrServicePreferentialInfos[iLoop].split(",");
+	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 4)
+	    		{
+	    			iRight = 0;
+	    			break;
+	    		}
+	    		
+	    		tServicePreferentialEntity.setStrPreferentialId(arrOneLineStrings[0]);
+	    		tServicePreferentialEntity.setStrLevelsId(arrOneLineStrings[1]);
+	    		tServicePreferentialEntity.setStrLevelsName(arrOneLineStrings[2]);
+	    		tServicePreferentialEntity.setiRequiredIntegral(Integer.parseInt(arrOneLineStrings[3]));
+	    		
+	    		listServicePreferentialEntity.add(tServicePreferentialEntity);
+	    	}
+	    	
+	    	if (0 == iRight)
+	    	{
+	    		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "会员优惠数据格式错误", null);
+	    	}
+	    }
+	    tServiceInfo.setListServicePreferentialEntity(listServicePreferentialEntity);
+	    
+	    
 	    try{
 	        return tServiceInfoService.updateServiceInfo(tServiceInfo);
 	    }
@@ -245,6 +462,37 @@ public class ServiceInfoController {
 	            resultMap.put("iTotalRecord", totalrecord);
 	            resultMap.put("iTotalPage", totalrecord % iPagesize == 0 ? totalrecord / iPagesize : totalrecord / iPagesize + 1);
 	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	        }
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
+	    }
+	}
+	
+	
+	//获取ServiceInfo列表
+	// http://localhost:8082/admin/biz/Service/getListServicePreferentialByServiceId?strServiceInfoId=8e3a74c0e03a407ea5cecfbb79a76893
+	@ResponseBody
+	@RequestMapping("getListServicePreferentialByServiceId")
+	public String getListServicePreferentialByServiceId(HttpServletRequest request, HttpServletResponse response){
+
+	    String strServiceInfoId = request.getParameter("strServiceInfoId");
+	    if(strServiceInfoId == null || strServiceInfoId.isEmpty())
+	    {
+	        return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数strServiceInfoId不能为空", null);
+	    }
+	    
+	    try{
+	        List<ServicePreferentialEntity> listServicePreferentialEntity= tServiceInfoService.getListServicePreferentialByServiceId(strServiceInfoId);
+	        if (ValidateTool.isNull(listServicePreferentialEntity) || listServicePreferentialEntity.size() <= 0)
+	        {
+	            return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+	        }
+	        else
+	        {
+	            Map<String, Object> resultMap = new HashMap<String, Object>();
+	            resultMap.put("listServicePreferentialEntity", listServicePreferentialEntity);
+                return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 	        }
 	    }catch(Exception e) {
 	        e.printStackTrace();

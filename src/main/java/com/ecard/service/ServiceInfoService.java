@@ -7,6 +7,7 @@
  */
 package com.ecard.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
+import com.commontools.date.DateStyle;
+import com.commontools.date.DateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.ServiceInfoEntity;
+import com.ecard.entity.ServicePreferentialEntity;
 import com.ecard.mapper.CashierConfigMapper;
 import com.ecard.mapper.ServiceInfoMapper;
 
@@ -50,6 +54,32 @@ public class ServiceInfoService {
 			return DataTool.constructResponse(ResultCode.NO_DATA, "服务类型不存在", null);
 		}
 		
+		//服务会员优惠信息
+		if (tServiceInfo.getiPreferentialType() == 1)
+		{
+			List<ServicePreferentialEntity> listServicePreferentialEntity = tServiceInfo.getListServicePreferentialEntity();
+			if (listServicePreferentialEntity == null || listServicePreferentialEntity.size() == 0)
+			{
+				return DataTool.constructResponse(ResultCode.NO_DATA, "请填写分级别优惠信息", null);
+			}
+			
+			for (int iLoop = 0; iLoop < listServicePreferentialEntity.size(); iLoop++)
+			{
+				listServicePreferentialEntity.get(iLoop).setStrPreferentialId(DataTool.getUUID());
+				
+				listServicePreferentialEntity.get(iLoop).setStrServiceInfoId(tServiceInfo.getStrServiceInfoId());
+				listServicePreferentialEntity.get(iLoop).setStrServiceInfoName(tServiceInfo.getStrServiceInfoName());
+				
+				// 填充操作人员信息
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeId(tServiceInfo.getStrEmployeeId());
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeLoginName(tServiceInfo.getStrEmployeeLoginName());
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeName(tServiceInfo.getStrEmployeeName());
+				listServicePreferentialEntity.get(iLoop).setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				
+				tServiceInfoMapper.insertServicePreferential(listServicePreferentialEntity.get(iLoop));
+			}
+		}
+		
 	    int iAffectNum = tServiceInfoMapper.insertServiceInfo(tServiceInfo);
 	    if (0 == iAffectNum)
 	    {
@@ -66,6 +96,31 @@ public class ServiceInfoService {
 		if (tCashierConfigMapper.isServiceTypeExists(tServiceInfo.getStrServiceTypeId()) <= 0)
 		{
 			return DataTool.constructResponse(ResultCode.NO_DATA, "服务类型不存在", null);
+		}
+		
+		
+		//服务会员优惠信息
+		if (tServiceInfo.getiPreferentialType() == 1)
+		{
+			List<ServicePreferentialEntity> listServicePreferentialEntity = tServiceInfo.getListServicePreferentialEntity();
+			if (listServicePreferentialEntity == null || listServicePreferentialEntity.size() == 0)
+			{
+				return DataTool.constructResponse(ResultCode.NO_DATA, "请填写分级别优惠信息", null);
+			}
+			
+			for (int iLoop = 0; iLoop < listServicePreferentialEntity.size(); iLoop++)
+			{
+				listServicePreferentialEntity.get(iLoop).setStrServiceInfoId(tServiceInfo.getStrServiceInfoId());
+				listServicePreferentialEntity.get(iLoop).setStrServiceInfoName(tServiceInfo.getStrServiceInfoName());
+				
+				// 填充操作人员信息
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeId(tServiceInfo.getStrEmployeeId());
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeLoginName(tServiceInfo.getStrEmployeeLoginName());
+				listServicePreferentialEntity.get(iLoop).setStrEmployeeName(tServiceInfo.getStrEmployeeName());
+				listServicePreferentialEntity.get(iLoop).setStrInsertTime(DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS));
+				
+				tServiceInfoMapper.updateServicePreferential(listServicePreferentialEntity.get(iLoop));
+			}
 		}
 		
 	    int iAffectNum = tServiceInfoMapper.updateServiceInfo(tServiceInfo);
@@ -98,6 +153,12 @@ public class ServiceInfoService {
 	//获取ServiceInfo记录数量
 	public int getServiceInfoTotalCount(Map<String, Object> queryMap) throws Exception{
 	    return tServiceInfoMapper.getServiceInfoTotalCount(queryMap);
+	}
+	
+	
+	//获取service会员级别优惠记录
+	public List<ServicePreferentialEntity> getListServicePreferentialByServiceId(String strServiceInfoId) throws Exception{
+	    return tServiceInfoMapper.getListServicePreferentialByServiceId(strServiceInfoId);
 	}
 
 }

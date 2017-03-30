@@ -4,9 +4,9 @@
 <mapper namespace="com.ecard.mapper.ServiceInfoMapper">
 <!-- 新增一条tb_service_info记录 -->
 <insert id="insertServiceInfo" parameterType="com.ecard.entity.ServiceInfoEntity">
-insert into tb_service_info(strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved)
- values(#{strServiceInfoId},#{strServiceInfoName},#{strServiceTypeId},#{strServiceTypeName},#{dSalePrice},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strServiceInfoDesc},#{strInsertTime},#{strUpdateTime},#{strReserved})
- </insert>
+insert into tb_service_info(strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strServiceBarCode,strUnitId,strUnitName,strSupplierName,iPreferentialType,iState,txtServiceDesc,txtServiceDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime,strReserved)
+ values(#{strServiceInfoId},#{strServiceInfoName},#{strServiceTypeId},#{strServiceTypeName},#{dSalePrice},#{strServiceBarCode},#{strUnitId},#{strUnitName},#{strSupplierName},#{iPreferentialType},#{iState},#{txtServiceDesc},#{txtServiceDescDetail},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime},#{strReserved})
+</insert>
 
 
 
@@ -19,25 +19,23 @@ delete from tb_service_info where strServiceInfoId=#{strServiceInfoId}
 
 <!-- 更新tb_service_info记录 -->
 <update id="updateServiceInfo" parameterType="com.ecard.entity.ServiceInfoEntity">
-update tb_service_info set strServiceInfoName=#{strServiceInfoName},strServiceTypeId=#{strServiceTypeId},strServiceTypeName=#{strServiceTypeName},dSalePrice=#{dSalePrice},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strServiceInfoDesc=#{strServiceInfoDesc},strUpdateTime=#{strUpdateTime},strReserved=#{strReserved}
+update tb_service_info set strServiceInfoName=#{strServiceInfoName},strServiceTypeId=#{strServiceTypeId},strServiceTypeName=#{strServiceTypeName},dSalePrice=#{dSalePrice},strServiceBarCode=#{strServiceBarCode},strUnitId=#{strUnitId},strUnitName=#{strUnitName},strSupplierName=#{strSupplierName},iPreferentialType=#{iPreferentialType},iState=#{iState},txtServiceDesc=#{txtServiceDesc},txtServiceDescDetail=#{txtServiceDescDetail},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strInsertTime=#{strInsertTime},strUpdateTime=#{strUpdateTime},strReserved=#{strReserved}
  where strServiceInfoId=#{strServiceInfoId}
 </update>
 
 
 <!-- 获取单条记录 -->
 <select id="getServiceInfo" parameterType="string" resultType="com.ecard.entity.ServiceInfoEntity">
-select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved from tb_service_info
+select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strServiceBarCode,strUnitId,strUnitName,strSupplierName,iPreferentialType,iState,txtServiceDesc,txtServiceDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime,strReserved from tb_service_info
 where strServiceInfoId=#{strServiceInfoId}
 </select>
 
 
-
 <!-- 分页获取记录 -->
 <select id="getListServiceInfo"  parameterType="map" resultType="com.ecard.entity.ServiceInfoEntity">
-select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strEmployeeId,strEmployeeName,strEmployeeLoginName,strServiceInfoDesc,strInsertTime,strUpdateTime,strReserved from tb_service_info 
+select strServiceInfoId,strServiceInfoName,strServiceTypeId,strServiceTypeName,dSalePrice,strServiceBarCode,strUnitId,strUnitName,strSupplierName,iPreferentialType,iState,txtServiceDesc,txtServiceDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime,strReserved from tb_service_info 
 limit #{pageFrom},#{pageSize}
 </select>
-
 
 
 <!-- 获取tb_service_info总记录数 -->
@@ -53,6 +51,44 @@ select count(strServiceInfoId) from tb_service_info where strServiceInfoId=#{str
 <!-- 查询某类服务类型下有多少服务项目 -->
 <select id="getServiceInfoCountByTypeId"  parameterType="string" resultType="int">
 select count(strServiceInfoId) from tb_service_info where strServiceTypeId=#{strServiceTypeId}
+</select>
+
+
+
+
+
+
+<!-- 新增一条tb_servicepreferential_mapping记录 -->
+<insert id="insertServicePreferential" parameterType="com.ecard.entity.ServicePreferentialEntity">
+insert into tb_servicepreferential_mapping(strPreferentialId,strServiceInfoId,strServiceInfoName,strLevelsId,strLevelsName,iRequiredIntegral,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime)
+ values(#{strPreferentialId},#{strServiceInfoId},#{strServiceInfoName},#{strLevelsId},#{strLevelsName},#{iRequiredIntegral},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime})
+</insert>
+
+
+<!-- 删除单条tb_servicepreferential_mapping记录 -->
+<delete id="deleteServicePreferentialById" parameterType="string">
+delete from tb_servicepreferential_mapping where strPreferentialId=#{strPreferentialId}
+</delete>
+
+<!-- 更新tb_servicepreferential_mapping记录 -->
+<update id="updateServicePreferential" parameterType="com.ecard.entity.ServicePreferentialEntity">
+update tb_servicepreferential_mapping set strServiceInfoId=#{strServiceInfoId},strServiceInfoName=#{strServiceInfoName},strLevelsId=#{strLevelsId},strLevelsName=#{strLevelsName},iRequiredIntegral=#{iRequiredIntegral},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strInsertTime=#{strInsertTime},strUpdateTime=#{strUpdateTime}
+ where strPreferentialId=#{strPreferentialId}
+</update>
+
+
+<!-- 获取单条记录 -->
+<select id="getServicePreferential" parameterType="string" resultType="com.ecard.entity.ServicePreferentialEntity">
+select strPreferentialId,strServiceInfoId,strServiceInfoName,strLevelsId,strLevelsName,iRequiredIntegral,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_servicepreferential_mapping
+where strPreferentialId=#{strPreferentialId}
+</select>
+
+
+<!--根据服务ID获取记录 -->
+<select id="getListServicePreferentialByServiceId"  parameterType="string" resultType="com.ecard.entity.ServicePreferentialEntity">
+select strPreferentialId,strServiceInfoId,strServiceInfoName,strLevelsId,strLevelsName,iRequiredIntegral,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime 
+from tb_servicepreferential_mapping 
+where strServiceInfoId=#{strServiceInfoId}
 </select>
 
 </mapper>

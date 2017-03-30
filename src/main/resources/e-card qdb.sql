@@ -485,10 +485,17 @@ CREATE TABLE tb_service_info
   strServiceTypeId             VARCHAR(50) NOT NULL,       -- 主键
   strServiceTypeName           VARCHAR(50) NOT NULL,       -- 服务类别名称 
   dSalePrice                   DECIMAL(11,2) DEFAULT 0.00, -- 服务销售价格
+  strServiceBarCode            VARCHAR(50) NOT NULL,        -- 编号条码
+  strUnitId                    VARCHAR(50) NOT NULL,        -- 服务单位ID
+  strUnitName                  VARCHAR(50) NOT NULL,        -- 服务计量单位名称 
+  strSupplierName              VARCHAR(50) NOT NULL,        -- 供应商名称  
+  iPreferentialType            int DEFAULT 0,               -- 商品优惠类型 0 不优惠 1 按照会员等级优惠
+  iState                       int DEFAULT 0,               -- 商品状态 0 不使用 1 使用 
+  txtServiceDesc               text null,                   -- 富文本描述信息
+  txtServiceDescDetail         text null,                   -- 富文本详情描述信息
   strEmployeeId                VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeName              VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName         VARCHAR(50) NOT NULL,       -- 操作员工登录账号
-  strServiceInfoDesc           VARCHAR(255) NULL,          -- 服务类别描述
   strInsertTime                VARCHAR(50) NOT NULL,       -- 录入时间
   strUpdateTime                VARCHAR(50) DEFAULT '',     -- 修改时间
   strReserved                  VARCHAR(500) NULL,          -- 预留字段
@@ -498,6 +505,29 @@ create index indxServiceInfoOnServiceId on tb_service_info(strServiceInfoId);
 create index indxServiceInfoOnServiceName  on tb_service_info(strServiceInfoName);
 create index indxServiceInfoOnTypeId  on tb_service_info(strServiceTypeId);
 create index indxServiceInfoOnEmployeedId  on tb_service_info(strEmployeeId);
+
+-- ==============================================================
+-- Table: tb_servicepreferential_mapping         【服务按会员等级优惠信息表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_servicepreferential_mapping;
+CREATE TABLE tb_servicepreferential_mapping
+(
+  strPreferentialId         VARCHAR(50) NOT NULL,       -- 主键
+  strServiceInfoId          VARCHAR(50) NOT NULL,       -- 服务ID
+  strServiceInfoName        VARCHAR(50) NOT NULL,       -- 服务名称
+  strLevelsId               VARCHAR(50) NOT NULL,       -- 会员等级ID	
+  strLevelsName             VARCHAR(50) NOT NULL,       -- 会员卡级别名称
+  iRequiredIntegral         int DEFAULT 0,              -- 兑换商品所需积分  
+  strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strInsertTime             VARCHAR(50) NOT NULL,       -- 录入时间
+  strUpdateTime             VARCHAR(50) DEFAULT '',     -- 修改时间
+  PRIMARY KEY (strPreferentialId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxServicepreferentialOnGoodsId  on tb_servicepreferential_mapping(strServiceInfoId);
+create index indxServicepreferentialOnGoodsName  on tb_servicepreferential_mapping(strLevelsId);
+create index indxServicepreferentialOnInsertTime  on tb_servicepreferential_mapping(strInsertTime);
 
 
 -- ==============================================================

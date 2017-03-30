@@ -8,91 +8,58 @@
 package com.ecard.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author apple
  *
  */
 public class ServiceInfoEntity {
+	private BigDecimal dSalePrice;	
 	private String strServiceInfoId="";
 	private String strServiceInfoName="";
 	private String strServiceTypeId="";
 	private String strServiceTypeName="";
-	private BigDecimal dSalePrice;
+	private String strServiceBarCode="";
+	private String strUnitId="";
+	private String strUnitName="";
+	private String strSupplierName="";
+	private int iPreferentialType=0;
+	private int iState=0;
+	private String txtServiceDesc="";
+	private String txtServiceDescDetail="";
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";
-	private String strServiceInfoDesc="";
 	private String strInsertTime="";
 	private String strUpdateTime="";
 	private String strReserved="";
 	
+	private List<ServicePreferentialEntity> listServicePreferentialEntity;
+	
+	
+	
+	
 	/**
-	 * create time:2017年3月22日
-	 * @return the strServiceInfoId
+	 * create time:2017年3月30日
+	 * @return the listServicePreferentialEntity
 	 */
-	public String getStrServiceInfoId() {
-		return strServiceInfoId;
+	public List<ServicePreferentialEntity> getListServicePreferentialEntity() {
+		return listServicePreferentialEntity;
+	}
+
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param listServicePreferentialEntity the listServicePreferentialEntity to set
+	 */
+	public void setListServicePreferentialEntity(
+			List<ServicePreferentialEntity> listServicePreferentialEntity) {
+		this.listServicePreferentialEntity = listServicePreferentialEntity;
 	}
 	
 	/**
-	 * create time:2017年3月22日
-	 * @param strServiceInfoId the strServiceInfoId to set
-	 */
-	public void setStrServiceInfoId(String strServiceInfoId) {
-		this.strServiceInfoId = strServiceInfoId;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @return the strServiceInfoName
-	 */
-	public String getStrServiceInfoName() {
-		return strServiceInfoName;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @param strServiceInfoName the strServiceInfoName to set
-	 */
-	public void setStrServiceInfoName(String strServiceInfoName) {
-		this.strServiceInfoName = strServiceInfoName;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @return the strServiceTypeId
-	 */
-	public String getStrServiceTypeId() {
-		return strServiceTypeId;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @param strServiceTypeId the strServiceTypeId to set
-	 */
-	public void setStrServiceTypeId(String strServiceTypeId) {
-		this.strServiceTypeId = strServiceTypeId;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @return the strServiceTypeName
-	 */
-	public String getStrServiceTypeName() {
-		return strServiceTypeName;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @param strServiceTypeName the strServiceTypeName to set
-	 */
-	public void setStrServiceTypeName(String strServiceTypeName) {
-		this.strServiceTypeName = strServiceTypeName;
-	}
-	
-	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the dSalePrice
 	 */
 	public BigDecimal getdSalePrice() {
@@ -100,7 +67,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param dSalePrice the dSalePrice to set
 	 */
 	public void setdSalePrice(BigDecimal dSalePrice) {
@@ -108,7 +75,199 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
+	 * @return the strServiceInfoId
+	 */
+	public String getStrServiceInfoId() {
+		return strServiceInfoId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strServiceInfoId the strServiceInfoId to set
+	 */
+	public void setStrServiceInfoId(String strServiceInfoId) {
+		this.strServiceInfoId = strServiceInfoId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strServiceInfoName
+	 */
+	public String getStrServiceInfoName() {
+		return strServiceInfoName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strServiceInfoName the strServiceInfoName to set
+	 */
+	public void setStrServiceInfoName(String strServiceInfoName) {
+		this.strServiceInfoName = strServiceInfoName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strServiceTypeId
+	 */
+	public String getStrServiceTypeId() {
+		return strServiceTypeId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strServiceTypeId the strServiceTypeId to set
+	 */
+	public void setStrServiceTypeId(String strServiceTypeId) {
+		this.strServiceTypeId = strServiceTypeId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strServiceTypeName
+	 */
+	public String getStrServiceTypeName() {
+		return strServiceTypeName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strServiceTypeName the strServiceTypeName to set
+	 */
+	public void setStrServiceTypeName(String strServiceTypeName) {
+		this.strServiceTypeName = strServiceTypeName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strServiceBarCode
+	 */
+	public String getStrServiceBarCode() {
+		return strServiceBarCode;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strServiceBarCode the strServiceBarCode to set
+	 */
+	public void setStrServiceBarCode(String strServiceBarCode) {
+		this.strServiceBarCode = strServiceBarCode;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strUnitId
+	 */
+	public String getStrUnitId() {
+		return strUnitId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strUnitId the strUnitId to set
+	 */
+	public void setStrUnitId(String strUnitId) {
+		this.strUnitId = strUnitId;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strUnitName
+	 */
+	public String getStrUnitName() {
+		return strUnitName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strUnitName the strUnitName to set
+	 */
+	public void setStrUnitName(String strUnitName) {
+		this.strUnitName = strUnitName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the strSupplierName
+	 */
+	public String getStrSupplierName() {
+		return strSupplierName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param strSupplierName the strSupplierName to set
+	 */
+	public void setStrSupplierName(String strSupplierName) {
+		this.strSupplierName = strSupplierName;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the iPreferentialType
+	 */
+	public int getiPreferentialType() {
+		return iPreferentialType;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param iPreferentialType the iPreferentialType to set
+	 */
+	public void setiPreferentialType(int iPreferentialType) {
+		this.iPreferentialType = iPreferentialType;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the iState
+	 */
+	public int getiState() {
+		return iState;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param iState the iState to set
+	 */
+	public void setiState(int iState) {
+		this.iState = iState;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the txtServiceDesc
+	 */
+	public String getTxtServiceDesc() {
+		return txtServiceDesc;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param txtServiceDesc the txtServiceDesc to set
+	 */
+	public void setTxtServiceDesc(String txtServiceDesc) {
+		this.txtServiceDesc = txtServiceDesc;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @return the txtServiceDescDetail
+	 */
+	public String getTxtServiceDescDetail() {
+		return txtServiceDescDetail;
+	}
+	
+	/**
+	 * create time:2017年3月30日
+	 * @param txtServiceDescDetail the txtServiceDescDetail to set
+	 */
+	public void setTxtServiceDescDetail(String txtServiceDescDetail) {
+		this.txtServiceDescDetail = txtServiceDescDetail;
+	}
+	
+	/**
+	 * create time:2017年3月30日
 	 * @return the strEmployeeId
 	 */
 	public String getStrEmployeeId() {
@@ -116,7 +275,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strEmployeeId the strEmployeeId to set
 	 */
 	public void setStrEmployeeId(String strEmployeeId) {
@@ -124,7 +283,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the strEmployeeName
 	 */
 	public String getStrEmployeeName() {
@@ -132,7 +291,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strEmployeeName the strEmployeeName to set
 	 */
 	public void setStrEmployeeName(String strEmployeeName) {
@@ -140,7 +299,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the strEmployeeLoginName
 	 */
 	public String getStrEmployeeLoginName() {
@@ -148,7 +307,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strEmployeeLoginName the strEmployeeLoginName to set
 	 */
 	public void setStrEmployeeLoginName(String strEmployeeLoginName) {
@@ -156,23 +315,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
-	 * @return the strServiceInfoDesc
-	 */
-	public String getStrServiceInfoDesc() {
-		return strServiceInfoDesc;
-	}
-	
-	/**
-	 * create time:2017年3月22日
-	 * @param strServiceInfoDesc the strServiceInfoDesc to set
-	 */
-	public void setStrServiceInfoDesc(String strServiceInfoDesc) {
-		this.strServiceInfoDesc = strServiceInfoDesc;
-	}
-	
-	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the strInsertTime
 	 */
 	public String getStrInsertTime() {
@@ -180,7 +323,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strInsertTime the strInsertTime to set
 	 */
 	public void setStrInsertTime(String strInsertTime) {
@@ -188,7 +331,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the strUpdateTime
 	 */
 	public String getStrUpdateTime() {
@@ -196,7 +339,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strUpdateTime the strUpdateTime to set
 	 */
 	public void setStrUpdateTime(String strUpdateTime) {
@@ -204,7 +347,7 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @return the strReserved
 	 */
 	public String getStrReserved() {
@@ -212,13 +355,13 @@ public class ServiceInfoEntity {
 	}
 	
 	/**
-	 * create time:2017年3月22日
+	 * create time:2017年3月30日
 	 * @param strReserved the strReserved to set
 	 */
 	public void setStrReserved(String strReserved) {
 		this.strReserved = strReserved;
 	}
 	
-	
-	
+
+		
 }
