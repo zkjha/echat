@@ -182,13 +182,17 @@ CREATE TABLE tb_member_expand_information
 DROP TABLE IF EXISTS tb_member_levels;
 CREATE TABLE tb_member_levels
 (
-  STRLEVELSID               VARCHAR(50) NOT NULL,      -- 主键	
-  STRLEVELSNAME             VARCHAR(50) NOT NULL,      -- 会员卡级别名称
-  INTSTATUS                 INT DEFAULT 1,             -- 会员卡级别状态0：禁用 1：启用
-  STRINSERTTIME             VARCHAR(50) NOT NULL,      -- 录入时间
-  STRUPDATETIME             VARCHAR(50) DEFAULT '',    -- 修改时间
+  strLevelsId               VARCHAR(50) NOT NULL,      -- 主键	
+  strLevelsName             VARCHAR(50) NOT NULL,      -- 会员卡级别名称
+  intStatus                 INT DEFAULT 1,             -- 会员卡级别状态0：禁用 1：启用
+  strEmployeeId             VARCHAR(50)  NULL,         -- 操作员工ID
+  strEmployeeName           VARCHAR(50)  NULL,         -- 操作员工姓名
+  strEmployeeLoginName      VARCHAR(50)  NULL,         -- 操作员工登录账号
+  strInsertTime             VARCHAR(50) NOT NULL,      -- 录入时间
+  strUpdateTime             VARCHAR(50) DEFAULT '',    -- 修改时间
   PRIMARY KEY (STRLEVELSID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- ==============================================================
 -- Table: tb_member                             【会员资料信息表】                          
@@ -336,12 +340,25 @@ DROP TABLE IF EXISTS tb_goods;
 CREATE TABLE tb_goods
 (
   strGoodsId                VARCHAR(50) NOT NULL,       -- 主键
+  strGoodsBarCode           VARCHAR(50) NOT NULL,       -- 商品条形码
+  strUnitId                 VARCHAR(50) NOT NULL,       -- 商品单位ID
+  strUnitName               VARCHAR(50) NOT NULL,       -- 商品计量单位名称
   strGoodsName              VARCHAR(50) NOT NULL,       -- 商品名称
+  
   strGoodsTypeId            VARCHAR(50) NOT NULL,       -- 商品类型ID
   strGoodsTypeName          VARCHAR(50) NOT NULL,       -- 计量单位名称
+  strSupplierName           VARCHAR(50) NOT NULL,       -- 供应商名称  
+  iRequiredIntegral         int DEFAULT 0,              -- 兑换商品所需积分  
   dEnterPrice               DECIMAL(11,2) DEFAULT 0.00, -- 商品进价
+  
   dSalePrice                DECIMAL(11,2) DEFAULT 0.00, -- 商品销售价格
   iStock                    int DEFAULT 0,              -- 商品库存
+  iPreferentialType         int DEFAULT 0,              -- 商品优惠类型 0 不优惠 1 按照会员等级优惠
+  iState                    int DEFAULT 0,              -- 商品状态 0 不使用 1 使用
+  
+  txtGoodsDesc              text null,                  -- 富文本描述信息
+  txtGoodsDescDetail        text null,                  -- 富文本详情描述信息
+ 
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
@@ -352,6 +369,29 @@ CREATE TABLE tb_goods
 create index indxGoodsOnGoodsId  on tb_goods(strGoodsId);
 create index indxGoodsOnGoodsName  on tb_goods(strGoodsName);
 create index indxGoodsOnInsertTime  on tb_goods(strInsertTime);
+
+-- ==============================================================
+-- Table: tb_goodspreferential_mapping         商品按会员等级优惠信息表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_goodspreferential_mapping;
+CREATE TABLE tb_goodspreferential_mapping
+(
+  strPreferentialId         VARCHAR(50) NOT NULL,       -- 主键
+  strGoodsId                VARCHAR(50) NOT NULL,       -- 主键
+  strGoodsName              VARCHAR(50) NOT NULL,       -- 商品名称
+  strLevelsId               VARCHAR(50) NOT NULL,       -- 会员等级ID	
+  strLevelsName             VARCHAR(50) NOT NULL,       -- 会员卡级别名称
+  iRequiredIntegral         int DEFAULT 0,              -- 兑换商品所需积分  
+  strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
+  strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
+  strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  strInsertTime             VARCHAR(50) NOT NULL,       -- 录入时间
+  strUpdateTime             VARCHAR(50) DEFAULT '',     -- 修改时间
+  PRIMARY KEY (strPreferentialId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxGoodspreferentialOnGoodsId  on tb_goodspreferential_mapping(strGoodsId);
+create index indxGoodspreferentialOnGoodsName  on tb_goodspreferential_mapping(strLevelsId);
+create index indxGoodspreferentialOnInsertTime  on tb_goodspreferential_mapping(strInsertTime);
 
 -- ==============================================================
 -- Table: tb_goods_order                            【商品订单表】                          

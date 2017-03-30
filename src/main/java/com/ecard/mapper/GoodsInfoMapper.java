@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ecard.entity.GoodsInfoEntity;
+import com.ecard.entity.GoodsPreferentialEntity;
 
 /**
  * @author apple
@@ -37,5 +38,16 @@ public interface GoodsInfoMapper {
 	
 	//判断某种类型下的商品存在的数量
 	int getGoodsInfoCountByGoodsType(String strGoodsTypeId) throws Exception;
+	
+	
+	
+	//新增加商品会员优惠信息
+	public int insertGoodsPreferential(GoodsPreferentialEntity obj) throws RuntimeException;
+	
+	//更新商品会员优惠信息
+	public int updateGoodsPreferential(GoodsPreferentialEntity obj) throws RuntimeException;
+	
+	//根据商品ID查询会员优惠信息列表
+	public List<GoodsPreferentialEntity> getGoodsPreferentialByGoodsId(String strGoodsId) throws RuntimeException;
 
 }

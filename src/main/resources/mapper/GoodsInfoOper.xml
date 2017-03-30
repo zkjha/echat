@@ -3,10 +3,11 @@
 
 <mapper namespace="com.ecard.mapper.GoodsInfoMapper">
 
-<!-- 新增一条tb_goods记录 -->
+
 <insert id="insertGoodsInfo" parameterType="com.ecard.entity.GoodsInfoEntity">
-insert into tb_goods(strGoodsId,strGoodsName,strGoodsTypeId,strGoodsTypeName,dEnterPrice,dSalePrice,iStock,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime)
- values(#{strGoodsId},#{strGoodsName},#{strGoodsTypeId},#{strGoodsTypeName},#{dEnterPrice},#{dSalePrice},#{iStock},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime})</insert>
+insert into tb_goods(strGoodsId,strGoodsBarCode,strUnitId,strUnitName,strGoodsName,strGoodsTypeId,strGoodsTypeName,strSupplierName,iRequiredIntegral,dEnterPrice,dSalePrice,iStock,iPreferentialType,iState,txtGoodsDesc,txtGoodsDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime)
+ values(#{strGoodsId},#{strGoodsBarCode},#{strUnitId},#{strUnitName},#{strGoodsName},#{strGoodsTypeId},#{strGoodsTypeName},#{strSupplierName},#{iRequiredIntegral},#{dEnterPrice},#{dSalePrice},#{iStock},#{iPreferentialType},#{iState},#{txtGoodsDesc},#{txtGoodsDescDetail},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime})
+</insert>
 
 
 
@@ -19,23 +20,21 @@ delete from tb_goods where strGoodsId=#{strGoodsId}
 
 <!-- 更新tb_goods记录 -->
 <update id="updateGoodsInfo" parameterType="com.ecard.entity.GoodsInfoEntity">
-update tb_goods set strGoodsName=#{strGoodsName},strGoodsTypeId=#{strGoodsTypeId},strGoodsTypeName=#{strGoodsTypeName},dEnterPrice=#{dEnterPrice},dSalePrice=#{dSalePrice},iStock=#{iStock},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strUpdateTime=#{strUpdateTime}
+update tb_goods set strGoodsBarCode=#{strGoodsBarCode},strUnitId=#{strUnitId},strUnitName=#{strUnitName},strGoodsName=#{strGoodsName},strGoodsTypeId=#{strGoodsTypeId},strGoodsTypeName=#{strGoodsTypeName},strSupplierName=#{strSupplierName},iRequiredIntegral=#{iRequiredIntegral},dEnterPrice=#{dEnterPrice},dSalePrice=#{dSalePrice},iStock=#{iStock},iPreferentialType=#{iPreferentialType},iState=#{iState},txtGoodsDesc=#{txtGoodsDesc},txtGoodsDescDetail=#{txtGoodsDescDetail},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strInsertTime=#{strInsertTime},strUpdateTime=#{strUpdateTime}
  where strGoodsId=#{strGoodsId}
 </update>
 
 
-
 <!-- 获取单条记录 -->
 <select id="getGoodsInfo" parameterType="string" resultType="com.ecard.entity.GoodsInfoEntity">
-select strGoodsId,strGoodsName,strGoodsTypeId,strGoodsTypeName,dEnterPrice,dSalePrice,iStock,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_goods
+select strGoodsId,strGoodsBarCode,strUnitId,strUnitName,strGoodsName,strGoodsTypeId,strGoodsTypeName,strSupplierName,iRequiredIntegral,dEnterPrice,dSalePrice,iStock,iPreferentialType,iState,txtGoodsDesc,txtGoodsDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_goods
 where strGoodsId=#{strGoodsId}
 </select>
 
 
-
 <!-- 分页获取记录 -->
 <select id="getListGoodsInfo"  parameterType="map" resultType="com.ecard.entity.GoodsInfoEntity">
-select strGoodsId,strGoodsName,strGoodsTypeId,strGoodsTypeName,dEnterPrice,dSalePrice,iStock,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_goods 
+select strGoodsId,strGoodsBarCode,strUnitId,strUnitName,strGoodsName,strGoodsTypeId,strGoodsTypeName,strSupplierName,iRequiredIntegral,dEnterPrice,dSalePrice,iStock,iPreferentialType,iState,txtGoodsDesc,txtGoodsDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime from tb_goods 
 limit #{pageFrom},#{pageSize}
 </select>
 
@@ -47,10 +46,33 @@ select count(strGoodsId) from tb_goods
 </select>
 
  
- <!-- 获取tb_goods总记录数 -->
+ <!-- 获取tb_goods中某种类型商品总记录数 -->
 <select id="getGoodsInfoCountByGoodsType"  parameterType="string" resultType="int">
 select count(strGoodsId) from tb_goods where strGoodsTypeId=#{strGoodsTypeId}
 </select>
 
+
+
+
+
+<!-- 新增一条tb_goodspreferential_mapping记录 -->
+<insert id="insertGoodsPreferential" parameterType="com.ecard.entity.GoodsPreferentialEntity">
+insert into tb_goodspreferential_mapping(strPreferentialId,strGoodsId,strGoodsName,strLevelsId,strLevelsName,iRequiredIntegral,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime)
+ values(#{strPreferentialId},#{strGoodsId},#{strGoodsName},#{strLevelsId},#{strLevelsName},#{iRequiredIntegral},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime})
+</insert>
+
+<!-- 更新tb_goodspreferential_mapping记录 -->
+<update id="updateGoodsPreferential" parameterType="com.ecard.entity.GoodsPreferentialEntity">
+update tb_goodspreferential_mapping set strGoodsId=#{strGoodsId},strGoodsName=#{strGoodsName},strLevelsId=#{strLevelsId},strLevelsName=#{strLevelsName},iRequiredIntegral=#{iRequiredIntegral},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeLoginName=#{strEmployeeLoginName},strUpdateTime=#{strUpdateTime}
+ where strPreferentialId=#{strPreferentialId}
+</update>
+
+
+<!-- 根据商品ID获取会员优惠记录 -->
+<select id="getGoodsPreferentialByGoodsId"  parameterType="string" resultType="com.ecard.entity.GoodsPreferentialEntity">
+select strPreferentialId,strGoodsId,strGoodsName,strLevelsId,strLevelsName,iRequiredIntegral,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime 
+from tb_goodspreferential_mapping 
+where strGoodsId=#{strGoodsId}
+</select>
 
 </mapper>

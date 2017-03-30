@@ -137,9 +137,6 @@ public class CashierConfigService {
 			Map<String, Object> queryMap) throws Exception {
 		return tCashierConfigMapper.getMeasurementUnitList(queryMap);
 	}
-
-	
-	
 	
 	
 	// 获取一条GoodsTypeConfigEntity记录
