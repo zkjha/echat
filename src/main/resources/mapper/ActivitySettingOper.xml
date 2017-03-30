@@ -16,4 +16,28 @@ select strValidBeginTime,strValidEndTime,iIsValid,strReserved from tb_integralcl
 where 1=1
 </select>
 
+
+<!-- 更新tb_storedticket_rule记录 -->
+<update id="updateStoredticketRule" parameterType="com.ecard.entity.StoredticketRuleEntity">
+update tb_storedticket_rule set strTicketName=#{strTicketName},iTicketType=#{iTicketType},strValidEndTime=#{strValidEndTime},iIsValid=#{iIsValid},strTicketRuleDesc=#{strTicketRuleDesc},strReserved=#{strReserved}
+ where strTicketId=#{strTicketId}
+</update>
+
+
+<!-- 充值券规则操作 -->
+<!-- 获取单条充值券规则记录 -->
+<select id="getStoredticketRule" parameterType="string" resultType="com.ecard.entity.StoredticketRuleEntity">
+select strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved from tb_storedticket_rule
+where strTicketId=#{strTicketId}
+</select>
+
+
+<!-- 获取所有充值券规则记录 -->
+<select id="getListStoredticketRule" resultType="com.ecard.entity.StoredticketRuleEntity">
+select strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved 
+from tb_storedticket_rule 
+where 1=1
+</select>
+
+
 </mapper>

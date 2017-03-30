@@ -7,6 +7,8 @@
  */
 package com.ecard.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegralclearRuleEntity;
+import com.ecard.entity.StoredticketRuleEntity;
 import com.ecard.mapper.ActivitySettingMapper;
 
 /**
@@ -42,5 +45,21 @@ public class ActivitySettingService {
 	    }
 	    return DataTool.constructResponse(ResultCode.OK,"修改成功", null);
 	}
-
+	
+	// 更新一条储值卡规则信息
+	@Transactional(rollbackFor=Exception.class)
+	public String updateStoredticketRule(StoredticketRuleEntity tStoredticketRuleEntity) throws Exception{
+		int iAffectNum = tActivitySettingMapper.updateStoredticketRule(tStoredticketRuleEntity);
+	    if (0 == iAffectNum)
+	    {
+	        return DataTool.constructResponse(ResultCode.NO_DATA, "数据记录ID不存在", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"修改成功", null);
+	}
+	
+	// 查询所有储值卡规则信息
+	@Transactional(rollbackFor=Exception.class)
+	public List<StoredticketRuleEntity> getListStoredticketRule() throws Exception{
+	    return tActivitySettingMapper.getListStoredticketRule();
+	}
 }

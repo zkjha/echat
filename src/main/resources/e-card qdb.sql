@@ -572,47 +572,20 @@ DROP TABLE IF EXISTS tb_storedticket_rule;
 CREATE TABLE tb_storedticket_rule
 (
   strTicketId               VARCHAR(50) NOT NULL,       -- 主键
-  strTicketName             VARCHAR(50) NOT NULL,       -- 处置券名称
-  dTicketAmount             DECIMAL(11,2) DEFAULT 0.00, -- 储值券金额
+  strTicketName             VARCHAR(50) NOT NULL,       -- 储值券名称
   iTicketType               int default 0,              -- 储值券类型  0 售后储值 1 现金储值 
-  strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间
+  strValidEndTime           VARCHAR(50) default '',     -- 有效期截止时间  只有售后充值才有有效期 售后充值就是赠送给用户的
   iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
-  strTicketRuleDesc         VARCHAR(500) NOT NULL,      -- 储值券使用规则描述                       
+  strTicketRuleDesc         VARCHAR(1024) NOT NULL,     -- 储值券使用规则描述                       
   strReserved               VARCHAR(500) NULL,          -- 预留字段
   PRIMARY KEY (strTicketId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxStoreTicketOnEndTime on tb_storedticket_rule(strValidEndTime);
 create index indxStoreTicketOnId on tb_storedticket_rule(strTicketId);
-insert into tb_storedticket_rule(strTicketId,strTicketName,dTicketAmount,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
-values('100001','售后储值','0',0,'2099-03-01 00:00:00',0,'此券不能转让,不能流通销售','');
-insert into tb_storedticket_rule(strTicketId,strTicketName,dTicketAmount,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
-values('100002','现金储值','0',1,'2099-03-01 00:00:00',0,'此券不能转让,不能流通销售','');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+values('100001','售后储值',0,'2099-03-01 00:00:00',0,'No desc','');
+insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+values('100002','现金储值',1,'',0,'No desc','');
 
 
 
