@@ -588,4 +588,49 @@ insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidE
 values('100002','现金储值',1,'',0,'No desc','');
 
 
+-- ==============================================================
+-- Table: tb_voucherticket_rule               【抵用券规则信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_voucherticket_rule;
+CREATE TABLE tb_voucherticket_rule
+(
+  strVoucherTicketId        VARCHAR(50) NOT NULL,       -- 主键
+  strVoucherTicketName      VARCHAR(50) NOT NULL,       -- 储值券名称
+  strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间  
+  iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
+  iCanUseCount              int default 1,              -- 可使用次数
+  strUseCountDesc           VARCHAR(50) default '',     -- 使用次数描述
+  strRuleDesc               VARCHAR(1024)  NULL,        -- 储值券使用规则描述                       
+  strReserved               VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strVoucherTicketId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxVoucherTicketOnEndTime on tb_voucherticket_rule(strValidEndTime);
+create index indxVoucherTicketOnName on tb_voucherticket_rule(strVoucherTicketName);
+
+
+-- ==============================================================
+-- Table: tb_voucherticket_useinfo               【抵用券领用及使用信息】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_voucherticket_useinfo;
+CREATE TABLE tb_voucherticket_useinfo
+(
+  strVoucherUseInfoId       VARCHAR(50) NOT NULL,       -- 主键
+  strVoucherTicketId        VARCHAR(50) NOT NULL,       -- 抵用券ID
+  strVoucherTicketName      VARCHAR(50) NOT NULL,       -- 储值券名称
+  strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间  
+  strMemberId               VARCHAR(50) NOT NULL,       -- 领用会员ID	
+  strMemberName             VARCHAR(50) NOT NULL,       -- 领用会员姓名 
+  iCanUseCount              int default 1,              -- 可使用次数
+  iUsedCount                int default 0,              -- 已经使用次数
+  iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
+  strUseCountDesc           VARCHAR(50) default '',     -- 使用次数描述
+  strRuleDesc               VARCHAR(1024)  NULL,        -- 储值券使用规则描述                       
+  strReserved               VARCHAR(500) NULL,          -- 预留字段
+  PRIMARY KEY (strVoucherUseInfoId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxVoucherTicketUseInfoOnEndTime on tb_voucherticket_useinfo(strValidEndTime);
+create index indxVoucherTicketUseInfoOnId on tb_voucherticket_useinfo(strVoucherTicketId);
+create index indxVoucherTicketUseInfoMemberId on tb_voucherticket_useinfo(strMemberId);
+
+
 

@@ -40,4 +40,53 @@ where 1=1
 </select>
 
 
+
+<!-- 抵用券信息操作 -->
+<!-- 新增一条tb_voucherticket_rule记录 -->
+<insert id="insertVoucherticketRule" parameterType="com.ecard.entity.VoucherticketRuleEntity">
+insert into tb_voucherticket_rule(strVoucherTicketId,strVoucherTicketName,strValidEndTime,iIsValid,iCanUseCount,strUseCountDesc,strRuleDesc,strReserved)
+ values(#{strVoucherTicketId},#{strVoucherTicketName},#{strValidEndTime},#{iIsValid},#{iCanUseCount},#{strUseCountDesc},#{strRuleDesc},#{strReserved})
+</insert>
+
+
+
+<!-- 删除单条tb_voucherticket_rule记录 -->
+<delete id="deleteVoucherticketRuleById" parameterType="string">
+delete from tb_voucherticket_rule where strVoucherTicketId=#{strVoucherTicketId}
+</delete>
+
+
+
+<!-- 更新tb_voucherticket_rule记录 -->
+<update id="updateVoucherticketRule" parameterType="com.ecard.entity.VoucherticketRuleEntity">
+update tb_voucherticket_rule set strVoucherTicketName=#{strVoucherTicketName},strValidEndTime=#{strValidEndTime},iIsValid=#{iIsValid},iCanUseCount=#{iCanUseCount},strUseCountDesc=#{strUseCountDesc},strRuleDesc=#{strRuleDesc},strReserved=#{strReserved}
+ where strVoucherTicketId=#{strVoucherTicketId}
+</update>
+
+
+<!-- 获取单条记录 -->
+<select id="getVoucherticketRule" parameterType="string" resultType="com.ecard.entity.VoucherticketRuleEntity">
+select strVoucherTicketId,strVoucherTicketName,strValidEndTime,iIsValid,iCanUseCount,strUseCountDesc,strRuleDesc,strReserved from tb_voucherticket_rule
+where strVoucherTicketId=#{strVoucherTicketId}
+</select>
+
+
+<!-- 分页获取抵用券记录 -->
+<select id="getListVoucherticketRule"  parameterType="map" resultType="com.ecard.entity.VoucherticketRuleEntity">select strVoucherTicketId,strVoucherTicketName,strValidEndTime,iIsValid,iCanUseCount,strUseCountDesc,strRuleDesc,strReserved from tb_voucherticket_rule 
+limit #{pageFrom},#{pageSize}
+</select>
+
+
+
+<!-- 获取tb_voucherticket_rule总记录数 -->
+<select id="getVoucherticketRuleTotalCount"  parameterType="map" resultType="int">
+select count(strVoucherTicketId) from tb_voucherticket_rule
+</select>
+
+<!-- 查询某条tb_voucherticket_rule记录是否存在 -->
+<select id="isVoucherticketRuleExists"  parameterType="string" resultType="int">
+select count(strVoucherTicketId) from tb_voucherticket_rule where strVoucherTicketId=#{strVoucherTicketId}
+</select>
+
+
 </mapper>
