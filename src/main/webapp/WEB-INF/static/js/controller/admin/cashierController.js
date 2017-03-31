@@ -81,7 +81,6 @@ define(
                     $scope.showConfirm("确认要删除" +strGoodsTypeName+"？",function(rs){
                         //调用删除拓展资料函数
                         if(rs){
-                        	console.info(rs)
                             cashierCtrl.delGoodsType(strGoodsTypeId,$scope, $http);
                         }
 
@@ -100,7 +99,6 @@ define(
                         var code = rs.code;
                         var data = rs.data;
                         var goodsTypes = data.goodsType;
-						console.info(data)
                         if (code == 1) {
 							angular.forEach(goodsTypes,function(val,key){
 								$scope.goodsTypeList[key] = val;
@@ -222,11 +220,9 @@ define(
                 };
                 $http.post(remoteUrl.delGoodsType,data).then(
                     function (result) {
-						console.info(strGoodsTypeId);
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(result)
                         if (code == 1) {
 							
                             window.location.reload();
@@ -264,24 +260,23 @@ define(
                     'pagenum': $scope.currentPage,
                     "pagesize": $scope.pageSize,
                 };
-					console.info(remoteUrl.selGoodsTypeList)
                 $http.post(remoteUrl.selGoodsTypeList, data).then(
                     function (result) {
 						
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(data)
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
                             $scope.pageCount = data.iTotalPage;
                             $scope.goodsTypeList = data.goodsTypeList;
-							console.info( $scope.pageCount)
                             for (var i = 0; i < $scope.goodsTypeList.length; i++) {
                                 $scope.isShowListMenu[i] = false;
                             }
-
+//						//商品管理部分调用
+//						console.info($scope.goodsTypeList[0])
+//							$scope.listGoodsInfoType.strGoodsTypeName = $scope.goodsTypeList[0].strGoodsTypeName;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -386,7 +381,6 @@ define(
                     $scope.showConfirm("确认要删除" +strUnitName+"？",function(rs){
                         //调用删除拓展资料函数
                         if(rs){
-                        	console.info(rs)
                             cashierCtrl.delUnit(strUnitId,$scope, $http);
                         }
 
@@ -405,7 +399,6 @@ define(
                         var code = rs.code;
                         var data = rs.data;
                         var MeasurementUnit = data.MeasurementUnit;
-						console.info(data)
                         if (code == 1) {
                         	angular.forEach(MeasurementUnit,function(val,key){
 								$scope.unitList[key] = val;
@@ -526,11 +519,9 @@ define(
                 };
                 $http.post(remoteUrl.delUnit,data).then(
                     function (result) {
-						console.info(strUnitId)
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(result)
                         if (code == 1) {
 							
                             window.location.reload();
@@ -575,7 +566,6 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(data)
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
@@ -584,7 +574,8 @@ define(
                             for (var i = 0; i < $scope.unitList.length; i++) {
                                 $scope.isShowListMenu[i] = false;
                             }
-
+							//商品管理部分调用
+//							$scope.listGoodsInfoType.strUnitName = $scope.unitList[0].strUnitName;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -625,17 +616,40 @@ define(
                 $scope.pageSize = 5;
                 $scope.isShowListMenu = [];
                 $scope.listGoodsInfo={};
-                
+                $scope.listGoodsInfoType={};
+                //商品管理状态代码
+                $scope.iStateSelect = [{id:1,name:"启用"},{id:0,name:"停用"}];
+                //商品管理状态会员优惠方式代码
+                $scope.iPreferentialTypeSelect = [{id:1,name:"会员等级优惠"},{id:0,name:"无优惠"}]
                 //保存
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
-						//调用修改接口
-						 cashierCtrl.updateGoodsInfo($scope.listGoodsInfo,$scope, $http);
+						var str = "";
+						for(var i =0;i < $scope.listGoodsPreferential.length;i++){
+							$scope.strPreferentialId = $scope.listGoodsPreferential[i].strPreferentialId;
+							$scope.strLevelsId = $scope.listGoodsPreferential[i].strLevelsId;
+							$scope.strLevelsName = $scope.listGoodsPreferential[i].strLevelsName;
+							$scope.iRequiredIntegral = $scope.listGoodsPreferential[i].iRequiredIntegral;
+							str = $scope.strPreferentialId +"," + $scope.strLevelsId +"," + $scope.strLevelsName +"," + $scope.iRequiredIntegral + "|";
+						}
+						//调用修改接口+
+//							$scope.listGoodsInfoType.strGoodsPreferentials = str.join(",");
+						$scope.listGoodsInfoType.strGoodsPreferentials = str;
+						 cashierCtrl.updateGoodsInfo($scope.listGoodsInfoType,$scope, $http);
 					}
 					else{
 						 //调用保存接口
-                   		cashierCtrl.insertGoodsInfo($scope.listGoodsInfo,$scope, $http);
-					}
+//							$scope.listGoodsInfoType.strGoodsPreferentials = str.join(",");
+//						$scope.strLevelsIdBaocun = $scope.strLevelsIdBaocun;
+//						$scope.strLevelsNameBaocun = $scope.strLevelsNameBaocun;
+//						$scope.iRequiredIntegralBaocun = $scope.iRequiredIntegralBaocun;
+//					 	var xinzengStr = $scope.strLevelsIdBaocun +"," + $scope.strLevelsNameBaocun +"," + $scope.iRequiredIntegralBaocun + "|";
+//						$scope.listGoodsInfoType.strGoodsPreferentials = xinzengStr;
+						$scope.listGoodsInfoType.strGoodsPreferentials = "555,555,5555|";
+						console.info($scope.listGoodsInfoType)
+                   		cashierCtrl.insertGoodsInfo($scope.listGoodsInfoType,$scope, $http);
+                   	}
+//					$scope.listGoodsInfoType.strGoodsPreferentials = {};
                    
 
                 };
@@ -644,7 +658,7 @@ define(
                 cashierCtrl.getListGoodsInfoByPage($scope, $http);
                 $scope.onPageChange = function () {
                     // ajax request to load data
-                    $scope.listGoodsInfo = {};
+                    $scope.listGoodsInfoType = {};
                     cashierCtrl.getListGoodsInfoByPage($scope, $http);
 
                 };
@@ -666,21 +680,51 @@ define(
                 };
                 //新建商品点击按钮事件
                 $scope.newExpandinginfo=function(){
-
+                	$scope.shangpinTianjia = true;
+                	$scope.shangpinXiugai = false;
+//              	清空修改查询带来的影响
+//              	$scope.listGoodsPreferential = {};
+//						xinzengStr = $scope.strLevelsIdBaocun +"," + $scope.strLevelsNameBaocun +"," + $scope.iRequiredIntegralBaocun + "|";
+                	
+                	$scope.strLevelsIdBaocun = $scope.strLevelsIdBaocun;
+                	$scope.strLevelsNameBaocun = $scope.strLevelsNameBaocun;
+                	$scope.iRequiredIntegralBaocun = $scope.iRequiredIntegralBaocun;
+                	
                     $scope.showExpandInfoWindow=true;
                     $scope.isAddNewExpand=true;
+                    
+                    $scope.listGoodsInfoType={}
                     //判断执行添加还是修改
                     $scope.typePanduan = false;
+//                  //调用商品查询列表接口
+//                	cashierCtrl.getListGoodsInfoByPage($scope, $http);
+                    //调用商品类型查询列表接口
+                    cashierCtrl.selGoodsTypeList($scope, $http);
+                    //调用计量单位接口
+                    cashierCtrl.selUnitList($scope, $http);
+                    //状态调用-下拉列表
+                    $scope.listGoodsInfoType.iState = $scope.iStateSelect[0].id;
+                    $scope.listGoodsInfoType.iPreferentialType = $scope.iPreferentialTypeSelect[0].id;
+                    
                 };
                 //修改商品点击按钮事件
                 $scope.updataExpand=function(strGoodsId){
-
+                	$scope.shangpinTianjia = false;
+                	$scope.shangpinXiugai = true;
+                	
+                	
                     $scope.showExpandInfoWindow=true;
                     $scope.isAddNewExpand=false;
                     //判断执行添加还是修改
                     $scope.typePanduan = true;
-                    //调用接口-查询详情
+                    //调用接口-商品查询详情
                     cashierCtrl.getGoodsInfo(strGoodsId,$scope, $http);
+                   //调用商品分级优惠接口
+                	cashierCtrl.getListGoodsPreferentialByGoodsId(strGoodsId,$scope, $http);
+                    //调用商品类型查询列表接口
+                    cashierCtrl.selGoodsTypeList($scope, $http);
+                    //调用计量单位接口
+                    cashierCtrl.selUnitList($scope, $http);
                 };
                 //删除商品
                 $scope.delectExpand=function(strGoodsId,strGoodsName){
@@ -688,7 +732,6 @@ define(
                     $scope.showConfirm("确认要删除" +strGoodsName+"？",function(rs){
                         //调用删除拓展资料函数
                         if(rs){
-                        	console.info(rs)
                             cashierCtrl.delGoodsInfo(strGoodsId,$scope, $http);
                         }
 
@@ -696,13 +739,51 @@ define(
                 }
 
             },
+            //商品－查询会员分级别优惠信息
+            getListGoodsPreferentialByGoodsId:function(strGoodsId,$scope, $http) {
+
+                var data={"strGoodsId":strGoodsId}
+                $http.post(remoteUrl.getListGoodsPreferentialByGoodsId, data).then(
+                    function (result) {
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                       
+                        if (code == 1) {
+                        	$scope.listGoodsPreferential = data.listGoodsPreferential;
+								
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+             ,
             //查询商品详情
             getGoodsInfo:function(strGoodsId,$scope, $http) {
 
                 var data={"strGoodsId":strGoodsId}
                 $http.post(remoteUrl.getGoodsInfo, data).then(
                     function (result) {
- 						console.info(result)
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
@@ -711,8 +792,12 @@ define(
 						
                         if (code == 1) {
                         	angular.forEach(GoodsInfo,function(val,key){
-								$scope.listGoodsInfo[key] = val;
+								$scope.listGoodsInfoType[key] = val;
 							})
+//                      	$scope.listGoodsInfoType.strGoodsBarCode = GoodsInfo.strGoodsBarCode;
+                        	//状态调用-下拉列表
+		                    $scope.listGoodsInfoType.iState = $scope.iStateSelect[GoodsInfo.iState].id;
+		                    $scope.listGoodsInfoType.iPreferentialType = $scope.iPreferentialTypeSelect[GoodsInfo.iPreferentialType].id;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -747,7 +832,7 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-
+                        console.info(result)
                         if (code == 1) {
 
                             $scope.showAlert("保存成功",function(){
@@ -788,7 +873,7 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-
+                        console.info(result)
                         if (code == 1) {
 
                             $scope.showAlert("保存成功",function(){
@@ -804,8 +889,8 @@ define(
                         } else if (code <= -2 && code >= -7) {
                             //必填字段未填写
                             $scope.showAlert(rs.msg);
-                        } else if (code == -8) {
-
+                        } else if (code <= -8) {
+							$scope.showAlert(rs.msg);
                         }
 
                     }, function (result) {
@@ -829,11 +914,9 @@ define(
                 };
                 $http.post(remoteUrl.delGoodsInfo,data).then(
                     function (result) {
-						console.info(strGoodsId)
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(result)
                         if (code == 1) {
 							
                             window.location.reload();
@@ -878,7 +961,6 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(data)
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
@@ -887,7 +969,7 @@ define(
                             for (var i = 0; i < $scope.listGoodsInfo.length; i++) {
                                 $scope.isShowListMenu[i] = false;
                             }
-
+							
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -987,7 +1069,6 @@ define(
                     $scope.showConfirm("确认要删除" +strServiceTypeName+"？",function(rs){
                         //调用删除拓展资料函数
                         if(rs){
-                        	console.info(rs)
                             cashierCtrl.delServiceType(strServiceTypeId,$scope, $http);
                         }
 
@@ -1006,7 +1087,6 @@ define(
                         var code = rs.code;
                         var data = rs.data;
                         var ServiceType = data.ServiceType;
-						console.info(data)
                         if (code == 1) {
 							angular.forEach(ServiceType,function(val,key){
 								$scope.listServiceType[key] = val;
@@ -1126,13 +1206,11 @@ define(
                 var data = {
                     'strServiceTypeId': strServiceTypeId
                 };
-                console.info(strServiceTypeId);
                 $http.post(remoteUrl.delServiceType,data).then(
                     function (result) {
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(result)
                         if (code == 1) {
 							
                             window.location.reload();
@@ -1177,13 +1255,11 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-						console.info(data)
                         //code=-8;
                         if (code == 1) {
                             //图片跟路径
                             $scope.pageCount = data.iTotalPage;
                             $scope.listServiceType = data.listServiceType;
-							console.info( $scope.pageCount)
                             for (var i = 0; i < $scope.listServiceType.length; i++) {
                                 $scope.isShowListMenu[i] = false;
                             }
@@ -1221,7 +1297,6 @@ define(
             		'strGoodsId': "fcd7c396a09147e0b124976e9e224a1b"
             	}
             	$http.post(remoteUrl.getGoodsInfo,data).then(function(result){
-            		console.info(result)
             	},function(){
             		
             	})

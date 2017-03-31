@@ -114,6 +114,8 @@ define([],function(){
 			selGoodsTypeDetail:"/admin/biz/Cashier/selGoodsTypeDetail",
 			//商品－修改
 			updateGoodsInfo:"/admin/biz/goods/updateGoodsInfo",
+			//商品－查询会员分级别优惠信息
+			getListGoodsPreferentialByGoodsId:"/admin/biz/goods/getListGoodsPreferentialByGoodsId",
 			//商品－分页查询
 			getListGoodsInfoByPage:"/admin/biz/goods/getListGoodsInfoByPage",
 			//商品－删除
@@ -140,6 +142,8 @@ define([],function(){
 			delServiceInfo:"/admin/biz/Service/delServiceInfo",
 			//服务项目－增加
 			insertServiceInfo:"/admin/biz/Service/insertServiceInfo",
+			//服务项目－分级别优惠列表
+			getListServicePreferentialByServiceId:"/admin/biz/Service/getListServicePreferentialByServiceId",
 			//服务项目－查询详情
 			getServiceInfo:"/admin/biz/Service/getServiceInfo",
 			//计量单位－修改

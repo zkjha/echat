@@ -69,26 +69,150 @@
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增拓展信息</div>
-                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+                <div class="fl" ng-switch-default>新增商品信息</div>
+                <div class="fl" ng-switch-when="false">修改商品信息</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
-        <div class="-lpy-alert-window-main-content ">
-
+        <div class="-lpy-alert-window-main-content " >
             <div class="-lpy-edit-staff-content">
 
                 <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
-                        <div class=" w300 center">
-
-                           
-
-
-                        </div>
+                    	<table border="0" class="zjl-goodsAdmmin-table">
+                    		<tr>
+                    			<td>
+                    				<span class="red-require">*</span> 编号条码:
+                    				<input type="text" ng-value="listGoodsInfoType.strGoodsBarCode" name="strInformationname"   ng-model="listGoodsInfoType.strGoodsBarCode" ngTrim="true" required/>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 类别:
+                    				<select ng-model="listGoodsInfoType.strGoodsTypeName" ng-options="goodsTypeList.strGoodsTypeName as goodsTypeList.strGoodsTypeName for goodsTypeList in goodsTypeList"></select>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 单位:
+                    				<select ng-model="listGoodsInfoType.strUnitName" ng-options="unitList.strUnitName as unitList.strUnitName for unitList in unitList"></select>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 状态:
+                    				<select ng-model="listGoodsInfoType.iState" ng-options="iStateSelect.id as iStateSelect.name for iStateSelect in iStateSelect"></select>
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<td>
+                    				<span class="red-require">*</span> 商品单位ID:
+                    				<input type="text" ng-value="listGoodsInfoType.strUnitId" name="strInformationname"   ng-model="listGoodsInfoType.strUnitId" ngTrim="true" required/>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 商品名称:
+                    				<input type="text" ng-value="listGoodsInfoType.strGoodsName" name="strInformationname"   ng-model="listGoodsInfoType.strGoodsName" ngTrim="true" required/>
+                    			</td>
+                    			<td colspan="2">
+                    				<span class="red-require">*</span> 商品类型Id:
+                    				<select ng-model="listGoodsInfoType.strGoodsTypeId" ng-options="goodsTypeList.strGoodsTypeId as goodsTypeList.strGoodsTypeId for goodsTypeList in goodsTypeList"></select>
+                    				<!--<input type="text" ng-value="listGoodsInfoType.strGoodsTypeId" name="strInformationname"   ng-model="listGoodsInfoType.strGoodsTypeId" ngTrim="true" required/>-->
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<td>
+                    				<span class="red-require">*</span> 库存:
+                    				<input type="text" ng-value="listGoodsInfoType.iStock" name="strInformationname"   ng-model="listGoodsInfoType.iStock" ngTrim="true" required/>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 图文描述:
+                    				<input type="text" ng-value="listGoodsInfoType.txtGoodsDesc" name="strInformationname"   ng-model="listGoodsInfoType.txtGoodsDesc" ngTrim="true" required/>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span>详细描述:
+                    				<input type="text" ng-value="listGoodsInfoType.txtGoodsDescDetail" name="strInformationname"   ng-model="listGoodsInfoType.txtGoodsDescDetail" ngTrim="true" required/>
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<td colspan="4"><input type="radio" name="" id="" value="" />系统自动生成<span class="red-require">！</span></td>
+                    		</tr>
+                    		<tr>
+                    			<td>
+                    				<!--<span class="red-require">*</span>服务名称:
+                    				<input type="text" ng-value="unitList.strUnitDesc" name="strInformationname"   ng-model="unitList.strUnitDesc" ngTrim="true" ng-maxlength="8" required/>-->
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 售价:
+                    				<input type="text" ng-value="listGoodsInfoType.dSalePrice" name="strInformationname"   ng-model="listGoodsInfoType.dSalePrice" ngTrim="true" ng-maxlength="8" required/>
+                    			</td>
+                    			<td colspan="2">
+                    				<span class="red-require">*</span> 会员优惠方式:
+                    				<select ng-model="listGoodsInfoType.iPreferentialType" ng-options="iPreferentialTypeSelect.id as iPreferentialTypeSelect.name for iPreferentialTypeSelect in iPreferentialTypeSelect"></select>
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<td>
+                    				<span class="red-require">*</span> 所需积分:
+                    				<input type="text" ng-value="listGoodsInfoType.iRequiredIntegral" name="strInformationname"   ng-model="listGoodsInfoType.iRequiredIntegral" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    			<td>
+                    				<span class="red-require">*</span> 进价:
+                    				<input type="text" ng-value="listGoodsInfoType.dEnterPrice" name="strInformationname"   ng-model="listGoodsInfoType.dEnterPrice" ngTrim="true" ng-maxlength="8" required/>
+                    			</td>
+                    			<td colspan="2">
+                    				<span class="red-require">*</span> 供应商名称:
+                    				<input type="text" ng-value="listGoodsInfoType.strSupplierName" name="strInformationname"   ng-model="listGoodsInfoType.strSupplierName" ngTrim="true" ng-maxlength="8" required/>
+                    			</td>
+                    		</tr>
+                    	</table>
+                    	<div style="border-bottom: 1px solid #C6C6C6;margin-top: 10px;"></div>
+                    	<div class="zjl-goodsAdmmin-cutdown">
+                    		分级别优惠
+                    	</div>
+                    	<table border="0" class="zjl-goodsAdmmin-tableOne">
+                    		<tr class="zjl-goodsAdmmin-tableOne-tr" >
+                    			<td>序号</td>
+                    			<td>会员级别</td>
+                    			<td>优惠方式</td>
+                    			<td>所需积分</td>
+                    		</tr>
+                    		<tr ng-if="shangpinTianjia">
+                    			<td>{{$index+1}}</td>
+                    			<td>
+                    				<input type="text" ng-value="strLevelsIdBaocun" name="strInformationname"   ng-model="strLevelsIdBaocun" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    			<td>
+                    				<input type="text" ng-value="strLevelsNameBaocun" name="strInformationname"   ng-model="strLevelsNameBaocun" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    			<td>
+                    				<input type="text" ng-value="iRequiredIntegralBaocun" name="strInformationname"   ng-model="iRequiredIntegralBaocun" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    		</tr>
+                    		<tr ng-repeat="listGoodsPreferential in listGoodsPreferential" ng-if="shangpinXiugai">
+                    			<td>{{$index+1}}</td>
+                    			<td>
+                    				<input type="text" ng-value="listGoodsPreferential.strLevelsId" name="strInformationname"   ng-model="listGoodsPreferential.strLevelsId" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    			<td>
+                    				<input type="text" ng-value="listGoodsPreferential.strLevelsName" name="strInformationname"   ng-model="listGoodsPreferential.strLevelsName" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    			<td>
+                    				<input type="text" ng-value="listGoodsPreferential.iRequiredIntegral" name="strInformationname"   ng-model="listGoodsPreferential.iRequiredIntegral" ngTrim="true" ng-maxlength="15" required/>
+                    			</td>
+                    		</tr>
+                    	</table>
+                    	<div class="zjl-goodsAdmmin-cutdown">
+                    		图文编辑
+                    	</div>
+                    	<!--意思意思的图文编辑代码拷贝-->
+                    	<!--自定区域  -->
+						<div class="edit-merchant-info-container zjl-goodsAdmmin-chajian">
+							<div class="all">
+						        <script type="text/html" style="margin:auto;height:300px;width:100%;" ng-model="strContent" meta-umeditor
+						                meta-umeditor-config='config'
+						                meta-umeditor-placeholder="请输入前端显示信息">
+						        </script>
+						        <div class="h20"></div>
+						        <div class="-lpy-div-subbmit "><a class="small-btn small-btn-default  center " ng-click="saveFrontinfo()">保存</a></div>
+						    </div>
+						</div>
+						<!--意思意思的图文编辑代码拷贝完成-->
                         <div class="mt10"></div>
                     </div>
-
                     <div class="w150 center ">
                         <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
                     </div>
