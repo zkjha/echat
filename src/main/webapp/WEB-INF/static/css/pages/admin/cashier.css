@@ -2,52 +2,52 @@
  
  * 样式管理
  * */
-.zjl-goodsAdmmin-table{
+.zjl-common-table{
 	width: 580px;
 	margin: 0 auto;
 }
-.zjl-goodsAdmmin-table tr td{
+.zjl-common-table tr td{
 	padding: 5px 0px;
 }
-.zjl-goodsAdmmin-table tr td [type =text]{
+.zjl-common-table tr td [type =text]{
 	width: 100px;
 }
-.zjl-goodsAdmmin-table tr td select{
+.zjl-common-table tr td select{
 	border-radius: 5px;
 	height: 18px;
 }
-.zjl-goodsAdmmin-cutdown{
+.zjl-common-cutdown{
 	padding-left: 5px;
 	border-bottom: 1px dashed #C6C6C6;
 	line-height: 25px;
 	margin-bottom: 5px;
 }
-.zjl-goodsAdmmin-tableOne{
+.zjl-common-tableOne{
 	width: 100%;
 	text-align: center;
 }
-.zjl-goodsAdmmin-tableOne tr td{
+.zjl-common-tableOne tr td{
 	padding: 5px 0px;
 	width: 125px;
 }
-.zjl-goodsAdmmin-tableOne tr td input{
+.zjl-common-tableOne tr td input{
 	width: 100px;
 }
-.zjl-goodsAdmmin-tableOne tr{
+.zjl-common-tableOne tr{
 	border-bottom: 1px solid #C6C6C6;
 }
-.zjl-goodsAdmmin-tableOne-tr{
+.zjl-common-tableOne-tr{
 	background-color: #C6C6C6;
 }
-.zjl-goodsAdmmin-tableOne-tr td{
+.zjl-common-tableOne-tr td{
 	color: white;
 }
 .edui-container{
 	width: 580px !important;
 }
-/*.zjl-goodsAdmmin-chajian .all .edui-btn-toolbar{
+/*.zjl-common-chajian .all .edui-btn-toolbar{
 	width: 500px;
 }
-.zjl-goodsAdmmin-chajian .all .edui-btn-toolbar .edui-editor-body{
+.zjl-common-chajian .all .edui-btn-toolbar .edui-editor-body{
 	width: 500px;
 }*/

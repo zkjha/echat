@@ -620,7 +620,19 @@ define(
                 //商品管理状态代码
                 $scope.iStateSelect = [{id:1,name:"启用"},{id:0,name:"停用"}];
                 //商品管理状态会员优惠方式代码
-                $scope.iPreferentialTypeSelect = [{id:1,name:"会员等级优惠"},{id:0,name:"无优惠"}]
+                $scope.iPreferentialTypeSelect = [{id:1,name:"会员等级优惠"},{id:0,name:"无优惠"}];
+                //改变商品类型改变商品类型id
+                	$scope.shoopClass = function(){
+                		var baocun = $scope.listGoodsInfoType.strGoodsTypeName;
+                		for(var i = 0; i < $scope.goodsTypeList.length;i ++ ){
+                			console.info(i)
+                			if( baocun == $scope.goodsTypeList[i].strGoodsTypeName){
+                				$scope.listGoodsInfoType.strGoodsTypeId = $scope.goodsTypeList[i].strGoodsTypeId;
+                			}
+                			
+                		}
+                		
+                	}
                 //保存
                 $scope.submitExpandinfo=function(){
 					if($scope.typePanduan){
@@ -633,25 +645,20 @@ define(
 							str = $scope.strPreferentialId +"," + $scope.strLevelsId +"," + $scope.strLevelsName +"," + $scope.iRequiredIntegral + "|";
 						}
 						//调用修改接口+
-//							$scope.listGoodsInfoType.strGoodsPreferentials = str.join(",");
 						$scope.listGoodsInfoType.strGoodsPreferentials = str;
-						 cashierCtrl.updateGoodsInfo($scope.listGoodsInfoType,$scope, $http);
+						cashierCtrl.updateGoodsInfo($scope.listGoodsInfoType,$scope, $http);
 					}
 					else{
-						 //调用保存接口
-//							$scope.listGoodsInfoType.strGoodsPreferentials = str.join(",");
-//						$scope.strLevelsIdBaocun = $scope.strLevelsIdBaocun;
-//						$scope.strLevelsNameBaocun = $scope.strLevelsNameBaocun;
-//						$scope.iRequiredIntegralBaocun = $scope.iRequiredIntegralBaocun;
-//					 	var xinzengStr = $scope.strLevelsIdBaocun +"," + $scope.strLevelsNameBaocun +"," + $scope.iRequiredIntegralBaocun + "|";
-//						$scope.listGoodsInfoType.strGoodsPreferentials = xinzengStr;
-						$scope.listGoodsInfoType.strGoodsPreferentials = "555,555,5555|";
-						console.info($scope.listGoodsInfoType)
+						var xinzengStr = ""
+						for(var i = 0;i < $scope.addAdmincont.length;i++){
+							$scope.strLevelsIdBaocun = $scope.addAdmincont[i].strLevelsIdBaocun;
+							$scope.strLevelsNameBaocun = $scope.addAdmincont[i].strLevelsNameBaocun;
+							$scope.iRequiredIntegralBaocun = $scope.addAdmincont[i].iRequiredIntegralBaocun;
+							xinzengStr = $scope.strLevelsIdBaocun+","+$scope.strLevelsNameBaocun+","+$scope.iRequiredIntegralBaocun+"|";
+						}
+						$scope.listGoodsInfoType.strGoodsPreferentials = xinzengStr;
                    		cashierCtrl.insertGoodsInfo($scope.listGoodsInfoType,$scope, $http);
                    	}
-//					$scope.listGoodsInfoType.strGoodsPreferentials = {};
-                   
-
                 };
 
 
@@ -683,13 +690,23 @@ define(
                 	$scope.shangpinTianjia = true;
                 	$scope.shangpinXiugai = false;
 //              	清空修改查询带来的影响
-//              	$scope.listGoodsPreferential = {};
-//						xinzengStr = $scope.strLevelsIdBaocun +"," + $scope.strLevelsNameBaocun +"," + $scope.iRequiredIntegralBaocun + "|";
                 	
-                	$scope.strLevelsIdBaocun = $scope.strLevelsIdBaocun;
-                	$scope.strLevelsNameBaocun = $scope.strLevelsNameBaocun;
-                	$scope.iRequiredIntegralBaocun = $scope.iRequiredIntegralBaocun;
+                	//增加商品分级别优惠
+                	$scope.addAdmincont = [{
+                		"strLevelsIdBaocun" :"",
+                		"strLevelsNameBaocun" :"",
+                		"iRequiredIntegralBaocun":""
+                	}]
+                	$scope.addAddAdmincont = function(){
+                		$scope.addAdmincont.push({"strLevelsIdBaocun": "","strLevelsNameBaocun" :"","iRequiredIntegralBaocun": ""})
+                	}
+                	$scope.slownAddAdmincont = function(){
+                		if($scope.addAdmincont.length > 1){
+                			$scope.addAdmincont.pop(); 
+                		}
+                	}
                 	
+                	//判断模态框显示影藏
                     $scope.showExpandInfoWindow=true;
                     $scope.isAddNewExpand=true;
                     
@@ -711,6 +728,26 @@ define(
                 $scope.updataExpand=function(strGoodsId){
                 	$scope.shangpinTianjia = false;
                 	$scope.shangpinXiugai = true;
+                	
+                	//增加商品分级别优惠
+//              	$scope.listGoodsPreferential = [{
+//              		"strLevelsId" :"",
+//              		"strLevelsName" :"",
+//              		"iRequiredIntegral":""
+//              	}]
+//              	$scope.xiugaiAddAddAdmincont = function(){
+//              		$scope.listGoodsPreferential.push({"strLevelsId": "","strLevelsName" :"","iRequiredIntegral": ""})
+//              	}
+//              	$scope.xiugaislownAddAdmincont = function(){
+//              		if($scope.listGoodsPreferential.length > 1){
+//              			$scope.listGoodsPreferential.pop(); 
+//              		}
+//              		else{
+//              			$scope.listGoodsPreferential.strLevelsId = "";
+//              			$scope.listGoodsPreferential.strLevelsName = "";
+//              			$scope.listGoodsPreferential.iRequiredIntegral = "";
+//              		}
+//              	}
                 	
                 	
                     $scope.showExpandInfoWindow=true;
@@ -793,7 +830,9 @@ define(
                         if (code == 1) {
                         	angular.forEach(GoodsInfo,function(val,key){
 								$scope.listGoodsInfoType[key] = val;
+								
 							})
+                        	console.info($scope.listGoodsInfoType)
 //                      	$scope.listGoodsInfoType.strGoodsBarCode = GoodsInfo.strGoodsBarCode;
                         	//状态调用-下拉列表
 		                    $scope.listGoodsInfoType.iState = $scope.iStateSelect[GoodsInfo.iState].id;

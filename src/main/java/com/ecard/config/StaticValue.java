@@ -30,7 +30,7 @@ public final class StaticValue {
 	/**
 	 * 文件上传根路径
 	 */
-	public static final String FILE_UPLOAD_URL = "/mnt/picpath/";
+	public static final String FILE_UPLOAD_URL = "d:\\4";
 	/**
 	 * 图片根路径
 	 */
