@@ -1331,11 +1331,445 @@ define(
                     });
             },
             ////////////////////服务分类结束/////////////////////////
+            
+            
+            
+            
+             ////////////////////服务管理开始/////////////////////////
+				serviceAdministrationController:function($scope, $http){
+				console.info(123)
+
+                $scope.currentPage = 1;
+                $scope.pageSize = 5;
+                $scope.isShowListMenu = [];
+                $scope.listServiceInfo={};
+                $scope.listServiceInfoType={};
+                //商品管理状态代码
+                $scope.iStateSelect = [{id:1,name:"启用"},{id:0,name:"停用"}];
+                //商品管理状态会员优惠方式代码
+                $scope.iPreferentialTypeSelect = [{id:1,name:"会员等级优惠"},{id:0,name:"无优惠"}];
+                //改变商品类型改变商品类型id
+                	$scope.shoopClass = function(){
+                		var baocun = $scope.listServiceInfoType.strServiceTypeName;
+                		for(var i = 0; i < $scope.listServiceType.length;i ++ ){
+                			console.info(i)
+                			if( baocun == $scope.listServiceType[i].strServiceTypeName){
+                				$scope.listServiceInfoType.strServiceTypeId = $scope.listServiceType[i].strServiceTypeId;
+                			}
+                			
+                		}
+                		
+                	}
+                //保存
+                $scope.submitExpandinfo=function(){
+					if($scope.typePanduan){
+						var str = "";
+						for(var i =0;i < $scope.listServicePreferentialEntity.length;i++){
+							$scope.strPreferentialId = $scope.listServicePreferentialEntity[i].strPreferentialId;
+							$scope.strLevelsId = $scope.listServicePreferentialEntity[i].strLevelsId;
+							$scope.strLevelsName = $scope.listServicePreferentialEntity[i].strLevelsName;
+							$scope.iRequiredIntegral = $scope.listServicePreferentialEntity[i].iRequiredIntegral;
+							str = $scope.strPreferentialId +"," + $scope.strLevelsId +"," + $scope.strLevelsName +"," + $scope.iRequiredIntegral + "|";
+						}
+						//调用修改接口+
+						$scope.listServiceInfoType.strServicePreferentialInfos = str;
+						cashierCtrl.updateServiceInfo($scope.listServiceInfoType,$scope, $http);
+					}
+					else{
+						var xinzengStr = ""
+						for(var i = 0;i < $scope.addAdmincont.length;i++){
+							$scope.strLevelsIdBaocun = $scope.addAdmincont[i].strLevelsIdBaocun;
+							$scope.strLevelsNameBaocun = $scope.addAdmincont[i].strLevelsNameBaocun;
+							$scope.iRequiredIntegralBaocun = $scope.addAdmincont[i].iRequiredIntegralBaocun;
+							xinzengStr = $scope.strLevelsIdBaocun+","+$scope.strLevelsNameBaocun+","+$scope.iRequiredIntegralBaocun+"|";
+						}
+						$scope.listServiceInfoType.strServicePreferentialInfos = xinzengStr;
+                   		cashierCtrl.insertServiceInfo($scope.listServiceInfoType,$scope, $http);
+                   	}
+                };
+
+
+                cashierCtrl.getListServiceInfo($scope, $http);
+                $scope.onPageChange = function () {
+                    // ajax request to load data
+                    $scope.listServiceInfoType = {};
+                    cashierCtrl.getListServiceInfo($scope, $http);
+
+                };
+
+                $scope.openCtrMenu = function ($index, type) {
+                    for (var i = 0; i < $scope.listServiceInfo.length; i++) {
+                        $scope.isShowListMenu[i] = false;
+                    }
+                    if (type == 'over') {
+                        $scope.isShowListMenu[$index] = !$scope.isShowListMenu[$index];
+                    }
+
+                };
+                //关闭窗口
+                $scope.clostExpandWindow=function(){
+                    $scope.showExpandInfoWindow=false;
+                    $scope.listServiceInfo={};
+                    cashierCtrl.getListServiceInfo($scope, $http);
+                };
+                //新建服务管理点击按钮事件
+                $scope.newExpandinginfo=function(){
+                	$scope.shangpinTianjia = true;
+                	$scope.shangpinXiugai = false;
+//              	清空修改查询带来的影响
+                	
+                	//增加服务管理分级别优惠
+                	$scope.addAdmincont = [{
+                		"strLevelsIdBaocun" :"",
+                		"strLevelsNameBaocun" :"",
+                		"iRequiredIntegralBaocun":""
+                	}]
+                	$scope.addAddAdmincont = function(){
+                		$scope.addAdmincont.push({"strLevelsIdBaocun": "","strLevelsNameBaocun" :"","iRequiredIntegralBaocun": ""})
+                	}
+                	$scope.slownAddAdmincont = function(){
+                		if($scope.addAdmincont.length > 1){
+                			$scope.addAdmincont.pop(); 
+                		}
+                	}
+                	
+                	//判断模态框显示影藏
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=true;
+                    
+                    $scope.listServiceInfoType={}
+                    //判断执行添加还是修改
+                    $scope.typePanduan = false;
+//                  //调用服务管理查询列表接口
+//                	cashierCtrl.getListServiceInfo($scope, $http);
+                    //调用服务管理类型查询列表接口
+                    cashierCtrl.getListServiceType($scope, $http);
+                    //调用计量单位接口
+                    cashierCtrl.selUnitList($scope, $http);
+                    //状态调用-下拉列表
+                    $scope.listServiceInfoType.iState = $scope.iStateSelect[0].id;
+                    $scope.listServiceInfoType.iPreferentialType = $scope.iPreferentialTypeSelect[0].id;
+                    
+                };
+                //修改服务管理点击按钮事件
+                $scope.updataExpand=function(strServiceInfoId){
+                	$scope.shangpinTianjia = false;
+                	$scope.shangpinXiugai = true;
+                	
+                	//增加服务管理分级别优惠
+//              	$scope.listGoodsPreferential = [{
+//              		"strLevelsId" :"",
+//              		"strLevelsName" :"",
+//              		"iRequiredIntegral":""
+//              	}]
+//              	$scope.xiugaiAddAddAdmincont = function(){
+//              		$scope.listGoodsPreferential.push({"strLevelsId": "","strLevelsName" :"","iRequiredIntegral": ""})
+//              	}
+//              	$scope.xiugaislownAddAdmincont = function(){
+//              		if($scope.listGoodsPreferential.length > 1){
+//              			$scope.listGoodsPreferential.pop(); 
+//              		}
+//              		else{
+//              			$scope.listGoodsPreferential.strLevelsId = "";
+//              			$scope.listGoodsPreferential.strLevelsName = "";
+//              			$scope.listGoodsPreferential.iRequiredIntegral = "";
+//              		}
+//              	}
+                	
+                	
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=false;
+                    //判断执行添加还是修改
+                    $scope.typePanduan = true;
+                    //调用接口-服务管理查询详情
+                    cashierCtrl.getServiceInfo(strServiceInfoId,$scope, $http);
+                   //调用服务管理分级优惠接口
+                	cashierCtrl.getListServicePreferentialByServiceId(strServiceInfoId,$scope, $http);
+                    //调用服务管理类型查询列表接口
+                    cashierCtrl.getListServiceType($scope, $http);
+                    //调用计量单位接口
+                    cashierCtrl.selUnitList($scope, $http);
+                };
+                //删除服务管理
+                $scope.delectExpand=function(strServiceInfoId,strServiceTypeName){
+
+                    $scope.showConfirm("确认要删除" +strServiceTypeName+"？",function(rs){
+                        //调用删除拓展资料函数
+                        if(rs){
+                            cashierCtrl.delServiceInfo(strServiceInfoId,$scope, $http);
+                        }
+
+                    })
+                }
+
+            },
+            //服务管理－查询会员分级别优惠信息
+            getListServicePreferentialByServiceId:function(strServiceInfoId,$scope, $http) {
+
+                var data={"strServiceInfoId":strServiceInfoId}
+                $http.post(remoteUrl.getListServicePreferentialByServiceId, data).then(
+                    function (result) {
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                       
+                        if (code == 1) {
+                        	$scope.listServicePreferentialEntity = data.listServicePreferentialEntity;
+								
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+             ,
+            //查询服务管理详情
+            getServiceInfo:function(strServiceInfoId,$scope, $http) {
+
+                var data={"strServiceInfoId":strServiceInfoId}
+                $http.post(remoteUrl.getServiceInfo, data).then(
+                    function (result) {
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                       
+                        var ServiceInfo = data.ServiceInfo;
+						
+                        if (code == 1) {
+                        	angular.forEach(ServiceInfo,function(val,key){
+								$scope.listServiceInfoType[key] = val;
+								
+							})
+                        	console.info($scope.listServiceInfoType)
+//                      	$scope.listServiceInfoType.strGoodsBarCode = GoodsInfo.strGoodsBarCode;
+                        	//状态调用-下拉列表
+		                    $scope.listServiceInfoType.iState = $scope.iStateSelect[ServiceInfo.iState].id;
+		                    $scope.listServiceInfoType.iPreferentialType = $scope.iPreferentialTypeSelect[ServiceInfo.iPreferentialType].id;
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+             ,
+             //修改服务管理
+            updateServiceInfo:function(data,$scope, $http){
+                $http.post(remoteUrl.updateServiceInfo, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        console.info(result)
+                        if (code == 1) {
+
+                            $scope.showAlert("保存成功",function(){
+                                window.location.reload();
+                            });
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                 });
+            }
+            ,
+            //新增服务管理
+            insertServiceInfo:function(data,$scope, $http){
+                $http.post(remoteUrl.insertServiceInfo, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        console.info(result)
+                        if (code == 1) {
+
+                            $scope.showAlert("保存成功",function(){
+                                window.location.reload();
+                            });
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code <= -8) {
+							$scope.showAlert(rs.msg);
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                 });
+            }
+            ,
+            //删除服务管理请求
+            delServiceInfo:function(strServiceInfoId,$scope, $http){
+
+                var data = {
+                    'strServiceInfoId': strServiceInfoId
+                };
+                $http.post(remoteUrl.delServiceInfo,data).then(
+                    function (result) {
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        if (code == 1) {
+							
+                            window.location.reload();
+
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+							$scope.showAlert(rs.msg);	
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            }
+            ,
+            //获取服务管理列表
+            getListServiceInfo: function ($scope, $http) {
+
+                var data = {
+                    'pagenum': $scope.currentPage,
+                    "pagesize": $scope.pageSize,
+                };
+
+                $http.post(remoteUrl.getListServiceInfo, data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        if (code == 1) {
+                            //图片跟路径
+                            $scope.pageCount = data.iTotalPage;
+                            $scope.listServiceInfo = data.listServiceInfo;
+                            for (var i = 0; i < $scope.listServiceInfo.length; i++) {
+                                $scope.isShowListMenu[i] = false;
+                            }
+							
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            ////////////////////服务管理部分结束/////////////////////////
+            
             cont:function($scope, $http){
             	var data = {
-            		'strGoodsId': "fcd7c396a09147e0b124976e9e224a1b"
+            		'strServiceInfoId': "fcd7c396a09147e0b124976e9e224a1b"
             	}
-            	$http.post(remoteUrl.getGoodsInfo,data).then(function(result){
+            	$http.post(remoteUrl.getServiceInfo,data).then(function(result){
             	},function(){
             		
             	})

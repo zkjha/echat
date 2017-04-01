@@ -74,9 +74,14 @@ requirejs(
                 templateUrl: "/static/temp/admin/cashier/serversMeasurement.html",
                 controller:cashierController.goodsMeasurement
                 
+            }).when("/serviceAdministration", {
+                templateUrl: "/static/temp/admin/cashier/serviceAdministration.html",
+                controller:cashierController.serviceAdministrationController
+                
             }).otherwise({
                 redirectTo: "/goodsType"
             });
+            
 
         }]);
 
@@ -96,7 +101,7 @@ requirejs(
 	                 },
 	                 {id:'1',link: '###', name: "服务",hasnext:true,
 	                	 next:[ {id:'serversType',link: '#!/serversType', name: "服务分类",hasnext:false}
-	                	      ,{id:'duty',link: '#!/duty', name: "服务管理",hasnext:false}
+	                	      ,{id:'serviceAdministration',link: '#!/serviceAdministration', name: "服务管理",hasnext:false}
 	                	      ,{id:'serversMeasurement',link: '#!/serversMeasurement', name: "其他设置",hasnext:false}
 	                	      ]
 	                 },
