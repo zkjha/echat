@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecard.mapper.VoucherticketUseInfoMapper">
+
+
+<!-- 新增一条tb_voucherticket_useinfo记录 -->
+<insert id="insertVoucherticketUseInfo" parameterType="com.ecard.entity.VoucherticketUseInfoEntity">
+insert into tb_voucherticket_useinfo(strVoucherUseInfoId,strVoucherTicketId,strVoucherTicketName,strValidEndTime,strMemberId,strMemberName,iStat,iCanUseCount,iUsedCount,iIsValid,strUseCountDesc,strRuleDesc,strReserved)
+ values(#{strVoucherUseInfoId},#{strVoucherTicketId},#{strVoucherTicketName},#{strValidEndTime},#{strMemberId},#{strMemberName},#{iStat},#{iCanUseCount},#{iUsedCount},#{iIsValid},#{strUseCountDesc},#{strRuleDesc},#{strReserved})
+</insert>
+
+
+
+<!-- 删除单条tb_voucherticket_useinfo记录 -->
+<delete id="deleteVoucherticketUseInfoById" parameterType="string">
+delete from tb_voucherticket_useinfo where strVoucherUseInfoId=#{strVoucherUseInfoId}
+</delete>
+
+
+
+<!-- 更新tb_voucherticket_useinfo记录 -->
+<update id="updateVoucherticketUseInfo" parameterType="com.ecard.entity.VoucherticketUseInfoEntity">
+update tb_voucherticket_useinfo set strVoucherTicketId=#{strVoucherTicketId},strVoucherTicketName=#{strVoucherTicketName},strValidEndTime=#{strValidEndTime},strMemberId=#{strMemberId},strMemberName=#{strMemberName},iStat=#{iStat},iCanUseCount=#{iCanUseCount},iUsedCount=#{iUsedCount},iIsValid=#{iIsValid},strUseCountDesc=#{strUseCountDesc},strRuleDesc=#{strRuleDesc},strReserved=#{strReserved}
+ where strVoucherUseInfoId=#{strVoucherUseInfoId}
+</update>
+
+
+<!-- 获取单条记录 -->
+<select id="getVoucherticketUseInfo" parameterType="string" resultType="com.ecard.entity.VoucherticketUseInfoEntity">
+select strVoucherUseInfoId,strVoucherTicketId,strVoucherTicketName,strValidEndTime,strMemberId,strMemberName,iStat,iCanUseCount,iUsedCount,iIsValid,strUseCountDesc,strRuleDesc,strReserved from tb_voucherticket_useinfo
+where strVoucherUseInfoId=#{strVoucherUseInfoId}
+</select>
+
+
+<!-- 分页获取记录 -->
+<select id="getListVoucherticketUseInfo"  parameterType="map" resultType="com.ecard.entity.VoucherticketUseInfoEntity">select strVoucherUseInfoId,strVoucherTicketId,strVoucherTicketName,strValidEndTime,strMemberId,strMemberName,iStat,iCanUseCount,iUsedCount,iIsValid,strUseCountDesc,strRuleDesc,strReserved from tb_voucherticket_useinfo 
+limit #{pageFrom},#{pageSize}
+</select>
+
+<!-- 根据会员ID获取抵用券列表 -->
+<select id="getListVoucherticketUseInfoByMemberId" resultType="com.ecard.entity.VoucherticketUseInfoEntity">
+select strVoucherUseInfoId,strVoucherTicketId,strVoucherTicketName,strValidEndTime,strMemberId,strMemberName,iStat,iCanUseCount,iUsedCount,iIsValid,strUseCountDesc,strRuleDesc,strReserved from tb_voucherticket_useinfo 
+where strMemberId=#{strMemberId} and iStat=#{iStat}
+</select>
+
+
+</mapper>

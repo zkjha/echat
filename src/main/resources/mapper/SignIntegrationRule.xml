@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.SignIntegrationRuleSetMapper">
+<!-- 向sign_integration_rule表中插入签到积分规则 -->
+<insert id="insertSignIntegrationRule" parameterType="com.ecard.entity.SignIntegrationRuleEntity">
+ insert into tb_sign_integration_rule 
+ (strSignId,strSignDays,strStatus,iIntegration,strEnabled,strCreationTime,strLastAccessedTime,strEmployeeId,strEmployeeName,strEmployeeRealName)
+  values 
+ (#{strSignId},#{strSignDays},#{strStatus},#{iIntegration},#{strEnabled},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName})
+</insert>
+<!-- 更新签到签到积分规则表 -->
+<update id="updateSignIntegrationRule" parameterType="com.ecard.entity.SignIntegrationRuleEntity">
+	update tb_sign_integration_rule set strSignDays=#{strSignDays},strStatus=#{strStatus},iIntegration=#{iIntegration},strEnabled=#{strEnabled},
+	strCreationTime=#{strCreationTime},strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName}
+	 where strSignId=#{strSignId}
+</update>
+<!-- 向积分抵现表中插入规则 -->
+<insert id="insertIntegrationCashRule" parameterType="com.ecard.entity.IntegrationCashRuleEntity">
+  insert into tb_integration_cash_rule
+   (strId,iIntegration,dCash,strEnabled,strCreationTime,strLastAccessedTime,strEmployeeId,strEmployeeName,strEmployeeRealName) 
+  values 
+  (#{strId},#{iIntegration},#{dCash},#{strEnabled},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName})
+</insert>
+<!--修改消费积分抵现表 -->
+<update id="updateIntegrationCashRule" parameterType="com.ecard.entity.IntegrationCashRuleEntity">
+update tb_integration_cash_rule set iIntegration=#{iIntegration},dCash=#{dCash},strEnabled=#{strEnabled},
+strCreationTime=#{strCreationTime},strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName} 
+where strId=#{strId}
+</update>
+</mapper>
