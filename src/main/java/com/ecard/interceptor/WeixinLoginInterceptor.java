@@ -24,7 +24,7 @@ public class WeixinLoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		PrintUtil.println("微信登录拦截器");
 		response.setContentType("text/html;charset=UTF-8");
-		String x_requested_with=(String)request.getHeader("x-requested-with");
+		String x_requested_with=request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWeixinSession(request, response);
     	
 		if (session == null) {

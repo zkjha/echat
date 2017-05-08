@@ -620,6 +620,7 @@ CREATE TABLE tb_voucherticket_useinfo
   strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间  
   strMemberId               VARCHAR(50) NOT NULL,       -- 领用会员ID	
   strMemberName             VARCHAR(50) NOT NULL,       -- 领用会员姓名 
+  iStat                     int default 1,              -- 抵用券状态 1未使用 2已使用 3已过期
   iCanUseCount              int default 1,              -- 可使用次数
   iUsedCount                int default 0,              -- 已经使用次数
   iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
@@ -631,6 +632,48 @@ CREATE TABLE tb_voucherticket_useinfo
 create index indxVoucherTicketUseInfoOnEndTime on tb_voucherticket_useinfo(strValidEndTime);
 create index indxVoucherTicketUseInfoOnId on tb_voucherticket_useinfo(strVoucherTicketId);
 create index indxVoucherTicketUseInfoMemberId on tb_voucherticket_useinfo(strMemberId);
+-- -----------------------签到积分表----------------------------------
+-- 表名tb_sign_integration_rule
+-- -------------------------------------------------------------------
+DROP TABLE  IF EXISTS tb_sign_integration_rule;
+CREATE TABLE tb_sign_integration_rule
+(
+strSignId			VARCHAR(50)		NOT NULL,		-- 主键
+strSignDays			VARCHAR(50)		NOT NULL,		-- 签到天数
+strStatus			VARCHAR(5)		DEFAULT '1',	-- 签到状态:1表示连续签到 0表示非连续签到
+iIntegration	 	int,							-- 积分
+strEnabled			VARCHAR(5)		DEFAULT '1',	-- 是否启用：1表示启用 0表示禁用
+strCreationTime		varchar(50)		Not null,		-- 创建规则时间
+strLastAccessedTime varchar(50)		Not Null,		-- 最后一次修改时间
+strEmployeeId		varchar(50)		not null,		-- 登录员工ID
+strEmployeeName		varchar(50)		not null,		-- 登录员工帐号
+strEmployeeRealName varchar(50)		not null,		-- 登录员工姓名
+PRIMARY KEY(strSignId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------消费积分抵现表---------------------------------------------------------------------------------------------------------------------
+-- 表名:tb_integration_cash_rule 消费积分抵现表
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS tb_integration_cash_rule;
+CREATE TABLE tb_integration_cash_rule
+(
+    strId				VARCHAR(50)		NOT NULL,		-- 关键字
+    iIntegration		int,							-- 积分
+    dCash				decimal(11,2)	Not null,		-- 可抵扣现金
+    strEnabled			VARCHAR(5)		DEFAULT '1',	-- 是否启用
+    strCreationTime		varchar(50)		Not null,		-- 创建规则时间
+	strLastAccessedTime varchar(50)		Not Null,		-- 最后一次修改时间
+	strEmployeeId		varchar(50)		not null,		-- 登录员工ID
+	strEmployeeName		varchar(50)		not null,		-- 登录员工帐号
+	strEmployeeRealName varchar(50)		not null,		-- 登录员工姓名
+    PRIMARY KEY(strId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
 
 
 

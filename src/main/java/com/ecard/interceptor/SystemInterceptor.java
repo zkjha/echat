@@ -25,7 +25,7 @@ public class SystemInterceptor implements HandlerInterceptor {
 		PrintUtil.println("系统状态拦截器");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		String x_requested_with=(String)request.getHeader("x-requested-with");
+		String x_requested_with=request.getHeader("x-requested-with");
     	
 		try {
 			MerchantEntity merchantEntity = merchantService.getMerchantSystemVersionInfo();

@@ -75,8 +75,8 @@ public class AlipaySubmit {
                       + "\">");
 
         for (int i = 0; i < keys.size(); i++) {
-            String name = (String) keys.get(i);
-            String value = (String) sPara.get(name);
+            String name = keys.get(i);
+            String value = sPara.get(name);
 
             sbHtml.append("<input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\"/>");
         }
@@ -101,8 +101,8 @@ public class AlipaySubmit {
         StringBuffer sbHtml = new StringBuffer();
         sbHtml.append(ALIPAY_GATEWAY_NEW);
         for (int i = 0; i < keys.size(); i++) {
-            String name = (String) keys.get(i);
-            String value = (String) sPara.get(name);
+            String name = keys.get(i);
+            String value = sPara.get(name);
             if(i==0) {
             	sbHtml.append(name + "=" + value);
             } else {

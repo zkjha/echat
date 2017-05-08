@@ -26,7 +26,7 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 			throws Exception {
 		PrintUtil.println("权限拦截器");
 		response.setContentType("text/html;charset=UTF-8");
-		String x_requested_with=(String)request.getHeader("x-requested-with");
+		String x_requested_with=request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWebSession(request, response);
     	
 		if (session == null) {

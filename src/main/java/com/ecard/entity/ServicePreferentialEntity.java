@@ -7,8 +7,6 @@
  */
 package com.ecard.entity;
 
-import java.util.List;
-
 /**
  * @author apple
  *

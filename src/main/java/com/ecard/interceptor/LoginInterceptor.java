@@ -11,7 +11,6 @@ import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
-import com.ecard.util.PrintUtil;
 import com.ecard.util.Session;
 import com.ecard.util.WebSessionUtil;
 
@@ -24,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		//PrintUtil.println("登录拦截器");
 		response.setContentType("text/html;charset=UTF-8");
-		String x_requested_with=(String)request.getHeader("x-requested-with");
+		String x_requested_with=request.getHeader("x-requested-with");
 		Session session = webSessionUtil.getWebSession(request, response);
     	
 		if (session == null) {

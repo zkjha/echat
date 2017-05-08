@@ -30,6 +30,7 @@ public class CacheService extends CachingConfigurerSupport {
 	 *
 	 * @return
 	 */
+	@Override
 	@Bean
 	public KeyGenerator keyGenerator() {
 		return new KeyGenerator() {

@@ -118,8 +118,7 @@ public class LoginController {
 					//输入的密码和实际密码匹配成功，登录成功
 					// 往session中放入用户对象信息
 					List<String> privilegeList = privilegeService.listDutyPrivilegeUrl(employeeEntity.getStrDutyid()); //查询用户的权限信息
-					Session session = webSessionUtil.getWebSession(request,
-							response);
+					Session session = webSessionUtil.getWebSession(request,response);
 					session.setAttribute("employeeEntity", employeeEntity);
 					session.setAttribute("privilegeList", privilegeList);
 					webSessionUtil.updateSession(session);

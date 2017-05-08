@@ -40,6 +40,7 @@ public class DutyController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("judgeDutyNameIsExist")
 	public String judgeDutyNameIsExist(HttpServletRequest request, HttpServletResponse response) {
