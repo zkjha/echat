@@ -60,8 +60,12 @@ requirejs(
                 templateUrl: "/static/temp/admin/activity/advertisementCycle.html",
 	            controller:activityController.uploadImages
 
+            }).when("/customgift", {
+                templateUrl: "/static/temp/admin/activity/customgift.html",
+	            controller:activityController.uploadImages
+
             }).otherwise({
-                redirectTo: "/advertisementCycle"
+                redirectTo: "/customgift"
             });
 
         }]);
@@ -73,7 +77,13 @@ requirejs(
             $scope.config = {};
             //初始化菜单数据
             $scope.menuData=[
-	                 {id:'1',link: 'advertisementCycle', name: "收银台",hasnext:false}
+	                 {id:'customgift',link: '#!/customgift', name: "自定义赠送",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "消费赠送",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "充值赠送",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "首次入会",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "积分规则",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "前端首页广告",hasnext:false}
+	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "活动规则设置",hasnext:false}
 	               ];
 
 

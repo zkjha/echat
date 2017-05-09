@@ -1,16 +1,35 @@
 
-<!--职务管理  -->
+<!--活动-自定义赠送  -->
 <div class="right-content-main">
     <div class="right-content-header">
-        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">商品</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>商品类型</a></div>
+        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">服务</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>服务类型</a></div>
         <div class="right-content-header-right-info fr">
             <!-- <a class="small-btn fl">导入</a><a class="small-btn fl">导出</a> -->
             <a class="small-btn small-btn-primary fl" ng-click="newExpandinginfo()">新增</a>
         </div>
         <div class="clearfix"></div>
     </div>
-
-    <div class="merchant-info-container">
+	<!--页面展示-->
+	<div class="ml30 clearfix mt5">
+		<div class="fl zjl_cg_se">
+			<div class="fl">会员级别</div>
+			<div class="fl">
+				<select name="">
+					<option value="全部">全部</option>
+				</select>
+			</div>
+		</div>
+		<div class="fl zjl_cg_se ml5">
+			<div class="fl">活动状态</div>
+			<div class="fl">
+				<select name="">
+					<option value="全部">全部</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	
+	<div class="merchant-info-container">
         <table class="list-table">
             <tr>
                 <th>序号</th>
@@ -18,10 +37,10 @@
                 <th>操作员</th>
                 <th class="w40">操作</th>
             </tr>
-            <tr ng-repeat='goodsTypeList  in goodsTypeList'>
+            <tr ng-repeat='listServiceType  in listServiceType'>
                 <td>{{$index+(currentPage-1)*pageSize+1}}</td>
-                <td>{{goodsTypeList.strGoodsTypeName}}</td>
-                <td>{{goodsTypeList.strEmployeeLoginName }}</td>
+                <td>{{listServiceType.strServiceTypeName}}</td>
+                <td>{{listServiceType.strEmployeeLoginName }}</td>
 
                 <td>
                     <div class="-lpy-list-control">
@@ -29,8 +48,8 @@
                             操作
 
                             <ul ng-show="isShowListMenu[$index]">
-                                <li><a ng-click="updataExpand(goodsTypeList.strGoodsTypeId)">修改</a></li>
-                                <li><a ng-click="delectExpand(goodsTypeList.strGoodsTypeId,goodsTypeList.strGoodsTypeName)">删除</a></li>
+                                <li><a ng-click="updataExpand(listServiceType.strServiceTypeId)">修改</a></li>
+                                <li><a ng-click="delectExpand(listServiceType.strServiceTypeId,listServiceType.strServiceTypeName)">删除</a></li>
                                 <!-- <li><a>修改2</a></li> -->
                             </ul>
                         </div>
@@ -53,7 +72,9 @@
             <div class="clearfix"></div>
         </div>
     </div>
-
+	
+	
+    <!--模态框-->
     <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
@@ -70,14 +91,14 @@
                 <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
                         <div class=" w300 center">
-                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型描述：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeDesc" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeDesc" ngTrim="true" ng-maxlength="8" required/>
+                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型描述：
+                                <input type="text" ng-value="listServiceType.strServiceTypeDesc" name="strInformationname"   ng-model="listServiceType.strServiceTypeDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;商品类型ID：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeId" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeId" ngTrim="true" ng-maxlength="8" required/>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;服务类型ID：
+                                <input type="text" ng-value="listServiceType.strServiceTypeId" name="strInformationname"   ng-model="listServiceType.strServiceTypeId" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型名称：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeName" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeName" ngTrim="true" ng-maxlength="8" required/>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型名称：
+                                <input type="text" ng-value="listServiceType.strServiceTypeName" name="strInformationname"   ng-model="listServiceType.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                         </div>
                         <div class="mt10"></div>
@@ -90,6 +111,5 @@
             </div>
         </div>
     </div>
-
 
 </div>

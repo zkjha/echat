@@ -1,8 +1,5 @@
 /**
  * Created by liupengyan on 17/3/9.
- */
-/**
- * Created by liupengyan on 17/3/9.
  * 处理收银控制器
  */
 define(
@@ -657,6 +654,7 @@ define(
 							xinzengStr = $scope.strLevelsIdBaocun+","+$scope.strLevelsNameBaocun+","+$scope.iRequiredIntegralBaocun+"|";
 						}
 						$scope.listGoodsInfoType.strGoodsPreferentials = xinzengStr;
+						console.info($scope.listGoodsInfoType);
                    		cashierCtrl.insertGoodsInfo($scope.listGoodsInfoType,$scope, $http);
                    	}
                 };
