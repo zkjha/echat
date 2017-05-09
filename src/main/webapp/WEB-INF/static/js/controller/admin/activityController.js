@@ -3,7 +3,7 @@
  */
 /**
  * Created by liupengyan on 17/3/9.
- * 处理收银控制器
+ * 处理活动控制器
  */
 define(
 	['lib/remoteUrl'],
