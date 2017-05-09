@@ -341,7 +341,7 @@ public class SignIntegrationRuleSetController {
 				String strEmployeeName=employeeEntity.getStrLoginname();
 				String strEmployeeRealName=employeeEntity.getStrRealname();
 				*/
-				String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+				
 				String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 				//以下3个为测试用数据
 				String strEmployeeId=DataTool.getUUID();
@@ -358,7 +358,6 @@ public class SignIntegrationRuleSetController {
 				signIntegrationRuleEntity.setStrEmployeeId(strEmployeeId);
 				signIntegrationRuleEntity.setStrEmployeeName(strEmployeeName);
 				signIntegrationRuleEntity.setStrEmployeeRealName(strEmployeeRealName);
-				signIntegrationRuleEntity.setStrCreationTime(strCreationTime);
 				signIntegrationRuleEntity.setStrLastAccessedTime(strLastAccessedTime);
 				try {
 					int result = signIntegrationRuleSetService.updateSignIntegrationRule(signIntegrationRuleEntity);
@@ -427,7 +426,6 @@ public class SignIntegrationRuleSetController {
 					String strEmployeeName=employeeEntity.getStrLoginname();
 					String strEmployeeRealName=employeeEntity.getStrRealname();
 					*/
-					String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 					String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 					//以下3个为测试用数据
 					String strEmployeeId=DataTool.getUUID();
@@ -444,7 +442,6 @@ public class SignIntegrationRuleSetController {
 					signIntegrationRuleEntity.setStrEmployeeId(strEmployeeId);
 					signIntegrationRuleEntity.setStrEmployeeName(strEmployeeName);
 					signIntegrationRuleEntity.setStrEmployeeRealName(strEmployeeRealName);
-					signIntegrationRuleEntity.setStrCreationTime(strCreationTime);
 					signIntegrationRuleEntity.setStrLastAccessedTime(strLastAccessedTime);
 
 					try {
@@ -518,7 +515,7 @@ public class SignIntegrationRuleSetController {
 					String strEmployeeName=employeeEntity.getStrLoginname();
 					String strEmployeeRealName=employeeEntity.getStrRealname();
 					*/
-					String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+
 					String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 					//以下3个为测试用数据
 					String strEmployeeId=DataTool.getUUID();
@@ -534,7 +531,6 @@ public class SignIntegrationRuleSetController {
 					integrationCashRuleEntity.setStrEmployeeId(strEmployeeId);
 					integrationCashRuleEntity.setStrEmployeeName(strEmployeeName);
 					integrationCashRuleEntity.setStrEmployeeRealName(strEmployeeRealName);
-					integrationCashRuleEntity.setStrCreationTime(strCreationTime);
 					integrationCashRuleEntity.setStrLastAccessedTime(strLastAccessedTime);
 					
 					// 对取得的数据进行写入操作
