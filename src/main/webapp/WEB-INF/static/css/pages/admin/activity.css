@@ -111,3 +111,11 @@
 	margin: 0px 10px;
 	cursor: pointer;
 }
+.zjl_cg_se{
+	height: 25px;
+	line-height: 25px;
+}
+.zjl_cg_se select{
+	border-radius: 5px;
+	
+}
