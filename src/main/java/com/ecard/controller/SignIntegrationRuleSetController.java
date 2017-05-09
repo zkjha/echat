@@ -1,6 +1,8 @@
 package com.ecard.controller;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.commontools.data.DataTool;
 import com.commontools.date.DateStyle;
@@ -33,16 +35,28 @@ public class SignIntegrationRuleSetController {
 	public String insertSignIntegrationRule(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 取得连续签到积分规则参数
-		String strSignId=DataTool.getUUID();													//自动生成ID
-		String strSignDays= request.getParameter("strSignDays").trim();							//签到天数校验?????????????
-		String strStatus ="1";																	//连续性签 到状态为1
-		int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());		//校验并转换类型??????????
-		String strEnabled = request.getParameter("strEnabled").trim();
+		int iIntegration;
+		String strSignId=DataTool.getUUID();												
+		String strSignDays= request.getParameter("strSignDays");							//签到天数校验?????????????
+		String strStatus ="1";																//连续性签 到状态为1
+		String strIntegration =request.getParameter("iIntegration");						//校验并转换类型??????????
+		String strEnabled = request.getParameter("strEnabled");
+		
 		if (ValidateTool.isEmptyStr(strSignDays)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写签到天数", null);
 		}
-		if (iIntegration == 0)
+		
+		if(!isNumber(strSignDays))
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"签到天数应填写数字", null);
+	
+		if (ValidateTool.isEmptyStr(strIntegration))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+		
+		if(!isNumber(strIntegration))
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"积分应填写数字", null);
+		else
+			iIntegration=Integer.parseInt(strIntegration);
+		
 		if (ValidateTool.isEmptyStr(strEnabled)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"规则是否启用不能为空", null);
 		}
@@ -107,16 +121,26 @@ public class SignIntegrationRuleSetController {
 		{
 
 			// 取得非连续签到积分规则
-			String strSignDays= request.getParameter("strSignDays").trim();							//校验数据有效性????????????
+			int iIntegration;
+			String strSignDays= request.getParameter("strSignDays");							//校验数据有效性????????????
 			String strStatus ="0";																	//非连续性签到状态为0
-			int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());		//校验数据有效性???????????
-			String strEnabled = request.getParameter("strEnabled").trim();		
+			String strIntegration = request.getParameter("iIntegration");					//校验数据有效性???????????
+			String strEnabled = request.getParameter("strEnabled");	
+			
 			if (ValidateTool.isEmptyStr(strSignDays)) {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写签到天数", null);
 			}
-
-			if (iIntegration == 0)
+			
+			if(!isNumber(strSignDays))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "签到天数应填写数字", null);
+			
+			if (ValidateTool.isEmptyStr(strIntegration))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+			
+			if(isNumber(strIntegration))
+				iIntegration=Integer.parseInt(strIntegration);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "积分应填写数字", null);
 
 			if (ValidateTool.isEmptyStr(strEnabled)) {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"规则是否启用不能为空", null);
@@ -176,21 +200,35 @@ public class SignIntegrationRuleSetController {
 		
 		
 		//插入积分抵现规则
-		//localhost:8083/admin/biz/RuleSetting/insertIntegrationCashRule?iIntegration=10000&dCash=1&strEnabled=1
+		//localhost:8083/admin/biz/RuleSetting/insertIntegrationCashRule?iIntegration=10000&dCash=2.5&strEnabled=1
 		@ResponseBody
 		@RequestMapping("insertIntegrationCashRule")
 		public String insertIntegrationCashRule(HttpServletRequest request,HttpServletResponse response)
 		{
-			int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());	//校验有效性?????????????
-			double dCash = Integer.parseInt(request.getParameter("dCash").trim());				//校验有效性？？？、？
-			String strEnabled = request.getParameter("strEnabled").trim();
+			int iIntegration;
+			double dCash;
+			String strIntegration = request.getParameter("iIntegration");	//校验有效性?????????????
+			String strCash =request.getParameter("dCash");				//校验有效性？？？、？
+			String strEnabled = request.getParameter("strEnabled");
 		
-			if (iIntegration == 0) {
+			if(ValidateTool.isEmptyStr(strIntegration)) {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
 			}
-			if (dCash == 0) {
+			
+			if(isNumber(strIntegration))
+				iIntegration=Integer.parseInt(strIntegration);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"积分处请填写数字", null);
+			
+			if (ValidateTool.isEmptyStr(strCash)) {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵现不能为空", null);
 			}
+			
+			if(isNumber(strCash))
+				dCash=Double.parseDouble(strCash);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
+			
 			if (ValidateTool.isEmptyStr(strEnabled)) {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空", null);
 			}
@@ -256,21 +294,32 @@ public class SignIntegrationRuleSetController {
 			@RequestMapping("updateSignIntegrationRules")
 			public String updateSignIntegrationRules(HttpServletRequest request,HttpServletResponse response)
 			{
-				String strSignId = request.getParameter("strId").trim(); 
-				String strSignDays= request.getParameter("strSignDays").trim();							//检验?????????
-				String strStatus ="1";//连续性签 到状态为1
-				int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());		//检验??????
-				String strEnabled = request.getParameter("strEnabled").trim();							
+				int iIntegration;
+				String strSignId = request.getParameter("strId"); 
+				String strSignDays= request.getParameter("strSignDays");							//检验?????????
+				String strStatus ="1";																	//连续性签 到状态为1
+				String strIntegration =request.getParameter("iIntegration");						//检验??????
+				String strEnabled = request.getParameter("strEnabled");	
+				
 				if (ValidateTool.isEmptyStr(strSignId)) {
 					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
 				}
-
+				
+					
 				if (ValidateTool.isEmptyStr(strSignDays)) {
 					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写签到天数", null);
 				}
+				
+				if(!isNumber(strSignDays))
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
 
-				if (iIntegration == 0)
+				if (ValidateTool.isEmptyStr(strIntegration))
 					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+				
+				if(isNumber(strIntegration))
+					iIntegration=Integer.parseInt(strIntegration);
+				else
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
 
 				if (ValidateTool.isEmptyStr(strEnabled)) {
 					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"规则是否启用不能为空", null);
@@ -332,12 +381,14 @@ public class SignIntegrationRuleSetController {
 				@ResponseBody
 				@RequestMapping("updateSignIntegrationRule")
 				public String updateSignIntegrationRule(HttpServletRequest request,HttpServletResponse response)
-				{
-					String strSignId = request.getParameter("strId").trim(); 
-					String strSignDays= request.getParameter("strSignDays").trim();							//校验????
+				{	
+					int iIntegration;
+					String strSignId = request.getParameter("strId"); 
+					String strSignDays= request.getParameter("strSignDays");							//校验????
 					String strStatus ="0";																	//非连续性签到状态为0
-					int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());		//检验？？
-					String strEnabled = request.getParameter("strEnabled").trim();
+					String strIntegration = request.getParameter("iIntegration");						//检验？？
+					String strEnabled = request.getParameter("strEnabled");
+					
 					if (ValidateTool.isEmptyStr(strSignId)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
 					}
@@ -345,9 +396,17 @@ public class SignIntegrationRuleSetController {
 					if (ValidateTool.isEmptyStr(strSignDays)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写非连续签到天数", null);
 					}
-
-					if (iIntegration == 0)
+					
+					if(!isNumber(strSignDays))
+						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
+					
+					if (ValidateTool.isEmptyStr(strIntegration))
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+					
+					if(isNumber(strIntegration))
+						iIntegration=Integer.parseInt(strIntegration);
+					else
+						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
 
 					if (ValidateTool.isEmptyStr(strEnabled)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"是否启用不能为空", null);
@@ -412,19 +471,35 @@ public class SignIntegrationRuleSetController {
 				@RequestMapping("updateIntegrationCashRule")
 				public String updateIntegrationCashRule(HttpServletRequest request,HttpServletResponse response)
 				{
-					String strId = request.getParameter("strId").trim();
-					int iIntegration = Integer.parseInt(request.getParameter("iIntegration").trim());		//校验？？？？
-					double dCash = Integer.parseInt(request.getParameter("dCash").trim());					//校验?????
-					String strEnabled = request.getParameter("strEnabled").trim();			
+					int iIntegration;
+					double dCash;				
+					String strId = request.getParameter("strId");
+					String strIntegration =request.getParameter("iIntegration");						//校验？？？？
+					String strCash =request.getParameter("dCash");									//校验?????
+					String strEnabled = request.getParameter("strEnabled");	
+					
 					if (ValidateTool.isEmptyStr(strId)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
 					}
-					if (iIntegration == 0) {
+					
+					if (ValidateTool.isEmptyStr(strIntegration)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
 					}
-					if (dCash == 0) {
+					
+					if(isNumber(strIntegration))
+						iIntegration=Integer.parseInt(strIntegration);
+					else
+						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字",null);
+					
+					if (ValidateTool.isEmptyStr(strCash)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵现不能为空", null);
 					}
+					
+					if(isNumber(strCash))
+						dCash=Double.parseDouble(strCash);
+					else
+						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字",null);
+					
 					if (ValidateTool.isEmptyStr(strEnabled)) {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分抵现启用状态不能为空", null);
 					}
@@ -479,4 +554,13 @@ public class SignIntegrationRuleSetController {
 						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
 					}
 				}
+	public static boolean isNumber(String strCheckString)
+	{
+		boolean flag=false;
+		Pattern p1 = Pattern.compile("^[1-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
+		Matcher matcher=p1.matcher(strCheckString);
+		flag=matcher.matches();   
+		return flag;
+	}
+	
 }
