@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SignIntegrationRuleSetController {
 	@Autowired
 	private SignIntegrationRuleSetService signIntegrationRuleSetService;
+	@Autowired
+	private WebSessionUtil webSessionUtil;
 	//插入连续签到积分规则
 	//localhost:8083/admin/biz/RuleSetting/insertSignIntegrationRule?strSignDays=5&iIntegration=100&strEnabled=1
 	@ResponseBody
@@ -63,7 +65,6 @@ public class SignIntegrationRuleSetController {
 		
 		/*
 		EmployeeEntity employeeEntity = null;
-		WebSessionUtil webSessionUtil=new WebSessionUtil();
 		try {
 			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 		} catch (Exception e) {
@@ -101,13 +102,13 @@ public class SignIntegrationRuleSetController {
 		try {
 			int result = signIntegrationRuleSetService.insertSignIntegrationRule(signIntegrationRuleEntity);
 			if(result!=0)
-				 return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入连续签到积分规则成功", null);
+				 return DataTool.constructResponse(ResultCode.OK,"插入连续签到积分规则成功", null);
 			else
-				 return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入连续签到积分规则失败", null);
+				 return DataTool.constructResponse(ResultCode.NO_DATA,"插入连续签到积分规则失败", null);
 			
 		} catch (Exception e) {
 			e.printStackTrace();			
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 		}
 	}
 	
@@ -148,7 +149,6 @@ public class SignIntegrationRuleSetController {
 			
 			/*
 			EmployeeEntity employeeEntity = null;
-			WebSessionUtil webSessionUtil=new WebSessionUtil();
 			try {
 				employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 			} catch (Exception e) {
@@ -187,13 +187,13 @@ public class SignIntegrationRuleSetController {
 			try {
 				int result = signIntegrationRuleSetService.insertSignIntegrationRule(signIntegrationRuleEntity);
 				if(result!=0)
-					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入非连续签到积分规则成功", null);
+					return DataTool.constructResponse(ResultCode.OK,"插入非连续签到积分规则成功", null);
 				else
-					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入非连续签到积分规则失败", null);
+					return DataTool.constructResponse(ResultCode.NO_DATA,"插入非连续签到积分规则失败", null);
 
 			} catch (Exception e) {
 				e.printStackTrace();				
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 			}
 		}
 		
@@ -235,7 +235,6 @@ public class SignIntegrationRuleSetController {
 			
 			/*
 			EmployeeEntity employeeEntity = null;
-			WebSessionUtil webSessionUtil=new WebSessionUtil();
 			try {
 				employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
 						request, response).getAttribute("employeeEntity");
@@ -275,15 +274,15 @@ public class SignIntegrationRuleSetController {
 			try {
 			int result = signIntegrationRuleSetService.insertIntegrationCashRule(integrationCashRuleEntity);
 			if(result!=0)
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入积分抵现规则成功", null);
+				return DataTool.constructResponse(ResultCode.OK,"插入积分抵现规则成功", null);
 
 			else
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"插入积分抵现规则失败", null);
+				return DataTool.constructResponse(ResultCode.NO_DATA,"插入积分抵现规则失败", null);
 			
 			} catch (Exception e) {
 				e.printStackTrace();
 
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 			}
 		}
 		
@@ -327,7 +326,6 @@ public class SignIntegrationRuleSetController {
 				
 				/*
 				EmployeeEntity employeeEntity = null;
-				WebSessionUtil webSessionUtil=new WebSessionUtil();
 				try {
 					employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 				} catch (Exception e) {
@@ -365,12 +363,12 @@ public class SignIntegrationRuleSetController {
 				try {
 					int result = signIntegrationRuleSetService.updateSignIntegrationRule(signIntegrationRuleEntity);
 					if(result!=0)
-						return "更新连续签到积分规则成功";
+						return DataTool.constructResponse(ResultCode.OK,"更新连续性签到积分规则成功", null);
 					else
-						return "更新连续签到积分规则失败";
+						return DataTool.constructResponse(ResultCode.NO_DATA,"更新连续性签到积分规则失败", null);
 				} catch (Exception e) {
 					e.printStackTrace();
-					return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+					return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 				}
 			}
 			
@@ -414,7 +412,6 @@ public class SignIntegrationRuleSetController {
 					
 					/*
 					EmployeeEntity employeeEntity = null;
-					WebSessionUtil webSessionUtil=new WebSessionUtil();
 					try {
 						employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 					} catch (Exception e) {
@@ -453,13 +450,13 @@ public class SignIntegrationRuleSetController {
 					try {
 						int result = signIntegrationRuleSetService.updateSignIntegrationRule(signIntegrationRuleEntity);
 						if(result!=0)
-							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新非连续性签到积分规则成功", null);
+							return DataTool.constructResponse(ResultCode.OK,"更新非连续性签到积分规则成功", null);
 						else
-							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新非连续性签到积分规则失败", null);
+							return DataTool.constructResponse(ResultCode.NO_DATA,"更新非连续性签到积分规则失败", null);
 					} catch (Exception e) {
 						e.printStackTrace();
 						
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+						return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 					}
 				}
 				
@@ -506,7 +503,6 @@ public class SignIntegrationRuleSetController {
 					
 					/*
 					EmployeeEntity employeeEntity = null;
-					WebSessionUtil webSessionUtil=new WebSessionUtil();
 					try {
 						employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 					} catch (Exception e) {
@@ -545,13 +541,13 @@ public class SignIntegrationRuleSetController {
 					try {
 					int result = signIntegrationRuleSetService.updateIntegrationCashRule(integrationCashRuleEntity);
 					if(result!=0)
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新积分抵现规则成功", null);
+						return DataTool.constructResponse(ResultCode.OK,"更新积分抵现规则成功", null);
 					else
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新积分抵现规则失败", null);
+						return DataTool.constructResponse(ResultCode.NO_DATA,"更新积分抵现规则失败", null);
 					
 					} catch (Exception e) {
 						e.printStackTrace();
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"操作数据库失败", null);
+						return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 					}
 				}
 	public static boolean isNumber(String strCheckString)
