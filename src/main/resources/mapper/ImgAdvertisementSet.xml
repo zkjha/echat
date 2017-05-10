@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.ImgAdvertisementSetMapper">
+<!-- 查出iImgOrder字段中值最大的记录 -->
+<select id="findRecordBeforeInsertion" resultType="int">
+	select iImgOrder from tb_img_advertisement order by iImgOrder desc limit 0,1
+</select>
+<!-- 新增图片广告记录 -->
+<insert id="insertImgAdvertisement" parameterType="com.ecard.entity.ImgAdvertisementEntity">
+  insert into tb_img_advertisement values(#{strImgId}#{strImgName},#{iImgOrder},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeid},#{strEmployeeName},#{strEmployeeRealName})
+</insert>
+<!-- 图片上移：取出受影响实例 -->
+<select id="getForwardOrderEntity" parameterType="int" resultType="com.ecard.entity.ImgAdvertisementEntity">
+select strImgId,strImgName,iImgOrder,strCreationTime,strLastAccessedTime,strEmployeeId,strEmployeeName,strEmployeeRealName from tb_img_advertisement where iImgOrder&lt;=#{iImgOrder}
+order by iImgOrder desc limit 0,2
+</select>
+<!-- 图片上移：将交换结果写入数据库 -->
+<!-- 循环写入 -->
+<update id="imgAdvertisementForward" parameterType="list">
+update tb_img_advertisement 
+	<foreach collection="listImgAdvertisementEntity" item="item" index="index" separator=",">
+	set strImgId=#{strImgId},strImgName=#{strImgName},iImgOrder=#{iImgOrder},strCreationTime=#{strCreationTime},
+		strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName} 
+		where strImgId=#{strImgId}
+	</foreach>
+</update>
+</mapper>
