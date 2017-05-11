@@ -1,6 +1,8 @@
 package com.ecard.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,7 +78,7 @@ public class ImgAdvertisementSetService {
 		flag=imgAdvertisementSetMapper.moveImgAdvertisement(imgAdvertisementEntity);
 		if(flag!=0)
 			rcdNum=rcdNum+1;
-		rcdNum=imgAdvertisementSetMapper.moveImgAdvertisement(affectImgAdvertisementEntity);
+		flag=imgAdvertisementSetMapper.moveImgAdvertisement(affectImgAdvertisementEntity);
 		if(flag!=0)
 			rcdNum=rcdNum+1;
 		return rcdNum;
@@ -87,6 +89,12 @@ public class ImgAdvertisementSetService {
 	public int delImgAdvertisement(String strImgId) throws Exception
 	{
 		return imgAdvertisementSetMapper.delImgAdvertisement(strImgId);
+	}
+	
+	//查询所有图片广告信息
+	public List<ImgAdvertisementEntity> findAllImaggeAdvertisement() throws Exception
+	{
+		return imgAdvertisementSetMapper.findAllImaggeAdvertisement();
 	}
 
 }

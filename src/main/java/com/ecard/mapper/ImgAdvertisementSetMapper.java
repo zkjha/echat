@@ -1,6 +1,8 @@
 package com.ecard.mapper;
 
 
+import java.util.List;
+
 import com.ecard.entity.ImgAdvertisementEntity;
 
 public interface ImgAdvertisementSetMapper {
@@ -20,6 +22,8 @@ public interface ImgAdvertisementSetMapper {
 	public int moveImgAdvertisement(ImgAdvertisementEntity imgAdvertisementEntity) throws Exception;
 	//删除图片广告
 	public int delImgAdvertisement(String strImgId) throws Exception;
+	//查询所有记录
+	public List<ImgAdvertisementEntity> findAllImaggeAdvertisement() throws Exception;
 	
 
 }

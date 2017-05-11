@@ -35,4 +35,9 @@ select strImgId from tb_img_advertisement where iImgOrder=#{iImgOrder}
 <delete id="delImgAdvertisement">
  delete from tb_img_advertisement where strImgId=#{strImgId}
 </delete>
+<!-- 查询所有记录 -->
+<select id="findAllImaggeAdvertisement" resultType="com.ecard.entity.ImgAdvertisementEntity">
+ select * from tb_img_advertisement
+</select>
+
 </mapper>
