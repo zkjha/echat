@@ -1,7 +1,5 @@
 package com.ecard.service;
 
-import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +18,13 @@ public class ImgAdvertisementSetService {
 	@Transactional
 	public int insertImgAdvertisement(ImgAdvertisementEntity imgAdvertisementEntity) throws Exception
 	{	int rcdNum=0;
+		int iMaxImgOrder;
 		//调用findRecordBeforeInsertion()接口，取出表中iImgOrder中的最大值 
-		int iMaxImgOrder=imgAdvertisementSetMapper.findRecordBeforeInsertion();
-		if(iMaxImgOrder==0)
-			iMaxImgOrder=1;					//原表中无记录时
+		int isExistsRecord=imgAdvertisementSetMapper.findAllRecordCount();
+		if(isExistsRecord!=0)
+			iMaxImgOrder=imgAdvertisementSetMapper.findRecordBeforeInsertion()+1;	//原表中有记录时，则增加1
 		else
-			iMaxImgOrder+=1;				//原表中有记录时，则增加1
+			iMaxImgOrder=1;					//原表中无记录时
 		imgAdvertisementEntity.setIImgOrder(iMaxImgOrder);
 		//插入图片广告
 		rcdNum=imgAdvertisementSetMapper.insertImgAdvertisement(imgAdvertisementEntity);
@@ -34,35 +33,60 @@ public class ImgAdvertisementSetService {
 	
 	
 	
-	//图片广告上移
+	//图片广告上移,下移
 	@Transactional
-	public int imgAdvertisementForward(String strImgId) throws Exception
+	public int moveImgAdvertisement(ImgAdvertisementEntity imgAdvertisementEntity,String strStatus) throws Exception
 	{	
-		int rcdNum=0;
-		List<ImgAdvertisementEntity> listImgAdvEntity=imgAdvertisementSetMapper.getForwardOrderEntity(strImgId);
-		if(listImgAdvEntity==null||listImgAdvEntity.size()==0)
-			return rcdNum;
-		if(listImgAdvEntity.size()>=2)
-		{
-			int[] imgOrder=new int[2];
-			//取出imgOrder值 :即图片序号
-			for(int i=0;i<listImgAdvEntity.size();i++)
+		//查出图片序号iImgOrder
+		int flag=0,rcdNum=0;
+		int affectRecordOrder=0,totalRecordNum=0;
+		int iIMgOrder=imgAdvertisementSetMapper.findImgOrderById(imgAdvertisementEntity.getStrImgId());
+		totalRecordNum=imgAdvertisementSetMapper.findAllRecordCount();
+		if("0".equals(strStatus))	//上移 
 			{
-				imgOrder[i]=listImgAdvEntity.get(i).getIImgOrder();
-				
+			affectRecordOrder=iIMgOrder-1;
+			if(affectRecordOrder==0)
+				{
+				rcdNum=-1;
+				return rcdNum;
+				}
 			}
-			//交换图片序号
-			for(int i=0;i<listImgAdvEntity.size();i++)
+		
+		if("1".equals(strStatus))	//下移
 			{
-				int j=listImgAdvEntity.size()-1-i;
-				listImgAdvEntity.get(i).setIImgOrder(imgOrder[j]);
+			affectRecordOrder=iIMgOrder+1;
+			if(affectRecordOrder>totalRecordNum)
+				{
+				rcdNum=1;
+				return rcdNum;
+				}
 			}
-			//将对应的两条数据写入数据库
-			int affectNum=imgAdvertisementSetMapper.imgAdvertisementForward(listImgAdvEntity);
-			if(affectNum!=0)
-				rcdNum=affectNum;
-		}
+		//查出受影响的记录Id
+		String affectRecordId=imgAdvertisementSetMapper.findIdByOrder(affectRecordOrder);
+		//设置imgAdvertisementEntity的图片序号
+		imgAdvertisementEntity.setIImgOrder(affectRecordOrder);
+		//新建一个实体
+		ImgAdvertisementEntity affectImgAdvertisementEntity=new ImgAdvertisementEntity();
+		affectImgAdvertisementEntity.setStrImgId(affectRecordId);
+		affectImgAdvertisementEntity.setIImgOrder(iIMgOrder);
+		affectImgAdvertisementEntity.setStrLastAccessedTime(imgAdvertisementEntity.getStrLastAccessedTime());
+		affectImgAdvertisementEntity.setStrEmployeeId(imgAdvertisementEntity.getStrEmployeeId());
+		affectImgAdvertisementEntity.setStrEmployeeName(imgAdvertisementEntity.getStrEmployeeName());
+		affectImgAdvertisementEntity.setStrEmployeeRealName(imgAdvertisementEntity.getStrEmployeeRealName());
+		flag=imgAdvertisementSetMapper.moveImgAdvertisement(imgAdvertisementEntity);
+		if(flag!=0)
+			rcdNum=rcdNum+1;
+		rcdNum=imgAdvertisementSetMapper.moveImgAdvertisement(affectImgAdvertisementEntity);
+		if(flag!=0)
+			rcdNum=rcdNum+1;
 		return rcdNum;
+	}
+	
+	
+	//删除图片广告
+	public int delImgAdvertisement(String strImgId) throws Exception
+	{
+		return imgAdvertisementSetMapper.delImgAdvertisement(strImgId);
 	}
 
 }

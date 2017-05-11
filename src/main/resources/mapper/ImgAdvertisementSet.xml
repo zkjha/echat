@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecard.mapper.ImgAdvertisementSetMapper">
+<!-- 找出tb_img_advertisement的总条数 -->
+<select id="findAllRecordCount" resultType="int">
+ select count(*) from tb_img_advertisement
+</select>
+
 <!-- 查出iImgOrder字段中值最大的记录 -->
 <select id="findRecordBeforeInsertion" resultType="int">
 	select iImgOrder from tb_img_advertisement order by iImgOrder desc limit 0,1
 </select>
+
 <!-- 新增图片广告记录 -->
 <insert id="insertImgAdvertisement" parameterType="com.ecard.entity.ImgAdvertisementEntity">
-  insert into tb_img_advertisement values(#{strImgId}#{strImgName},#{iImgOrder},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeid},#{strEmployeeName},#{strEmployeeRealName})
+  insert into tb_img_advertisement (strImgId,strImgName,iImgOrder,strCreationTime,strLastAccessedTime,strEmployeeId,strEmployeeName,strEmployeeRealName) 
+  values(#{strImgId},#{strImgName},#{iImgOrder},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName})
 </insert>
-<!-- 图片上移：取出受影响实例 -->
-<select id="getForwardOrderEntity" parameterType="int" resultType="com.ecard.entity.ImgAdvertisementEntity">
-select strImgId,strImgName,iImgOrder,strCreationTime,strLastAccessedTime,strEmployeeId,strEmployeeName,strEmployeeRealName from tb_img_advertisement where iImgOrder&lt;=#{iImgOrder}
-order by iImgOrder desc limit 0,2
+
+<!-- 图片上移 -->
+<select parameterType="String" resultType="int" id="findImgOrderById">
+ select iImgOrder from tb_img_advertisement where strImgId=#{strImgId}
 </select>
-<!-- 图片上移：将交换结果写入数据库 -->
-<!-- 循环写入 -->
-<update id="imgAdvertisementForward" parameterType="list">
-update tb_img_advertisement 
-	<foreach collection="listImgAdvertisementEntity" item="item" index="index" separator=",">
-	set strImgId=#{strImgId},strImgName=#{strImgName},iImgOrder=#{iImgOrder},strCreationTime=#{strCreationTime},
-		strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName} 
-		where strImgId=#{strImgId}
-	</foreach>
+
+<select parameterType="int" resultType="String" id="findIdByOrder">
+select strImgId from tb_img_advertisement where iImgOrder=#{iImgOrder}
+</select>
+
+<update id="moveImgAdvertisement" parameterType="com.ecard.entity.ImgAdvertisementEntity">
+ update tb_img_advertisement set iImgOrder=#{iImgOrder},strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},
+ strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName} where strImgId=#{strImgId}
 </update>
+
+<!-- 图片广告删除 -->
+<delete id="delImgAdvertisement">
+ delete from tb_img_advertisement where strImgId=#{strImgId}
+</delete>
 </mapper>

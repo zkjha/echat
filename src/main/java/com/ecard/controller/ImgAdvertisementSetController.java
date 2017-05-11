@@ -1,6 +1,8 @@
 package com.ecard.controller;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +46,7 @@ public class ImgAdvertisementSetController {
 		//iImgOrder后台生成
 		if(ValidateTool.isEmptyStr(strImgName))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请添加图片", null);
+			
 		/*
 		EmployeeEntity employeeEntity = null;
 		try {
@@ -98,19 +101,69 @@ public class ImgAdvertisementSetController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("imgAdvertisementForward")
-	//localhost:8083/admin/biz/advSetting/imgAdvertisementForward?strImgId=xxxx
-	public String imgAdvertisementForward(HttpServletResponse response,HttpServletRequest request)
+	@RequestMapping("moveImgAdvertisement")
+	//localhost:8083/admin/biz/advSetting/moveImgAdvertisement?strImgId=39f107725781423bb39b036aad482a14&strStatus=0
+	public String moveImgAdvertisement(HttpServletResponse response,HttpServletRequest request)
 	{
+		int i=0;
 		String strImgId=request.getParameter("strImgId");
+		String strStatus=request.getParameter("strStatus");//状态量：0上移,1下移
 		if(ValidateTool.isEmptyStr(strImgId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"ID不能为空", null);
+		if(ValidateTool.isEmptyStr(strStatus))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"状态不能为空", null);
+		if(!isNumber(strStatus))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"请写数字:0表示向上移动,1 表示向下移动", null);
+		else
+			{
+			i=Integer.parseInt(strStatus);
+			if(i>=1)
+				strStatus="1"; 
+			if(i<=0)
+				strStatus="0"; 
+			}
+		
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		
+		//取得登录员工信息，并增加修改时间记录
+		String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+		*/
+		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		//以下3个为测试用数据
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="admin";
+		String strEmployeeRealName="david li";
+		//将数据装进ENTITY
+		ImgAdvertisementEntity imgAdvertisementEntity=new ImgAdvertisementEntity();
+		imgAdvertisementEntity.setStrImgId(strImgId);
+		//iImgOrder属性在Service层取得并设置
+		imgAdvertisementEntity.setStrLastAccessedTime(strLastAccessedTime);
+		imgAdvertisementEntity.setStrEmployeeId(strEmployeeId);
+		imgAdvertisementEntity.setStrEmployeeName(strEmployeeName);
+		imgAdvertisementEntity.setStrEmployeeRealName(strEmployeeRealName);
+		//调用Service层方法添加数据
 		try{
-			int rcdNum=imgAdvertisementSetService.imgAdvertisementForward(strImgId);
-			if(rcdNum!=0)
-				return DataTool.constructResponse(ResultCode.OK,"图片广告上移成功",null);
+			int rcdNum=imgAdvertisementSetService.moveImgAdvertisement(imgAdvertisementEntity,strStatus);
+			if(rcdNum==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"图片广告移动失败",null);
+			else if(rcdNum==-1)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"该图片广告已经在最上层了！",null);
+			else if(rcdNum==1)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"该图片广告已经在最下层了",null);
 			else
-				return DataTool.constructResponse(ResultCode.NO_DATA,"图片广告上移失败",null);
+				return DataTool.constructResponse(ResultCode.OK,"图片广告移动成功",null);
 		}catch(Exception e)
 		{	
 			e.printStackTrace();
@@ -119,5 +172,42 @@ public class ImgAdvertisementSetController {
 		
 	}
 	
-
+	
+	/**
+	 *删除图片广告
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("delImgAdvertisement")
+	//localhost:8083/admin/biz/advSetting/delImgAdvertisement?strImgId=7aece3d41568448999910ce38f16c0d9
+	public String delImgAdvertisement(HttpServletRequest request,HttpServletResponse response)
+	{
+		int rcdNum=0;
+		String strImgId=request.getParameter("strImgId");
+		if(ValidateTool.isEmptyStr(strImgId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "ID不能为空", null);
+		try{
+			rcdNum=imgAdvertisementSetService.delImgAdvertisement(strImgId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if(rcdNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
+		else
+			return DataTool.constructResponse(ResultCode.NO_DATA, "删除操作失败", null);
+			
+	}
+	
+	public static boolean isNumber(String strCheckString)
+	{
+		boolean flag=false;
+		Pattern p1 = Pattern.compile("^[1-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
+		Matcher matcher=p1.matcher(strCheckString);
+		flag=matcher.matches();   
+		return flag;
+	}	
 }
