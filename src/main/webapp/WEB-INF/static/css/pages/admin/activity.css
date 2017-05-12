@@ -119,3 +119,32 @@
 	border-radius: 5px;
 	
 }
+.zjl_firsttime_body{
+    background-color: #e6e6e6;
+}
+.zjl_firsttime_cont{
+    width: 975px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+.zjl_firsttime_cont input{
+    border: 0px;
+    background-color: transparent;
+}
+.zjl_firsttime_bd{
+    border-bottom: 1px solid #c6c6c6;
+}
+.zjl_firsttime_input{
+    border: 1px solid #c6c6c6;
+    /*width: 160px;*/
+    border-radius: 5px;
+}
+/*积分规则*/
+.zjl_jifen_lx{
+    border-bottom: 1px solid #999999;
+    padding: 3px 0px;
+}
+.z_jf_line{
+    border-bottom: 1px solid #999999;
+    padding: 2px 10px;
+}
