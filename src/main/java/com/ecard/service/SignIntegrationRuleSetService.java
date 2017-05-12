@@ -66,5 +66,9 @@ public class SignIntegrationRuleSetService {
 		return signIntegrationRuleSetMapper.findAllSignIntegrationRule();
 			
 	}
-
+	//查询全部积分抵现规则
+	public List<IntegrationCashRuleEntity> findAllIntegrationCashRule() throws Exception
+	{
+		return signIntegrationRuleSetMapper.findAllIntegrationCashRule();
+	}
 }

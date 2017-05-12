@@ -17,4 +17,6 @@ public interface SignIntegrationRuleSetMapper {
 	public List<SignIntegrationRuleEntity> findAllSignIntegrationRules() throws Exception;
 	//显示全部连续签到积分规则
 	public List<SignIntegrationRuleEntity> findAllSignIntegrationRule() throws Exception;
+	//显示全部的积分抵现规则
+	public List<IntegrationCashRuleEntity> findAllIntegrationCashRule() throws Exception;
 }

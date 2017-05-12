@@ -41,4 +41,9 @@ where strId=#{strId}
 <select id="findAllSignIntegrationRule" resultType="com.ecard.entity.SignIntegrationRuleEntity">
  select * from tb_sign_integration_rule where strStatus='1' order by strCreationTime desc
 </select>
+
+<!-- 查询所有积分抵现规则 -->
+<select id="findAllIntegrationCashRule" resultType="com.ecard.entity.IntegrationCashRuleEntity">
+ select * from tb_integration_cash_rule order by strCreationTime desc
+</select>
 </mapper>

@@ -629,7 +629,32 @@ public class SignIntegrationRuleSetController {
 			}
 		}
 		
-		
+	//显示全部积分抵现规则
+	//localhost:8083/admin/biz/RuleSetting/findAllIntegrationCashRule
+	@ResponseBody
+	@RequestMapping("findAllIntegrationCashRule")
+	public String findAllIntegrationCashRule(HttpServletResponse response,HttpServletRequest request)
+	{
+	try{
+		List<IntegrationCashRuleEntity> listIntegrationCashRuleEntity=signIntegrationRuleSetService.findAllIntegrationCashRule();
+		if(listIntegrationCashRuleEntity==null||listIntegrationCashRuleEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"还没有数据",null);
+		else
+			{
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listIntegrationCashRuleEntity", listIntegrationCashRuleEntity);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功",resultMap);
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			
+		}
+	}
+	
+	
+	//校验
 	public static boolean isNumber(String strCheckString)
 	{
 		boolean flag=false;
