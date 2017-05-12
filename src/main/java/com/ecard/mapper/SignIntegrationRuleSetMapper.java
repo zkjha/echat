@@ -1,5 +1,8 @@
 package com.ecard.mapper;
 import com.ecard.entity.SignIntegrationRuleEntity;
+
+import java.util.List;
+
 import com.ecard.entity.IntegrationCashRuleEntity;
 public interface SignIntegrationRuleSetMapper {
 	//向sign_integration_rule表中添加规则
@@ -10,4 +13,6 @@ public interface SignIntegrationRuleSetMapper {
 	public int insertIntegrationCashRule(IntegrationCashRuleEntity integrationCashRuleEntity) throws Exception;
 	//更新integration_cash_rule表
 	public int updateIntegrationCashRule(IntegrationCashRuleEntity integrationCashEntity) throws Exception;
+	//显示全部签到积分规则
+	public List<SignIntegrationRuleEntity> findAllSignIntegrationRules() throws Exception;
 }

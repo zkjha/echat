@@ -31,4 +31,9 @@ update tb_integration_cash_rule set iIntegration=#{iIntegration},dCash=#{dCash},
 strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName} 
 where strId=#{strId}
 </update>
+
+<!-- 显示全部非连续性签到积分规则 -->
+<select id="findAllSignIntegrationRules" resultType="com.ecard.entity.SignIntegrationRuleEntity">
+ select * from tb_sign_integration_rule where strStatus='0' order by strCreationTime desc
+</select>
 </mapper>

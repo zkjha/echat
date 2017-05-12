@@ -1,6 +1,8 @@
 package com.ecard.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +53,11 @@ public class SignIntegrationRuleSetService {
 		int rcdNum=signIntegrationRuleSetMapper.updateIntegrationCashRule(integrationCashRuleEntity);
 		return rcdNum;
 	}
-	
+	//显示全部非连续性签到积分规则
+	public List<SignIntegrationRuleEntity> findAllSignIntegrationRules() throws Exception
+	{
+		return signIntegrationRuleSetMapper.findAllSignIntegrationRules();
+		
+	}
 
 }

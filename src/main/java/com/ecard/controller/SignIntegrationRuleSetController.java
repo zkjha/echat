@@ -1,6 +1,9 @@
 package com.ecard.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -546,6 +549,47 @@ public class SignIntegrationRuleSetController {
 						return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 					}
 				}
+				
+				
+	//显示全部非连续签到积分规则
+	//localhost:8083/admin/biz/RuleSetting/findAllSignIntegrationRules
+	@ResponseBody
+	@RequestMapping("findAllSignIntegrationRules")
+	public String findAllSignIntegrationRules(HttpServletResponse response,HttpServletRequest request)
+	{
+		//检验身份有效性
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		
+		try{
+			List<SignIntegrationRuleEntity> listSignIntegrationRuleEntity=signIntegrationRuleSetService.findAllSignIntegrationRules();
+			
+			if(listSignIntegrationRuleEntity==null||listSignIntegrationRuleEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			else
+			{
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("listSignIntegrationRuleEntity", listSignIntegrationRuleEntity);
+				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}
+		}catch(Exception e)
+		{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+	
 	public static boolean isNumber(String strCheckString)
 	{
 		boolean flag=false;
