@@ -675,7 +675,7 @@ create table tb_img_advertisement
 (
 	strImgId			varchar(50)			not null,			-- 图片ID
     strImgName			varchar(500)		not null,			-- 图片名称
-	iImgOrder			int(5)				not null,			-- 图片排序
+	iImgOrder			int(5)				not null,	-- 图片排序
 	strCreationTime		varchar(50)			not null,			-- 创建记录时间
     strLastAccessedTime	varchar(50)			not null,			-- 最后修改时间
     strEmployeeId		varchar(50)			not null,			-- 登录员工ID

@@ -2,11 +2,15 @@ package com.ecard.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.commontools.data.DataTool;
+import com.commontools.validate.ValidateTool;
+import com.ecard.config.ResultCode;
 import com.ecard.entity.ImgAdvertisementEntity;
 import com.ecard.mapper.ImgAdvertisementSetMapper;
 
@@ -41,46 +45,38 @@ public class ImgAdvertisementSetService {
 	{	
 		//查出图片序号iImgOrder
 		int flag=0,rcdNum=0;
-		int affectRecordOrder=0,totalRecordNum=0;
-		int iIMgOrder=imgAdvertisementSetMapper.findImgOrderById(imgAdvertisementEntity.getStrImgId());
-		totalRecordNum=imgAdvertisementSetMapper.findAllRecordCount();
-		if("0".equals(strStatus))	//上移 
+		int iImgOrder=imgAdvertisementEntity.getIImgOrder();
+		ImgAdvertisementEntity affectImgAdvertisementEntity = null;
+
+		//解决可不可以移动的问题---------------------
+		if("0".equals(strStatus))			//上移
 			{
-			affectRecordOrder=iIMgOrder-1;
-			if(affectRecordOrder==0)
-				{
-				rcdNum=-1;
-				return rcdNum;
-				}
+			affectImgAdvertisementEntity=imgAdvertisementSetMapper.upwardImageAdvertisement(iImgOrder);//查出要移动对象及受上移影响的记录是否都存在
+			if(ValidateTool.isNull(affectImgAdvertisementEntity))
+			return -1;						//返回"此图片广告已处在最上层"信息.	
+			}
+		if("1".equals(strStatus))			//下移
+			{
+			affectImgAdvertisementEntity=imgAdvertisementSetMapper.downwardImageAdvertisement(iImgOrder);//查出要移动对象及受上移影响的记录是否都存在
+			if(ValidateTool.isNull(affectImgAdvertisementEntity))
+			return 1;						//返回"此图片广告已处在最下层"信息.
 			}
 		
-		if("1".equals(strStatus))	//下移
-			{
-			affectRecordOrder=iIMgOrder+1;
-			if(affectRecordOrder>totalRecordNum)
-				{
-				rcdNum=1;
-				return rcdNum;
-				}
-			}
-		//查出受影响的记录Id
-		String affectRecordId=imgAdvertisementSetMapper.findIdByOrder(affectRecordOrder);
-		//设置imgAdvertisementEntity的图片序号
-		imgAdvertisementEntity.setIImgOrder(affectRecordOrder);
-		//新建一个实体
-		ImgAdvertisementEntity affectImgAdvertisementEntity=new ImgAdvertisementEntity();
-		affectImgAdvertisementEntity.setStrImgId(affectRecordId);
-		affectImgAdvertisementEntity.setIImgOrder(iIMgOrder);
+		imgAdvertisementEntity.setIImgOrder(affectImgAdvertisementEntity.getIImgOrder());
+	
+		affectImgAdvertisementEntity.setIImgOrder(iImgOrder);
+		affectImgAdvertisementEntity.setStrImgId(affectImgAdvertisementEntity.getStrImgId());
 		affectImgAdvertisementEntity.setStrLastAccessedTime(imgAdvertisementEntity.getStrLastAccessedTime());
 		affectImgAdvertisementEntity.setStrEmployeeId(imgAdvertisementEntity.getStrEmployeeId());
 		affectImgAdvertisementEntity.setStrEmployeeName(imgAdvertisementEntity.getStrEmployeeName());
 		affectImgAdvertisementEntity.setStrEmployeeRealName(imgAdvertisementEntity.getStrEmployeeRealName());
-		flag=imgAdvertisementSetMapper.moveImgAdvertisement(imgAdvertisementEntity);
-		if(flag!=0)
-			rcdNum=rcdNum+1;
+		
 		flag=imgAdvertisementSetMapper.moveImgAdvertisement(affectImgAdvertisementEntity);
 		if(flag!=0)
-			rcdNum=rcdNum+1;
+			rcdNum++;
+		flag=imgAdvertisementSetMapper.moveImgAdvertisement(imgAdvertisementEntity);
+		if(flag!=0)
+			rcdNum++;
 		return rcdNum;
 	}
 	

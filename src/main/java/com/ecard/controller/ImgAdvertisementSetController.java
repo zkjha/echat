@@ -98,18 +98,19 @@ public class ImgAdvertisementSetController {
 	}
 	
 	/**
-	 * 上移图片广告:参照：最上层：图片序号为1,向下序号依次为2，3,4...
+	 * 移动图片广告:参照：最上层：图片序号为1,向下序号依次为2，3,4...
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("moveImgAdvertisement")
-	//localhost:8083/admin/biz/advSetting/moveImgAdvertisement?strImgId=39f107725781423bb39b036aad482a14&strStatus=0
+	//localhost:8083/admin/biz/advSetting/moveImgAdvertisement?strImgId=39f107725781423bb39b036aad482a14&iImgOrder=1&strStatus=0
 	public String moveImgAdvertisement(HttpServletResponse response,HttpServletRequest request)
 	{
-		int i=0;
+		int i=0,iImgOrder;
 		String strImgId=request.getParameter("strImgId");
+		String strImgOrder=request.getParameter("iImgOrder");
 		String strStatus=request.getParameter("strStatus");//状态量：0上移,1下移
 		if(ValidateTool.isEmptyStr(strImgId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"ID不能为空", null);
@@ -125,7 +126,14 @@ public class ImgAdvertisementSetController {
 			if(i<=0)
 				strStatus="0"; 
 			}
-		
+		if(ValidateTool.isEmptyStr(strImgOrder))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"图片序号不能为空", null);
+		else {
+				if(isNumber(strImgOrder))
+					iImgOrder=Integer.parseInt(strImgOrder);
+				else
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"图片序号格式不对!", null);
+			}
 		/*
 		EmployeeEntity employeeEntity = null;
 		try {
@@ -151,7 +159,7 @@ public class ImgAdvertisementSetController {
 		//将数据装进ENTITY
 		ImgAdvertisementEntity imgAdvertisementEntity=new ImgAdvertisementEntity();
 		imgAdvertisementEntity.setStrImgId(strImgId);
-		//iImgOrder属性在Service层取得并设置
+		imgAdvertisementEntity.setIImgOrder(iImgOrder);
 		imgAdvertisementEntity.setStrLastAccessedTime(strLastAccessedTime);
 		imgAdvertisementEntity.setStrEmployeeId(strEmployeeId);
 		imgAdvertisementEntity.setStrEmployeeName(strEmployeeName);
@@ -191,6 +199,19 @@ public class ImgAdvertisementSetController {
 		String strImgId=request.getParameter("strImgId");
 		if(ValidateTool.isEmptyStr(strImgId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "ID不能为空", null);
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		
 		try{
 			rcdNum=imgAdvertisementSetService.delImgAdvertisement(strImgId);
 		}catch(Exception e)
@@ -217,6 +238,18 @@ public class ImgAdvertisementSetController {
 	//localhost:8083/admin/biz/advSetting/findAllImaggeAdvertisement
 	public String findAllImaggeAdvertisement(HttpServletResponse response,HttpServletRequest request)
 	{
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
 		try{
 			List<ImgAdvertisementEntity> listImgAdvertisementEntity=imgAdvertisementSetService.findAllImaggeAdvertisement();
 			if(listImgAdvertisementEntity==null||listImgAdvertisementEntity.size()==0)
@@ -238,7 +271,7 @@ public class ImgAdvertisementSetController {
 	public static boolean isNumber(String strCheckString)
 	{
 		boolean flag=false;
-		Pattern p1 = Pattern.compile("^[1-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
+		Pattern p1 = Pattern.compile("^[0-9]\\d*$");
 		Matcher matcher=p1.matcher(strCheckString);
 		flag=matcher.matches();   
 		return flag;
