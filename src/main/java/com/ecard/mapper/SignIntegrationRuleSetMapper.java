@@ -13,6 +13,8 @@ public interface SignIntegrationRuleSetMapper {
 	public int insertIntegrationCashRule(IntegrationCashRuleEntity integrationCashRuleEntity) throws Exception;
 	//更新integration_cash_rule表
 	public int updateIntegrationCashRule(IntegrationCashRuleEntity integrationCashEntity) throws Exception;
-	//显示全部签到积分规则
+	//显示全部非连续签到积分规则
 	public List<SignIntegrationRuleEntity> findAllSignIntegrationRules() throws Exception;
+	//显示全部连续签到积分规则
+	public List<SignIntegrationRuleEntity> findAllSignIntegrationRule() throws Exception;
 }

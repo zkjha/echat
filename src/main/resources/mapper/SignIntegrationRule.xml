@@ -36,4 +36,9 @@ where strId=#{strId}
 <select id="findAllSignIntegrationRules" resultType="com.ecard.entity.SignIntegrationRuleEntity">
  select * from tb_sign_integration_rule where strStatus='0' order by strCreationTime desc
 </select>
+
+<!-- 显示全部连续性签到积分规则 -->
+<select id="findAllSignIntegrationRule" resultType="com.ecard.entity.SignIntegrationRuleEntity">
+ select * from tb_sign_integration_rule where strStatus='1' order by strCreationTime desc
+</select>
 </mapper>

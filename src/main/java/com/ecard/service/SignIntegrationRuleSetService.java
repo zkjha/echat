@@ -59,5 +59,12 @@ public class SignIntegrationRuleSetService {
 		return signIntegrationRuleSetMapper.findAllSignIntegrationRules();
 		
 	}
+	
+	//显示全部连续性签到积分规则
+	public List<SignIntegrationRuleEntity> findAllSignIntegrationRule() throws Exception
+	{
+		return signIntegrationRuleSetMapper.findAllSignIntegrationRule();
+			
+	}
 
 }
