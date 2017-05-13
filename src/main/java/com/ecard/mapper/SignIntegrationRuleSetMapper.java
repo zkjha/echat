@@ -19,4 +19,8 @@ public interface SignIntegrationRuleSetMapper {
 	public List<SignIntegrationRuleEntity> findAllSignIntegrationRule() throws Exception;
 	//显示全部的积分抵现规则
 	public List<IntegrationCashRuleEntity> findAllIntegrationCashRule() throws Exception;
+	//删除签到积分规则
+	public int deleteSignIntegrationRule(String strSignId) throws Exception;
+	//删除积分抵现规则
+	public int deleteIntegrationCashRule(String strId) throws Exception;
 }

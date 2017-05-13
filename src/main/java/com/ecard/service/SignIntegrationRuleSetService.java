@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecard.entity.SignIntegrationRuleEntity;
+import com.commontools.data.DataTool;
+import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegrationCashRuleEntity;
 import com.ecard.mapper.SignIntegrationRuleSetMapper;
 @Service
@@ -71,4 +73,19 @@ public class SignIntegrationRuleSetService {
 	{
 		return signIntegrationRuleSetMapper.findAllIntegrationCashRule();
 	}
+	
+	//删除签到积分规则
+	public int deleteSignIntegrationRule(String strSignId) throws Exception
+	{
+
+		return signIntegrationRuleSetMapper.deleteSignIntegrationRule(strSignId);
+	}
+	
+	//删除积分抵现规则
+	public int deleteIntegrationCashRule(String strId) throws Exception
+	{
+
+	return signIntegrationRuleSetMapper.deleteIntegrationCashRule(strId);
+	}
+	
 }

@@ -117,7 +117,7 @@ public class SignIntegrationRuleSetController {
 	
 	
 		
-		//取得非连续签到积分规则
+		//插入非连续签到积分规则
 		//localhost:8083/admin/biz/RuleSetting/insertSignIntegrationRules?strSignDays=10&iIntegration=100&strEnabled=0
 		@ResponseBody
 		@RequestMapping("insertSignIntegrationRules")
@@ -653,7 +653,88 @@ public class SignIntegrationRuleSetController {
 		}
 	}
 	
+	//删除连续签到和非连续签到积分规则
+	@ResponseBody
+	@RequestMapping("deleteSignIntegrationRule")
+	//localhost:8083/admin/biz/RuleSetting/deleteSignIntegrationRule?strSignId=8e2729bcea0845788cdd8b88e128b575
+	public String deleteSignIntegrationRule(HttpServletRequest request,HttpServletResponse response)
+	{
+
+		String strSignId=request.getParameter("strSignId");
+		if(ValidateTool.isEmptyStr(strSignId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"记录ID不能为空",null);
+		
+		//检验身份
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		try{
+			
+			int affectNum=signIntegrationRuleSetService.deleteSignIntegrationRule(strSignId);
+			if(affectNum!=0)
+				return DataTool.constructResponse(ResultCode.OK,"删除成功!",null);
+			else
+				return DataTool.constructResponse(ResultCode.NO_DATA,"删除失败",null);
+			
+		}catch(Exception e)
+		{
+
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
+	}
 	
+	
+		//删除积分抵现规则
+		@ResponseBody
+		@RequestMapping("deleteIntegrationCashRule")
+		//localhost:8083/admin/biz/RuleSetting/deleteIntegrationCashRule?strId=85b7fe27fe704e7d88b51498e78d7709
+		public String deleteIntegrationCashRule(HttpServletRequest request,HttpServletResponse response)
+		{
+
+			String strId=request.getParameter("strId");
+			if(ValidateTool.isEmptyStr(strId))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"记录ID不能为空",null);
+			
+			//检验身份
+			/*
+			EmployeeEntity employeeEntity = null;
+			try {
+				employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+			}
+			if (employeeEntity==null) {
+				return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+			}
+			*/
+			try{
+				
+				int affectNum=signIntegrationRuleSetService.deleteIntegrationCashRule(strId);
+				if(affectNum!=0)
+					return DataTool.constructResponse(ResultCode.OK,"删除成功!",null);
+				else
+					return DataTool.constructResponse(ResultCode.NO_DATA,"删除失败",null);
+				
+			}catch(Exception e)
+			{
+
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+			
+		}
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

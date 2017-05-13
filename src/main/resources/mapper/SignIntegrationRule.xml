@@ -46,4 +46,15 @@ where strId=#{strId}
 <select id="findAllIntegrationCashRule" resultType="com.ecard.entity.IntegrationCashRuleEntity">
  select * from tb_integration_cash_rule order by strCreationTime desc
 </select>
+
+<!-- 删除签到积分规则 -->
+<delete id="deleteSignIntegrationRule" parameterType="String">
+ delete from tb_sign_integration_rule where strSignId=#{strSignId}
+</delete>
+
+<!-- 删除积分抵现规则 -->
+<delete id="deleteIntegrationCashRule" parameterType="String">
+ delete from tb_integration_cash_rule where strId=#{strId}
+</delete>
+
 </mapper>

@@ -632,8 +632,8 @@ CREATE TABLE tb_voucherticket_useinfo
 create index indxVoucherTicketUseInfoOnEndTime on tb_voucherticket_useinfo(strValidEndTime);
 create index indxVoucherTicketUseInfoOnId on tb_voucherticket_useinfo(strVoucherTicketId);
 create index indxVoucherTicketUseInfoMemberId on tb_voucherticket_useinfo(strMemberId);
--- -----------------------签到积分表----------------------------------
--- 表名tb_sign_integration_rule
+-- -----------------------签到积分规则表----------------------------------
+-- 表名tb_sign_integration_rule                             【签到积分规则表】
 -- -------------------------------------------------------------------
 DROP TABLE  IF EXISTS tb_sign_integration_rule;
 CREATE TABLE tb_sign_integration_rule
@@ -650,9 +650,9 @@ strEmployeeName		varchar(50)		not null,		-- 登录员工帐号
 strEmployeeRealName varchar(50)		not null,		-- 登录员工姓名
 PRIMARY KEY(strSignId)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- --------------------消费积分抵现表---------------------------------------------------------------------------------------------------------------------
--- 表名:tb_integration_cash_rule 消费积分抵现表
--- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- --------------------消费积分抵现规则表------------------------------------------
+-- 表名:tb_integration_cash_rule 消费积分抵现表                           【消费积分抵现规则表】
+-- -----------------------------------------------------------------------------
 DROP TABLE IF EXISTS tb_integration_cash_rule;
 CREATE TABLE tb_integration_cash_rule
 (
@@ -667,8 +667,8 @@ CREATE TABLE tb_integration_cash_rule
 	strEmployeeRealName varchar(50)		not null,		-- 登录员工姓名
     PRIMARY KEY(strId)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- -------------------------------------前端首页图片广告表-------------------------
--- 表名:tb_img_advertisement
+-- -------------------------------------前端首页图片广告设置表-------------------------
+-- 表名:tb_img_advertisement                          【前端首页图片广告设置】
 -- --------------------------------------------------------------------------------
 drop table if exists tb_img_advertisement;
 create table tb_img_advertisement
