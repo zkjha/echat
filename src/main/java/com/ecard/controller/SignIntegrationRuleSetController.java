@@ -42,9 +42,9 @@ public class SignIntegrationRuleSetController {
 		// 取得连续签到积分规则参数
 		int iIntegration;
 		String strSignId=DataTool.getUUID();												
-		String strSignDays= request.getParameter("strSignDays");							//签到天数校验?????????????
+		String strSignDays= request.getParameter("strSignDays");							//签到天数校验
 		String strStatus ="1";																//连续性签 到状态为1
-		String strIntegration =request.getParameter("iIntegration");						//校验并转换类型??????????
+		String strIntegration =request.getParameter("iIntegration");						//校验并转换类型
 		String strEnabled = request.getParameter("strEnabled");
 		
 		if (ValidateTool.isEmptyStr(strSignDays)) {
@@ -107,7 +107,7 @@ public class SignIntegrationRuleSetController {
 			if(result!=0)
 				 return DataTool.constructResponse(ResultCode.OK,"插入连续签到积分规则成功", null);
 			else
-				 return DataTool.constructResponse(ResultCode.NO_DATA,"插入连续签到积分规则失败", null);
+				 return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"插入连续签到积分规则失败", null);
 			
 		} catch (Exception e) {
 			e.printStackTrace();			
@@ -192,7 +192,7 @@ public class SignIntegrationRuleSetController {
 				if(result!=0)
 					return DataTool.constructResponse(ResultCode.OK,"插入非连续签到积分规则成功", null);
 				else
-					return DataTool.constructResponse(ResultCode.NO_DATA,"插入非连续签到积分规则失败", null);
+					return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"插入非连续签到积分规则失败", null);
 
 			} catch (Exception e) {
 				e.printStackTrace();				
@@ -280,7 +280,7 @@ public class SignIntegrationRuleSetController {
 				return DataTool.constructResponse(ResultCode.OK,"插入积分抵现规则成功", null);
 
 			else
-				return DataTool.constructResponse(ResultCode.NO_DATA,"插入积分抵现规则失败", null);
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"插入积分抵现规则失败", null);
 			
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -367,7 +367,7 @@ public class SignIntegrationRuleSetController {
 					if(result!=0)
 						return DataTool.constructResponse(ResultCode.OK,"更新连续性签到积分规则成功", null);
 					else
-						return DataTool.constructResponse(ResultCode.NO_DATA,"更新连续性签到积分规则失败", null);
+						return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新连续性签到积分规则失败", null);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
@@ -452,7 +452,7 @@ public class SignIntegrationRuleSetController {
 						if(result!=0)
 							return DataTool.constructResponse(ResultCode.OK,"更新非连续性签到积分规则成功", null);
 						else
-							return DataTool.constructResponse(ResultCode.NO_DATA,"更新非连续性签到积分规则失败", null);
+							return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新非连续性签到积分规则失败", null);
 					} catch (Exception e) {
 						e.printStackTrace();
 						
@@ -542,7 +542,7 @@ public class SignIntegrationRuleSetController {
 					if(result!=0)
 						return DataTool.constructResponse(ResultCode.OK,"更新积分抵现规则成功", null);
 					else
-						return DataTool.constructResponse(ResultCode.NO_DATA,"更新积分抵现规则失败", null);
+						return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新积分抵现规则失败", null);
 					
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -683,7 +683,7 @@ public class SignIntegrationRuleSetController {
 			if(affectNum!=0)
 				return DataTool.constructResponse(ResultCode.OK,"删除成功!",null);
 			else
-				return DataTool.constructResponse(ResultCode.NO_DATA,"删除失败",null);
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
 			
 		}catch(Exception e)
 		{
@@ -725,7 +725,7 @@ public class SignIntegrationRuleSetController {
 				if(affectNum!=0)
 					return DataTool.constructResponse(ResultCode.OK,"删除成功!",null);
 				else
-					return DataTool.constructResponse(ResultCode.NO_DATA,"删除失败",null);
+					return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
 				
 			}catch(Exception e)
 			{

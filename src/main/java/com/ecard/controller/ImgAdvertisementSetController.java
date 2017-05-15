@@ -88,7 +88,7 @@ public class ImgAdvertisementSetController {
 		if(rcdNum!=0)
 			return DataTool.constructResponse(ResultCode.OK,"插入图片广告成功",null);
 		else
-			return DataTool.constructResponse(ResultCode.NO_DATA,"插入数据失败",null);
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"插入数据失败",null);
 		}catch(Exception e)
 		{	
 			e.printStackTrace();
@@ -117,7 +117,7 @@ public class ImgAdvertisementSetController {
 		if(ValidateTool.isEmptyStr(strStatus))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"状态不能为空", null);
 		if(!isNumber(strStatus))
-			return DataTool.constructResponse(ResultCode.NO_DATA,"请写数字:0表示向上移动,1 表示向下移动", null);
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请写数字:0表示向上移动,1 表示向下移动", null);
 		else
 			{
 			i=Integer.parseInt(strStatus);
@@ -168,11 +168,11 @@ public class ImgAdvertisementSetController {
 		try{
 			int rcdNum=imgAdvertisementSetService.moveImgAdvertisement(imgAdvertisementEntity,strStatus);
 			if(rcdNum==0)
-				return DataTool.constructResponse(ResultCode.NO_DATA,"图片广告移动失败",null);
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"图片广告移动失败",null);
 			else if(rcdNum==-1)
-				return DataTool.constructResponse(ResultCode.NO_DATA,"该图片广告已经在最上层了！",null);
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"该图片广告已经在最上层了！",null);
 			else if(rcdNum==1)
-				return DataTool.constructResponse(ResultCode.NO_DATA,"该图片广告已经在最下层了",null);
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"该图片广告已经在最下层了",null);
 			else
 				return DataTool.constructResponse(ResultCode.OK,"图片广告移动成功",null);
 		}catch(Exception e)
@@ -214,15 +214,16 @@ public class ImgAdvertisementSetController {
 		
 		try{
 			rcdNum=imgAdvertisementSetService.delImgAdvertisement(strImgId);
+			if(rcdNum!=0)
+				return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
+			else
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "删除操作失败", null);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
-		if(rcdNum!=0)
-			return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
-		else
-			return DataTool.constructResponse(ResultCode.NO_DATA, "删除操作失败", null);
+		
 			
 	}
 	

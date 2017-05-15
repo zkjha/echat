@@ -683,6 +683,42 @@ create table tb_img_advertisement
     strEmployeeRealName	varchar(50)			not null,			-- 登录员工真实姓名
     primary key(strImgId)
 )engine=innodb default charset=utf8;
+-- ----------------------------------------------------------------------------------------
+-- tableName:tb_fistMemberInitiation_integrationPresents			【初次入会｜赠送积分表】
+-- -----------------------------------------------------------------------------------------
+drop table if exists tb_fistMemberInitiation_integrationPresents;
+CREATE TABLE tb_fistMemberInitiation_integrationPresents
+(
+  StrIntegrationPresentsId		VARCHAR(50)		NOT NULL,				-- 关键字
+  iIntegrationPresentsValue 	INT				NOT NULL DEFAULT 0,		-- 赠送积分数
+  iEnabled 						INT(2) 			NOT NULL DEFAULT 0, 	-- 启用状态：1启用 0禁用,默认状态为：0
+  strEmployeeId 				VARCHAR(50) 	NOT NULL,				-- 管理员ID
+  strEmployeeName 				VARCHAR(50) 	NOT NULL,				-- 管理员账号
+  strEmployeeRealName 			VARCHAR(50) 	NOT NULL,				-- 管理员姓名
+  strCreationTime 				VARCHAR(50) 	NOT NULL,				-- 记录创建时间
+  strLastAccessedTime 			VARCHAR(50) 	NOT NULL,				-- 记录修改时间
+  PRIMARY KEY (StrIntegrationPresentsId)
+)engine=innodb default charset=utf8;
+-- -----------------------------------------------------------------------------------------
+-- tableName:tb__firstMemberInitiation_storedTicketPresents			【初次入会｜赠送储值表】
+-- ----------------------------------------------------------------------------------------
+drop table if exists tb_firstMemberInitiation_storedTicketPresents;
+CREATE TABLE tb_firstMemberInitiation_storedTicketPresents
+(
+  strStoredTicketPresentsId		VARCHAR(50) 	NOT NULL,	-- 关键字
+  iStoredValuePresents 			INT NULL 		DEFAULT 0,	-- 赠送储值数量
+  iTotalStoredTicketNum 		INT 			NOT NULL,	-- 可对所有消费者发放的储值卡总数量
+  iRestStoredTicketNum 			INT NULL		NOT NULL,	-- 可对所有消费者发放的储值卡剩余数量
+  strValidateBeginTime 			VARCHAR(50) 	NOT NULL,	-- 赠送储值的使用有效期
+  strValidateEndTime 			VARCHAR(50) 	NOT NULL,	-- 赠送储值的使用有效期
+  iEnabled 						INT(2) 			DEFAULT 0,	-- 是否启用：1启用 0禁用 默认禁用
+  strEmployeeId 				VARCHAR(50) 	NOT NULL,	-- 管理员ID
+  strEmployeeName 				VARCHAR(50) 	NOT NULL,	-- 管理员账号
+  strEmployeeRealName 			VARCHAR(50) 	NOT NULL,	-- 管理员姓名
+  strCreationTime 				VARCHAR(50) 	NOT NULL,	-- 记录创建时间
+  strLastAccessedTime 			VARCHAR(50) 	NOT NULL,	-- 记录修改时间
+  PRIMARY KEY (strStoredTicketPresentsId)
+)engine=innodb default charset=utf8;
 
 
 

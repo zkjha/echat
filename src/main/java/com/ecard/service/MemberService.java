@@ -101,7 +101,7 @@ public class MemberService {
 		}
 	}
 
-	//查询会员基本信息
+	//查询会员基本信息1111
 	public MemberEntity getMemberById(String strMemberid)  throws Exception {
 		return memberMapper.getMemberById(strMemberid);
 	}

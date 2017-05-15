@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.FirstMemberInitiationPresentsMapper">
+<!-- 插入会员首次入会应获积分信息 -->
+<insert id="insertIntegrationPresents" parameterType="com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity">
+ insert into tb_fistmemberinitiation_integrationpresents (strIntegrationPresentsId,iIntegrationPresentsValue,iEnabled,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime) 
+ values (#{strIntegrationPresentsId},#{iIntegrationPresentsValue},#{iEnabled},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},#{strCreationTime},#{strLastAccessedTime})
+</insert>
+
+<!-- 查询顾客入会获赠积分情况 -->
+<select id="selectFirstMemberInitiationIntegrationPresents" resultType="com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity">
+ select * from tb_fistmemberinitiation_integrationpresents
+</select>
+
+<!-- 更新 顾客入会获赠积分情况 -->
+<update id="updateIntegrationPresents" parameterType="com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity">
+ update tb_fistmemberinitiation_integrationpresents
+   set
+	iIntegrationPresentsValue=#{iIntegrationPresentsValue},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime} where strIntegrationPresentsId=#{strIntegrationPresentsId}
+</update>
+
+<!-- 删除入会获赠积分信息 -->
+<delete id="deleteFirstMemberInitiationIntegrationPresents" parameterType="String">
+	delete from tb_fistmemberinitiation_integrationpresents where strIntegrationPresentsId=#{strIntegrationPresentsId}
+</delete>
+
+<!-- 新增 顾客首次入会获赠储值券信息 -->
+<insert parameterType="com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity" id="insertStoredTicketPresentsInfo">
+ insert into tb_firstMemberInitiation_storedTicketPresents
+      (strStoredTicketPresentsId,iStoredValuePresents,iTotalStoredTicketNum,iRestStoredTicketNum,strValidateBeginTime,strValidateEndTime,
+       iEnabled,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime)
+ values
+     (#{strStoredTicketPresentsId},#{iStoredValuePresents},#{iTotalStoredTicketNum},#{iRestStoredTicketNum},#{strValidateBeginTime},#{strValidateEndTime},
+     #{iEnabled},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},#{strCreationTime},#{strLastAccessedTime})
+</insert>
+</mapper>
