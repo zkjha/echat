@@ -719,7 +719,24 @@ CREATE TABLE tb_firstMemberInitiation_storedTicketPresents
   strLastAccessedTime 			VARCHAR(50) 	NOT NULL,	-- 记录修改时间
   PRIMARY KEY (strStoredTicketPresentsId)
 )engine=innodb default charset=utf8;
-
+-- ------------------------------------------------------------------------
+-- tableName:tb_voucher_ticket_presents			【初次入会｜赠送抵用卷表】
+-- -----------------------------------------------------------------------
+drop table if exists tb_firstMemberInitiation_VoucherTicketPresents;
+CREATE TABLE tb_firstMemberInitiation_VoucherTicketPresents 
+(
+  strVoucherTicketPresentsId 	VARCHAR(50) 		NOT NULL,	-- 关键字
+  iVoucherTicketPresentsValue 	INT NULL 			DEFAULT 0,	-- 抵送卷值
+  iTotalVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷总数量
+  iRestVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷剩余量
+  iEnabled 						INT(2) 				DEFAULT 0,	-- 是否启用：1启用
+  strEmployeeId 				VARCHAR(50) 		NOT NULL,	-- 管理员ID
+  strEmployeeName 				VARCHAR(50) 		NOT NULL,	-- 管理员帐号
+  strEmployeeRealName 			VARCHAR(50) 		NOT NULL,	-- 管理员姓名
+  strCreationTime 				VARCHAR(50) 		NOT NULL,	-- 记录创建时间
+  strLastAccessedTime 			VARCHAR(50) 		NOT NULL,	-- 记录修改时间
+  PRIMARY KEY (strVoucherTicketPresentsId)
+)engine=innodb default charset=utf8;
 
 
 

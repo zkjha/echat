@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity;
 import com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity;
+import com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity;
 
 public interface FirstMemberInitiationPresentsMapper {
 	//新增 顾客首次入会获赠积分信息
@@ -18,4 +19,11 @@ public interface FirstMemberInitiationPresentsMapper {
 	public int insertStoredTicketPresentsInfo(FirstMemberInitiationStoredTicketPresentsEntity storedTicketPresentsEntity) throws Exception;
 	//查询  顾客首次入会获赠储值卷信息
 	public List<FirstMemberInitiationStoredTicketPresentsEntity> selectStoredTicketPresentsInfo() throws Exception;
+	//更新 顾客首次入会获赠储值郑信息
+	public int updateStoredTicketPresentsInfo(FirstMemberInitiationStoredTicketPresentsEntity storedTicketPresentsEntity);
+	//删除 顾客首次入会获赠储值信息
+	public int deleteStoredTicketPresentsInfo(String strStoredTicketPresentsId) throws Exception;
+	//新增 顾客首次入会获赠抵用券信息
+	public int insertVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception;
+	
 }

@@ -43,4 +43,26 @@
 <select id="selectStoredTicketPresentsInfo" resultType="com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity">
  select * from tb_firstMemberInitiation_storedTicketPresents order by strLastAccessedTime desc
 </select>
+
+<!-- 更新 顾客首次入会获赠储值卷信息-->
+<update id="updateStoredTicketPresentsInfo" parameterType="com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity">
+update tb_firstMemberInitiation_storedTicketPresents set
+  iStoredValuePresents=#{iStoredValuePresents},iTotalStoredTicketNum=#{iTotalStoredTicketNum},iRestStoredTicketNum=#{iRestStoredTicketNum},
+  strValidateBeginTime=#{strValidateBeginTime},strValidateEndTime=#{strValidateEndTime},iEnabled=#{iEnabled},
+  strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName},
+  strLastAccessedTime=#{strLastAccessedTime} where strStoredTicketPresentsId=#{strStoredTicketPresentsId}
+</update>
+
+<!-- 删除 顾客首次入会获赠储值信息 -->
+<delete id="deleteStoredTicketPresentsInfo">
+ delete from tb_firstMemberInitiation_storedTicketPresents where strStoredTicketPresentsId=#{strStoredTicketPresentsId}
+</delete>
+
+<!-- 新增 顾客首次入会获赠抵用卷信息 -->
+<insert id="insertVoucherTicketPresentsInfo" parameterType="com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity">
+insert into tb_firstMemberInitiation_VoucherTicketPresents
+(strVoucherTicketPresentsId,iVoucherTicketPresentsValue,iTotalVoucherTicketNum,iRestVoucherTicketNum,iEnabled,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime)
+ values
+(#{strVoucherTicketPresentsId},#{iVoucherTicketPresentsValue},#{iTotalVoucherTicketNum},#{iRestVoucherTicketNum},#{iEnabled},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},#{strCreationTime},#{strLastAccessedTime})
+</insert>
 </mapper>

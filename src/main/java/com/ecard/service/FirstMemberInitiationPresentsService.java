@@ -9,6 +9,7 @@ import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity;
 import com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity;
+import com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity;
 import com.ecard.mapper.FirstMemberInitiationPresentsMapper;
 
 @Service
@@ -69,6 +70,35 @@ public class FirstMemberInitiationPresentsService {
 	public List<FirstMemberInitiationStoredTicketPresentsEntity> selectStoredTicketPresentsInfo() throws Exception
 	{
 		return firstMemberInitiationPresentsMapper.selectStoredTicketPresentsInfo();
+	}
+	
+	//更新 顾客首次入会获赠储值郑信息
+	public String updateStoredTicketPresentsInfo(FirstMemberInitiationStoredTicketPresentsEntity storedTicketPresentsEntity)
+	{
+		int rcdNum=firstMemberInitiationPresentsMapper.updateStoredTicketPresentsInfo(storedTicketPresentsEntity);
+		if(rcdNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"更新成功",null);
+	}
+	
+	//删除 顾客首次入会获赠储值信息
+	public String deleteStoredTicketPresentsInfo(String strStoredTicketPresentsId) throws Exception
+	{
+		int rcdNum=firstMemberInitiationPresentsMapper.deleteStoredTicketPresentsInfo(strStoredTicketPresentsId);
+		if(rcdNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
+	//新增 顾客首次入会获赠抵用券信息
+	public String insertVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception
+	{
+		int rcdNum=firstMemberInitiationPresentsMapper.insertVoucherTicketPresentsInfo(voucherTicketPresentsEntity);
+		if(rcdNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"新增成功",null);
 	}
 
 }
