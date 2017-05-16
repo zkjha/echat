@@ -1,5 +1,7 @@
 package com.ecard.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +63,12 @@ public class FirstMemberInitiationPresentsService {
 		else
 			return DataTool.constructResponse(ResultCode.OK,"新增成功",null);
 			
+	}
+	
+	//查询  顾客首次入会获赠储值卷信息
+	public List<FirstMemberInitiationStoredTicketPresentsEntity> selectStoredTicketPresentsInfo() throws Exception
+	{
+		return firstMemberInitiationPresentsMapper.selectStoredTicketPresentsInfo();
 	}
 
 }

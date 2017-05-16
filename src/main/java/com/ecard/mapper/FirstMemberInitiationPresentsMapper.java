@@ -1,5 +1,7 @@
 package com.ecard.mapper;
 
+import java.util.List;
+
 import com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity;
 import com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity;
 
@@ -14,4 +16,6 @@ public interface FirstMemberInitiationPresentsMapper {
 	public int deleteFirstMemberInitiationIntegrationPresents(String strIntegrationPresentsId) throws Exception;
 	//新增 顾客首次入会获赠储值券信息
 	public int insertStoredTicketPresentsInfo(FirstMemberInitiationStoredTicketPresentsEntity storedTicketPresentsEntity) throws Exception;
+	//查询  顾客首次入会获赠储值卷信息
+	public List<FirstMemberInitiationStoredTicketPresentsEntity> selectStoredTicketPresentsInfo() throws Exception;
 }

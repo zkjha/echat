@@ -38,4 +38,9 @@
      (#{strStoredTicketPresentsId},#{iStoredValuePresents},#{iTotalStoredTicketNum},#{iRestStoredTicketNum},#{strValidateBeginTime},#{strValidateEndTime},
      #{iEnabled},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},#{strCreationTime},#{strLastAccessedTime})
 </insert>
+
+<!-- 查询  顾客首次入会获赠储值卷信息 -->
+<select id="selectStoredTicketPresentsInfo" resultType="com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity">
+ select * from tb_firstMemberInitiation_storedTicketPresents order by strLastAccessedTime desc
+</select>
 </mapper>

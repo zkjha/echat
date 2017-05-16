@@ -36,11 +36,25 @@ public class SignIntegrationRuleSetService {
 		int rcdNum=signIntegrationRuleSetMapper.updateSignIntegrationRule(signIntegrationRuleEntity);
 		return rcdNum;
 	}
-	//更新非连续性积分规则
-	public int updateSignIntegrationRules(SignIntegrationRuleEntity signIntegrationRuleEntity) throws Exception
+	
+	//更新非连续性积分规则;循环更新
+	@Transactional
+	public String updateSignIntegrationRules(List<SignIntegrationRuleEntity> listSignIntegrationRuleEntity) throws Exception
 	{
-		int rcdNum=signIntegrationRuleSetMapper.updateSignIntegrationRule(signIntegrationRuleEntity);
-		return rcdNum;
+			
+		int updateNum=0;
+		for(int i=0;i<listSignIntegrationRuleEntity.size();i++)
+		{
+			SignIntegrationRuleEntity signIntegrationRuleEntity=listSignIntegrationRuleEntity.get(i);
+			int affectNum=signIntegrationRuleSetMapper.updateSignIntegrationRule(signIntegrationRuleEntity);
+			if(affectNum==1)
+				updateNum++;
+		}
+		
+		if(updateNum==listSignIntegrationRuleEntity.size())
+			return DataTool.constructResponse(ResultCode.OK,"更新非连续性签到积分规则成功", null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新非连续性签到积分规则失败", null);
 	}
 
 	//插入积分抵现规则

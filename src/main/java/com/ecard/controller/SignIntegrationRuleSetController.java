@@ -1,5 +1,6 @@
 package com.ecard.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -376,40 +377,64 @@ public class SignIntegrationRuleSetController {
 			
 			
 			
-			//更新非续性签到积分表
+			//循环更新非续性签到积分表
 			//localhost:8083/admin/biz/RuleSetting/updateSignIntegrationRule?strId=fbd49bed886043a7b0454a4f77698ebc&strSignDays=10&iIntegration=1000&strEnabled=0
 				@ResponseBody
 				@RequestMapping("updateSignIntegrationRule")
 				public String updateSignIntegrationRule(HttpServletRequest request,HttpServletResponse response)
 				{	
-					int iIntegration;
-					String strSignId = request.getParameter("strId"); 
-					String strSignDays= request.getParameter("strSignDays");							//校验????
-					String strStatus ="0";																	//非连续性签到状态为0
-					String strIntegration = request.getParameter("iIntegration");						//检验？？
-					String strEnabled = request.getParameter("strEnabled");
-					
-					if (ValidateTool.isEmptyStr(strSignId)) {
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
+					//取得的参数有可能是数组，申明数组变量
+					String strSignId[] = request.getParameter("strId").split(","); 
+					String strSignDays[]= request.getParameter("strSignDays").split(",");					//校验
+					String strStatus="0";															//非连续性签到状态为0
+					String strIntegration[]= request.getParameter("iIntegration").split(",");				//检验
+					String strEnabled[] = request.getParameter("strEnabled").split(",");
+					int[] iIntegration=new int[strSignId.length];
+					//循环遍历
+					for(int i=0;i<strSignId.length;i++)
+					{	
+						if (ValidateTool.isEmptyStr(strSignId[i])) 
+							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
+							
 					}
-
-					if (ValidateTool.isEmptyStr(strSignDays)) {
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写非连续签到天数", null);
+					
+					for(int i=0;i<strSignId.length;i++)
+					{
+						if (ValidateTool.isEmptyStr(strSignDays[i])) 
+							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写非连续签到天数", null);
+							
 					}
 					
-					if(!isNumber(strSignDays))
-						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
+					for(int i=0;i<strSignId.length;i++)
+					{
+						if(!isNumber(strSignDays[i]))
+							return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
+							
+					}
 					
-					if (ValidateTool.isEmptyStr(strIntegration))
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+					for(int i=0;i<strSignId.length;i++)
+					{
+						if (ValidateTool.isEmptyStr(strIntegration[i]))
+							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
+							
+					}
 					
-					if(isNumber(strIntegration))
-						iIntegration=Integer.parseInt(strIntegration);
-					else
-						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
-
-					if (ValidateTool.isEmptyStr(strEnabled)) {
-						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"是否启用不能为空", null);
+					for(int i=0;i<strSignId.length;i++)
+					{
+						if(isNumber(strIntegration[i]))
+							{
+								iIntegration[i]=Integer.parseInt(strIntegration[i]);
+							}
+						else
+							return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
+							
+					}
+					
+					for(int i=0;i<strSignId.length;i++)
+					{
+						if (ValidateTool.isEmptyStr(strEnabled[i])) 
+							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"是否启用不能为空", null);
+							
 					}
 					
 					/*
@@ -436,26 +461,27 @@ public class SignIntegrationRuleSetController {
 					String strEmployeeRealName="david li";
 					
 					// 装进SignIntegrationRuleEntity
-					SignIntegrationRuleEntity signIntegrationRuleEntity = new SignIntegrationRuleEntity();
-					signIntegrationRuleEntity.setStrSignId(strSignId);
-					signIntegrationRuleEntity.setStrSignDays(strSignDays);
-					signIntegrationRuleEntity.setStrStatus(strStatus);
-					signIntegrationRuleEntity.setIIntegration(iIntegration);
-					signIntegrationRuleEntity.setStrEnabled(strEnabled);
-					signIntegrationRuleEntity.setStrEmployeeId(strEmployeeId);
-					signIntegrationRuleEntity.setStrEmployeeName(strEmployeeName);
-					signIntegrationRuleEntity.setStrEmployeeRealName(strEmployeeRealName);
-					signIntegrationRuleEntity.setStrLastAccessedTime(strLastAccessedTime);
-
+					List<SignIntegrationRuleEntity> listSignIntegrationRuleEntity=new ArrayList<SignIntegrationRuleEntity>();
+					for(int i=0;i<strSignId.length;i++)
+					{
+						SignIntegrationRuleEntity signIntegrationRuleEntity=new SignIntegrationRuleEntity();
+						signIntegrationRuleEntity.setStrSignId(strSignId[i]);
+						signIntegrationRuleEntity.setStrSignDays(strSignDays[i]);
+						signIntegrationRuleEntity.setStrStatus(strStatus);
+						signIntegrationRuleEntity.setIIntegration(iIntegration[i]);
+						signIntegrationRuleEntity.setStrEnabled(strEnabled[i]);
+						signIntegrationRuleEntity.setStrEmployeeId(strEmployeeId);
+						signIntegrationRuleEntity.setStrEmployeeName(strEmployeeName);
+						signIntegrationRuleEntity.setStrEmployeeRealName(strEmployeeRealName);
+						signIntegrationRuleEntity.setStrLastAccessedTime(strLastAccessedTime);
+						listSignIntegrationRuleEntity.add(signIntegrationRuleEntity);
+					}
+					
 					try {
-						int result = signIntegrationRuleSetService.updateSignIntegrationRule(signIntegrationRuleEntity);
-						if(result!=0)
-							return DataTool.constructResponse(ResultCode.OK,"更新非连续性签到积分规则成功", null);
-						else
-							return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新非连续性签到积分规则失败", null);
+						return signIntegrationRuleSetService.updateSignIntegrationRules(listSignIntegrationRuleEntity);
+						
 					} catch (Exception e) {
 						e.printStackTrace();
-						
 						return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"操作数据库失败", null);
 					}
 				}
