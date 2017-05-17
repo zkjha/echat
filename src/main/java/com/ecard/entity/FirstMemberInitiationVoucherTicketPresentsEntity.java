@@ -3,7 +3,7 @@ package com.ecard.entity;
 //首次入会赠送抵用卷实体
 public class FirstMemberInitiationVoucherTicketPresentsEntity {
 	private String strVoucherTicketPresentsId;	//关键字
-	private int iVoucherTicketPresentsValue;	//赠送抵用卷值
+	private String strVoucherTicketKindId;	//赠送抵用卷种类ID 关联其他表
 	private int iTotalVoucherTicketNum;			//可对初次入会会员赠送的总张数
 	private int iRestVoucherTicketNum;			//剩余张数
 	private int iEnabled=0;						//是否启用 1启用 0禁用
@@ -23,14 +23,14 @@ public class FirstMemberInitiationVoucherTicketPresentsEntity {
 		return strVoucherTicketPresentsId;
 	}
 	
-	public void setIvoucherTicketPresentsValue(int iVoucherTicketPresentsValue)
+	public void setStrVoucherTicketKindId(String strVoucherTicketKindId)
 	{
-		this.iVoucherTicketPresentsValue=iVoucherTicketPresentsValue;
+		this.strVoucherTicketKindId=strVoucherTicketKindId;
 	}
 	
-	public int getIvoucherTicketPresentsValue()
+	public String getStrVoucherTicketKindId()
 	{
-		return iVoucherTicketPresentsValue;
+		return strVoucherTicketKindId;
 	}
 	
 	public void setItotalVoucherTicketNum(int iTotalVoucherTicketNum)

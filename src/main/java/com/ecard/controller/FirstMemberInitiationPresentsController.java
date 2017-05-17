@@ -1,6 +1,8 @@
 package com.ecard.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -460,11 +462,11 @@ public class FirstMemberInitiationPresentsController {
 	//localhost:8083/admin/biz/presentsSetting/updateStoredTicketPresentsInfo?strStoredTicketPresentsId=fb33e4a47ca24bbc82e23e6c9a214591&iStoredValuePresents=10&iTotalStoredTicketNum=500&strstrValidateBeginTime=2017/5/15&strValidateEndTime=2017/5/16&iEnabled=1
 	public String updateStoredTicketPresentsInfo(HttpServletRequest request,HttpServletResponse response)
 	{
-		int iStoredValuePresents,iTotalStoredTicketNum,iEnabled;
+		int iStoredValuePresents,iTotalStoredTicketNum,iEnabled,iRestStoredTicketNum;
 		String strStoredTicketPresentsId=request.getParameter("strStoredTicketPresentsId");
 		String strStoredValuePresents=request.getParameter("iStoredValuePresents");
 		String strTotalStoredTicketNum=request.getParameter("iTotalStoredTicketNum");
-		 //新增数据时，剩余张数新增会员时修改，不人为修改
+		 
 		String strValidateBeginTime=request.getParameter("strstrValidateBeginTime");
 		String strValidateEndTime=request.getParameter("strValidateEndTime");
 		String strEnabled=request.getParameter("iEnabled");
@@ -499,6 +501,7 @@ public class FirstMemberInitiationPresentsController {
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"数据格式错误",null);
 		}
 		
+		iRestStoredTicketNum=iTotalStoredTicketNum;//对剩余张数赋值，默认等于总张数
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期起始时间不能为空",null);
 		else
@@ -552,7 +555,7 @@ public class FirstMemberInitiationPresentsController {
 	storedTicketPresentsEntity.setStrStoredTicketPresentsId(strStoredTicketPresentsId);
 	storedTicketPresentsEntity.setIstoredValuePresents(iStoredValuePresents);
 	storedTicketPresentsEntity.setItotalStoredTicketNum(iTotalStoredTicketNum);
-	//storedTicketPresentsEntity.setIrestStoredTicketNum(iRestStoredTicketNum);
+	storedTicketPresentsEntity.setIrestStoredTicketNum(iRestStoredTicketNum);
 	storedTicketPresentsEntity.setStrValidateBeginTime(strValidateBeginTime);
 	storedTicketPresentsEntity.setStrValidateEndTime(strValidateEndTime);
 	storedTicketPresentsEntity.setIEnabled(iEnabled);
@@ -574,7 +577,8 @@ public class FirstMemberInitiationPresentsController {
 	
 	/**
 	 * 删除 首次入会赠送储值信息
-	 * @param strCheckString
+	 * @param response
+	 * @param request
 	 * @return
 	 */
 	@ResponseBody
@@ -613,33 +617,24 @@ public class FirstMemberInitiationPresentsController {
 	
 	/**
 	 * 新增 首次入会赠送抵用卷信息
-	 * @param strCheckString
+	 * @param request
+	 * @param response
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("insertVoucherTicketPresentsInfo")
-	//localhost:8083/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo?iVoucherTicketPresentsValue=100&iTotalVoucherTicketNum=50&iEnabled=1
+	//localhost:8083/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo?strVoucherTicketKindId=0010&iTotalVoucherTicketNum=50&iEnabled=1
 	public String insertVoucherTicketPresentsInfo(HttpServletResponse response,HttpServletRequest request)
 	{	
-		int iVoucherTicketPresentsValue,iTotalVoucherTicketNum,iRestVoucherTicketNum,iEnabled;
+		int iTotalVoucherTicketNum,iRestVoucherTicketNum,iEnabled;
 		String strVoucherTicketPresentsId=DataTool.getUUID();
-		String strVoucherTicketPresentsValue=request.getParameter("iVoucherTicketPresentsValue");
+		String strVoucherTicketKindId=request.getParameter("strVoucherTicketKindId");
 		String strTotalVoucherTicketNum=request.getParameter("iTotalVoucherTicketNum");
 		//新增时，默认剩余张数=总张数
 		String strEnabled=request.getParameter("iEnabled");
-		if(ValidateTool.isEmptyStr(strVoucherTicketPresentsValue))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用卷值不能为空",null);
-		else
-		{
-			if(isNumber(strVoucherTicketPresentsValue))
-				{
-				iVoucherTicketPresentsValue=Integer.parseInt(strVoucherTicketPresentsValue);
-				if(iVoucherTicketPresentsValue==0)
-					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送抵用卷卷值不能为0",null);
-				}
-			else
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送抵用卷卷值格式错误",null);
-		}
+		
+		if(ValidateTool.isEmptyStr(strVoucherTicketKindId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用卷种类不能为空",null);
 		
 		if(ValidateTool.isEmptyStr(strTotalVoucherTicketNum))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
@@ -689,7 +684,7 @@ public class FirstMemberInitiationPresentsController {
 	//建立实体对象，装入数据
 		FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity=new FirstMemberInitiationVoucherTicketPresentsEntity();
 		voucherTicketPresentsEntity.setStrVoucherTicketPresentsId(strVoucherTicketPresentsId);
-		voucherTicketPresentsEntity.setIvoucherTicketPresentsValue(iVoucherTicketPresentsValue);
+		voucherTicketPresentsEntity.setStrVoucherTicketKindId(strVoucherTicketKindId);
 		voucherTicketPresentsEntity.setItotalVoucherTicketNum(iTotalVoucherTicketNum);
 		voucherTicketPresentsEntity.setIrestVoucherTicketNum(iRestVoucherTicketNum);
 		voucherTicketPresentsEntity.setIEnabled(iEnabled);
@@ -709,6 +704,196 @@ public class FirstMemberInitiationPresentsController {
 		}
 	}
 	
+	
+	
+	/**
+	 * 查询  首次入会赠送抵用卷信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectVoucherTicketPresentsInfo")
+	//localhost:8083/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo
+	public String selectVoucherTicketPresentsInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		/* 检验身份有效性
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		try{
+			List<FirstMemberInitiationVoucherTicketPresentsEntity> listVoucherTicketPresentsEntity=firstMemberInitiationPresentsService.selectVoucherTicketPresentsInfo();
+			if(listVoucherTicketPresentsEntity.size()==0||listVoucherTicketPresentsEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据据",null);
+			else
+			{
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("listVoucherTicketPresentsEntity", listVoucherTicketPresentsEntity);
+				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+	
+	
+	/**
+	 * 批量更新  首次入会赠送抵用卷信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("updateVoucherTicketPresentsInfo")
+	//localhost:8083/admin/biz/presentsSetting/updateVoucherTicketPresentsInfo?strVoucherTicketPresentsId=b7f65e7c255947a7997c1139c3e1cc5e&strVoucherTicketKindId=1010&iTotalVoucherTicketNum=5&iEnabled=1
+	public String updateVoucherTicketPresentsInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+	int iEachParamLength;
+	String[] strVoucherTicketPresentsId=request.getParameter("strVoucherTicketPresentsId").split(",");
+	String[] strVoucherTicketKindId=request.getParameter("strVoucherTicketKindId").split(",");
+	String[] strTotalVoucherTicketNum=request.getParameter("iTotalVoucherTicketNum").split(",");
+	String[] strEnabled=request.getParameter("iEnabled").split(",");
+	iEachParamLength=strVoucherTicketPresentsId.length;
+	int[] iTotalVoucherTicketNum=new int[iEachParamLength];
+	int[] iRestVoucherTicketNum=new int[iEachParamLength];
+	int[] iEnabled=new int[iEachParamLength];
+	if(iEachParamLength!=strVoucherTicketKindId.length||iEachParamLength!=strTotalVoucherTicketNum.length||iEachParamLength!=strEnabled.length)
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数值缺失",null);
+	for(int i=0;i<iEachParamLength;i++)
+	{
+		if(ValidateTool.isEmptyStr(strVoucherTicketKindId[i]))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用卷种类不能为空",null);
+	}
+	
+	for(int i=0;i<iEachParamLength;i++)
+	{
+		if(ValidateTool.isEmptyStr(strTotalVoucherTicketNum[i]))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
+		else
+		{
+			if(isNumber(strTotalVoucherTicketNum[i]))
+				{
+				iTotalVoucherTicketNum[i]=Integer.parseInt(strTotalVoucherTicketNum[i]);
+				iRestVoucherTicketNum[i]=iTotalVoucherTicketNum[i];	//新增规则时，默认剩余张数=总张数
+				}
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"总张数格式错误",null);
+		}
+	}	
+	
+
+	for(int i=0;i<iEachParamLength;i++)
+	{
+		if(ValidateTool.isEmptyStr(strEnabled[i]))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		else
+		{
+			if(isNumber(strEnabled[i]))
+				iEnabled[i]=Integer.parseInt(strEnabled[i]);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
+		}
+	}
+	
+	/* 检验身份有效性
+	EmployeeEntity employeeEntity = null;
+	try {
+		employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+	}
+	if (employeeEntity==null) {
+		return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+	}
+	//取得登录员工信息，并增加修改时间记录
+	String strEmployeeId=employeeEntity.getStrEmployeeid();
+	String strEmployeeName=employeeEntity.getStrLoginname();
+	String strEmployeeRealName=employeeEntity.getStrRealname();
+	*/
+
+	String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+	//以下3个为测试用数据
+	String strEmployeeId=DataTool.getUUID();
+	String strEmployeeName="admin";
+	String strEmployeeRealName="david li";
+	
+	//建立实体对象，装入数据
+	List <FirstMemberInitiationVoucherTicketPresentsEntity> listVoucherTicketPresentsEntity=new ArrayList<FirstMemberInitiationVoucherTicketPresentsEntity>();
+	for(int i=0;i<iEachParamLength;i++)
+	{
+	FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity=new FirstMemberInitiationVoucherTicketPresentsEntity();
+	voucherTicketPresentsEntity.setStrVoucherTicketPresentsId(strVoucherTicketPresentsId[i]);
+	voucherTicketPresentsEntity.setStrVoucherTicketKindId(strVoucherTicketKindId[i]);
+	voucherTicketPresentsEntity.setItotalVoucherTicketNum(iTotalVoucherTicketNum[i]);
+	voucherTicketPresentsEntity.setIrestVoucherTicketNum(iRestVoucherTicketNum[i]);
+	voucherTicketPresentsEntity.setIEnabled(iEnabled[i]);
+	voucherTicketPresentsEntity.setStrEmployeeId(strEmployeeId);
+	voucherTicketPresentsEntity.setStrEmployeeName(strEmployeeName);
+	voucherTicketPresentsEntity.setStrEmployeeRealName(strEmployeeRealName);
+	voucherTicketPresentsEntity.setStrLastAccessedTime(strLastAccessedTime);
+	listVoucherTicketPresentsEntity.add(voucherTicketPresentsEntity);
+	}
+//调用serivice层方法
+	try{
+		return firstMemberInitiationPresentsService.updateVoucherTicketPresentsInfo(listVoucherTicketPresentsEntity);
+		
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+	}
+   }
+	
+	
+	
+	/**
+	 * 删除 首次入会赠送抵用卷信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("deleteVoucherTicketPresentsInfo")
+	//localhost:8083/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo?strVoucherTicketPresentsId=b7f65e7c255947a7997c1139c3e1cc5e
+	public String deleteVoucherTicketPresentsInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strVoucherTicketPresentsId=request.getParameter("strVoucherTicketPresentsId");
+		if(ValidateTool.isEmptyStr(strVoucherTicketPresentsId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"ID关键字不能为空",null);
+		/* 检验身份有效性
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		try{
+			return firstMemberInitiationPresentsService.deleteVoucherTicketPresentsInfo(strVoucherTicketPresentsId);
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{

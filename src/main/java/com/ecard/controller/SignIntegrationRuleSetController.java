@@ -384,42 +384,45 @@ public class SignIntegrationRuleSetController {
 				public String updateSignIntegrationRule(HttpServletRequest request,HttpServletResponse response)
 				{	
 					//取得的参数有可能是数组，申明数组变量
+					int arrayLength=0;
 					String strSignId[] = request.getParameter("strId").split(","); 
 					String strSignDays[]= request.getParameter("strSignDays").split(",");					//校验
 					String strStatus="0";															//非连续性签到状态为0
 					String strIntegration[]= request.getParameter("iIntegration").split(",");				//检验
 					String strEnabled[] = request.getParameter("strEnabled").split(",");
-					int[] iIntegration=new int[strSignId.length];
-					//循环遍历
-					for(int i=0;i<strSignId.length;i++)
+					arrayLength=strSignId.length;
+					int[] iIntegration=new int[arrayLength];
+					if(arrayLength!=strSignDays.length||arrayLength!=strIntegration.length||arrayLength!=strEnabled.length)
+						return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数缺失",null);
+					for(int i=0;i<arrayLength;i++)
 					{	
 						if (ValidateTool.isEmptyStr(strSignId[i])) 
 							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"id不能为空", null);
 							
 					}
 					
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						if (ValidateTool.isEmptyStr(strSignDays[i])) 
 							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请填写非连续签到天数", null);
 							
 					}
 					
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						if(!isNumber(strSignDays[i]))
 							return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
 							
 					}
 					
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						if (ValidateTool.isEmptyStr(strIntegration[i]))
 							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"积分不能为空", null);
 							
 					}
 					
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						if(isNumber(strIntegration[i]))
 							{
@@ -430,7 +433,7 @@ public class SignIntegrationRuleSetController {
 							
 					}
 					
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						if (ValidateTool.isEmptyStr(strEnabled[i])) 
 							return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"是否启用不能为空", null);
@@ -462,7 +465,7 @@ public class SignIntegrationRuleSetController {
 					
 					// 装进SignIntegrationRuleEntity
 					List<SignIntegrationRuleEntity> listSignIntegrationRuleEntity=new ArrayList<SignIntegrationRuleEntity>();
-					for(int i=0;i<strSignId.length;i++)
+					for(int i=0;i<arrayLength;i++)
 					{
 						SignIntegrationRuleEntity signIntegrationRuleEntity=new SignIntegrationRuleEntity();
 						signIntegrationRuleEntity.setStrSignId(strSignId[i]);

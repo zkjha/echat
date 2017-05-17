@@ -2,6 +2,8 @@ package com.ecard.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity;
 import com.ecard.entity.FirstMemberInitiationStoredTicketPresentsEntity;
 import com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity;
@@ -25,5 +27,11 @@ public interface FirstMemberInitiationPresentsMapper {
 	public int deleteStoredTicketPresentsInfo(String strStoredTicketPresentsId) throws Exception;
 	//新增 顾客首次入会获赠抵用券信息
 	public int insertVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception;
+	//查询 顾客首次入会获赠抵用卷信息
+	public List<FirstMemberInitiationVoucherTicketPresentsEntity> selectVoucherTicketPresentsInfo() throws Exception;
+	//批量更新 顾客首次入会获赠抵用卷信息
+	public int updateVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception;
+	//删除 顾客首次入会获赠抵用卷信息
+	public int deleteVoucherTicketPresentsInfo(String strVoucherTicketPresentsId) throws Exception;
 	
 }

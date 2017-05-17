@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
@@ -91,6 +92,7 @@ public class FirstMemberInitiationPresentsService {
 		else
 			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
 	}
+	
 	//新增 顾客首次入会获赠抵用券信息
 	public String insertVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception
 	{
@@ -100,5 +102,45 @@ public class FirstMemberInitiationPresentsService {
 		else
 			return DataTool.constructResponse(ResultCode.OK,"新增成功",null);
 	}
+	
+	//查询 顾客首次入会获赠抵用卷信息
+	public List<FirstMemberInitiationVoucherTicketPresentsEntity> selectVoucherTicketPresentsInfo() throws Exception
+	{
+		return firstMemberInitiationPresentsMapper.selectVoucherTicketPresentsInfo();
+	
+	}
+	
+	//批量更新 顾客首次入会获赠抵用卷信息
+	@Transactional
+	public String updateVoucherTicketPresentsInfo(List<FirstMemberInitiationVoucherTicketPresentsEntity> listVoucherTicketPresentsEntity) throws Exception
+	{
+		int rcdNum=0;
+		int totalNum=listVoucherTicketPresentsEntity.size();
+		for(int i=0;i<totalNum;i++)
+		{
+			FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity=listVoucherTicketPresentsEntity.get(i);
+			int flag=firstMemberInitiationPresentsMapper.updateVoucherTicketPresentsInfo(voucherTicketPresentsEntity);
+			if(flag!=0)
+				rcdNum++;
+		}
+		
+		if(rcdNum<totalNum)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"更新成功",null);
+	}
+	
+	//删除 顾客首次入会获赠抵用卷信息
+	public String deleteVoucherTicketPresentsInfo(String strVoucherTicketPresentsId) throws Exception
+	{
+		int rcdNum=firstMemberInitiationPresentsMapper.deleteVoucherTicketPresentsInfo(strVoucherTicketPresentsId);
+		if(rcdNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
+		
+	
+	
 
 }

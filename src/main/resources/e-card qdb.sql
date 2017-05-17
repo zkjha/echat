@@ -726,7 +726,7 @@ drop table if exists tb_firstMemberInitiation_VoucherTicketPresents;
 CREATE TABLE tb_firstMemberInitiation_VoucherTicketPresents 
 (
   strVoucherTicketPresentsId 	VARCHAR(50) 		NOT NULL,	-- 关键字
-  iVoucherTicketPresentsValue 	INT NULL 			DEFAULT 0,	-- 抵送卷值
+  strVoucherTicketKindId		VARCHAR(50) 		NOT null,	-- 抵用卷种类ID,关联抵用卷种类表
   iTotalVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷总数量
   iRestVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷剩余量
   iEnabled 						INT(2) 				DEFAULT 0,	-- 是否启用：1启用
@@ -737,6 +737,25 @@ CREATE TABLE tb_firstMemberInitiation_VoucherTicketPresents
   strLastAccessedTime 			VARCHAR(50) 		NOT NULL,	-- 记录修改时间
   PRIMARY KEY (strVoucherTicketPresentsId)
 )engine=innodb default charset=utf8;
+-- --------------------------------------------------------------------------
+-- tableName:tb_member_levelsRights_mapping				【会员等级权益表】
+-- --------------------------------------------------------------------------
+drop table if exists tb_member_levelsRights_mapping;
+create table tb_member_levelsRights_mapping
+(
+ strRecordId			varchar(50)			not null,			-- 关键字
+ strMemberLevelsId		varchar(50)			not null,			-- 会员级别ID
+ strRightsId			varchar(50)			not null,			-- 会员相应级别对应的权益ID
+ iRightsStatus			int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
+ dDiscount				decimal(5,2),							-- 折扣率
+ iPreferentialTimes		int(5)				default 0,			-- 优惠次数
+ strEmployeeId			varchar(50)			not null,			-- 登录员工ID
+ strEmployeeName		varchar(50)			not null,			-- 登录员工帐号
+ strEmplloyeeRealName	varchar(50)			not null,			-- 登录员工姓名 
+ strCreationTime		varchar(50)			not null,			-- 创建记录时间
+ strLastAccessedTime	varchar(50)			not null,			-- 修改时间
+ primary key(strRecordId)
+) engine=innodb default charset=utf8;
 
 
 
