@@ -1,7 +1,7 @@
 package com.ecard.entity;
 //会员级别权益对应表实体
 public class MemberLevelsRightsMappingEntity{
-	private String strRecordId;				//记录关键字
+	private String strLevelsRightsMappingId;				//记录关键字
 	@SuppressWarnings("unused")
 	private String strLevelsId;		//会员级别ID
 	private String strRightsId;			//会员权益ID
@@ -14,22 +14,22 @@ public class MemberLevelsRightsMappingEntity{
 	private String strCreationTime;	//创建记录时间
 	private String strLastAccessedTime;	//修改时间
 	
-	public void setStrRecordId(String strRecordId)
+	public void setStrLevelsRightsMappingId(String strLevelsRightsMappingId)
 	{
-		this.strRecordId=strRecordId;
+		this.strLevelsRightsMappingId=strLevelsRightsMappingId;
 	}
 	
-	public String getStrRecordId()
+	public String getStrLevelsRightsMappingId()
 	{
-		return strRecordId;
+		return strLevelsRightsMappingId;
 	}
 	
-	public void setstrLevelsId(String strLevelsId)
+	public void setStrLevelsId(String strLevelsId)
 	{
 		this.strLevelsId=strLevelsId;
 	}
 	
-	public String getstrLevelsId(String strLevelsId)
+	public String getStrLevelsId(String strLevelsId)
 	{
 		return strLevelsId;
 	}

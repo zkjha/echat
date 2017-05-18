@@ -743,19 +743,42 @@ CREATE TABLE tb_firstMemberInitiation_VoucherTicketPresents
 drop table if exists tb_member_levelsRights_mapping;
 create table tb_member_levelsRights_mapping
 (
- strRecordId			varchar(50)			not null,			-- 关键字
- strMemberLevelsId		varchar(50)			not null,			-- 会员级别ID
- strRightsId			varchar(50)			not null,			-- 会员相应级别对应的权益ID
- iRightsStatus			int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
- dDiscount				decimal(5,2),							-- 折扣率
- iPreferentialTimes		int(5)				default 0,			-- 优惠次数
- strEmployeeId			varchar(50)			not null,			-- 登录员工ID
- strEmployeeName		varchar(50)			not null,			-- 登录员工帐号
- strEmplloyeeRealName	varchar(50)			not null,			-- 登录员工姓名 
- strCreationTime		varchar(50)			not null,			-- 创建记录时间
- strLastAccessedTime	varchar(50)			not null,			-- 修改时间
- primary key(strRecordId)
+ strLevelsRightsMappingId	varchar(50)			not null,			-- 关键字
+ strLevelsId				varchar(50)			not null,			-- 会员级别ID
+ strRightsId				varchar(50)			not null,			-- 会员相应级别对应的权益ID
+ iRightsStatus				int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
+ dDiscount					decimal(5,2),							-- 折扣率
+ iPreferentialTimes			int(5)				default 0,			-- 优惠次数
+ strEmployeeId				varchar(50)			not null,			-- 登录员工ID
+ strEmployeeName			varchar(50)			not null,			-- 登录员工帐号
+ strEmployeeRealName		varchar(50)			not null,			-- 登录员工姓名 
+ strCreationTime			varchar(50)			not null,			-- 创建记录时间
+ strLastAccessedTime		varchar(50)			not null,			-- 修改时间
+ primary key(strLevelsRightsMappingId)
 ) engine=innodb default charset=utf8;
+-- ==============================================================
+-- Table: tb_voucherticket_infomanage               【抵用券信息管理】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_voucherticket_infomanage;
+CREATE TABLE tb_voucherticket_infomanage
+(
+  strVoucherTicketId        VARCHAR(50) 	NOT NULL,       -- 主键
+  strVoucherTicketName      VARCHAR(50) 	NOT NULL,       -- 储值券内容
+  dVoucherTicketAmount    DECIMAL(11,2) 	DEFAULT 0.00, 	-- 抵用券金额
+  strValidEndTime           VARCHAR(50) 	NOT NULL,       -- 有效期截止时间  
+  iIsValid                  int default 0,              	-- 是否生效 0 禁用 1 启用
+  strRuleDesc               VARCHAR(1024) 	NULL,        	-- 储值券使用规则描述                       
+  strReserved               VARCHAR(500) 	NULL,         	-- 预留字段
+  strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
+  strEmployeeName 			VARCHAR(50) 	NOT NULL,		-- 管理员账号
+  strEmployeeRealName 		VARCHAR(50) 	NOT NULL,		-- 管理员姓名
+  strCreationTime 			VARCHAR(50) 	NOT NULL,		-- 记录创建时间
+  strLastAccessedTime 		VARCHAR(50) 	NOT NULL,		-- 记录修改时间
+  PRIMARY KEY (strVoucherTicketId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxVoucherTicketOnEndTime on tb_voucherticket_infomanage(strValidEndTime);
+create index indxVoucherTicketOnName on tb_voucherticket_infomanage(strVoucherTicketName);
+
 
 
 

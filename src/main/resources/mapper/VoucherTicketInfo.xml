@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.VoucherTicketInfoMapper">
+<insert id="insertVoucherTicketInfo" parameterType="com.ecard.entity.VoucherTicketInfoEntity">
+<!-- 新增 抵用卷信息 -->
+ insert into tb_voucherticket_infomanage
+ (strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime)
+ values
+ (#{strVoucherTicketId},#{strVoucherTicketName},#{dVoucherTicketAmount},#{strValidEndTime},#{iIsValid},#{strRuleDesc},#{strReserved},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},#{strCreationTime},#{strLastAccessedTime})
+</insert>
+
+<!-- 查询抵用卷信息总条数 -->
+<select id="findRecordCount" resultType="int">
+select count(strVoucherTicketId) from tb_voucherticket_infomanage;
+</select>
+
+<!-- 分页查询抵用卷信息 -->
+<select id="selectVoucherTicketInfo" parameterType="map" resultType="com.ecard.entity.VoucherTicketInfoEntity">
+select strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
+from tb_voucherticket_infomanage order by strLastAccessedTime desc limit #{iPageFrom},#{iPageSize}
+</select>
+<!-- 更新抵用券详情表 -->
+<update id="updateVoucherTicketInfo" parameterType="com.ecard.entity.VoucherTicketInfoEntity">
+ update tb_voucherticket_infomanage set
+ strVoucherTicketId,
+ strVoucherTicketName,
+ dVoucherTicketAmount,
+ strValidEndTime,
+ iIsValid,
+ strRuleDesc,
+ strReserved,
+ strEmployeeId,
+ strEmployeeName,
+ strEmployeeRealName,
+ strCreationTime,
+ strLastAccessedTime)
+ 
+</update>
+</mapper>

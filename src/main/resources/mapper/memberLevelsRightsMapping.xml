@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ecard.MemberLevelsRightsMapper">
-
-<!-- 通过商品表查出权益ID -->
-<select id="findRightsIdByTbGoods" parameterType="String" resultType="String">
- select strGoodsId from tb_goods where strGoodsName=#{strRightsName}
-</select>
-
-<!-- 通过服务表查出权益id -->
-<select id="findRightsIdByTbServiceType" parameterType="String" resultType="String">
- select strServiceInfoId from tb_service_info where strServiceInfoName=#{strRightsName}
-</select>
-
-<!-- 查出会员级别所对应的级别ID -->
-<select id="findLevelsIdByStrLevelsName" parameterType="String" resultType="String">
- select strLevelsId from tb_member_levels where strLevelsName=#{strLevelsName}
-</select>
+<mapper namespace="com.ecard.mapper.MemberLevelsRightsMapper">
 <!-- 新增 会员等级及其对应权益关系信息 -->
-<insert id="insertMemberLevelsRightsMappingInfo">
+<insert id="insertMemberLevelsRightsMappingInfo" parameterType="com.ecard.entity.MemberLevelsRightsMappingEntity">
 insert into tb_member_levelsRights_mapping
-(strRecordId,strLevelsId,strRightsId,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmplloyeeRealName,
+(strLevelsRightsMappingId,strLevelsId,strRightsId,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmployeeRealName,
 strCreationTime,strLastAccessedTime)
 values
-(#{strRecordId},#{strLevelsId},#{strRightsId},#{iRightsStatus},#{dDiscount},#{iPreferentialTimes},#{strEmployeeId},#{strEmployeeName},#{strEmplloyeeRealName},
+(#{strLevelsRightsMappingId},#{strLevelsId},#{strRightsId},#{iRightsStatus},#{dDiscount},#{iPreferentialTimes},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},
 #{strCreationTime},#{strLastAccessedTime})
 </insert>
 </mapper>
