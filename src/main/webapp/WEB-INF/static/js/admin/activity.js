@@ -43,8 +43,10 @@ requirejs(
         'filter/replaceEmployeeFilter',
         'filter/payTypeFilter',
         'filter/orderStatusFilter',
+        'filter/numberFilter',//字符串转化为数字
         'dirctive/ng-pagination',
         'dirctive/ExpandListDirective',
+        'dirctive/admin/activityInterDirective',//积分规则中的选中判断
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
@@ -52,7 +54,7 @@ requirejs(
     ],
     function(angular,activityController,remoteUrl) {
 
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList','defLaydate','payTypeFilter','orderStatusFilter']);
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList','defLaydate','payTypeFilter','orderStatusFilter','numberFilter','integralrulesDirective']);
 
         //路由配置
         app.config(["$routeProvider", function($routeProvider) {
@@ -78,7 +80,7 @@ requirejs(
 
             }).when("/integralrules", {//首次入会
                 templateUrl: "/static/temp/admin/activity/integralrules.html",
-                controller:activityController.uploadImages
+                controller:activityController.integralrules
 
             }).otherwise({
                 redirectTo: "/customgift"

@@ -255,7 +255,7 @@ define(
 
                 var data = {
                     'pagenum': $scope.currentPage,
-                    "pagesize": $scope.pageSize,
+                    "pagesize": $scope.pageSize
                 };
                 $http.post(remoteUrl.selGoodsTypeList, data).then(
                     function (result) {
@@ -554,7 +554,7 @@ define(
 
                 var data = {
                     'pagenum': $scope.currentPage,
-                    "pagesize": $scope.pageSize,
+                    "pagesize": $scope.pageSize
                 };
 
                 $http.post(remoteUrl.selUnitList, data).then(
