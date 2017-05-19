@@ -14,5 +14,7 @@ public interface VoucherTicketInfoMapper {
 	public List<VoucherTicketInfoEntity> selectVoucherTicketInfo(Map<String,Object> queryMap) throws Exception;
 	//更新 抵用券详细信息
 	public int updateVoucherTicketInfo(VoucherTicketInfoEntity voucherTicketInfoEntity) throws Exception;
+	//删除 抵用券详细信息
+	public int deleteVoucherTicketInfo(String strVoucherTicketId) throws Exception;
 
 }

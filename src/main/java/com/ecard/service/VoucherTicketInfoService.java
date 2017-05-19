@@ -47,4 +47,14 @@ public class VoucherTicketInfoService {
 		else
 			return DataTool.constructResponse(ResultCode.OK,"更新成功",null);
 	}
+	
+	//删除 抵用券详细信息
+	public String deleteVoucherTicketInfo(String strVoucherTicketId) throws Exception
+	{
+		int rcdNum=voucherTicketInfoMapper.deleteVoucherTicketInfo(strVoucherTicketId);
+		if(rcdNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
 }

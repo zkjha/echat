@@ -19,21 +19,24 @@ select count(strVoucherTicketId) from tb_voucherticket_infomanage;
 select strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
 from tb_voucherticket_infomanage order by strLastAccessedTime desc limit #{iPageFrom},#{iPageSize}
 </select>
+
 <!-- 更新抵用券详情表 -->
 <update id="updateVoucherTicketInfo" parameterType="com.ecard.entity.VoucherTicketInfoEntity">
  update tb_voucherticket_infomanage set
- strVoucherTicketId,
- strVoucherTicketName,
- dVoucherTicketAmount,
- strValidEndTime,
- iIsValid,
- strRuleDesc,
- strReserved,
- strEmployeeId,
- strEmployeeName,
- strEmployeeRealName,
- strCreationTime,
- strLastAccessedTime)
+ strVoucherTicketName=#{strVoucherTicketName},
+ dVoucherTicketAmount=#{dVoucherTicketAmount},
+ strValidEndTime=#{strValidEndTime},
+ iIsValid=#{iIsValid},
+ strRuleDesc=#{strRuleDesc},
+ strReserved=#{strReserved},
+ strEmployeeId=#{strEmployeeId},
+ strEmployeeName=#{strEmployeeName},
+ strEmployeeRealName=#{strEmployeeRealName},
+ strLastAccessedTime=#{strLastAccessedTime} where strVoucherTicketId=#{strVoucherTicketId}
+ </update>
  
-</update>
+ <!-- 删除 抵用券详细信息 -->
+ <delete id="deleteVoucherTicketInfo" parameterType="String">
+  delete from tb_voucherticket_infomanage where strVoucherTicketId=#{strVoucherTicketId}
+ </delete>
 </mapper>

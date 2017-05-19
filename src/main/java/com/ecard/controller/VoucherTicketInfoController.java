@@ -227,8 +227,8 @@ public class VoucherTicketInfoController {
 	 */
 	
 	@ResponseBody
-	@RequestMapping("insertVoucherTicketInfo")
-	//localhost:8083/admin/biz/voucherTickeSetting/updateVoucherTicketInfo?strVoucherTicketId=mmmmmm&strVoucherTicketName="这是一个测试"&dVoucherTicketAmount=0.88&strValidEndTime=2017/5/20&iIsValid=1&strRuleDesc=这是一个测试
+	@RequestMapping("updateVoucherTicketInfo")
+	//localhost:8083/admin/biz/voucherTickeSetting/updateVoucherTicketInfo?strVoucherTicketId=9a26c4a0c8ad4cba9e7b3c715569da59&strVoucherTicketName="this is a test"&dVoucherTicketAmount=1000&strValidEndTime=2017/5/20&iIsValid=1&strRuleDesc=this is a test
 	public String updateVoucherTicketInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 		BigDecimal dVoucherTicketAmount;
@@ -314,15 +314,46 @@ public class VoucherTicketInfoController {
 			
 		}
 			
+	/**
+	 * 删除 抵用券信息
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping("deleteVoucherTicketInfo")
+	//localhost:8083/admin/biz/voucherTickeSetting/deleteVoucherTicketInfo?strVoucherTicketId=9a26c4a0c8ad4cba9e7b3c715569da59
+	public String deleteVoucherTicketInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		/*检验身份有效性
+		EmployeeEntity employeeEntity = null;
+		try{
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+			}
+		if(employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+			}
+		*/
+		String strVoucherTicketId=request.getParameter("strVoucherTicketId");
+		if(ValidateTool.isEmptyStr(strVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"主键不能为空",null);
+		try{
+			return voucherTicketInfoService.deleteVoucherTicketInfo(strVoucherTicketId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	//数字校验
 	public static boolean isNumber(String strCheckString)
 	{
 		boolean flag=false;
