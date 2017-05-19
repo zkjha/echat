@@ -175,10 +175,26 @@ define([],function(){
 			updateIntegralclearRule:"/admin/biz/ActivitySetting/updateIntegralclearRule",
 			//积分清理规则－查询
 			getIntegralclearRule:"/admin/biz/ActivitySetting/getIntegralclearRule",
-			
-			
-			
-			
+		    //积分规则 -- 非连续签到积分规则 -- 查询
+            findAllSignIntegrationRules:"/admin/biz/RuleSetting/findAllSignIntegrationRules",
+			//积分规则 -- 连续签到积分规则 -- 查询
+            findAllSignIntegrationRule:"/admin/biz/RuleSetting/findAllSignIntegrationRule",
+            //积分规则 -- 积分抵现规则 -- 查询
+            findAllIntegrationCashRule:"/admin/biz/RuleSetting/findAllIntegrationCashRule",
+            // 积分规则 -- ( 连续 / 非连续) 签到积分规则 -- 删除
+            deleteSignIntegrationRule:"/admin/biz/RuleSetting/deleteSignIntegrationRule",
+            // 积分规则 -- 积分抵现规则 -- 删除
+            deleteIntegrationCashRule:"/admin/biz/RuleSetting/deleteIntegrationCashRule",
+            //积分规则 - 非连续签到积分规则 - 新增
+            insertSignIntegrationRules:"/admin/biz/RuleSetting/insertSignIntegrationRules",
+            //积分规则 - 非连续签到积分规则 - 更新
+            updateSignIntegrationRule:"/admin/biz/RuleSetting/updateSignIntegrationRule",
+            ///admin/biz/RuleSetting/updateIntegrationCashRule
+            //积分规则 - 积分抵现规则 - 更新
+            updateIntegrationCashRule:"/admin/biz/RuleSetting/updateIntegrationCashRule",
+            //积分规则 - 连续签到积分规则 - 更新
+            updateSignIntegrationRules:"/admin/biz/RuleSetting/updateSignIntegrationRules",
+
 		////////////会员活动管理结束/////////////////////////////	
         /**
          * 微信前端部分
