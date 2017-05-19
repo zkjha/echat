@@ -228,7 +228,7 @@ public class VoucherTicketInfoController {
 	
 	@ResponseBody
 	@RequestMapping("updateVoucherTicketInfo")
-	//localhost:8083/admin/biz/voucherTickeSetting/updateVoucherTicketInfo?strVoucherTicketId=9a26c4a0c8ad4cba9e7b3c715569da59&strVoucherTicketName="this is a test"&dVoucherTicketAmount=1000&strValidEndTime=2017/5/20&iIsValid=1&strRuleDesc=this is a test
+	//localhost:8083/admin/biz/voucherTickeSetting/updateVoucherTicketInfo?strVoucherTicketId=bbcb63355d7d49a69e41e5e405cd84cf&strVoucherTicketName=this is a test&dVoucherTicketAmount=1000&strValidEndTime=2017/5/20&iIsValid=1&strRuleDesc=this is a test
 	public String updateVoucherTicketInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 		BigDecimal dVoucherTicketAmount;
@@ -313,6 +313,54 @@ public class VoucherTicketInfoController {
 			
 			
 		}
+	
+	
+	
+	
+	/**
+	 * 查询单条 抵用券信息
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping("findVoucherTicketInfoById")
+	//localhost:8083/admin/biz/voucherTickeSetting/findVoucherTicketInfoById?strVoucherTicketId=b06c5cdc4936473384a9465e3b900731
+	public String findVoucherTicketInfoById(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strVoucherTicketId=request.getParameter("strVoucherTicketId");
+		if(ValidateTool.isEmptyStr(strVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用卷ID不能为空",null);	
+		/*检验身份有效性
+		EmployeeEntity employeeEntity = null;
+		try{
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+			}
+		if(employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+			}
+		*/	
+		try{
+			VoucherTicketInfoEntity voucherTicketInfoEntity=voucherTicketInfoService.findVoucherTicketInfoById(strVoucherTicketId);
+			if(voucherTicketInfoEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"还没有数据",null);
+			else
+			{
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("voucherTicketInfoEntity", voucherTicketInfoEntity);
+				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}
+		}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+			
+	}
 			
 	/**
 	 * 删除 抵用券信息
@@ -323,7 +371,7 @@ public class VoucherTicketInfoController {
 	
 	@ResponseBody
 	@RequestMapping("deleteVoucherTicketInfo")
-	//localhost:8083/admin/biz/voucherTickeSetting/deleteVoucherTicketInfo?strVoucherTicketId=9a26c4a0c8ad4cba9e7b3c715569da59
+	//localhost:8083/admin/biz/voucherTickeSetting/deleteVoucherTicketInfo?strVoucherTicketId=bbcb63355d7d49a69e41e5e405cd84cf
 	public String deleteVoucherTicketInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*检验身份有效性

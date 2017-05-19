@@ -57,4 +57,10 @@ public class VoucherTicketInfoService {
 		else
 			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
 	}
+	
+	//查询 单条记录
+	public VoucherTicketInfoEntity findVoucherTicketInfoById(String strVoucherTicketId) throws Exception
+	{
+		return voucherTicketInfoMapper.findVoucherTicketInfoById(strVoucherTicketId);
+	}
 }

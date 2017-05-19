@@ -16,5 +16,6 @@ public interface VoucherTicketInfoMapper {
 	public int updateVoucherTicketInfo(VoucherTicketInfoEntity voucherTicketInfoEntity) throws Exception;
 	//删除 抵用券详细信息
 	public int deleteVoucherTicketInfo(String strVoucherTicketId) throws Exception;
-
+	//查询 单条记录
+	public VoucherTicketInfoEntity findVoucherTicketInfoById(String strVoucherTicketId) throws Exception;
 }

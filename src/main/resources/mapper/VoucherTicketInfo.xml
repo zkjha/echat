@@ -39,4 +39,9 @@ from tb_voucherticket_infomanage order by strLastAccessedTime desc limit #{iPage
  <delete id="deleteVoucherTicketInfo" parameterType="String">
   delete from tb_voucherticket_infomanage where strVoucherTicketId=#{strVoucherTicketId}
  </delete>
+ <!-- 查询单条记录 -->
+ <select id="findVoucherTicketInfoById" parameterType="String" resultType="com.ecard.entity.VoucherTicketInfoEntity">
+  select strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
+  from tb_voucherticket_infomanage where  strVoucherTicketId=#{strVoucherTicketId}
+ </select>
 </mapper>
