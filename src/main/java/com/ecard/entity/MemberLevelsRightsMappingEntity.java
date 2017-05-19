@@ -1,12 +1,17 @@
 package com.ecard.entity;
+
+import java.math.BigDecimal;
+
 //会员级别权益对应表实体
 public class MemberLevelsRightsMappingEntity{
 	private String strLevelsRightsMappingId;				//记录关键字
 	@SuppressWarnings("unused")
 	private String strLevelsId;		//会员级别ID
+	private String strLevelsName;	//会员级别名称
 	private String strRightsId;			//会员权益ID
+	private String strRightsName;	//会员权益名称
 	private int iRightsStatus=0;	//会员权益状态：0 表购买商品 1表示购买服务
-	private double dDiscount;	//折扣率
+	private BigDecimal dDiscount;	//折扣率
 	private int iPreferentialTimes;	//优惠次数
 	private String strEmployeeId;	//登录员工ID
 	private String strEmployeeName;//登录员工帐号
@@ -34,6 +39,26 @@ public class MemberLevelsRightsMappingEntity{
 		return strLevelsId;
 	}
 	
+	public void setStrLevelsName(String strLevelsName)
+	{
+		this.strLevelsName=strLevelsName;
+	}
+	
+	public String getStrLevelsName()
+	{
+		return strLevelsName;
+	}
+	
+	public void setStrRightsName(String strRightsName)
+	{
+		this.strRightsName=strRightsName;
+	}
+	
+	public String getStrRightsName()
+	{
+		return strRightsName;
+	}
+	
 	public void setStrRightsId(String strRightsId)
 	{
 		this.strRightsId=strRightsId;
@@ -54,12 +79,12 @@ public class MemberLevelsRightsMappingEntity{
 		return iRightsStatus;
 	}
 	
-	public void setDdiscount(double dDiscount)
+	public void setDdiscount(BigDecimal dDiscount)
 	{
 		this.dDiscount=dDiscount;
 	}
 	
-	public double getDdiscount()
+	public BigDecimal getDdiscount()
 	{
 		return dDiscount;
 	}

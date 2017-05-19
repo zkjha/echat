@@ -1,9 +1,11 @@
 package com.ecard.entity;
 
+import java.math.BigDecimal;
+
 public class IntegrationCashRuleEntity {
 	private String strId;
 	private int iIntegration;				//消费积分
-	private double dCash;					//抵扣现金
+	private BigDecimal dCash;					//抵扣现金
 	private String strEnabled;				//是否启用：'1'表启用,'0'表禁用
 	private String strEmployeeId;			//登录员工ID
 	private String strEmployeeName;			//登录员工帐号
@@ -31,12 +33,12 @@ public class IntegrationCashRuleEntity {
 		return iIntegration;
 	}
 	
-	public void setDCash(double dCash)
+	public void setDcash(BigDecimal dCash)
 	{
 		this.dCash=dCash;
 	}
 	
-	public double getDCash()
+	public BigDecimal getDCash()
 	{
 		return dCash;
 	}

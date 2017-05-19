@@ -4,10 +4,42 @@
 <!-- 新增 会员等级及其对应权益关系信息 -->
 <insert id="insertMemberLevelsRightsMappingInfo" parameterType="com.ecard.entity.MemberLevelsRightsMappingEntity">
 insert into tb_member_levelsRights_mapping
-(strLevelsRightsMappingId,strLevelsId,strRightsId,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmployeeRealName,
+(strLevelsRightsMappingId,strLevelsId,strLevelsName,strRightsId,strRightsName,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmployeeRealName,
 strCreationTime,strLastAccessedTime)
 values
-(#{strLevelsRightsMappingId},#{strLevelsId},#{strRightsId},#{iRightsStatus},#{dDiscount},#{iPreferentialTimes},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},
+(#{strLevelsRightsMappingId},#{strLevelsId},#{strLevelsName},#{strRightsId},#{strRightsName},#{iRightsStatus},#{dDiscount},#{iPreferentialTimes},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName},
 #{strCreationTime},#{strLastAccessedTime})
 </insert>
+
+<!-- 查出 会员等级及其权益关系总记录条数 -->
+<select id="findTotalRecordCount" resultType="int">
+select count(*) from tb_member_levelsRights_mapping
+</select>
+
+<!-- 分页查询会员等级及其权益信息 -->
+<select id="selectAllMemberLevelsRightsMappingInfo" parameterType="map" resultType="com.ecard.entity.MemberLevelsRightsMappingEntity">
+ select strLevelsRightsMappingId,strLevelsId,strLevelsName,strRightsId,strRightsName,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmployeeRealName,
+strCreationTime,strLastAccessedTime from tb_member_levelsRights_mapping order by strLastAccessedTime desc limit #{iPageFrom},#{iPageSize}
+</select>
+
+<!-- 更新 等 级权益信息表 -->
+<update id="updateMemberLevelsRightsMappingInfo" parameterType="com.ecard.entity.MemberLevelsRightsMappingEntity">
+ update tb_member_levelsRights_mapping set
+ strLevelsId=#{strLevelsId},
+ strLevelsName=#{strLevelsName},
+ strRightsId=#{strRightsId},
+ strRightsName=#{strRightsName},
+ iRightsStatus=#{iRightsStatus},
+ dDiscount=#{dDiscount},
+ iPreferentialTimes=#{iPreferentialTimes},
+ strEmployeeId=#{strEmployeeId},
+ strEmployeeName=#{strEmployeeName},
+ strEmployeeRealName=#{strEmployeeRealName},
+strLastAccessedTime=#{strLastAccessedTime} where strLevelsRightsMappingId=#{strLevelsRightsMappingId}
+ </update>
+ 
+ <!-- 删除 等 级权益信息表 -->
+ <delete id="deleteMemberLevelsRightsMappingInfo" parameterType="String">
+  delete from tb_member_levelsRights_mapping where strLevelsRightsMappingId=#{strLevelsRightsMappingId}
+ </delete>
 </mapper>

@@ -405,7 +405,7 @@ public class VoucherTicketInfoController {
 	public static boolean isNumber(String strCheckString)
 	{
 		boolean flag=false;
-		Pattern p1 = Pattern.compile("^[1-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
+		Pattern p1 = Pattern.compile("^[0-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
 		Matcher matcher=p1.matcher(strCheckString);
 		flag=matcher.matches();   
 		return flag;

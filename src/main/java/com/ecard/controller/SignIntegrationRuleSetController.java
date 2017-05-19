@@ -1,5 +1,6 @@
 package com.ecard.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -210,7 +211,7 @@ public class SignIntegrationRuleSetController {
 		public String insertIntegrationCashRule(HttpServletRequest request,HttpServletResponse response)
 		{
 			int iIntegration;
-			double dCash;
+			BigDecimal dCash=null;
 			String strIntegration = request.getParameter("iIntegration");	//校验有效性?????????????
 			String strCash =request.getParameter("dCash");				//校验有效性？？？、？
 			String strEnabled = request.getParameter("strEnabled");
@@ -229,7 +230,7 @@ public class SignIntegrationRuleSetController {
 			}
 			
 			if(isNumber(strCash))
-				dCash=Double.parseDouble(strCash);
+				dCash=new BigDecimal(Double.parseDouble(strCash));
 			else
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字", null);
 			
@@ -266,7 +267,7 @@ public class SignIntegrationRuleSetController {
 			IntegrationCashRuleEntity integrationCashRuleEntity = new IntegrationCashRuleEntity();
 			integrationCashRuleEntity.setstrId(DataTool.getUUID());
 			integrationCashRuleEntity.setIIntegration(iIntegration);
-			integrationCashRuleEntity.setDCash(dCash);
+			integrationCashRuleEntity.setDcash(dCash);
 			integrationCashRuleEntity.setStrEnabled(strEnabled);
 			integrationCashRuleEntity.setStrEmployeeId(strEmployeeId);
 			integrationCashRuleEntity.setStrEmployeeName(strEmployeeName);
@@ -492,13 +493,13 @@ public class SignIntegrationRuleSetController {
 				
 				
 				//更新积分抵现规则
-				//localhost:8083/admin/biz/RuleSetting/updateIntegrationCashRule?strId=5482650fda334e32a03a972fe3dab11a&iIntegration=100&dCash=1&strEnabled=0
+				//localhost:8083/admin/biz/RuleSetting/updateIntegrationCashRule?strId=54f54fc58d54434c97b353cf02c97b0a&iIntegration=100&dCash=1&strEnabled=0
 				@ResponseBody
 				@RequestMapping("updateIntegrationCashRule")
 				public String updateIntegrationCashRule(HttpServletRequest request,HttpServletResponse response)
 				{
 					int iIntegration;
-					double dCash;				
+					BigDecimal dCash=null;				
 					String strId = request.getParameter("strId");
 					String strIntegration =request.getParameter("iIntegration");						//校验？？？？
 					String strCash =request.getParameter("dCash");									//校验?????
@@ -522,7 +523,7 @@ public class SignIntegrationRuleSetController {
 					}
 					
 					if(isNumber(strCash))
-						dCash=Double.parseDouble(strCash);
+						dCash=new BigDecimal(Double.parseDouble(strCash));
 					else
 						return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"请填写数字",null);
 					
@@ -558,7 +559,7 @@ public class SignIntegrationRuleSetController {
 					IntegrationCashRuleEntity integrationCashRuleEntity = new IntegrationCashRuleEntity();
 					integrationCashRuleEntity.setstrId(strId);
 					integrationCashRuleEntity.setIIntegration(iIntegration);
-					integrationCashRuleEntity.setDCash(dCash);
+					integrationCashRuleEntity.setDcash(dCash);
 					integrationCashRuleEntity.setStrEnabled(strEnabled);
 					integrationCashRuleEntity.setStrEmployeeId(strEmployeeId);
 					integrationCashRuleEntity.setStrEmployeeName(strEmployeeName);
