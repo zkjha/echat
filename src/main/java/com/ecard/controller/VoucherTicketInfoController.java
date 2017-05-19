@@ -70,7 +70,7 @@ public class VoucherTicketInfoController {
 		if(ValidateTool.isEmptyStr(strValidEndTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"截止时间不能为空",null);
 		
-		strValidEndTime=DateTool.StringToString(strValidEndTime,DateStyle.YYYY_MM_DD_HH_MM);
+		strValidEndTime=DateTool.StringToString(strValidEndTime,DateStyle.YYYY_MM_DD);
 		
 		if(ValidateTool.isEmptyStr(strIsValid))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
@@ -260,7 +260,7 @@ public class VoucherTicketInfoController {
 		if(ValidateTool.isEmptyStr(strValidEndTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"截止时间不能为空",null);
 		
-		strValidEndTime=DateTool.StringToString(strValidEndTime,DateStyle.YYYY_MM_DD_HH_MM);
+		strValidEndTime=DateTool.StringToString(strValidEndTime,DateStyle.YYYY_MM_DD);
 			
 		if(ValidateTool.isEmptyStr(strIsValid))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
