@@ -82,7 +82,10 @@ requirejs(
                 templateUrl: "/static/temp/admin/activity/integralrules.html",
                 controller:activityController.integralrules
 
-            }).otherwise({
+            }).when("/dyqxz", {//首次入会controller:activityController.integralrules
+
+            })
+                .otherwise({
                 redirectTo: "/customgift"
             });
         //integralrules
@@ -102,6 +105,7 @@ requirejs(
 	                 ,{id:'integralrules',link: '#!/integralrules', name: "积分规则",hasnext:false}
 	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "前端首页广告",hasnext:false}
 	                 ,{id:'advertisementCycle',link: '#!/advertisementCycle', name: "活动规则设置",hasnext:false}
+                     ,{id:'dyqxz',link: '#!/dyqxz', name: "抵用券新增",hasnext:false}
 	               ];
 
 

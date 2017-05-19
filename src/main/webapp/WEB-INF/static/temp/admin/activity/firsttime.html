@@ -14,19 +14,11 @@
                 <div class="clearfix">
                     <div class="fl f14">积分</div>
                     <div class="fl ml10">
-                        <div class="zjl_firsttime_input w120"><input class="w100" type="text"/><span class="fr mr5">积分</span></div>
+                        <div class="zjl_firsttime_input w120"><input class="w100" type="text"/><span class="fr">积分</span></div>
                         <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
-                    <div class="fr mt20 mr10">
-                        <div class="fl">
-                            <div class="fl mt5"><input type="checkbox"/></div>
-                            <div class="fl f14 oranger-color">启用</div>
-                        </div>
-                        <div class="fl ml10">
-                            <div class="fl mt5"><input type="checkbox"/></div>
-                            <div class="fl f14">禁用</div>
-                        </div>
-                    </div>
+                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (0)" ng-model="panduanxuanzhong"/>
+                    <integralrules-Directive></integralrules-Directive>
                 </div>
             </div>
             <!--储值-->
@@ -41,17 +33,18 @@
                         <div class="fl">共</div>
                         <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text"/><span class="fr mr5">张</span></div>
                     </div>
-
-                    <div class="fr mt20 mr10">
-                        <div class="fl">
-                            <div class="fl mt5"><input type="checkbox"/></div>
-                            <div class="fl f14 oranger-color">启用</div>
-                        </div>
-                        <div class="fl ml10">
-                            <div class="fl mt5"><input type="checkbox"/></div>
-                            <div class="fl f14">禁用</div>
-                        </div>
-                    </div>
+                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (0)" ng-model="panduanxuanzhong"/>
+                    <integralrules-Directive></integralrules-Directive>
+                    <!--<div class="fr mt20 mr10">-->
+                        <!--<div class="fl">-->
+                            <!--<div class="fl mt5"><input type="checkbox"/></div>-->
+                            <!--<div class="fl f14 oranger-color">启用</div>-->
+                        <!--</div>-->
+                        <!--<div class="fl ml10">-->
+                            <!--<div class="fl mt5"><input type="checkbox"/></div>-->
+                            <!--<div class="fl f14">禁用</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
