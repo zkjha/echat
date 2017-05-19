@@ -138,7 +138,7 @@ public class VoucherTicketInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectVoucherTicketInfo")
-	//http://localhost:8083/admin/biz/voucherTickeSetting/selectVoucherTicketInfo?iPageNum=0&iPageSize=0
+	//http://localhost:8083/admin/biz/voucherTickeSetting/selectVoucherTicketInfo?iPageNum=0&iPageSize=5
 	public String selectVoucherTicketInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*检验身份有效性
@@ -191,7 +191,9 @@ public class VoucherTicketInfoController {
 			{
 				iTotalPage=(iTotalRecord%iPageSize==0)?(iTotalRecord/iPageSize):(iTotalRecord/iPageSize)+1;	//计算总页数
 				if(iPageNum>iTotalPage)
-					iPageFrom=iTotalPage;							//如果请求页数超过计算出的总页数，则默认是请求最后一页
+					iPageNum=iTotalPage;							//如果请求页数超过计算出的总页数，则默认是请求最后一页
+				////////////////////////////////////////////////////////////////
+				return DataTool.constructResponse(ResultCode.NO_DATA,"iPageSize"+iPageSize+"iPageNum:"+iPageNum,null);
 				iPageFrom=(iPageNum-1)*iPageSize;
 				Map<String,Object> queryMap = new HashMap<String,Object>();
 				queryMap.put("iPageFrom", iPageFrom);
