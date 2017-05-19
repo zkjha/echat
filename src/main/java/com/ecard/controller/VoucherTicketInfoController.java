@@ -192,8 +192,6 @@ public class VoucherTicketInfoController {
 				iTotalPage=(iTotalRecord%iPageSize==0)?(iTotalRecord/iPageSize):(iTotalRecord/iPageSize)+1;	//计算总页数
 				if(iPageNum>iTotalPage)
 					iPageNum=iTotalPage;							//如果请求页数超过计算出的总页数，则默认是请求最后一页
-				////////////////////////////////////////////////////////////////
-				return DataTool.constructResponse(ResultCode.NO_DATA,"iPageSize"+iPageSize+"iPageNum:"+iPageNum,null);
 				iPageFrom=(iPageNum-1)*iPageSize;
 				Map<String,Object> queryMap = new HashMap<String,Object>();
 				queryMap.put("iPageFrom", iPageFrom);
