@@ -164,8 +164,12 @@ public class MemberLevelsRightsMappingController {
 			iPageNum=1;
 		else
 		{
-			if(isNumber(strPageNum))	//检验的时候已排除0
+			if(isNumber(strPageNum))	
+			{
 				iPageNum=Integer.parseInt(strPageNum);
+				if(iPageNum==0)
+					iPageNum=1;
+			}
 			else
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数格式不对",null);
 		}
@@ -175,7 +179,11 @@ public class MemberLevelsRightsMappingController {
 		else
 		{
 			if(isNumber(strPageSize))
+			{
 				iPageSize=Integer.parseInt(strPageSize);
+				if(iPageSize==0)
+					iPageSize=StaticValue.PAGE_SIZE;
+			}
 			else
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数格式不对",null);
 		}
