@@ -33,23 +33,29 @@
         <table class="list-table">
             <tr>
                 <th>序号</th>
-                <th>类别</th>
-                <th>操作员</th>
+                <th>抵用券名称</th>
+                <th>金额</th>
+                <th>有效截止日期</th>
+                <th>是否启用</th>
                 <th class="w40">操作</th>
             </tr>
-            <tr ng-repeat='listServiceType  in listServiceType'>
+            <tr ng-repeat='listVoucherTicketInfoEntity  in listVoucherTicketInfoEntity'>
                 <td>{{$index+(currentPage-1)*pageSize+1}}</td>
-                <td>{{listServiceType.strServiceTypeName}}</td>
-                <td>{{listServiceType.strEmployeeLoginName }}</td>
-
+                <td>{{listVoucherTicketInfoEntity.strVoucherTicketName}}</td>
+                <td>{{listVoucherTicketInfoEntity.dVoucherTicketAmount }}</td>
+                <td>{{listVoucherTicketInfoEntity.strValidEndTime}}</td>
+                <td>
+                    <span ng-show="listVoucherTicketInfoEntity.iIsValid">启用</span>
+                    <span ng-show="!listVoucherTicketInfoEntity.iIsValid">禁用</span>
+                </td>
                 <td>
                     <div class="-lpy-list-control">
                         <div class="-lpy-list-control-title" ng-mouseout="openCtrMenu($index,'out')" ng-mouseover="openCtrMenu($index,'over')">
                             操作
 
                             <ul ng-show="isShowListMenu[$index]">
-                                <li><a ng-click="updataExpand(listServiceType.strServiceTypeId)">修改</a></li>
-                                <li><a ng-click="delectExpand(listServiceType.strServiceTypeId,listServiceType.strServiceTypeName)">删除</a></li>
+                                <li><a ng-click="updataExpand(listVoucherTicketInfoEntity.strVoucherTicketId)">修改</a></li>
+                                <li><a ng-click="delectExpand(listVoucherTicketInfoEntity.strVoucherTicketId,listVoucherTicketInfoEntity.strVoucherTicketName)">删除</a></li>
                                 <!-- <li><a>修改2</a></li> -->
                             </ul>
                         </div>
@@ -79,8 +85,8 @@
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增拓展信息</div>
-                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+                <div class="fl" ng-switch-default>新增抵用券信息</div>
+                <div class="fl" ng-switch-when="false">修改抵用券信息</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -91,14 +97,25 @@
                 <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
                         <div class=" w300 center">
-                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型描述：
-                                <input type="text" ng-value="listServiceType.strServiceTypeDesc" name="strInformationname"   ng-model="listServiceType.strServiceTypeDesc" ngTrim="true" ng-maxlength="8" required/>
+                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;抵用券面值：
+                                <input type="text" ng-value="listVoucherTicketInfoEntity.dVoucherTicketAmount" name="strInformationname"   ng-model="listVoucherTicketInfoEntity.dVoucherTicketAmount" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;服务类型ID：
-                                <input type="text" ng-value="listServiceType.strServiceTypeId" name="strInformationname"   ng-model="listServiceType.strServiceTypeId" ngTrim="true" ng-maxlength="8" required/>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;抵用券使用描述：
+                                <input type="text" ng-value="listVoucherTicketInfoEntity.strRuleDesc" name="strInformationname"   ng-model="listVoucherTicketInfoEntity.strRuleDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型名称：
-                                <input type="text" ng-value="listServiceType.strServiceTypeName" name="strInformationname"   ng-model="listServiceType.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>
+                            <!--<div class="mt20" ng-if="false">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;关键字描述：-->
+                                <!--<input type="text" ng-value="listVoucherTicketInfoEntity.strVoucherTicketId" name="strInformationname"   ng-model="listVoucherTicketInfoEntity.strVoucherTicketId" ngTrim="true" ng-maxlength="20" required/>-->
+                            <!--</div>-->
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> &nbsp;&nbsp;有效截止时间：
+                                <input type="date" name="listVoucherTicketInfoEntity.strValidEndTime"  ng-value="datass"   ng-model="listVoucherTicketInfoEntity.strValidEndTime" ngTrim="true" ng-maxlength="12"  required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;抵用券名称：
+                                <input type="text" ng-value="listVoucherTicketInfoEntity.strVoucherTicketName" name="strInformationname"   ng-model="listVoucherTicketInfoEntity.strVoucherTicketName" ngTrim="true" ng-maxlength="8" required/>
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否启用：
+                                <select ng-model="listVoucherTicketInfoEntity.iIsValid" ng-options="o.id as o.name for o in iIsValid"  name="strInformationname" required>
+                                    <option value="">请选择</option>
+                                </select>
                             </div>
                         </div>
                         <div class="mt10"></div>

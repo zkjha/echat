@@ -82,8 +82,9 @@ requirejs(
                 templateUrl: "/static/temp/admin/activity/integralrules.html",
                 controller:activityController.integralrules
 
-            }).when("/dyqxz", {//首次入会controller:activityController.integralrules
-
+            }).when("/dyqxz", {//抵用券新增
+                templateUrl: "/static/temp/admin/activity/dyqxz.html",
+                controller:activityController.dyqxz
             })
                 .otherwise({
                 redirectTo: "/customgift"

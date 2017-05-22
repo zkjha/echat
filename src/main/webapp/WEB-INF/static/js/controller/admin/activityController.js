@@ -11,6 +11,350 @@ define(
 		'use strict'
 
 		var activityCtrl = {
+            ////////////////////抵用券维护-开始/////////////////////////
+            dyqxz:function($scope,$http){
+                $scope.currentPage = 1;
+                $scope.pageSize = 5;
+                $scope.isShowListMenu = [];
+                $scope.listVoucherTicketInfoEntity = {};
+                $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
+                //$scope.datass =new Date($scope.strValidEndTime)
+                //调用分页查询接口
+                activityCtrl.selectVoucherTicketInfo($scope,$http)
+                $scope.onPageChange = function () {
+                    // ajax request to load data
+                    $scope.listVoucherTicketInfoEntity = {};
+                    activityCtrl.selectVoucherTicketInfo($scope,$http);
+
+                };
+
+                //删除
+                $scope.delectExpand=function(strVoucherTicketId,strVoucherTicketName){
+                    $scope.showConfirm("确认要删除" +strVoucherTicketName+"？",function(rs){
+                        //调用删除拓展资料函数
+                        if(rs){
+                            activityCtrl.deleteVoucherTicketInfo(strVoucherTicketId,$scope, $http);
+                        }
+
+                    })
+                }
+            //    二级菜单
+                $scope.openCtrMenu = function ($index, type) {
+                    for (var i = 0; i < $scope.isShowListMenu.length; i++) {
+                        $scope.isShowListMenu[i] = false;
+                    }
+                    if (type == 'over') {
+                        $scope.isShowListMenu[$index] = !$scope.isShowListMenu[$index];
+                    }
+
+                };
+                //修改点击按钮事件
+                $scope.updataExpand=function(strVoucherTicketId){
+
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=false;
+                    //判断执行添加还是修改
+                    $scope.typePanduan = true;
+                    //调用接口
+                    activityCtrl.findVoucherTicketInfoById(strVoucherTicketId,$scope, $http);
+                    $scope.strVoucherTicketId = strVoucherTicketId;
+                };
+            //    新增
+                //新建服务分类点击按钮事件
+                $scope.newExpandinginfo=function(){
+
+                    $scope.showExpandInfoWindow=true;
+                    $scope.isAddNewExpand=true;
+                    //判断执行添加还是修改
+                    $scope.typePanduan = false;
+                };
+                //关闭窗口
+                $scope.clostExpandWindow=function(){
+                    $scope.showExpandInfoWindow=false;
+                    $scope.listVoucherTicketInfoEntity={};
+                    //调用分页查询接口
+                    activityCtrl.selectVoucherTicketInfo($scope,$http)
+                };
+                //保存
+                $scope.submitExpandinfo=function(){
+                    if($scope.typePanduan){
+                        //调用修改接口
+                        activityCtrl.updateVoucherTicketInfo($scope.listVoucherTicketInfoEntity,$scope, $http);
+                    }
+                    else{
+                        //调用保存接口
+                        activityCtrl.insertVoucherTicketInfo($scope.listVoucherTicketInfoEntity,$scope, $http);
+                    }
+
+
+                };
+
+            },
+            //单条数据删除
+            deleteVoucherTicketInfo:function(strVoucherTicketId,$scope,$http){
+
+                var data={
+                    strVoucherTicketId:strVoucherTicketId
+                };
+                $http.post(remoteUrl.deleteVoucherTicketInfo,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        console.info(result)
+                        if (code == 1) {
+                            window.location.reload();
+                            //console.info($scope.listVoucherTicketInfoEntity.strValidEndTime)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            //单条数据查询
+            findVoucherTicketInfoById:function(strVoucherTicketId,$scope,$http){
+
+                var data={
+                    strVoucherTicketId:strVoucherTicketId
+                };
+                $http.post(remoteUrl.findVoucherTicketInfoById,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.listVoucherTicketInfoEntity = data.voucherTicketInfoEntity;
+                            $scope.listVoucherTicketInfoEntity.strValidEndTime = new Date($scope.listVoucherTicketInfoEntity.strValidEndTime)
+                            //console.info($scope.listVoucherTicketInfoEntity.strValidEndTime)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            //抵用券维护修改
+            updateVoucherTicketInfo:function(listVoucherTicketInfoEntity,$scope,$http){
+                var riqi =new Date(listVoucherTicketInfoEntity.strValidEndTime).toLocaleString();
+                riqi = riqi.split(/\s/)[0];
+                var data={
+                    dVoucherTicketAmount:listVoucherTicketInfoEntity.dVoucherTicketAmount,
+                    iIsValid:listVoucherTicketInfoEntity.iIsValid,
+                    strRuleDesc:listVoucherTicketInfoEntity.strRuleDesc,
+                    strValidEndTime:riqi,
+                    strVoucherTicketName:listVoucherTicketInfoEntity.strVoucherTicketName,
+                    strVoucherTicketId:$scope.strVoucherTicketId
+                };
+                console.info(typeof data.iIsValid)
+                $http.post(remoteUrl.updateVoucherTicketInfo,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            });
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            //抵用券维护新增
+            insertVoucherTicketInfo:function(listVoucherTicketInfoEntity,$scope,$http){
+                    var riqi =new Date(listVoucherTicketInfoEntity.strValidEndTime).toLocaleString();
+                    riqi = riqi.split(/\s/)[0];
+                var data={
+                    dVoucherTicketAmount:listVoucherTicketInfoEntity.dVoucherTicketAmount,
+                    iIsValid:listVoucherTicketInfoEntity.iIsValid,
+                    strRuleDesc:listVoucherTicketInfoEntity.strRuleDesc,
+                    strValidEndTime:riqi,
+                    //strValidEndTime:listVoucherTicketInfoEntity.strValidEndTime,
+                    strVoucherTicketName:listVoucherTicketInfoEntity.strVoucherTicketName
+                };
+                console.info(data.strValidEndTime)
+                $http.post(remoteUrl.insertVoucherTicketInfo,data).then(
+                    function (result) {
+
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        console.info(result)
+                        if (code == 1) {
+
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            });
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+            //抵用券维护分页查询
+            selectVoucherTicketInfo:function($scope,$http){
+                var data={
+                    //iPageNum:$scope.currentPage,
+                    iPageNum:$scope.currentPage,
+                    //pagesize:$scope.pageSize
+                    iPageSize:$scope.pageSize
+                };
+                $http.post(remoteUrl.selectVoucherTicketInfo,data).then(
+                    function (result) {
+                            console.info(result)
+                        var rs = result.data;
+                        var code = rs.code;
+                        var data = rs.data;
+                        //code=-8;
+                        if (code == 1) {
+                            //图片跟路径
+                            $scope.pageCount = data.iTotalPage;
+                            console.info($scope.pageCount)
+                            //$scope.pageCount = 2;
+                            console.info(data)
+                            $scope.listVoucherTicketInfoEntity = data.listVoucherTicketInfoEntity;
+                            for (var i = 0; i < $scope.isShowListMenu.length; i++) {
+                                $scope.isShowListMenu[i] = false;
+                            }
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    });
+            },
+
+
+
+
+
+
+
+            ////////////////////抵用券维护-结束/////////////////////////
+
+
+
+
+
+
             ////////////////////积分规则-开始/////////////////////////
             integralrules: function ($scope,$http) {
                 //新增是否禁用

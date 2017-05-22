@@ -194,6 +194,16 @@ define([],function(){
             updateIntegrationCashRule:"/admin/biz/RuleSetting/updateIntegrationCashRule",
             //积分规则 - 连续签到积分规则 - 更新
             updateSignIntegrationRules:"/admin/biz/RuleSetting/updateSignIntegrationRules",
+            //抵用券维护 -- 抵用券详情 -- 分页查询
+            selectVoucherTicketInfo:"/admin/biz/voucherTickeSetting/selectVoucherTicketInfo",
+            //抵用券维护 -- 抵用券详情 -- 删除
+            deleteVoucherTicketInfo:"/admin/biz/voucherTickeSetting/deleteVoucherTicketInfo",
+            //抵用券维护 -- 抵用券详情 -- 更新
+            updateVoucherTicketInfo:"/admin/biz/voucherTickeSetting/updateVoucherTicketInfo",
+            //抵用券维护 -- 抵用券详情 -- 查询单条
+            findVoucherTicketInfoById:"/admin/biz/voucherTickeSetting/findVoucherTicketInfoById",
+            //抵用券维护 -- 抵用券详情 -- 新增
+            insertVoucherTicketInfo:"/admin/biz/voucherTickeSetting/insertVoucherTicketInfo",
 
 		////////////会员活动管理结束/////////////////////////////	
         /**
