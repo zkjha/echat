@@ -14,7 +14,7 @@
 select count(strVoucherTicketId) from tb_voucherticket_infomanage;
 </select>
 
-<!-- 分页查询抵用卷信息 -->
+<!-- 分页查询抵用卷信息      -->
 <select id="selectVoucherTicketInfo" parameterType="map" resultType="com.ecard.entity.VoucherTicketInfoEntity">
 select strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
 from tb_voucherticket_infomanage order by strLastAccessedTime desc 

@@ -131,7 +131,7 @@ public class VoucherTicketInfoController {
 	}
 	
 	/**
-	 * 分页查询|查询列表iPageSize=0时          抵用卷信息
+	 * 分页查询|查询列表iPageSize=0时            抵用卷信息
 	 * @param response
 	 * @param request
 	 * @return
