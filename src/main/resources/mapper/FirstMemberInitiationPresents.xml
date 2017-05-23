@@ -9,7 +9,7 @@
 
 <!-- 查询顾客入会获赠积分情况 -->
 <select id="selectFirstMemberInitiationIntegrationPresents" resultType="com.ecard.entity.FirstMemberInitiationIntegrationPresentsEntity">
- select * from tb_fistmemberinitiation_integrationpresents
+ select * from tb_fistmemberinitiation_integrationpresents order by strLastAccessedTime desc
 </select>
 
 <!-- 更新 顾客入会获赠积分情况 -->
@@ -68,7 +68,7 @@ insert into tb_firstMemberInitiation_VoucherTicketPresents
 
 <!-- 查顾客首次入会获赠抵用卷全部信息 -->
 <select id="selectVoucherTicketPresentsInfo"  resultType="com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity">
-select * from tb_firstMemberInitiation_VoucherTicketPresents
+select * from tb_firstMemberInitiation_VoucherTicketPresents order by strLastAccessedTime desc
 </select>
 
 <!-- 批量更新 首次入会赠送抵用卷信息 -->
