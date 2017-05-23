@@ -131,7 +131,7 @@ public class VoucherTicketInfoController {
 	}
 	
 	/**
-	 * 分页查询 抵用卷信息
+	 * 分页查询|查询列表iPageSize=0时          抵用卷信息
 	 * @param response
 	 * @param request
 	 * @return
@@ -176,9 +176,7 @@ public class VoucherTicketInfoController {
 		{
 			if(isNumber(strPageSize))
 				{
-				iPageSize=Integer.parseInt(strPageSize);
-				if(iPageSize==0)
-					iPageSize=StaticValue.PAGE_SIZE;
+				iPageSize=Integer.parseInt(strPageSize);	//iPageSize允许为0，为0时墨认为全部显示下拉列表框
 				}
 			else
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"每页要显示的记录条数格式不对",null);
@@ -187,26 +185,46 @@ public class VoucherTicketInfoController {
 		
 		try{
 			iTotalRecord=voucherTicketInfoService.findRecordCount();	//查记录总条数
-			if(iTotalRecord!=0)
+			//1:分页查询的情况
+			if(iTotalRecord!=0)	
 			{
-				iTotalPage=(iTotalRecord%iPageSize==0)?(iTotalRecord/iPageSize):(iTotalRecord/iPageSize)+1;	//计算总页数
-				if(iPageNum>iTotalPage)
-					iPageNum=iTotalPage;							//如果请求页数超过计算出的总页数，则默认是请求最后一页
-				iPageFrom=(iPageNum-1)*iPageSize;
-				Map<String,Object> queryMap = new HashMap<String,Object>();
-				queryMap.put("iPageFrom", iPageFrom);
-				queryMap.put("iPageSize", iPageSize);
-				List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=voucherTicketInfoService.selectVoucherTicketInfo(queryMap);
-				if(listVoucherTicketInfoEntity==null||listVoucherTicketInfoEntity.size()==0)
-					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
-				else
+				if(iPageSize!=0)
 				{
-					Map<String,Object> resultMap=new HashMap<String,Object>();
-					resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
-					resultMap.put("iTotalRecord", iTotalRecord);
-					resultMap.put("iTotalPage", iTotalPage);
-					return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+					iTotalPage=(iTotalRecord%iPageSize==0)?(iTotalRecord/iPageSize):(iTotalRecord/iPageSize)+1;	//计算总页数
+					if(iPageNum>iTotalPage)
+						iPageNum=iTotalPage;							//如果请求页数超过计算出的总页数，则默认是请求最后一页
+					iPageFrom=(iPageNum-1)*iPageSize;
+					Map<String,Object> queryMap = new HashMap<String,Object>();
+					queryMap.put("iPageFrom", iPageFrom);
+					queryMap.put("iPageSize", iPageSize);
+					List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=voucherTicketInfoService.selectVoucherTicketInfo(queryMap);
+					if(listVoucherTicketInfoEntity==null||listVoucherTicketInfoEntity.size()==0)
+						return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+					else
+					{
+						Map<String,Object> resultMap=new HashMap<String,Object>();
+						resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+						resultMap.put("iTotalRecord", iTotalRecord);
+						resultMap.put("iTotalPage", iTotalPage);
+						return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+					}
 				}
+				else	//2:查询--下拉列表
+				{
+					Map<String,Object> queryMap = new HashMap<String,Object>();
+					queryMap.put("iPageFrom",0);
+					queryMap.put("iPageSize",0);
+					List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=voucherTicketInfoService.selectVoucherTicketInfo(queryMap);
+					if(listVoucherTicketInfoEntity==null||listVoucherTicketInfoEntity.size()==0)
+						return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+					else
+						{
+						Map<String,Object> resultMap=new HashMap<String,Object>();
+						resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+						return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+						}
+				}
+				
 			}
 			else
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
@@ -215,9 +233,6 @@ public class VoucherTicketInfoController {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
-		
-		
-		
 		
 	}
 	
