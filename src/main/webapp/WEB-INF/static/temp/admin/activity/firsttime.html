@@ -8,32 +8,38 @@
 	<!--页面展示-->
 
 	<div class="zjl_firsttime_body mt20">
-        <div class="zjl_firsttime_cont">
+        <div class="zjl_firsttime_cont clearfix">
+            <form action="">
             <!--积分-->
             <div class="h50 zjl_firsttime_bd">
                 <div class="clearfix">
-                    <div class="fl f14">积分</div>
+                    <div class="fl f14 w50">积分</div>
                     <div class="fl ml10">
-                        <div class="zjl_firsttime_input w120"><input class="w100" type="text"/><span class="fr">积分</span></div>
+                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="integrationPresentsEntity.iIntegrationPresentsValue" ng-model="integrationPresentsEntity.iIntegrationPresentsValue"/><span class="fr">积分</span></div>
                         <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
-                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (0)" ng-model="panduanxuanzhong"/>
+                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (integrationPresentsEntity.iEnabled)"  ng-model="panduanxuanzhong"/>
                     <integralrules-Directive></integralrules-Directive>
                 </div>
             </div>
             <!--储值-->
-            <div class="h50 zjl_firsttime_bd mt10">
+            <div class="h50 zjl_firsttime_bd mt10" ng-repeat="listStoredTicketPresentsEntity in listStoredTicketPresentsEntity">
                 <div class="clearfix">
-                    <div class="fl f14">储值</div>
+                    <div class="fl f14 w50">储值</div>
                     <div class="fl ml10">
-                        <div class="zjl_firsttime_input w120"><input class="w100" type="text"/><span class="fr mr5">元</span></div>
+                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="listStoredTicketPresentsEntity.iStoredValuePresents"/><span class="fr mr5">元</span></div>
                         <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
-                    <div class="fl ml50 mt10">
-                        <div class="fl">共</div>
-                        <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text"/><span class="fr mr5">张</span></div>
+                    <div class="fl ml50 mt10 w120">
+                        <div class="fl ml30">共</div>
+                        <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text" ng-value="listStoredTicketPresentsEntity.iTotalStoredTicketNum"/><span class="fr mr5">张</span></div>
                     </div>
-                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (0)" ng-model="panduanxuanzhong"/>
+                    <div class="fl ml50 mt10">
+                        <div class="fl"> <span class="red-require mr5">*</span>有效期截止：</div>
+                        <div class="zjl_firsttime_input fl ml5"><input class="" type="date" ng-value="listStoredTicketPresentsEntity.strValidateEndTime"/></div>
+                    </div>
+
+                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listStoredTicketPresentsEntity.iEnabled)" ng-model="panduanxuanzhong"/>
                     <integralrules-Directive></integralrules-Directive>
                     <!--<div class="fr mt20 mr10">-->
                         <!--<div class="fl">-->
@@ -47,6 +53,37 @@
                     <!--</div>-->
                 </div>
             </div>
+            <!--抵用券-->
+            <div class="h50 zjl_firsttime_bd mt10" ng-repeat="listVoucherTicketPresentsEntity in listVoucherTicketPresentsEntity">
+                <div class="clearfix">
+                    <div class="fl f14 w50">抵用券</div>
+                    <div class="fl ml10">
+                        <div class="zjl_firsttime_input w60">
+                            <!--listVoucherTicketInfoEntity.strVoucherTicketId-->
+                            <select ng-model="listVoucherTicketPresentsEntity.strVoucherTicketKindId" ng-options="o.strVoucherTicketId as o.dVoucherTicketAmount for o in listVoucherTicketInfoEntity"  name="strInformationname" class="z_select_bg"  required>
+                                <option value="">请选择</option>
+                            </select>
+                            <!--<div>{{listVoucherTicketPresentsEntity.strVoucherTicketKindId}}</div>-->
+                        </div>
+                        <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
+                    </div>
+                    <div class="fl ml50 mt10 w120">
+                        <div class="fl">发放总数</div>
+                        <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text" ng-model="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum"/><span class="fr mr5">张</span></div>
+                    </div>
+                    <div class="fr f20 oranger-color ml50 mt20">
+                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listSignIntegrationRuleEntity.strSignId)">-</div>
+                        <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfo()">+</div>
+                    </div>
+                    <!--<input type="text" ng-hide="true" ng-value="panduanxuanzhong = (integrationPresentsEntity.iEnabled)" ng-model="panduanxuanzhong"/>-->
+                    <!--<integralrules-Directive></integralrules-Directive>-->
+                </div>
+            </div>
+
+                <div class="tc mt50 mb30">
+                    <input type="submit" class="small-btn-primary small-btn z_first_tj" value="提交" ng-click="baocun()"/>
+                </div>
+            </form>
         </div>
     </div>
 	

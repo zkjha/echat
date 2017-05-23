@@ -76,9 +76,9 @@ requirejs(
 
             }).when("/firsttime", {//首次入会
                 templateUrl: "/static/temp/admin/activity/firsttime.html",
-                controller:activityController.uploadImages
+                controller:activityController.firsttime
 
-            }).when("/integralrules", {//首次入会
+            }).when("/integralrules", {//积分规则
                 templateUrl: "/static/temp/admin/activity/integralrules.html",
                 controller:activityController.integralrules
 

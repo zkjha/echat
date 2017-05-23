@@ -204,8 +204,42 @@ define([],function(){
             findVoucherTicketInfoById:"/admin/biz/voucherTickeSetting/findVoucherTicketInfoById",
             //抵用券维护 -- 抵用券详情 -- 新增
             insertVoucherTicketInfo:"/admin/biz/voucherTickeSetting/insertVoucherTicketInfo",
+            //首次入会 -- 赠送积分 -- 查询
+            selectFirstMemberInitiationIntegrationPresents:"/admin/biz/presentsSetting/selectFirstMemberInitiationIntegrationPresents",//首次入会 -- 赠送积分 -- 查询
+            //首次入会 -- 赠送积分 -- 更新
+            updateFirstMemberInitiationIntegrationPresents:"/admin/biz/presentsSetting/updateFirstMemberInitiationIntegrationPresents",
+            //首次入会 -- 赠送积分 -- 增加
+            insertFirstMemberInitiationIntegrationPresents:"/admin/biz/presentsSetting/insertFirstMemberInitiationIntegrationPresents",
+            //首次入会 -- 赠送积分 -- 删除
+            deleteFirstMemberInitiationIntegrationPresents:"/admin/biz/presentsSetting/deleteFirstMemberInitiationIntegrationPresents",
+            //首次入会 -- 储值 -- 查询
+            selectStoredTicketPresentsInfo:"/admin/biz/presentsSetting/selectStoredTicketPresentsInfo",
+            //首次入会 -- 储值 -- 更新
+            updateStoredTicketPresentsInfo:"/admin/biz/presentsSetting/updateStoredTicketPresentsInfo",
+            //首次入会 -- 储值 -- 增加
+            insertStoredTicketPresentsInfo:"/admin/biz/presentsSetting/insertStoredTicketPresentsInfo",
+            //首次入会 -- 储值 -- 删除
+            deleteStoredTicketPresentsInfo:"/admin/biz/presentsSetting/deleteStoredTicketPresentsInfo",
+            //抵用券维护 -- 抵用券详情 -- 查询 下拉列表
+            //selectVoucherTicketInfo:'/admin/biz/voucherTickeSetting/selectVoucherTicketInfo',
+        //首次入会 -- 抵用券 -- 新增
+        insertVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo",
+        //首次入会 -- 抵用券 -- 删除
+        deleteVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo",
+        //首次入会 -- 抵用券 -- 更新
+        updateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/updateVoucherTicketPresentsInfo",
+        //首次入会 -- 抵用券 -- 查询
+        selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
 
-		////////////会员活动管理结束/////////////////////////////	
+
+
+
+
+
+
+
+
+		////////////会员活动管理结束/////////////////////////////
         /**
          * 微信前端部分
          */

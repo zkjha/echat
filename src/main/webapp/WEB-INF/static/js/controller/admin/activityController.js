@@ -11,6 +11,192 @@ define(
 		'use strict'
 
 		var activityCtrl = {
+            ////////////////////首次入会-开始////////////////////////
+            firsttime:function($scope,$http){
+                $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
+                //查询
+                activityCtrl.selectFirstMemberInitiationIntegrationPresents($scope,$http);
+                activityCtrl.selectStoredTicketPresentsInfo($scope,$http);
+                activityCtrl.selectVoucherTicketInfos($scope,$http);
+                activityCtrl.selectVoucherTicketPresentsInfo($scope,$http);
+                //点击提交按钮
+                $scope.zhuangtai = [];
+            },
+            //    抵用券列表查询
+            selectVoucherTicketPresentsInfo:function($scope,$http){
+                var data = {};
+                $http.post(remoteUrl.selectVoucherTicketPresentsInfo,data).then(
+                    function(result){
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            //window.location.reload();
+                            console.info(data.data.listVoucherTicketPresentsEntity)
+                            $scope.listVoucherTicketPresentsEntity = data.data.listVoucherTicketPresentsEntity;
+                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
+                            console.info($scope.listVoucherTicketPresentsEntity.iEnabled)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //    抵用券下拉列表查询
+            selectVoucherTicketInfos:function($scope,$http){
+                var data = {
+                    iPageSize:0
+                };
+                $http.post(remoteUrl.selectVoucherTicketInfo,data).then(
+                    function(result){
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            //window.location.reload();
+                            console.info(data.data.listVoucherTicketInfoEntity)
+                            $scope.listVoucherTicketInfoEntity = data.data.listVoucherTicketInfoEntity;
+                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
+                            console.info($scope.listVoucherTicketInfoEntity.iEnabled)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //    储值查询
+            selectStoredTicketPresentsInfo:function($scope,$http){
+                var data = {};
+                $http.post(remoteUrl.selectStoredTicketPresentsInfo,data).then(
+                    function(result){
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            //window.location.reload();
+                            console.info(data.data.listStoredTicketPresentsEntity)
+                            $scope.listStoredTicketPresentsEntity = data.data.listStoredTicketPresentsEntity;
+                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
+                            console.info($scope.listStoredTicketPresentsEntity.iEnabled)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //    赠送积分查询
+            selectFirstMemberInitiationIntegrationPresents:function($scope,$http){
+                var data = {};
+                $http.post(remoteUrl.selectFirstMemberInitiationIntegrationPresents,data).then(
+                    function(result){
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            //window.location.reload();
+                            console.info(data.data.integrationPresentsEntity)
+                            $scope.integrationPresentsEntity = data.data.integrationPresentsEntity;
+                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
+                            console.info($scope.integrationPresentsEntity.iEnabled)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+
+
+            ////////////////////首次入会-结束/////////////////////////
             ////////////////////抵用券维护-开始/////////////////////////
             dyqxz:function($scope,$http){
                 $scope.currentPage = 1;
