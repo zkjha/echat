@@ -780,10 +780,41 @@ CREATE TABLE tb_voucherticket_infomanage
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxVoucherTicketOnEndTime on tb_voucherticket_infomanage(strValidEndTime);
 create index indxVoucherTicketOnName on tb_voucherticket_infomanage(strVoucherTicketName);
-
-
-
-
+-- ------------------------------------------------------------------------------------------------
+-- tableName:tb_activity												活动｜【活动表】
+-- -------------------------------------------------------------------------------------------------
+drop table if exists tb_activity;
+create table tb_activity
+(
+ strActivityId			varchar(50)			not null,		-- 关键字
+ strActivityName		varchar(50)			not null,		-- 活动名称
+ strActivityBeginTime	varchar(50)			not null,		-- 活动开始时间
+ strActivityEndTime		varchar(50)			not null,		-- 活动结束时间
+ iActivityKinds			int(2)				not null,		-- 活动类型:0自定义赠送型，1储值赠送型，2消费赠送型
+ strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
+ strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号
+ strEmployeeRealName 	VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+ strCreationTime 		VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+ strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+ primary key(strActivityId)
+) engine=innodb default charset=utf8;
+-- ---------------------------------------------------------------------------------------------------------
+-- tableName:tb_shop													活动|【店铺表】
+-- ---------------------------------------------------------------------------------------------------
+drop table if exists tb_shop;
+create table tb_shop
+(
+ strShopId				varchar(50)			not null,		-- 店铺ID
+ strShopName			varchar(50)			not null,		-- 店铺名称
+ strActivityId			varchar(50)			not null,		-- 活动ID 关联 tb_activity 中的id
+ iEnabled				int(2)				default 0,		-- 0禁用 1启用
+ strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
+ strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号
+ strEmployeeRealName 	VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+ strCreationTime 		VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+ strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+ primary key(strShopId)
+) engine=innodb default charset=utf8;
 
 
 

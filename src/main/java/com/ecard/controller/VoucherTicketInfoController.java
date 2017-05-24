@@ -403,7 +403,7 @@ public class VoucherTicketInfoController {
 	
 	
 	/**
-	 * 查询-- 下拉列表框
+	 * 查询--    下拉列表框
 	 * 
 	 */
 	@ResponseBody
