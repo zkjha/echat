@@ -17,7 +17,7 @@ define(
                 //查询
                 activityCtrl.selectFirstMemberInitiationIntegrationPresents($scope,$http);
                 activityCtrl.selectStoredTicketPresentsInfo($scope,$http);
-                activityCtrl.selectVoucherTicketInfos($scope,$http);
+                activityCtrl.getListBoxtVoucherTicketInfo($scope,$http);
                 activityCtrl.selectVoucherTicketPresentsInfo($scope,$http);
                 //点击提交按钮
                 $scope.zhuangtai = [];
@@ -66,11 +66,9 @@ define(
                 )
             },
             //    抵用券下拉列表查询
-            selectVoucherTicketInfos:function($scope,$http){
-                var data = {
-                    iPageSize:0
-                };
-                $http.post(remoteUrl.selectVoucherTicketInfo,data).then(
+            getListBoxtVoucherTicketInfo:function($scope,$http){
+                var data = { };
+                $http.post(remoteUrl.getListBoxtVoucherTicketInfo,data).then(
                     function(result){
                         var data = result.data;
                         var code = data.code;
@@ -601,88 +599,82 @@ define(
                 //var blianxu = $scope.listSignIntegrationRuleEntity;
 
                 $scope.baocun = function(){
-                    //启用禁用选择框遍历
-                    let z_jys_ifs = [];
-                    let z_jys_if = angular.element(".z_jys_if");
-                    for(let j=0;j<$scope.zhuangtai.length;j++){
-                        z_jys_ifs[j] = z_jys_if[j].value;
-                    }
-                   // 取到非连续签到天数,积分，是否启用，id'
-                    let z_day_if_flxs = [];
-                    let z_jf_if_flxs = [];
-                    let z_id_if_flxs = [];
-                    let z_day_if_flx = angular.element(".z_day_if_flx");
-                    let z_jf_if_flx = angular.element(".z_jf_if_flx");
-                    let z_id_if_flx = angular.element(".z_id_if_flx");
+                    //console.info($scope.listSignIntegrationRuleEntityT[0].dCash)
 
-                    //非连续选择遍历
-                    for(let i=0;i< $scope.feilianxulen;i++){
-                         z_day_if_flxs[i] =  z_day_if_flx[i].value;
-                         z_jf_if_flxs[i] = z_jf_if_flx[i].value;
-                         z_id_if_flxs[i] = z_id_if_flx[i].value;
+
+
+
+                    //非连续
+                    let updateSignIntegrationRule = {}
+                    updateSignIntegrationRule.iIntegration = [];
+                    updateSignIntegrationRule.strEnabled = [];
+                    updateSignIntegrationRule.strId = [];
+                    updateSignIntegrationRule.strSignDays = [];
+                    for(let i= 0;i<$scope.listSignIntegrationRuleEntity.length;i++){
+                        updateSignIntegrationRule.strId[i] = $scope.panduanxuanzhong || $scope.listSignIntegrationRuleEntity[i].strSignId;
+                        updateSignIntegrationRule.iIntegration[i] = $scope.listSignIntegrationRuleEntity[i].iIntegration;
+                        updateSignIntegrationRule.strEnabled[i] = $scope.listSignIntegrationRuleEntity[i].strEnabledsssId;
+                        console.info($scope.listSignIntegrationRuleEntity[i].strEnabledsssId)
+                        updateSignIntegrationRule.strSignDays[i] = $scope.listSignIntegrationRuleEntity[i].strSignDays;
                     }
-                    let flx = z_jys_ifs.slice($scope.lianxu,$scope.feilianxulen+$scope.lianxu)
-                    let updateSignIntegrationRule ={};
-                    updateSignIntegrationRule.iIntegration = z_jf_if_flxs.join(",");
-                    updateSignIntegrationRule.strEnabled = flx.join(",");
-                    updateSignIntegrationRule.strId = z_id_if_flxs.join(",");
-                    updateSignIntegrationRule.strSignDays = z_day_if_flxs.join(",");
-                    //调用更改接口-非连续
-                    activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
+                    updateSignIntegrationRule.iIntegration = updateSignIntegrationRule.iIntegration.join(",");
+                    updateSignIntegrationRule.strEnabled = updateSignIntegrationRule.strEnabled.join(",");
+                    updateSignIntegrationRule.strId = updateSignIntegrationRule.strId.join(",");
+                    updateSignIntegrationRule.strSignDays = updateSignIntegrationRule.strSignDays.join(",");
+
 
 
                     //连续
 
-                    let z_id_if_lxs = [];
-                    let z_id_if_lx = angular.element(".z_id_if_lx");
-                    let z_jf_if_lxs = [];
-                    let z_jf_if_lx = angular.element(".z_jf_if_lx");
-                    let z_day_if_lxs = [];
-                    let z_day_if_lx = angular.element(".z_day_if_lx");
-                    for(let i=0;i< z_jf_if_lx.length;i++){
-                        z_jf_if_lxs[i] =  z_jf_if_lx[i].value;
-                        z_day_if_lxs[i] = z_day_if_lx[i].value;
-                        z_id_if_lxs[i] =  z_id_if_lx[i].value;
-                    }
-                    let lx = z_jys_ifs.slice(0,$scope.lianxu)
                     let updateSignIntegrationRules = {}
-                    updateSignIntegrationRules.iIntegration = z_jf_if_lxs.join(",");
-                    updateSignIntegrationRules.strEnabled = lx.join(",");
-                    updateSignIntegrationRules.strId = z_id_if_lxs.join(",");
-                    updateSignIntegrationRules.strSignDays = z_day_if_lxs.join(",");
-                    //调用更改接口-非连续
-                    activityCtrl.updateSignIntegrationRules($scope,$http,updateSignIntegrationRules);
+                    updateSignIntegrationRules.iIntegration = [];
+                    updateSignIntegrationRules.strEnabled = [];
+                    updateSignIntegrationRules.strId = [];
+                    updateSignIntegrationRules.strSignDays = [];
+                    //console.info($scope.strEnabledsss)
+
+                    for(let i= 0;i<$scope.listSignIntegrationRuleEntitys.length;i++){
+                        updateSignIntegrationRules.strId[i] = $scope.listSignIntegrationRuleEntitys[i].strSignId;
+                        updateSignIntegrationRules.iIntegration[i] = $scope.listSignIntegrationRuleEntitys[i].iIntegration;
+                        updateSignIntegrationRules.strEnabled[i] = $scope.listSignIntegrationRuleEntitys[i].strEnabledsssId;
+                        updateSignIntegrationRules.strSignDays[i] = $scope.listSignIntegrationRuleEntitys[i].strSignDays;
+                    }
+                    updateSignIntegrationRules.iIntegration = updateSignIntegrationRules.iIntegration.join(",");
+                    updateSignIntegrationRules.strEnabled = updateSignIntegrationRules.strEnabled.join(",");
+                    updateSignIntegrationRules.strId = updateSignIntegrationRules.strId.join(",");
+                    updateSignIntegrationRules.strSignDays = updateSignIntegrationRules.strSignDays.join(",");
+
 
 
                     //积分抵现
-
-                    let z_id_if_dxs = [];
-                    let z_id_if_dx = angular.element(".z_id_if_dx");
-                    let z_jf_if_dxs = [];
-                    let z_jf_if_dx = angular.element(".z_jf_if_dx");
-                    let z_doy_if_dxs = [];
-                    let z_doy_if_dx = angular.element(".z_doy_if_dx");
-                    for(let i=0;i< z_jf_if_lx.length;i++){
-                        z_id_if_dxs[i] =  z_id_if_dx[i].value;
-                        z_jf_if_dxs[i] = z_jf_if_dx[i].value;
-                        z_doy_if_dxs[i] =  z_doy_if_dx[i].value;
-                    }
-                    let dx = z_jys_ifs.slice($scope.feilianxulen + $scope.lianxu,$scope.zhuangtai.length)
                     let updateIntegrationCashRule = {}
-                    updateIntegrationCashRule.iIntegration = z_jf_if_dxs.join(",");
-                    updateIntegrationCashRule.strEnabled = dx.join(",");
-                    updateIntegrationCashRule.strId = z_id_if_dxs.join(",");
-                    updateIntegrationCashRule.dCash = z_doy_if_dxs.join(",");
-                    //调用更改接口-非连续
-                    console.info(updateIntegrationCashRule)
+                    updateIntegrationCashRule.iIntegration = [];
+                    updateIntegrationCashRule.strEnabled = [];
+                    updateIntegrationCashRule.strId = [];
+                    updateIntegrationCashRule.dCash = [];
+                    for(let i= 0;i<$scope.listSignIntegrationRuleEntityT.length;i++){
+                        updateIntegrationCashRule.strId[i] = $scope.listSignIntegrationRuleEntityT[i].strId;
+                        updateIntegrationCashRule.iIntegration[i] = $scope.listSignIntegrationRuleEntityT[i].iIntegration;
+                        updateIntegrationCashRule.strEnabled[i] =$scope.listSignIntegrationRuleEntityT[i].strEnabledsssId;
+                        updateIntegrationCashRule.dCash[i] = $scope.listSignIntegrationRuleEntityT[i].dCash;
+                    }
+
+                    //updateIntegrationCashRule.strEnabled.length = updateIntegrationCashRule.strEnabled.length-1;
+                    updateIntegrationCashRule.iIntegration = updateIntegrationCashRule.iIntegration.join(",");
+                    updateIntegrationCashRule.strEnabled = updateIntegrationCashRule.strEnabled.join(",");
+                    updateIntegrationCashRule.strId = updateIntegrationCashRule.strId.join(",");
+                    updateIntegrationCashRule.dCash = updateIntegrationCashRule.dCash.join(",");
+                    //调用更改接口-底线
                     activityCtrl.updateIntegrationCashRule($scope,$http,updateIntegrationCashRule);
-
-
-                    $scope.showAlert("保存成功")
+                    //调用更改接口-连续
+                    activityCtrl.updateSignIntegrationRules($scope,$http,updateSignIntegrationRules);
+                    //调用更改接口-非连续
+                    activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
+                    $scope.showAlert("保存成功");
                 }
 
             },
-            ///积分规则 -- 连续签到 -- 更改
+            ///积分规则 -- 连续签到 -- 底线
             updateIntegrationCashRule:function($scope,$http,updateIntegrationCashRule){
                 console.info(remoteUrl.updateSignIntegrationRules)
                 var data=updateIntegrationCashRule;
@@ -691,10 +683,11 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
+                        console.info(result)
                         //code=-8;
                         if (code == 1) {
                             //$scope.showAlert(rs.msg,function(){
-                            //    window.location.reload();
+                            //    //window.location.reload();
                             //});
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -736,7 +729,7 @@ define(
                         //code=-8;
                         if (code == 1) {
                             //$scope.showAlert(rs.msg,function(){
-                            //    window.location.reload();
+                            //    //window.location.reload();
                             //});
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -778,7 +771,7 @@ define(
                         //code=-8;
                         if (code == 1) {
                             //$scope.showAlert(rs.msg,function(){
-                            //    window.location.reload();
+                            //    //window.location.reload();
                             //});
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -947,8 +940,8 @@ define(
                         var data = rs.data;
                         //code=-8;
                         if (code == 1) {
-                            console.info(data)
                             $scope.listSignIntegrationRuleEntityT = data.listIntegrationCashRuleEntity;
+
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -990,9 +983,11 @@ define(
                         var data = rs.data;
                         //code=-8;
                         if (code == 1) {
-                           console.info(data)
                             $scope.listSignIntegrationRuleEntity = data.listSignIntegrationRuleEntity;
-                            $scope.feilianxulen = $scope.listSignIntegrationRuleEntity.length
+                            for(let j=0;j<$scope.listSignIntegrationRuleEntity.length;j++){
+                                $scope.strEnabledsss = $scope.listSignIntegrationRuleEntity[j].strEnabled;
+                                console.info($scope.strEnabledsss)
+                            }
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -1034,7 +1029,6 @@ define(
                         //code=-8;
                         if (code == 1) {
                             $scope.listSignIntegrationRuleEntitys = data.listSignIntegrationRuleEntity;
-                            $scope.lianxu = $scope.listSignIntegrationRuleEntitys.length
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname

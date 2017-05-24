@@ -109,7 +109,7 @@
 									<select ng-model="listServiceInfoType.iState" ng-options="iStateSelect.id as iStateSelect.name for iStateSelect in iStateSelect"></select>
 								</td>
 							</tr>
-							<tr>
+							<tr ng-hide="true">
 								<td colspan="2">
 									<span class="red-require">*</span> 服务类型Id:
 									<select ng-model="listServiceInfoType.strServiceTypeId" ng-options="listServiceType.strServiceTypeId as listServiceType.strServiceTypeId for listServiceType in listServiceType" disabled></select>
