@@ -76,14 +76,15 @@ requirejs(
 
             }).when("/firsttime", {//首次入会
                 templateUrl: "/static/temp/admin/activity/firsttime.html",
-                controller:activityController.uploadImages
+                controller:activityController.firsttime
 
-            }).when("/integralrules", {//首次入会
+            }).when("/integralrules", {//积分规则
                 templateUrl: "/static/temp/admin/activity/integralrules.html",
                 controller:activityController.integralrules
 
-            }).when("/dyqxz", {//首次入会controller:activityController.integralrules
-
+            }).when("/dyqxz", {//抵用券新增
+                templateUrl: "/static/temp/admin/activity/dyqxz.html",
+                controller:activityController.dyqxz
             })
                 .otherwise({
                 redirectTo: "/customgift"

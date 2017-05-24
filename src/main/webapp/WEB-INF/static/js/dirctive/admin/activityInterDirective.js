@@ -15,7 +15,7 @@ define(['lib/angular'],function(angular){
                 var z_jz = $element[0].children[0].children[1].children[0].children[0];
                 $scope.strEnabled = $scope.panduanxuanzhong;
                 let lens = angular.element(".z_pandun_if").length-1;
-                console.info( $scope.panduanxuanzhong)
+                console.info( $scope.strEnabled)
                 z_qy.onclick = function(){
                     $scope.strEnabled = 1;
                     z_qy.checked = true;
