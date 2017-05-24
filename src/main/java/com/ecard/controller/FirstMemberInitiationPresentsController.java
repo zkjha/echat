@@ -469,6 +469,7 @@ public class FirstMemberInitiationPresentsController {
 		 
 		String strValidateBeginTime=request.getParameter("strstrValidateBeginTime");
 		String strValidateEndTime=request.getParameter("strValidateEndTime");
+	
 		String strEnabled=request.getParameter("iEnabled");
 		if(ValidateTool.isEmptyStr(strStoredTicketPresentsId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"ID不能为空",null);
@@ -507,7 +508,7 @@ public class FirstMemberInitiationPresentsController {
 		else
 		{
 			//格式化时间如设计图YYYY_MM_DD格式
-			strValidateEndTime=DateTool.StringToString(strValidateBeginTime, DateStyle.YYYY_MM_DD);
+			strValidateBeginTime=DateTool.StringToString(strValidateBeginTime, DateStyle.YYYY_MM_DD);
 		}
 		
 		
@@ -551,6 +552,7 @@ public class FirstMemberInitiationPresentsController {
 		String strEmployeeRealName="david li";
 		
 	//新建实体对象，写入数据
+	
 	FirstMemberInitiationStoredTicketPresentsEntity storedTicketPresentsEntity=new FirstMemberInitiationStoredTicketPresentsEntity();
 	storedTicketPresentsEntity.setStrStoredTicketPresentsId(strStoredTicketPresentsId);
 	storedTicketPresentsEntity.setIstoredValuePresents(iStoredValuePresents);
