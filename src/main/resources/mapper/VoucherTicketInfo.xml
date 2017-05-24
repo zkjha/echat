@@ -14,16 +14,19 @@
 select count(strVoucherTicketId) from tb_voucherticket_infomanage;
 </select>
 
-<!-- 分页查询抵用卷信息      -->
+<!-- 分页查询抵用卷信息 -->
 <select id="selectVoucherTicketInfo" parameterType="map" resultType="com.ecard.entity.VoucherTicketInfoEntity">
 select strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
-from tb_voucherticket_infomanage order by strLastAccessedTime desc 
-<if test="iPageSize!=0 and iPageSize!=''">
-limit #{iPageFrom},#{iPageSize}
-</if>
+from tb_voucherticket_infomanage order by strLastAccessedTime desc limit #{iPageFrom},#{iPageSize}
 </select>
 
-<!-- 更新抵用券详情表 -->
+<!-- 查询列表下拉列表框 -->
+<select id="getListBoxtVoucherTicketInfo" resultType="com.ecard.entity.VoucherTicketInfoEntity">
+select strVoucherTicketId,strVoucherTicketName,dVoucherTicketAmount,strValidEndTime,iIsValid,strRuleDesc,strReserved,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime
+from tb_voucherticket_infomanage where iIsValid=1 order by strLastAccessedTime desc
+</select>
+
+<!-- 更新显示数据 -->
 <update id="updateVoucherTicketInfo" parameterType="com.ecard.entity.VoucherTicketInfoEntity">
  update tb_voucherticket_infomanage set
  strVoucherTicketName=#{strVoucherTicketName},

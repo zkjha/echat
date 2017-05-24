@@ -33,5 +33,7 @@ public interface FirstMemberInitiationPresentsMapper {
 	public int updateVoucherTicketPresentsInfo(FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity) throws Exception;
 	//删除 顾客首次入会获赠抵用卷信息
 	public int deleteVoucherTicketPresentsInfo(String strVoucherTicketPresentsId) throws Exception;
+	//批量新增 顾客首次入会获赠抵用券信息
+	public int batchInsertVoucherTicketPresentsInfo(@Param("insertVoucherTicketPresentsEntityList")List<FirstMemberInitiationVoucherTicketPresentsEntity> insertVoucherTicketPresentsEntityList) throws Exception;
 	
 }

@@ -141,6 +141,36 @@ public class FirstMemberInitiationPresentsService {
 	}
 		
 	
-	
+	//批量新增 顾客首次入会获赠抵用券信息+批量修改 顾客首次入会获赠抵用券信息
+	@Transactional
+	public String insertAndUpdateVoucherTicketPresentsInfo(List<FirstMemberInitiationVoucherTicketPresentsEntity> insertVoucherTicketPresentsEntityList,
+			List<FirstMemberInitiationVoucherTicketPresentsEntity> updateVoucherTicketPresentsEntityList) throws Exception
+	{
+		int insertRcdNum=0;
+		int updateRcdNum=0;
+		//批量新增
+		if(insertVoucherTicketPresentsEntityList!=null&&insertVoucherTicketPresentsEntityList.size()!=0)
+			{
+			insertRcdNum=firstMemberInitiationPresentsMapper.batchInsertVoucherTicketPresentsInfo(insertVoucherTicketPresentsEntityList);
+			}
+		//批量修改
+		if(updateVoucherTicketPresentsEntityList!=null&&updateVoucherTicketPresentsEntityList.size()!=0)
+			{
+			for(int i=0;i<updateVoucherTicketPresentsEntityList.size();i++)
+				{
+				int flag=firstMemberInitiationPresentsMapper.updateVoucherTicketPresentsInfo(updateVoucherTicketPresentsEntityList.get(i));
+				if(flag!=0)
+					updateRcdNum++;
+				}
+			}
+		//判断操作成败
+		if(insertRcdNum!=0||updateRcdNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"操作成功",null);
+		else
+			{
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+			}
+		
+	}
 
 }

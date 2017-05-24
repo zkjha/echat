@@ -18,4 +18,6 @@ public interface VoucherTicketInfoMapper {
 	public int deleteVoucherTicketInfo(String strVoucherTicketId) throws Exception;
 	//查询 单条记录
 	public VoucherTicketInfoEntity findVoucherTicketInfoById(String strVoucherTicketId) throws Exception;
+	//查询 下拉列表框
+	public List<VoucherTicketInfoEntity> getListBoxtVoucherTicketInfo() throws Exception;
 }

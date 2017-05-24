@@ -726,7 +726,7 @@ drop table if exists tb_firstMemberInitiation_VoucherTicketPresents;
 CREATE TABLE tb_firstMemberInitiation_VoucherTicketPresents 
 (
   strVoucherTicketPresentsId 	VARCHAR(50) 		NOT NULL,	-- 关键字
-  strVoucherTicketKindId		VARCHAR(50) 		NOT null,	-- 抵用卷种类ID,关联抵用卷种类表
+  strVoucherTicketKindId		VARCHAR(50) 		NOT null,	-- 抵用卷种类ID,关联tb_voucherticket_infomanage的ID
   iTotalVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷总数量
   iRestVoucherTicketNum 		INT 				NOT NULL,	-- 可对所有顾客发放的抵用卷剩余量
   iEnabled 						INT(2) 				DEFAULT 0,	-- 是否启用：1启用

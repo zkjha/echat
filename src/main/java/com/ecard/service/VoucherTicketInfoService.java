@@ -63,4 +63,12 @@ public class VoucherTicketInfoService {
 	{
 		return voucherTicketInfoMapper.findVoucherTicketInfoById(strVoucherTicketId);
 	}
+	
+	//查询  下拉列表框
+	public List<VoucherTicketInfoEntity> getListBoxtVoucherTicketInfo() throws Exception
+	{
+		return voucherTicketInfoMapper.getListBoxtVoucherTicketInfo();
+	}
+	
+	
 }

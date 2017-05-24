@@ -71,7 +71,7 @@ insert into tb_firstMemberInitiation_VoucherTicketPresents
 select * from tb_firstMemberInitiation_VoucherTicketPresents order by strLastAccessedTime desc
 </select>
 
-<!-- 批量更新 首次入会赠送抵用卷信息 -->
+<!-- 更新 首次入会赠送抵用卷信息 -->
 <update id="updateVoucherTicketPresentsInfo" parameterType="com.ecard.entity.FirstMemberInitiationVoucherTicketPresentsEntity">
   update tb_firstMemberInitiation_VoucherTicketPresents set
 	strVoucherTicketKindId=#{strVoucherTicketKindId},iTotalVoucherTicketNum=#{iTotalVoucherTicketNum},
@@ -79,8 +79,23 @@ select * from tb_firstMemberInitiation_VoucherTicketPresents order by strLastAcc
 		strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName},strLastAccessedTime=#{strLastAccessedTime}
 		where strVoucherTicketPresentsId=#{strVoucherTicketPresentsId}	 
 </update>
-<delete id="deleteVoucherTicketPresentsInfo">
+
 <!-- 删除 顾客首次入会赠抵用卷信息 -->
+
+<delete id="deleteVoucherTicketPresentsInfo">
  delete from tb_firstMemberInitiation_VoucherTicketPresents where strVoucherTicketPresentsId=#{strVoucherTicketPresentsId}
 </delete>
+
+<!-- 批量新增 首次入会赠送抵用券信息 -->
+
+<insert parameterType="list" id="batchInsertVoucherTicketPresentsInfo">
+insert into tb_firstMemberInitiation_VoucherTicketPresents
+(strVoucherTicketPresentsId,strVoucherTicketKindId,iTotalVoucherTicketNum,iRestVoucherTicketNum,iEnabled,strEmployeeId,strEmployeeName,strEmployeeRealName,strCreationTime,strLastAccessedTime)
+ values
+ <foreach collection="insertVoucherTicketPresentsEntityList" item="entity" index="index" separator=",">
+(#{entity.strVoucherTicketPresentsId},#{entity.strVoucherTicketKindId},#{entity.iTotalVoucherTicketNum},#{entity.iRestVoucherTicketNum},
+#{entity.iEnabled},#{entity.strEmployeeId},#{entity.strEmployeeName},#{entity.strEmployeeRealName},
+#{entity.strCreationTime},#{entity.strLastAccessedTime})
+</foreach>
+</insert>
 </mapper>
