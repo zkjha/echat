@@ -19,14 +19,175 @@ define(
                 activityCtrl.selectStoredTicketPresentsInfo($scope,$http);
                 activityCtrl.getListBoxtVoucherTicketInfo($scope,$http);
                 activityCtrl.selectVoucherTicketPresentsInfo($scope,$http);
+                //删除
+                //activityCtrl.deleteVoucherTicketPresentsInfo($scope,$http,strVoucherTicketPresentsId)
+                $scope.z_delete = function (strVoucherTicketPresentsId) {
+                    activityCtrl.deleteVoucherTicketPresentsInfo($scope,$http,strVoucherTicketPresentsId);
+                }
+                //添加
+                $scope.z_add_firsttime = function(){
+                    console.info(123)
+                }
                 //点击提交按钮
-                $scope.zhuangtai = [];
+                $scope.baocun = function(){
+                   var integrationPresentsEntity = $scope.integrationPresentsEntity;
+                    var listStoredTicketPresentsEntity = $scope.listStoredTicketPresentsEntity[0];
+                    console.info(listStoredTicketPresentsEntity)
+                    //integrationPresentsEntity.strEnabledsssId = $scope.integrationPresentsEntity.strEnabledsssId || $scope.integrationPresentsEntity.iEnabled;
+
+                    activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
+                    activityCtrl.updateStoredTicketPresentsInfo($scope,$http,listStoredTicketPresentsEntity)
+                };
+            },
+            //储值修改
+            updateStoredTicketPresentsInfo:function($scope,$http,listStoredTicketPresentsEntity) {
+                var chuzidate =new Date(listStoredTicketPresentsEntity.chuzidate).toLocaleDateString()
+                console.info(chuzidate)
+                var data = {
+                    iEnabled:listStoredTicketPresentsEntity.strEnabledsssId,
+                    iStoredValuePresents:listStoredTicketPresentsEntity.iStoredValuePresents,
+                    iTotalStoredTicketNum:listStoredTicketPresentsEntity.iTotalStoredTicketNum,
+                    strStoredTicketPresentsId:listStoredTicketPresentsEntity.strStoredTicketPresentsId,
+                    strValidateEndTime:chuzidate,
+                    strstrValidateBeginTime:new Date().toLocaleDateString()
+                };
+
+                $http.post(remoteUrl.updateStoredTicketPresentsInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //积分修改
+            updateFirstMemberInitiationIntegrationPresents:function($scope,$http,integrationPresentsEntity) {
+                var data = {
+                    iEnabled:integrationPresentsEntity.strEnabledsssId,
+                    iIntegrationPresentsValue:integrationPresentsEntity.iIntegrationPresentsValue,
+                    strIntegrationPresentsId:integrationPresentsEntity.strIntegrationPresentsId
+                };
+                console.info(data)
+                $http.post(remoteUrl.updateFirstMemberInitiationIntegrationPresents,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //抵用券删除
+            deleteVoucherTicketPresentsInfo:function($scope,$http,strVoucherTicketPresentsId) {
+                var data = {
+                    strVoucherTicketPresentsId:strVoucherTicketPresentsId
+                };
+                $http.post(remoteUrl.deleteVoucherTicketPresentsInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
             },
             //    抵用券列表查询
             selectVoucherTicketPresentsInfo:function($scope,$http){
                 var data = {};
                 $http.post(remoteUrl.selectVoucherTicketPresentsInfo,data).then(
                     function(result){
+                        var rs = result.data;
                         var data = result.data;
                         var code = data.code;
                         console.info(result)
@@ -67,9 +228,10 @@ define(
             },
             //    抵用券下拉列表查询
             getListBoxtVoucherTicketInfo:function($scope,$http){
-                var data = { };
+                var data = {};
                 $http.post(remoteUrl.getListBoxtVoucherTicketInfo,data).then(
                     function(result){
+                        var rs = result.data;
                         var data = result.data;
                         var code = data.code;
                         console.info(result)
@@ -113,14 +275,18 @@ define(
                 var data = {};
                 $http.post(remoteUrl.selectStoredTicketPresentsInfo,data).then(
                     function(result){
+                        var rs = result.data;
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
                             //window.location.reload();
                             console.info(data.data.listStoredTicketPresentsEntity)
                             $scope.listStoredTicketPresentsEntity = data.data.listStoredTicketPresentsEntity;
-                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
-                            console.info($scope.listStoredTicketPresentsEntity.iEnabled)
+                            //for(let i =0;i<$scope.listStoredTicketPresentsEntity.length;i++){
+                            //    $scope.listStoredTicketPresentsEntity[i].strValidateEndTime = new Date($scope.listStoredTicketPresentsEntity[i]);
+                            //    console.info($scope.listStoredTicketPresentsEntity[i].strValidateEndTime)
+                            //}
+
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -155,6 +321,7 @@ define(
                 var data = {};
                 $http.post(remoteUrl.selectFirstMemberInitiationIntegrationPresents,data).then(
                     function(result){
+                        var rs = result.data;
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {

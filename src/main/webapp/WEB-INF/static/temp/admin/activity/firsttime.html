@@ -18,6 +18,8 @@
                         <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="integrationPresentsEntity.iIntegrationPresentsValue" ng-model="integrationPresentsEntity.iIntegrationPresentsValue"/><span class="fr">积分</span></div>
                         <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
+                    <input type="text" value="{{integrationPresentsEntity.strIntegrationPresentsId}}" ng-hide="true" ngTrim/>
+                    <input type="text" ng-hide="true" value="{{(integrationPresentsEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
                     <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (integrationPresentsEntity.iEnabled)"  ng-model="panduanxuanzhong"/>
                     <integralrules-Directive></integralrules-Directive>
                 </div>
@@ -27,19 +29,20 @@
                 <div class="clearfix">
                     <div class="fl f14 w50">储值</div>
                     <div class="fl ml10">
-                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="listStoredTicketPresentsEntity.iStoredValuePresents"/><span class="fr mr5">元</span></div>
+                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="listStoredTicketPresentsEntity.iStoredValuePresents" ng-model="listStoredTicketPresentsEntity.iStoredValuePresents"/><span class="fr mr5">元</span></div>
                         <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
                     <div class="fl ml50 mt10 w120">
                         <div class="fl ml30">共</div>
-                        <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text" ng-value="listStoredTicketPresentsEntity.iTotalStoredTicketNum"/><span class="fr mr5">张</span></div>
+                        <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text" ng-value="listStoredTicketPresentsEntity.iTotalStoredTicketNum"  ng-model="listStoredTicketPresentsEntity.iTotalStoredTicketNum"/><span class="fr mr5">张</span></div>
                     </div>
                     <div class="fl ml50 mt10">
                         <div class="fl"> <span class="red-require mr5">*</span>有效期截止：</div>
-                        <div class="zjl_firsttime_input fl ml5"><input class="" type="date" ng-value="listStoredTicketPresentsEntity.strValidateEndTime"/></div>
+                        <div class="zjl_firsttime_input fl ml5"><input class="" type="date" ng-value="listStoredTicketPresentsEntity.strValidateEndTime" ng-model="listStoredTicketPresentsEntity.chuzidate"/></div>
                     </div>
-
                     <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listStoredTicketPresentsEntity.iEnabled)" ng-model="panduanxuanzhong"/>
+                    <input type="text" ng-hide="true" value="{{(listStoredTicketPresentsEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
+
                     <integralrules-Directive></integralrules-Directive>
                     <!--<div class="fr mt20 mr10">-->
                         <!--<div class="fl">-->
@@ -72,8 +75,8 @@
                         <div class="zjl_firsttime_input w60 fl ml5"><input class="w30" type="text" ng-model="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum"/><span class="fr mr5">张</span></div>
                     </div>
                     <div class="fr f20 oranger-color ml50 mt20">
-                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listSignIntegrationRuleEntity.strSignId)">-</div>
-                        <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfo()">+</div>
+                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listVoucherTicketPresentsEntity.strVoucherTicketPresentsId)">-</div>
+                        <div class="fl ml10 -lpy-list-control-title" ng-click="z_add_firsttime()">+</div>
                     </div>
                     <!--<input type="text" ng-hide="true" ng-value="panduanxuanzhong = (integrationPresentsEntity.iEnabled)" ng-model="panduanxuanzhong"/>-->
                     <!--<integralrules-Directive></integralrules-Directive>-->
