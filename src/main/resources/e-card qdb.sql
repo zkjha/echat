@@ -765,11 +765,11 @@ DROP TABLE IF EXISTS tb_voucherticket_infomanage;
 CREATE TABLE tb_voucherticket_infomanage
 (
   strVoucherTicketId        VARCHAR(50) 	NOT NULL,       -- 主键
-  strVoucherTicketName      VARCHAR(50) 	NOT NULL,       -- 储值券内容
+  strVoucherTicketName      VARCHAR(50) 	NOT NULL,       -- 抵用券名
   dVoucherTicketAmount    DECIMAL(11,2) 	DEFAULT 0.00, 	-- 抵用券金额
   strValidEndTime           VARCHAR(50) 	NOT NULL,       -- 有效期截止时间  
   iIsValid                  int default 0,              	-- 是否生效 0 禁用 1 启用
-  strRuleDesc               VARCHAR(1024) 	NULL,        	-- 储值券使用规则描述                       
+  strRuleDesc               VARCHAR(1024) 	NULL,        	-- 抵用券使用规则描述                       
   strReserved               VARCHAR(500) 	NULL,         	-- 预留字段
   strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
   strEmployeeName 			VARCHAR(50) 	NOT NULL,		-- 管理员账号
@@ -798,25 +798,64 @@ create table tb_activity
  strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
  primary key(strActivityId)
 ) engine=innodb default charset=utf8;
--- ---------------------------------------------------------------------------------------------------------
--- tableName:tb_shop													活动|【店铺表】
--- ---------------------------------------------------------------------------------------------------
-drop table if exists tb_shop;
-create table tb_shop
+-- ----------------------------------------------------------------------------------------
+-- tableName:tb_rechargePresents_integration					活动｜【充值送积分】
+-- ----------------------------------------------------------------------------------------
+drop table if exists tb_rechargePresents_integration;
+create table tb_rechargePresents_integration
 (
- strShopId				varchar(50)			not null,		-- 店铺ID
- strShopName			varchar(50)			not null,		-- 店铺名称
- strActivityId			varchar(50)			not null,		-- 活动ID 关联 tb_activity 中的id
- iEnabled				int(2)				default 0,		-- 0禁用 1启用
- strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
- strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号
- strEmployeeRealName 	VARCHAR(50) 		NOT NULL,		-- 管理员姓名
- strCreationTime 		VARCHAR(50) 		NOT NULL,		-- 记录创建时间
- strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
- primary key(strShopId)
+strRechargePresentsIntegrationId			varchar(50)			not null,		-- 关键字
+dPerTimeRechargeAmount						decimal(11,2)		not null,		-- 充值金额{每充值多少金额可获赠1积分｝
+dLeastRechargeAmount						decimal(11,2)		not null,		-- 最少充值多少钱才有资格获得积分
+iEnabled									int(2)				default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   						VARCHAR(50) 		NOT NULL,		-- 管理员ID
+strEmployeeName 							VARCHAR(50) 		NOT NULL,		-- 管理员账号
+strEmployeeRealName 						VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+strCreationTime 							VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+strLastAccessedTime 						VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+primary key(strRechargePresentsIntegrationId)
 ) engine=innodb default charset=utf8;
-
-
+-- ---------------------------------------------------------------------------------------------
+-- tableName:tb_rechargeStoredTicketPresents_storedValue			活动|【充储值卡送储值】
+-------------------------------------------------------------------------------------------------
+drop table if exists tb_rechargePresents_storedValue;
+create table tb_rechargePresents_storedValue
+(
+strPresents_storedValueId			varchar(50)			not null,		-- 主键字
+dRechargeAmount						decimal(11,2)		not null,		-- 现金充值金额
+dPresents_storedValue				decimal(11,2)		not null,		-- 赠送储值量
+strValidateBeginTime				varchar(50)			not null,		-- 有效期开始时间
+strValidateEndTime					varchar(50)			not null,		-- 有效期截止时间
+iEnabled							int(2)				default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   				VARCHAR(50) 		NOT NULL,		-- 管理员ID
+strEmployeeName 					VARCHAR(50) 		NOT NULL,		-- 管理员账号
+strEmployeeRealName 				VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+strCreationTime 					VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+strLastAccessedTime 				VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+primary key(strPresents_storedValueId)
+) engine=innodb default charset=utf8;
+-- -------------------------------------------------------------------------------------------------
+-- tableName:tb_rechargePresents_voucher							活动｜【充值送抵用券】
+-- --------------------------------------------------------------------------------------------------
+drop table if exists tb_rechargePresents_voucher;
+create table tb_rechargePresents_voucher
+(
+strRechargePresents_voucherId		varchar(50)		not null,		-- 关键字
+strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id;
+dPerTimeRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
+dMoreRechargeAmount					decimal(11,2)	not null,		-- 多充值多少钱可以多领一张。张数=1+（总的钱-dPerTimeRechargeAmount)/dMoreRechargeAmount
+iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
+iRestNum							int 			not null,		-- 还剩的张数
+strValidateBeginTime				varchar(50)		not null,		-- 有效期开始时间
+strValidateEndTime					varchar(50)		not null,		-- 有效期截止时间
+iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
+strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
+strEmployeeRealName 				VARCHAR(50) 	NOT NULL,		-- 管理员姓名
+strCreationTime 					VARCHAR(50) 	NOT NULL,		-- 记录创建时间
+strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
+primary key(strRechargePresents_voucherId)
+) engine=innodb default charset=utf8;
 
 
 

@@ -39,7 +39,7 @@ public class FirstMemberInitiationPresentsController {
 	
 	
 	/**
-	 * 新增--顾客首次入会获赠积分信息
+	 * 新增--     顾客首次入会获赠积分信息
 	 * @param request
 	 * @param response
 	 * @return
