@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.RechargePresentsMapper">
+
+<!-- 批量新增充值赠送抵用券信息 -->
+
+<insert id="batchInsertRechargePresentsVoucher" parameterType="list">
+ insert into tb_rechargePresents_voucher
+ (
+ strRechargePresents_voucherId,
+ strVoucherTicketId,
+ dPerTimeRechargeAmount,
+ dMoreRechargeAmount,
+ iTotalNum,
+ iRestNum,
+ strValidateBeginTime,
+ strValidateEndTime,
+ iEnabled,
+ strEmployeeId,
+ strEmployeeName,
+ strEmployeeRealName,
+ strCreationTime,
+ strLastAccessedTime
+ ) values
+ <foreach collection="com.ecard.RechargePresentsVoucherEntity" item="entity" index="index" separator=",">
+ (
+ #{entity.strRechargePresents_voucherId},
+ #{entity.strVoucherTicketId},
+ #{entity.dPerTimeRechargeAmount},
+ #{entity.dMoreRechargeAmount},
+ #{entity.iTotalNum},
+ #{entity.iRestNum},
+ #{entity.strValidateBeginTime},
+ #{entity.strValidateEndTime},
+ #{entity.iEnabled},
+ #{entity.strEmployeeId},
+ #{entity.strEmployeeName},
+ #{entity.strEmployeeRealName},
+ #{entity.strCreationTime},
+ #{entity.strLastAccessedTime}
+ )
+ </foreach>
+</insert>
+</mapper>

@@ -805,6 +805,8 @@ drop table if exists tb_rechargePresents_integration;
 create table tb_rechargePresents_integration
 (
 strRechargePresentsIntegrationId			varchar(50)			not null,		-- 关键字
+strActivityId								varchar(50)			not null,		-- 活动ID 关联 tb_activity id
+strLevelsId									varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
 dPerTimeRechargeAmount						decimal(11,2)		not null,		-- 充值金额{每充值多少金额可获赠1积分｝
 dLeastRechargeAmount						decimal(11,2)		not null,		-- 最少充值多少钱才有资格获得积分
 iEnabled									int(2)				default 0,		-- 启用状态：1启用，0禁用
@@ -821,7 +823,9 @@ primary key(strRechargePresentsIntegrationId)
 drop table if exists tb_rechargePresents_storedValue;
 create table tb_rechargePresents_storedValue
 (
-strPresents_storedValueId			varchar(50)			not null,		-- 主键字
+strPresentsStoredValueId			varchar(50)			not null,		-- 主键字
+strActivityId						varchar(50)			not null,		-- 活动ID 关联 tb_activity id
+strLevelsId							varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
 dRechargeAmount						decimal(11,2)		not null,		-- 现金充值金额
 dPresents_storedValue				decimal(11,2)		not null,		-- 赠送储值量
 strValidateBeginTime				varchar(50)			not null,		-- 有效期开始时间
@@ -832,7 +836,7 @@ strEmployeeName 					VARCHAR(50) 		NOT NULL,		-- 管理员账号
 strEmployeeRealName 				VARCHAR(50) 		NOT NULL,		-- 管理员姓名
 strCreationTime 					VARCHAR(50) 		NOT NULL,		-- 记录创建时间
 strLastAccessedTime 				VARCHAR(50) 		NOT NULL,		-- 记录修改时间
-primary key(strPresents_storedValueId)
+primary key(strPresentsStoredValueId)
 ) engine=innodb default charset=utf8;
 -- -------------------------------------------------------------------------------------------------
 -- tableName:tb_rechargePresents_voucher							活动｜【充值送抵用券】
@@ -840,8 +844,10 @@ primary key(strPresents_storedValueId)
 drop table if exists tb_rechargePresents_voucher;
 create table tb_rechargePresents_voucher
 (
-strRechargePresents_voucherId		varchar(50)		not null,		-- 关键字
+strRechargePresentsVoucherId		varchar(50)		not null,		-- 关键字
 strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id;
+strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
+strLevelsId							varchar(50)		not null,		-- 会员级别id	关联tb_member_level id
 dPerTimeRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
 dMoreRechargeAmount					decimal(11,2)	not null,		-- 多充值多少钱可以多领一张。张数=1+（总的钱-dPerTimeRechargeAmount)/dMoreRechargeAmount
 iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
@@ -854,7 +860,7 @@ strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
 strEmployeeRealName 				VARCHAR(50) 	NOT NULL,		-- 管理员姓名
 strCreationTime 					VARCHAR(50) 	NOT NULL,		-- 记录创建时间
 strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
-primary key(strRechargePresents_voucherId)
+primary key(strRechargePresentsVoucherId)
 ) engine=innodb default charset=utf8;
 
 

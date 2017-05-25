@@ -462,7 +462,7 @@ public class FirstMemberInitiationPresentsController {
 	//localhost:8083/admin/biz/presentsSetting/updateStoredTicketPresentsInfo?strStoredTicketPresentsId=fb33e4a47ca24bbc82e23e6c9a214591&iStoredValuePresents=10&iTotalStoredTicketNum=500&strstrValidateBeginTime=2017/5/15&strValidateEndTime=2017/5/16&iEnabled=1
 	public String updateStoredTicketPresentsInfo(HttpServletRequest request,HttpServletResponse response)
 	{
-		int iStoredValuePresents,iTotalStoredTicketNum,iEnabled,iRestStoredTicketNum;
+		int iStoredValuePresents,iTotalStoredTicketNum,iEnabled;
 		String strStoredTicketPresentsId=request.getParameter("strStoredTicketPresentsId");
 		String strStoredValuePresents=request.getParameter("iStoredValuePresents");
 		String strTotalStoredTicketNum=request.getParameter("iTotalStoredTicketNum");
@@ -502,7 +502,7 @@ public class FirstMemberInitiationPresentsController {
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"数据格式错误",null);
 		}
 		
-		iRestStoredTicketNum=iTotalStoredTicketNum;//对剩余张数赋值，默认等于总张数
+		//iRestStoredTicketNum=iTotalStoredTicketNum;//对剩余张数赋值，默认等于总张数
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期起始时间不能为空",null);
 		else
@@ -557,7 +557,7 @@ public class FirstMemberInitiationPresentsController {
 	storedTicketPresentsEntity.setStrStoredTicketPresentsId(strStoredTicketPresentsId);
 	storedTicketPresentsEntity.setIstoredValuePresents(iStoredValuePresents);
 	storedTicketPresentsEntity.setItotalStoredTicketNum(iTotalStoredTicketNum);
-	storedTicketPresentsEntity.setIrestStoredTicketNum(iRestStoredTicketNum);
+	//storedTicketPresentsEntity.setIrestStoredTicketNum(iRestStoredTicketNum);
 	storedTicketPresentsEntity.setStrValidateBeginTime(strValidateBeginTime);
 	storedTicketPresentsEntity.setStrValidateEndTime(strValidateEndTime);
 	storedTicketPresentsEntity.setIEnabled(iEnabled);
@@ -768,7 +768,7 @@ public class FirstMemberInitiationPresentsController {
 	String[] strEnabled=request.getParameter("iEnabled").split(",");
 	iEachParamLength=strVoucherTicketPresentsId.length;
 	int[] iTotalVoucherTicketNum=new int[iEachParamLength];
-	int[] iRestVoucherTicketNum=new int[iEachParamLength];
+	//int[] iRestVoucherTicketNum=new int[iEachParamLength];
 	int[] iEnabled=new int[iEachParamLength];
 	if(iEachParamLength!=strVoucherTicketKindId.length||iEachParamLength!=strTotalVoucherTicketNum.length||iEachParamLength!=strEnabled.length)
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数值缺失",null);
@@ -787,7 +787,7 @@ public class FirstMemberInitiationPresentsController {
 			if(isNumber(strTotalVoucherTicketNum[i]))
 				{
 				iTotalVoucherTicketNum[i]=Integer.parseInt(strTotalVoucherTicketNum[i]);
-				iRestVoucherTicketNum[i]=iTotalVoucherTicketNum[i];	//新增规则时，默认剩余张数=总张数
+				//iRestVoucherTicketNum[i]=iTotalVoucherTicketNum[i];	//新增规则时，默认剩余张数=总张数
 				}
 			else
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"总张数格式错误",null);
@@ -839,7 +839,7 @@ public class FirstMemberInitiationPresentsController {
 	voucherTicketPresentsEntity.setStrVoucherTicketPresentsId(strVoucherTicketPresentsId[i]);
 	voucherTicketPresentsEntity.setStrVoucherTicketKindId(strVoucherTicketKindId[i]);
 	voucherTicketPresentsEntity.setItotalVoucherTicketNum(iTotalVoucherTicketNum[i]);
-	voucherTicketPresentsEntity.setIrestVoucherTicketNum(iRestVoucherTicketNum[i]);
+	//voucherTicketPresentsEntity.setIrestVoucherTicketNum(iRestVoucherTicketNum[i]);
 	voucherTicketPresentsEntity.setIEnabled(iEnabled[i]);
 	voucherTicketPresentsEntity.setStrEmployeeId(strEmployeeId);
 	voucherTicketPresentsEntity.setStrEmployeeName(strEmployeeName);
