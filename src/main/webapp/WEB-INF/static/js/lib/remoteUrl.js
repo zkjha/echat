@@ -221,13 +221,13 @@ define([],function(){
             //首次入会 -- 储值 -- 删除
             deleteStoredTicketPresentsInfo:"/admin/biz/presentsSetting/deleteStoredTicketPresentsInfo",
             //抵用券维护 -- 抵用券详情 -- 查询 下拉列表
-            //selectVoucherTicketInfo:'/admin/biz/voucherTickeSetting/selectVoucherTicketInfo',
+        getListBoxtVoucherTicketInfo:'/admin/biz/voucherTickeSetting/getListBoxtVoucherTicketInfo',
         //首次入会 -- 抵用券 -- 新增
         insertVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo",
         //首次入会 -- 抵用券 -- 删除
         deleteVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo",
-        //首次入会 -- 抵用券 -- 更新
-        updateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/updateVoucherTicketPresentsInfo",
+        //首次入会 -- 抵用券 -- 批量更新
+        insertAndUpdateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertAndUpdateVoucherTicketPresentsInfo",
         //首次入会 -- 抵用券 -- 查询
         selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
 

@@ -9,26 +9,27 @@ define(['lib/angular'],function(angular){
         return {
             restrict: "E", //default: EA
             replace: true,
+            //scope:{
+            //    strEnabledsss:'='
+            //},
+            //scope: false,
             templateUrl: "/static/temp/admin/activity/integralrulesDirective.html",
             controller:function($scope, $element, $attrs){
                 var z_qy =  $element[0].children[0].children[0].children[0].children[0];
                 var z_jz = $element[0].children[0].children[1].children[0].children[0];
-                $scope.strEnabled = $scope.panduanxuanzhong;
-                let lens = angular.element(".z_pandun_if").length-1;
-                console.info( $scope.strEnabled)
+                $scope.strEnabledsss = $scope.panduanxuanzhong;
                 z_qy.onclick = function(){
-                    $scope.strEnabled = 1;
+                    $scope.strEnabledsss = 1;
                     z_qy.checked = true;
                     z_jz.checked = false;
-                    $scope.zhuangtai[lens] = 1;
+                    $scope.panduanxuanzhong = 1;
                 };
                 z_jz.onclick = function(){
-                    $scope.strEnabled = 0;
+                    $scope.strEnabledsss = 0;
                     z_jz.checked = true;
                     z_qy.checked = false;
-                    $scope.zhuangtai[lens] = 0;
+                    $scope.panduanxuanzhong = 0;
                 };
-                $scope.zhuangtai.push($scope.strEnabled);
             }
         };
 

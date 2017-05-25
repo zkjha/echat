@@ -107,7 +107,7 @@
                     				<span class="red-require">*</span> 商品名称:
                     				<input type="text" ng-value="listGoodsInfoType.strGoodsName" name="strInformationname"   ng-model="listGoodsInfoType.strGoodsName" ngTrim="true" required/>
                     			</td>
-                    			<td colspan="2">
+                    			<td colspan="2" ng-hide="true">
                     				<span class="red-require">*</span> 商品类型Id:
                     				<select ng-model="listGoodsInfoType.strGoodsTypeId" ng-options="goodsTypeList.strGoodsTypeId as goodsTypeList.strGoodsTypeId for goodsTypeList in goodsTypeList" disabled></select>
                     			</td>
