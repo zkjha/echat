@@ -20,8 +20,8 @@
 				<th>服务编号</th>
 				<th>服务分类</th>
 				<th>服务名称</th>
-				<th>售价（元�?</th>
-				<th>操作�?</th>
+				<th>售价（元）</th>
+				<th>操作员</th>
 				<th class="w40">操作</th>
 			</tr>
 
@@ -101,11 +101,11 @@
 									<input type="text" ng-value="listServiceInfoType.strUnitId" name="strInformationname" ng-model="listServiceInfoType.strUnitId" ngTrim="true" required/>
 								</td>
 								<td>
-									<span class="red-require">*</span> 供应商名�?:
+									<span class="red-require">*</span> 供应商名称:
 									<input type="text" ng-value="listServiceInfoType.strSupplierName" name="strInformationname" ng-model="listServiceInfoType.strSupplierName" ngTrim="true" ng-maxlength="8" required/>
 								</td>
 								<td>
-									<span class="red-require">*</span> 状�??:
+									<span class="red-require">*</span> 状态:
 									<select ng-model="listServiceInfoType.iState" ng-options="iStateSelect.id as iStateSelect.name for iStateSelect in iStateSelect"></select>
 								</td>
 							</tr>
@@ -116,7 +116,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4"><input type="radio" name="" id="" value="" />系统自动生成<span class="red-require">�?</span></td>
+								<td colspan="4"><input type="radio" name="" id="" value="" />系统自动生成<span class="red-require">！</span></td>
 							</tr>
 							<tr>
 								<td>
@@ -152,14 +152,14 @@
 						</table>
 						<div style="border-bottom: 1px solid #C6C6C6;margin-top: 10px;"></div>
 						<div class="zjl-common-cutdown">
-							分级别优�?
+							分级别优惠
 						</div>
 						<table border="0" class="zjl-common-tableOne">
 							<tr class="zjl-common-tableOne-tr">
 								<td>序号</td>
 								<td>会员级别</td>
 								<td>优惠方式</td>
-								<td>�?�?积分</td>
+								<td>所需积分</td>
 							</tr>
 							<tr ng-if="shangpinTianjia" ng-repeat="addAdmincont in addAdmincont">
 								<td>{{$index+1}}<span class="fl small-btn small-btn-primary" ng-click="addAddAdmincont()">添加</span><span class="fl small-btn small-btn-primary" ng-click="slownAddAdmincont()">删除</span></td>
@@ -190,11 +190,11 @@
 						<div class="zjl-common-cutdown">
 							图文编辑
 						</div>
-						<!--意�?�意思的图文编辑代码拷贝-->
+						<!--意思意思的图文编辑代码拷贝-->
 						<!--自定区域  -->
 						<div class="edit-merchant-info-container zjl-common-chajian">
 							<div class="all">
-								<script type="text/html" style="margin:auto;height:300px;width:100%;" ng-model="strContent" meta-umeditor meta-umeditor-config='config' meta-umeditor-placeholder="请输入前端显示信�?">
+								<script type="text/html" style="margin:auto;height:300px;width:100%;" ng-model="strContent" meta-umeditor meta-umeditor-config='config' meta-umeditor-placeholder="请输入前端显示信息">
 								</script>
 								<div class="h20"></div>
 								<div class="-lpy-div-subbmit ">
@@ -202,7 +202,7 @@
 								</div>
 							</div>
 						</div>
-						<!--意�?�意思的图文编辑代码拷贝完成-->
+						<!--意思意思的图文编辑代码拷贝完成-->
 						<div class="mt10"></div>
 					</div>
 					<div class="w150 center ">

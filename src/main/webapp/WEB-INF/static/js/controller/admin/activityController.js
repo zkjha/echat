@@ -45,7 +45,9 @@ define(
                 //点击提交按钮
                 $scope.baocun = function(){
                     var integrationPresentsEntity = $scope.integrationPresentsEntity;
+                    //储值
                     var listStoredTicketPresentsEntity = $scope.listStoredTicketPresentsEntity[0];
+                    //抵用券
                     var listVoucherTicketPresentsEntity = $scope.listVoucherTicketPresentsEntity;
                     var stringParam = []
                     for(let i=0;i<listVoucherTicketPresentsEntity.length;i++){
@@ -68,8 +70,10 @@ define(
                     //return
                     $scope.showConfirm("确认修改？",function(rs){
                         if(rs){
-                            activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
                             activityCtrl.updateStoredTicketPresentsInfo($scope,$http,listStoredTicketPresentsEntity)
+                            return
+                            activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
+
                             activityCtrl.insertAndUpdateVoucherTicketPresentsInfo($scope,$http,stringParam)
                             window.location.reload();
                         }
@@ -182,12 +186,12 @@ define(
                     strValidateEndTime:chuzidate,
                     strstrValidateBeginTime:new Date().toLocaleDateString()
                 };
-
                 $http.post(remoteUrl.updateStoredTicketPresentsInfo,data).then(
                     function(result){
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
+                        console.info(result)
                         if (code == 1) {
                             $scope.showAlert(rs.msg,function(){
                                 window.location.reload();
@@ -922,13 +926,11 @@ define(
 
                     $scope.showConfirm("确认修改？",function(rs){
                         if(rs){
-
-                            //调用更改接口-非连续
-                            activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
-                            window.location.reload()
-                            return
                             //调用更改接口-底线
                             activityCtrl.updateIntegrationCashRule($scope,$http,updateIntegrationCashRule);
+                            //调用更改接口-非连续
+                            activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
+
                             //调用更改接口-连续
                             activityCtrl.updateSignIntegrationRules($scope,$http,updateSignIntegrationRules);
 

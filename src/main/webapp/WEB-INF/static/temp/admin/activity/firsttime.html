@@ -16,7 +16,7 @@
                     <div class="fl f14 w50">积分</div>
                     <div class="fl ml10">
                         <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="integrationPresentsEntity.iIntegrationPresentsValue" name="strInformationname" ng-model="integrationPresentsEntity.iIntegrationPresentsValue" required ng-maxlength="10" ngTrim/><span class="fr">积分</span></div>
-                        <div class="mt5">新增会员或一次�?�赠送的积分�?0或空表示不使用该功能</div>
+                        <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
                     <input type="text" value="{{integrationPresentsEntity.strIntegrationPresentsId}}" ng-hide="true"/>
                     <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (integrationPresentsEntity.iEnabled)" ng-model="panduanxuanzhong"/>
@@ -25,17 +25,17 @@
                     <integralrules-Directive></integralrules-Directive>
                 </div>
             </div>
-            <!--储�??-->
+            <!--储值-->
             <div class="h50 zjl_firsttime_bd mt10" ng-repeat="listStoredTicketPresentsEntity in listStoredTicketPresentsEntity">
                 <div class="clearfix">
-                    <div class="fl f14 w50">储�??</div>
+                    <div class="fl f14 w50">储值</div>
                     <div class="fl ml10">
-                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="listStoredTicketPresentsEntity.iStoredValuePresents" ng-model="listStoredTicketPresentsEntity.iStoredValuePresents" name="strInformationname" ngTrim required  ng-maxlength="10"/><span class="fr mr5">�?</span></div>
-                        <div class="mt5">新增会员或一次�?�赠送的积分�?0或空表示不使用该功能</div>
+                        <div class="zjl_firsttime_input w120"><input class="w100" type="text" ng-value="listStoredTicketPresentsEntity.iStoredValuePresents" ng-model="listStoredTicketPresentsEntity.iStoredValuePresents" name="strInformationname" ngTrim required  ng-maxlength="10"/><span class="fr mr5">元</span></div>
+                        <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
                     <div class="fl ml50 mt10 w120">
-                        <div class="fl ml30">�?</div>
-                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50" type="text" ng-value="listStoredTicketPresentsEntity.iTotalStoredTicketNum"  ng-model="listStoredTicketPresentsEntity.iTotalStoredTicketNum"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">�?</span></div>
+                        <div class="fl ml30">共</div>
+                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50" type="text" ng-value="listStoredTicketPresentsEntity.iTotalStoredTicketNum"  ng-model="listStoredTicketPresentsEntity.iTotalStoredTicketNum"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">张</span></div>
                     </div>
                     <div class="fl ml50 mt10">
                         <div class="fl"> <span class="red-require mr5">*</span>有效期截止：</div>
@@ -47,22 +47,22 @@
                     <integralrules-Directive></integralrules-Directive>
                 </div>
             </div>
-            <!--抵用�?-->
+            <!--抵用券-->
             <div class="h50 zjl_firsttime_bd mt10" ng-repeat="listVoucherTicketPresentsEntity in listVoucherTicketPresentsEntity">
                 <div class="clearfix">
-                    <div class="fl f14 w50">抵用�?</div>
+                    <div class="fl f14 w50">抵用券</div>
                     <div class="fl ml10">
                         <div class=" w80">
                             <select ng-model="listVoucherTicketPresentsEntity.strVoucherTicketKindId" ng-options="o.strVoucherTicketId as o.dVoucherTicketAmount for o in listVoucherTicketInfoEntity"  name="strInformationname" class="z_select_bg"  required>
-                                <option value="">请�?�择</option>
+                                <option value="">请选择</option>
                             </select>
-                            <span>�?</span>
+                            <span>元</span>
                         </div>
-                        <div class="mt5">新增会员或一次�?�赠送的积分�?0或空表示不使用该功能</div>
+                        <div class="mt5">新增会员或一次性赠送的积分，0或空表示不使用该功能</div>
                     </div>
                     <div class="fl ml50 mt10 w120">
                         <div class="fl">发放总数</div>
-                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50" type="text" ng-model="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">�?</span></div>
+                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50" type="text" ng-model="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">张</span></div>
                     </div>
                     <div class="fr f20 oranger-color ml50 mt20">
                         <div class="fl -lpy-list-control-title" ng-click="z_delete(listVoucherTicketPresentsEntity.strVoucherTicketPresentsId)">-</div>
@@ -78,12 +78,12 @@
         </div>
     </div>
 
-    <!--模�?�框-->
+    <!--模态框-->
     <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增抵用券信�?</div>
+                <div class="fl" ng-switch-default>新增抵用券信息</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -94,16 +94,16 @@
                 <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
                         <div class=" w300 center">
-                            <!--<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 发放张数�?-->
+                            <!--<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 发放张数：-->
                                 <!--<input type="text" ng-value="listVoucherTicketPresentsEntity.iEnabled" name="strInformationname"   ng-model="listVoucherTicketPresentsEntity.iEnabled" ngTrim="true" required/>-->
                             <!--</div>-->
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 发放张数�?
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 发放张数：
                                 <input type="text" ng-value="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum" name="strInformationname"   ng-model="listVoucherTicketPresentsEntity.iTotalVoucherTicketNum" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> �?&nbsp;&nbsp;&nbsp;值：
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 面&nbsp;&nbsp;&nbsp;值：
                                 <!--<input type="text" ng-value="insertSignIntegrationRules.strServiceTypeName" name="strInformationname"   ng-model="insertSignIntegrationRules.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>-->
                                 <select ng-model="listVoucherTicketPresentsEntity.strVoucherTicketKindId" ng-options="o.strVoucherTicketId as o.dVoucherTicketAmount for o in listVoucherTicketInfoEntity"  name="strInformationname" class="z_select_bg"  required>
-                                    <option value="">请�?�择</option>
+                                    <option value="">请选择</option>
                                 </select>
                             </div>
                         </div>

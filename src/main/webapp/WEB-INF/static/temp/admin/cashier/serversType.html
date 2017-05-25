@@ -15,7 +15,7 @@
             <tr>
                 <th>序号</th>
                 <th>类别</th>
-                <th>操作�?</th>
+                <th>操作员</th>
                 <th class="w40">操作</th>
             </tr>
             <tr ng-repeat='listServiceType  in listServiceType'>
@@ -70,13 +70,13 @@
                 <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
                     <div class="form-container">
                         <div class=" w300 center">
-                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型描述�?
+                        	<div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型描述：
                                 <input type="text" ng-value="listServiceType.strServiceTypeDesc" name="strInformationname"   ng-model="listServiceType.strServiceTypeDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20" ng-hide="true">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;服务类型ID�?
+                            <div class="mt20" ng-hide="true">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;服务类型ID：
                                 <input type="text" ng-value="listServiceType.strServiceTypeId" name="strInformationname"   ng-model="listServiceType.strServiceTypeId" ngTrim="true" ng-maxlength="8" required/>
                             </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型名称�?
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型名称：
                                 <input type="text" ng-value="listServiceType.strServiceTypeName" name="strInformationname"   ng-model="listServiceType.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                         </div>
