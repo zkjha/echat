@@ -226,8 +226,8 @@ define([],function(){
         insertVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo",
         //首次入会 -- 抵用券 -- 删除
         deleteVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo",
-        //首次入会 -- 抵用券 -- 更新
-        updateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/updateVoucherTicketPresentsInfo",
+        //首次入会 -- 抵用券 -- 批量更新
+        insertAndUpdateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertAndUpdateVoucherTicketPresentsInfo",
         //首次入会 -- 抵用券 -- 查询
         selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
 

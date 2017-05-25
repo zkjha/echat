@@ -22,27 +22,158 @@ define(
                 //删除
                 //activityCtrl.deleteVoucherTicketPresentsInfo($scope,$http,strVoucherTicketPresentsId)
                 $scope.z_delete = function (strVoucherTicketPresentsId) {
-                    activityCtrl.deleteVoucherTicketPresentsInfo($scope,$http,strVoucherTicketPresentsId);
+                    $scope.showConfirm("确认删除?",function(rs){
+                        if(rs){
+                            activityCtrl.deleteVoucherTicketPresentsInfo($scope,$http,strVoucherTicketPresentsId);
+                        }
+                    })
                 }
-                //添加
+                //打开模态框
                 $scope.z_add_firsttime = function(){
-                    console.info(123)
+                    $scope.showExpandInfoWindow = true;
+                }
+                //新增
+                $scope.submitExpandinfo = function(){
+                    var listVoucherTicketPresentsEntity = $scope.listVoucherTicketPresentsEntity;
+                    //return
+                    activityCtrl.insertVoucherTicketPresentsInfo($scope,$http,listVoucherTicketPresentsEntity)
+                }
+                //关闭窗口
+                $scope.clostExpandWindow = function(){
+                    $scope.showExpandInfoWindow = false;
                 }
                 //点击提交按钮
                 $scope.baocun = function(){
-                   var integrationPresentsEntity = $scope.integrationPresentsEntity;
+                    var integrationPresentsEntity = $scope.integrationPresentsEntity;
                     var listStoredTicketPresentsEntity = $scope.listStoredTicketPresentsEntity[0];
-                    console.info(listStoredTicketPresentsEntity)
-                    //integrationPresentsEntity.strEnabledsssId = $scope.integrationPresentsEntity.strEnabledsssId || $scope.integrationPresentsEntity.iEnabled;
+                    var listVoucherTicketPresentsEntity = $scope.listVoucherTicketPresentsEntity;
+                    var stringParam = []
+                    for(let i=0;i<listVoucherTicketPresentsEntity.length;i++){
+                        stringParam[i] = listVoucherTicketPresentsEntity[i].strVoucherTicketPresentsId+","
+                        +listVoucherTicketPresentsEntity[i].strVoucherTicketKindId+","
+                        +listVoucherTicketPresentsEntity[i].iTotalVoucherTicketNum+","
+                        +listVoucherTicketPresentsEntity[i].iEnabled;
+                    }
+                    //记录id,抵用券ID,抵用券张数,启用状态
+                    stringParam = stringParam.join("|");
 
-                    activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
-                    activityCtrl.updateStoredTicketPresentsInfo($scope,$http,listStoredTicketPresentsEntity)
+                    $scope.jfqypanduan =  function(){
+                        if (integrationPresentsEntity.strEnabledsssId == undefined) {
+                           return integrationPresentsEntity.iEnabled;
+                        }else{
+                           return integrationPresentsEntity.strEnabledsssId
+                        }
+                    }
+                    //integrationPresentsEntity.strEnabledsssId = $scope.jfqypanduan() ;
+                    //return
+                    $scope.showConfirm("确认修改？",function(rs){
+                        if(rs){
+                            activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
+                            activityCtrl.updateStoredTicketPresentsInfo($scope,$http,listStoredTicketPresentsEntity)
+                            activityCtrl.insertAndUpdateVoucherTicketPresentsInfo($scope,$http,stringParam)
+                            window.location.reload();
+                        }
+                    })
+
                 };
+            },
+            //抵用券修改
+            insertAndUpdateVoucherTicketPresentsInfo:function($scope,$http,stringParam) {
+                var data = {
+                    stringParam:stringParam
+                };
+                $http.post(remoteUrl.insertAndUpdateVoucherTicketPresentsInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                //window.location.reload();
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //抵用券新增
+            insertVoucherTicketPresentsInfo:function($scope,$http,listVoucherTicketPresentsEntity) {
+                var data = {
+                    iEnabled:1,
+                    //iEnabled:listVoucherTicketPresentsEntity.strEnabledsssId,
+                    iTotalVoucherTicketNum:listVoucherTicketPresentsEntity.iTotalVoucherTicketNum,
+                    strVoucherTicketKindId:listVoucherTicketPresentsEntity.strVoucherTicketKindId
+                };
+                //var data = {
+                //        iEnabled:1,
+                //        iTotalVoucherTicketNum:200,
+                //        strVoucherTicketKindId:5555
+                //    };
+                $http.post(remoteUrl.insertVoucherTicketPresentsInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.reload();
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
             },
             //储值修改
             updateStoredTicketPresentsInfo:function($scope,$http,listStoredTicketPresentsEntity) {
                 var chuzidate =new Date(listStoredTicketPresentsEntity.chuzidate).toLocaleDateString()
-                console.info(chuzidate)
                 var data = {
                     iEnabled:listStoredTicketPresentsEntity.strEnabledsssId,
                     iStoredValuePresents:listStoredTicketPresentsEntity.iStoredValuePresents,
@@ -57,7 +188,6 @@ define(
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
                             $scope.showAlert(rs.msg,function(){
                                 window.location.reload();
@@ -94,17 +224,15 @@ define(
             //积分修改
             updateFirstMemberInitiationIntegrationPresents:function($scope,$http,integrationPresentsEntity) {
                 var data = {
-                    iEnabled:integrationPresentsEntity.strEnabledsssId,
+                    iEnabled:$scope.jfqypanduan(),
                     iIntegrationPresentsValue:integrationPresentsEntity.iIntegrationPresentsValue,
                     strIntegrationPresentsId:integrationPresentsEntity.strIntegrationPresentsId
                 };
-                console.info(data)
                 $http.post(remoteUrl.updateFirstMemberInitiationIntegrationPresents,data).then(
                     function(result){
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
                             $scope.showAlert(rs.msg,function(){
                                 window.location.reload();
@@ -148,7 +276,6 @@ define(
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
                             $scope.showAlert(rs.msg,function(){
                                 window.location.reload();
@@ -190,13 +317,10 @@ define(
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
                             //window.location.reload();
-                            console.info(data.data.listVoucherTicketPresentsEntity)
                             $scope.listVoucherTicketPresentsEntity = data.data.listVoucherTicketPresentsEntity;
                             //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
-                            console.info($scope.listVoucherTicketPresentsEntity.iEnabled)
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -234,13 +358,10 @@ define(
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
                             //window.location.reload();
-                            console.info(data.data.listVoucherTicketInfoEntity)
                             $scope.listVoucherTicketInfoEntity = data.data.listVoucherTicketInfoEntity;
                             //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
-                            console.info($scope.listVoucherTicketInfoEntity.iEnabled)
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -280,11 +401,9 @@ define(
                         var code = data.code;
                         if (code == 1) {
                             //window.location.reload();
-                            console.info(data.data.listStoredTicketPresentsEntity)
                             $scope.listStoredTicketPresentsEntity = data.data.listStoredTicketPresentsEntity;
                             //for(let i =0;i<$scope.listStoredTicketPresentsEntity.length;i++){
                             //    $scope.listStoredTicketPresentsEntity[i].strValidateEndTime = new Date($scope.listStoredTicketPresentsEntity[i]);
-                            //    console.info($scope.listStoredTicketPresentsEntity[i].strValidateEndTime)
                             //}
 
                         } else if (code == -1) {
@@ -326,10 +445,8 @@ define(
                         var code = data.code;
                         if (code == 1) {
                             //window.location.reload();
-                            console.info(data.data.integrationPresentsEntity)
                             $scope.integrationPresentsEntity = data.data.integrationPresentsEntity;
                             //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
-                            console.info($scope.integrationPresentsEntity.iEnabled)
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -453,11 +570,8 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        //code=-8;
-                        console.info(result)
                         if (code == 1) {
                             window.location.reload();
-                            //console.info($scope.listVoucherTicketInfoEntity.strValidEndTime)
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -498,12 +612,9 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        //code=-8;
-                        console.info(result)
                         if (code == 1) {
                             $scope.listVoucherTicketInfoEntity = data.voucherTicketInfoEntity;
                             $scope.listVoucherTicketInfoEntity.strValidEndTime = new Date($scope.listVoucherTicketInfoEntity.strValidEndTime)
-                            //console.info($scope.listVoucherTicketInfoEntity.strValidEndTime)
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -544,15 +655,12 @@ define(
                     strVoucherTicketName:listVoucherTicketInfoEntity.strVoucherTicketName,
                     strVoucherTicketId:$scope.strVoucherTicketId
                 };
-                console.info(typeof data.iIsValid)
                 $http.post(remoteUrl.updateVoucherTicketInfo,data).then(
                     function (result) {
 
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        //code=-8;
-                        console.info(result)
                         if (code == 1) {
                             $scope.showAlert(rs.msg,function(){
                                 window.location.reload();
@@ -597,15 +705,12 @@ define(
                     //strValidEndTime:listVoucherTicketInfoEntity.strValidEndTime,
                     strVoucherTicketName:listVoucherTicketInfoEntity.strVoucherTicketName
                 };
-                console.info(data.strValidEndTime)
                 $http.post(remoteUrl.insertVoucherTicketInfo,data).then(
                     function (result) {
 
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        //code=-8;
-                        console.info(result)
                         if (code == 1) {
 
                             $scope.showAlert(rs.msg,function(){
@@ -649,7 +754,6 @@ define(
                 };
                 $http.post(remoteUrl.selectVoucherTicketInfo,data).then(
                     function (result) {
-                            console.info(result)
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
@@ -657,9 +761,6 @@ define(
                         if (code == 1) {
                             //图片跟路径
                             $scope.pageCount = data.iTotalPage;
-                            console.info($scope.pageCount)
-                            //$scope.pageCount = 2;
-                            console.info(data)
                             $scope.listVoucherTicketInfoEntity = data.listVoucherTicketInfoEntity;
                             for (var i = 0; i < $scope.isShowListMenu.length; i++) {
                                 $scope.isShowListMenu[i] = false;
@@ -692,13 +793,6 @@ define(
                         }
                     });
             },
-
-
-
-
-
-
-
             ////////////////////抵用券维护-结束/////////////////////////
 
 
@@ -721,7 +815,6 @@ define(
                     }else{
                         $scope.showConfirm("确认要删除" + "？", function(rs) {
                             if(rs) {
-                                console.info(rs)
                                 activityCtrl.deleteSignIntegrationRule($scope,$http,strSignId);
                             }
                         })
@@ -737,7 +830,6 @@ define(
                     $scope.showConfirm("确认要删除" + "？", function(rs) {
                         //调用删除删除图片轮播函数
                         if(rs) {
-                            console.info(rs)
                             if($scope.zhuangtai.length < 4){
                                 let  data = "请保留一条数据"
                                 $scope.showAlert(data);
@@ -766,7 +858,6 @@ define(
                 //var blianxu = $scope.listSignIntegrationRuleEntity;
 
                 $scope.baocun = function(){
-                    //console.info($scope.listSignIntegrationRuleEntityT[0].dCash)
 
 
 
@@ -781,7 +872,6 @@ define(
                         updateSignIntegrationRule.strId[i] = $scope.panduanxuanzhong || $scope.listSignIntegrationRuleEntity[i].strSignId;
                         updateSignIntegrationRule.iIntegration[i] = $scope.listSignIntegrationRuleEntity[i].iIntegration;
                         updateSignIntegrationRule.strEnabled[i] = $scope.listSignIntegrationRuleEntity[i].strEnabledsssId;
-                        console.info($scope.listSignIntegrationRuleEntity[i].strEnabledsssId)
                         updateSignIntegrationRule.strSignDays[i] = $scope.listSignIntegrationRuleEntity[i].strSignDays;
                     }
                     updateSignIntegrationRule.iIntegration = updateSignIntegrationRule.iIntegration.join(",");
@@ -795,19 +885,17 @@ define(
 
                     let updateSignIntegrationRules = {}
                     updateSignIntegrationRules.iIntegration = [];
-                    updateSignIntegrationRules.strEnabled = [];
+                    updateSignIntegrationRules.StrEnabled = [];
                     updateSignIntegrationRules.strId = [];
                     updateSignIntegrationRules.strSignDays = [];
-                    //console.info($scope.strEnabledsss)
-
                     for(let i= 0;i<$scope.listSignIntegrationRuleEntitys.length;i++){
                         updateSignIntegrationRules.strId[i] = $scope.listSignIntegrationRuleEntitys[i].strSignId;
                         updateSignIntegrationRules.iIntegration[i] = $scope.listSignIntegrationRuleEntitys[i].iIntegration;
-                        updateSignIntegrationRules.strEnabled[i] = $scope.listSignIntegrationRuleEntitys[i].strEnabledsssId;
+                        updateSignIntegrationRules.StrEnabled[i] = $scope.listSignIntegrationRuleEntitys[i].strEnabledsssId;
                         updateSignIntegrationRules.strSignDays[i] = $scope.listSignIntegrationRuleEntitys[i].strSignDays;
                     }
                     updateSignIntegrationRules.iIntegration = updateSignIntegrationRules.iIntegration.join(",");
-                    updateSignIntegrationRules.strEnabled = updateSignIntegrationRules.strEnabled.join(",");
+                    updateSignIntegrationRules.strEnabled = updateSignIntegrationRules.StrEnabled.join(",");
                     updateSignIntegrationRules.strId = updateSignIntegrationRules.strId.join(",");
                     updateSignIntegrationRules.strSignDays = updateSignIntegrationRules.strSignDays.join(",");
 
@@ -831,26 +919,33 @@ define(
                     updateIntegrationCashRule.strEnabled = updateIntegrationCashRule.strEnabled.join(",");
                     updateIntegrationCashRule.strId = updateIntegrationCashRule.strId.join(",");
                     updateIntegrationCashRule.dCash = updateIntegrationCashRule.dCash.join(",");
-                    //调用更改接口-底线
-                    activityCtrl.updateIntegrationCashRule($scope,$http,updateIntegrationCashRule);
-                    //调用更改接口-连续
-                    activityCtrl.updateSignIntegrationRules($scope,$http,updateSignIntegrationRules);
-                    //调用更改接口-非连续
-                    activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
-                    $scope.showAlert("保存成功");
+
+                    $scope.showConfirm("确认修改？",function(rs){
+                        if(rs){
+
+                            //调用更改接口-非连续
+                            activityCtrl.updateSignIntegrationRule($scope,$http,updateSignIntegrationRule);
+                            window.location.reload()
+                            return
+                            //调用更改接口-底线
+                            activityCtrl.updateIntegrationCashRule($scope,$http,updateIntegrationCashRule);
+                            //调用更改接口-连续
+                            activityCtrl.updateSignIntegrationRules($scope,$http,updateSignIntegrationRules);
+
+                        }
+                    })
+
                 }
 
             },
-            ///积分规则 -- 连续签到 -- 底线
+            ///积分规则 -- 底线 -- 更新
             updateIntegrationCashRule:function($scope,$http,updateIntegrationCashRule){
-                console.info(remoteUrl.updateSignIntegrationRules)
                 var data=updateIntegrationCashRule;
                 $http.post(remoteUrl.updateIntegrationCashRule,data).then(
                     function (result) {
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-                        console.info(result)
                         //code=-8;
                         if (code == 1) {
                             //$scope.showAlert(rs.msg,function(){
@@ -885,9 +980,7 @@ define(
             },
             ///积分规则 -- 连续签到 -- 更改
             updateSignIntegrationRules:function($scope,$http,updateSignIntegrationRules){
-                console.info(remoteUrl.updateSignIntegrationRules)
                 var data=updateSignIntegrationRules;
-                console.info(data.strSignDays)
                 $http.post(remoteUrl.updateSignIntegrationRules,data).then(
                     function (result) {
                         var rs = result.data;
@@ -927,9 +1020,7 @@ define(
             },
             ///积分规则 -- 非连续签到 -- 更改
             updateSignIntegrationRule:function($scope,$http,updateSignIntegrationRule){
-                console.info(remoteUrl.updateSignIntegrationRule)
                 var data=updateSignIntegrationRule;
-                console.info(data.strSignDays)
                 $http.post(remoteUrl.updateSignIntegrationRule,data).then(
                     function (result) {
                         var rs = result.data;
@@ -969,7 +1060,6 @@ define(
             },
             ///积分规则 -- 非连续签到 -- 新增
             insertSignIntegrationRules:function($scope,$http,insertSignIntegrationRules){
-                console.info(remoteUrl.insertSignIntegrationRules)
                 var data={
                     iIntegration:$scope.insertSignIntegrationRules.iIntegration,
                     strEnabled:$scope.insertSignIntegrationRules.ifstrEnabled,
@@ -1015,7 +1105,6 @@ define(
             },
             ///积分规则 -- 积分抵现 -- 删除
             deleteIntegrationCashRule:function($scope,$http,strId){
-                console.info(remoteUrl.deleteIntegrationCashRule)
                 var data={strId:strId};
                 $http.post(remoteUrl.deleteIntegrationCashRule,data).then(
                     function (result) {
@@ -1056,7 +1145,6 @@ define(
             },
             ///积分规则 -- 连续非连续 -- 删除
             deleteSignIntegrationRule:function($scope,$http,strSignId){
-                console.info(remoteUrl.deleteSignIntegrationRule)
                 var data={strSignId:strSignId};
                 $http.post(remoteUrl.deleteSignIntegrationRule,data).then(
                     function (result) {
@@ -1097,7 +1185,6 @@ define(
             },
             ///积分规则 -- 积分抵现规则 -- 查询
             findAllIntegrationCashRule:function($scope,$http){
-                console.info(remoteUrl.findAllIntegrationCashRule)
                 var data={};
                 $http.post(remoteUrl.findAllIntegrationCashRule,data).then(
                     function (result) {
@@ -1140,7 +1227,6 @@ define(
             ///积分规则 -- 非连续签到积分规则 -- 查询
             //findAllSignIntegrationRule:"/admin/biz/RuleSetting/findAllSignIntegrationRule",
             findAllSignIntegrationRules:function($scope,$http){
-                console.info(remoteUrl.findAllSignIntegrationRules)
                 var data={};
                 $http.post(remoteUrl.findAllSignIntegrationRules,data).then(
                     function (result) {
@@ -1153,7 +1239,6 @@ define(
                             $scope.listSignIntegrationRuleEntity = data.listSignIntegrationRuleEntity;
                             for(let j=0;j<$scope.listSignIntegrationRuleEntity.length;j++){
                                 $scope.strEnabledsss = $scope.listSignIntegrationRuleEntity[j].strEnabled;
-                                console.info($scope.strEnabledsss)
                             }
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -1185,7 +1270,6 @@ define(
             //findAllSignIntegrationRule
             ///积分规则 -- 连续签到积分规则 -- 查询
             findAllSignIntegrationRule:function($scope,$http){
-                console.info(remoteUrl.findAllSignIntegrationRule)
                 var data={};
                 $http.post(remoteUrl.findAllSignIntegrationRule,data).then(
                     function (result) {
@@ -1234,7 +1318,6 @@ define(
 					$scope.showConfirm("确认要删除" + strAdvPicName + "？", function(rs) {
 						//调用删除删除图片轮播函数
 						if(rs) {
-							console.info(rs)
 							$scope.delLoopAdvPic(strAdvPicId, $scope, $http);
 						}
 
@@ -1242,7 +1325,6 @@ define(
 				}
 				//保存
 				$scope.submitExpandinfo = function() {
-					console.info($scope.LoopAdvPic)
 					if($scope.typePanduan) {
 						//调用修改接口
 						$scope.updateLoopAdvPic($scope.LoopAdvPic, $scope, $http);
@@ -1284,11 +1366,9 @@ define(
 					};
 					$http.post(remoteUrl.delLoopAdvPic, data).then(
 						function(result) {
-							console.info(strAdvPicId);
 							var rs = result.data;
 							var code = rs.code;
 							var data = rs.data;
-							console.info(result)
 							if(code == 1) {
 
 								window.location.reload();
@@ -1372,7 +1452,6 @@ define(
 							var code = rs.code;
 							var data = rs.data;
 							var LoopAdvPic = data.LoopAdvPic;
-							console.info(data)
 							if(code == 1) {
 								angular.forEach(LoopAdvPic, function(val, key) {
 									$scope.LoopAdvPic[key] = val;
@@ -1459,13 +1538,10 @@ define(
 					var postData = {
 						file: $scope.myFile
 					};
-					console.info($scope.myFile);
 					var promise = postMultipart(remoteUrl.uploadImage, postData);
-					console.info(promise)
 					promise.then(function(result) {
 						var rs = result.data;
 						var code = rs.code;
-						console.info(result)
 						if(code == 1) {
 							$scope.newExpandinginfo();
 							$scope.strAdvPicName = rs.data.strImgpath;
@@ -1499,7 +1575,6 @@ define(
 						angular.forEach(data, function(val, key) {
 							fd.append(key, val);
 						});
-						console.info(fd)
 						var args = {
 							method: 'POST',
 							url: url,
@@ -1520,8 +1595,6 @@ define(
 							var rs = result.data;
 							var code = rs.code;
 							var data = rs.data;
-							console.info(data)
-							//code=-8;
 							if(code == 1) {
 								$scope.listLoopAdvPic = data.listLoopAdvPic
 							} else if(code == -1) {
