@@ -2,17 +2,13 @@ package com.ecard.entity;
 
 import java.math.BigDecimal;
 
-//充值赠送抵用券实体
-public class RechargePresentsVoucherEntity {
-	private String strRechargePresentsVoucherId;	//主键
-	private String strVoucherTicketId;				//抵用券id
-	private String strActivityId;	//活动ID
-	private BigDecimal dPerTimeRechargeAmount;		//充值多少金额，可获得一张抵用券
-	private BigDecimal dMoreRechargeAmount;			//每多充值多少钱，可多得一张抵用券
-	private int iTotalNum;				//抵用券总张数
-	private int iRestNum;				//抵用券剩余张数
-	private String strValidateBeginTime;	//抵用券有效期开始时间
-	private String strValidateEndTime;//抵用券有效期结束时间
+public class RechargePresentsStoredValueEntity {
+	private String strPresentsStoredValueId;	//关键字
+	private String strActivityId;	//活动关键字 ，关联活动表
+	private BigDecimal dRechargeAmount;	//充值金额
+	private BigDecimal dPresentsAmount;//赠送金额
+	private String strValidateBeginTime;	//有效期开始时间
+	private String strValidateEndTime;//有效期结束时间
 	private int iEnabled=0;						//是否启用 1启用 0禁用
 	private String strEmployeeId;				//管理员ID
 	private String strEmployeeName;				//管理员账号
@@ -20,24 +16,14 @@ public class RechargePresentsVoucherEntity {
 	private String strCreationTime;				//创建记录时间
 	private String strLastAccessedTime;			//修改时间
 	
-	public void setStrRechargePresentsVoucherId(String strRechargePresents_voucherId)
+	public void setStrPresentsStoredValueId(String strPresentsStoredValueId)
 	{
-		this.strRechargePresentsVoucherId=strRechargePresents_voucherId;
+		this.strPresentsStoredValueId=strPresentsStoredValueId;
 	}
 	
-	public String getStrRechargePresentsVoucherId()
+	public String getStrPresentsStoredValueId()
 	{
-		return strRechargePresentsVoucherId;
-	}
-	
-	public void setStrVoucherTicketId(String strVoucherTicketId)
-	{
-		this.strVoucherTicketId=strVoucherTicketId;
-	}
-	
-	public String getStrVoucherTicketId()
-	{
-		return strVoucherTicketId;
+		return strPresentsStoredValueId;
 	}
 	
 	public void setStrActivityId(String strActivityId)
@@ -50,45 +36,27 @@ public class RechargePresentsVoucherEntity {
 		return strActivityId;
 	}
 	
-	public void setdPerTimeRechargeAmount(BigDecimal dPerTimeRechargeAmount)
+	public void setdPresentsAmount(BigDecimal bgPresentsAmount)
 	{
-		this.dPerTimeRechargeAmount=dPerTimeRechargeAmount;
+		this.dPresentsAmount=bgPresentsAmount;
 	}
 	
-	public BigDecimal getdPerTimeRechargeAmount()
+	public BigDecimal getdPresentsAmount()
 	{
-		return dPerTimeRechargeAmount;
+		return dPresentsAmount;
 	}
 	
-	public void setdMoreRechargeAmount(BigDecimal dMoreRechargeAmount)
+	
+	public void setdRechargeAmount(BigDecimal bgRechargeAmount)
 	{
-		this.dMoreRechargeAmount=dMoreRechargeAmount;
+		this.dRechargeAmount=bgRechargeAmount;
 	}
 	
-	public BigDecimal getdMoreRechargeAmount()
+	public BigDecimal getdRechargeAmount()
 	{
-		return dMoreRechargeAmount;
+		return dRechargeAmount;
 	}
 	
-	public void setiTotalNum(int iTotalNum)
-	{
-		this.iTotalNum=iTotalNum;
-	}
-	
-	public int getiTotalNum()
-	{
-		return iTotalNum;
-	}
-	
-	public void setiRestNum(int iRestNum)
-	{
-		this.iRestNum=iRestNum;
-	}
-	
-	public int getiRestNum()
-	{
-		return iRestNum;
-	}
 	
 	public void setStrValidateBeginTime(String strValidateBeginTime)
 	{
@@ -169,5 +137,6 @@ public class RechargePresentsVoucherEntity {
 	{
 		return strLastAccessedTime;
 	}
+
 
 }

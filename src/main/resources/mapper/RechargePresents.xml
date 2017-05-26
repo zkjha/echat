@@ -7,8 +7,9 @@
 <insert id="batchInsertRechargePresentsVoucher" parameterType="list">
  insert into tb_rechargePresents_voucher
  (
- strRechargePresents_voucherId,
+ strRechargePresentsVoucherId,
  strVoucherTicketId,
+ strActivityId,
  dPerTimeRechargeAmount,
  dMoreRechargeAmount,
  iTotalNum,
@@ -22,10 +23,12 @@
  strCreationTime,
  strLastAccessedTime
  ) values
- <foreach collection="com.ecard.RechargePresentsVoucherEntity" item="entity" index="index" separator=",">
+ <foreach collection="listRechargePresentsVoucherEntity" item="entity" index="index" separator=",">
+
  (
- #{entity.strRechargePresents_voucherId},
+ #{entity.strRechargePresentsVoucherId},
  #{entity.strVoucherTicketId},
+ #{entity.strActivityId},
  #{entity.dPerTimeRechargeAmount},
  #{entity.dMoreRechargeAmount},
  #{entity.iTotalNum},
@@ -41,4 +44,123 @@
  )
  </foreach>
 </insert>
+
+<!-- 更新 充值赠送抵用券信息 -->
+<update id="updateRechargePresentsVoucher" parameterType="com.ecard.entity.RechargePresentsVoucherEntity">
+update tb_rechargePresents_voucher set
+	strVoucherTicketId=#{strVoucherTicketId},
+ 	strActivityId=#{strActivityId},
+ 	dPerTimeRechargeAmount=#{dPerTimeRechargeAmount},
+ 	dMoreRechargeAmount=#{dMoreRechargeAmount},
+ 	iTotalNum=#{iTotalNum},
+ 	strValidateBeginTime=#{strValidateBeginTime},
+ 	strValidateEndTime=#{strValidateEndTime},
+ 	iEnabled=#{iEnabled},
+ 	strEmployeeId=#{strEmployeeId},
+ 	strEmployeeName=#{strEmployeeName},
+ 	strEmployeeRealName=#{strEmployeeRealName},
+ 	strLastAccessedTime=#{strLastAccessedTime}
+ 	where strRechargePresentsVoucherId=#{strRechargePresentsVoucherId}
+</update>
+
+<!-- 删除 充值赠送抵用券信息 -->
+<delete id="deleteRechargePresentsVoucher" parameterType="String">
+	delete from tb_rechargePresents_voucher where strRechargePresentsVoucherId=#{strRechargePresentsVoucherId}
+</delete>
+
+<!-- 查询 充值 赠送抵用券信息 -->
+<select id="selectAllRechargePresentsVoucher" resultType="com.ecard.entity.RechargePresentsVoucherEntity">
+select 
+	strRechargePresentsVoucherId,
+	strVoucherTicketId,
+ 	strActivityId,
+ 	dPerTimeRechargeAmount,
+ 	dMoreRechargeAmount,
+ 	iTotalNum,
+ 	iRestNum,
+ 	strValidateBeginTime,
+ 	strValidateEndTime,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime from tb_rechargePresents_voucher
+ 	
+</select>
+
+<!-- 新增 充值送储值信息 -->
+<insert id="batchInsertRechargePresentsStoredValue" parameterType="list">
+	insert into tb_rechargePresents_storedValue
+	(
+	strPresentsStoredValueId,
+	strActivityId,
+	dRechargeAmount,
+	dPresentsAmount,
+	strValidateBeginTime,
+	strValidateEndTime,
+	iEnabled,
+	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+	)
+	values
+	<foreach collection="listRechargePresentsStoredValueEntity" item="entity" index="index" separator=",">
+	(
+	#{entity.strPresentsStoredValueId},
+	#{entity.strActivityId},
+	#{entity.dRechargeAmount},
+	#{entity.dPresentsAmount},
+	#{entity.strValidateBeginTime},
+	#{entity.strValidateEndTime},
+	#{entity.iEnabled},
+	#{entity.strEmployeeId},
+	#{entity.strEmployeeName},
+	#{entity.strEmployeeRealName},
+	#{entity.strCreationTime},
+	#{entity.strLastAccessedTime}
+	)
+	</foreach>
+</insert>
+
+<!-- 更新 充值 赠送储值信息 -->
+<update id="updateRechargePresentsStoredValue" parameterType="com.ecard.entity.RechargePresentsStoredValueEntity">
+update tb_rechargePresents_storedValue set
+	strActivityId=#{strActivityId},
+	dPresentsAmount=#{dPresentsAmount},
+	strValidateBeginTime=#{strValidateBeginTime},
+	strValidateEndTime=#{strValidateEndTime},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strPresentsStoredValueId=#{strPresentsStoredValueId}
+</update>
+
+<!-- 删除 充值赠送储值信息 -->
+<delete id="deleteRechargePresentsStoredValue" parameterType="String">
+	delete from tb_rechargePresents_storedValue where strPresentsStoredValueId=#{strPresentsStoredValueId}
+</delete>
+
+<!-- 查询 充值赠送储值信息 -->
+<select id="selectAllRechargePresentsStoredValue" resultType="com.ecard.entity.RechargePresentsStoredValueEntity">
+select
+	strPresentsStoredValueId,
+	strActivityId,
+	dRechargeAmount,
+	dPresentsAmount,
+	strValidateBeginTime,
+	strValidateEndTime,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	from tb_rechargePresents_storedValue
+</select>
+
 </mapper>

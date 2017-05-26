@@ -788,6 +788,7 @@ create table tb_activity
 (
  strActivityId			varchar(50)			not null,		-- 关键字
  strActivityName		varchar(50)			not null,		-- 活动名称
+ strLevelsId			varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
  strActivityBeginTime	varchar(50)			not null,		-- 活动开始时间
  strActivityEndTime		varchar(50)			not null,		-- 活动结束时间
  iActivityKinds			int(2)				not null,		-- 活动类型:0自定义赠送型，1储值赠送型，2消费赠送型
@@ -806,7 +807,6 @@ create table tb_rechargePresents_integration
 (
 strRechargePresentsIntegrationId			varchar(50)			not null,		-- 关键字
 strActivityId								varchar(50)			not null,		-- 活动ID 关联 tb_activity id
-strLevelsId									varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
 dPerTimeRechargeAmount						decimal(11,2)		not null,		-- 充值金额{每充值多少金额可获赠1积分｝
 dLeastRechargeAmount						decimal(11,2)		not null,		-- 最少充值多少钱才有资格获得积分
 iEnabled									int(2)				default 0,		-- 启用状态：1启用，0禁用
@@ -825,9 +825,8 @@ create table tb_rechargePresents_storedValue
 (
 strPresentsStoredValueId			varchar(50)			not null,		-- 主键字
 strActivityId						varchar(50)			not null,		-- 活动ID 关联 tb_activity id
-strLevelsId							varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
 dRechargeAmount						decimal(11,2)		not null,		-- 现金充值金额
-dPresents_storedValue				decimal(11,2)		not null,		-- 赠送储值量
+dPresentsAmount						decimal(11,2)		not null,		-- 赠送储值量
 strValidateBeginTime				varchar(50)			not null,		-- 有效期开始时间
 strValidateEndTime					varchar(50)			not null,		-- 有效期截止时间
 iEnabled							int(2)				default 0,		-- 启用状态：1启用，0禁用
@@ -847,7 +846,6 @@ create table tb_rechargePresents_voucher
 strRechargePresentsVoucherId		varchar(50)		not null,		-- 关键字
 strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id;
 strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
-strLevelsId							varchar(50)		not null,		-- 会员级别id	关联tb_member_level id
 dPerTimeRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
 dMoreRechargeAmount					decimal(11,2)	not null,		-- 多充值多少钱可以多领一张。张数=1+（总的钱-dPerTimeRechargeAmount)/dMoreRechargeAmount
 iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
