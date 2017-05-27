@@ -1,9 +1,12 @@
 package com.ecard.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ecard.entity.PresentsActivityEntity;
+import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.RechargePresentsStoredValueEntity;
 import com.ecard.entity.RechargePresentsVoucherEntity;
 
@@ -15,7 +18,7 @@ public interface RechargePresentsMapper {
 	//删除 充值赠送抵用券信息
 	public int deleteRechargePresentsVoucher(String strRechargePresentsVoucherId) throws Exception;
 	//查询 充值赠送抵用券信息
-	public List<RechargePresentsVoucherEntity> selectAllRechargePresentsVoucher() throws Exception;
+	public List<RechargePresentsVoucherEntity> selectAllRechargePresentsVoucher(String strActivityId) throws Exception;
 	//批量新增 充值送储值信息
 	public int batchInsertRechargePresentsStoredValue(@Param("listRechargePresentsStoredValueEntity")List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity) throws Exception;
 	//批量修改 充值赠送抵用券信息
@@ -23,5 +26,25 @@ public interface RechargePresentsMapper {
 	//删除 充值赠送储值
 	public int deleteRechargePresentsStoredValue(String strPresentsStoredValueId) throws Exception;
 	//查询 充值赠送储值信息
-	public List<RechargePresentsStoredValueEntity> selectAllRechargePresentsStoredValue() throws Exception;
+	public List<RechargePresentsStoredValueEntity> selectAllRechargePresentsStoredValue(String strActivityId) throws Exception;
+	//新增 充值赠送积分规则信息
+	public int insertRechargePresentsIntegration(RechargePresentsIntegrationEntity rechargePresentsIntegrationEntity) throws Exception;
+	//判断 赠送积分表中是否已经存在相关活动的已启用记录
+	public String isExistsTheRecord(String strActivityId) throws Exception;
+	//更新 充值赠送积分规则信息
+	public int updateRechargePresentsIntegration(RechargePresentsIntegrationEntity rechargePresentsIntegrationEntity) throws Exception;
+	//查询 充值赠送积分信息
+	public List<RechargePresentsIntegrationEntity> selectAllRechargePresentsIntegration(String strActivityId) throws Exception;
+	//新增 活动信息
+	public int inserPresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	//查询 指定会员级别在指定活动类型下是否已经存在数据
+	public int isExistsTheActivityRecord(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	//判断该会员级别在该活动类型下是否已经存在规则数据，若已存在则报错，不存在则执行写入
+	public String isExistsTheActivityRecordId(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	//更新 活动信息
+	public int updatePresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	//查询，活动表总记录条数
+	public int findCount() throws Exception;
+	//分页查询 活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+	public List<PresentsActivityEntity> selectPresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
 }

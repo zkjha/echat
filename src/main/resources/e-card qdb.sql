@@ -791,7 +791,7 @@ create table tb_activity
  strLevelsId			varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
  strActivityBeginTime	varchar(50)			not null,		-- 活动开始时间
  strActivityEndTime		varchar(50)			not null,		-- 活动结束时间
- iActivityKinds			int(2)				not null,		-- 活动类型:0自定义赠送型，1储值赠送型，2消费赠送型
+ iActivityKinds			int(2)				not null,		-- 活动类型:0自定义赠送型，1消费赠送型，2充值 赠送型
  strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
  strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号
  strEmployeeRealName 	VARCHAR(50) 		NOT NULL,		-- 管理员姓名
@@ -805,7 +805,7 @@ create table tb_activity
 drop table if exists tb_rechargePresents_integration;
 create table tb_rechargePresents_integration
 (
-strRechargePresentsIntegrationId			varchar(50)			not null,		-- 关键字
+strPresentsIntegrationId					varchar(50)			not null,		-- 关键字
 strActivityId								varchar(50)			not null,		-- 活动ID 关联 tb_activity id
 dPerTimeRechargeAmount						decimal(11,2)		not null,		-- 充值金额{每充值多少金额可获赠1积分｝
 dLeastRechargeAmount						decimal(11,2)		not null,		-- 最少充值多少钱才有资格获得积分
@@ -815,7 +815,7 @@ strEmployeeName 							VARCHAR(50) 		NOT NULL,		-- 管理员账号
 strEmployeeRealName 						VARCHAR(50) 		NOT NULL,		-- 管理员姓名
 strCreationTime 							VARCHAR(50) 		NOT NULL,		-- 记录创建时间
 strLastAccessedTime 						VARCHAR(50) 		NOT NULL,		-- 记录修改时间
-primary key(strRechargePresentsIntegrationId)
+primary key(strPresentsIntegrationId)
 ) engine=innodb default charset=utf8;
 -- ---------------------------------------------------------------------------------------------
 -- tableName:tb_rechargeStoredTicketPresents_storedValue			活动|【充储值卡送储值】

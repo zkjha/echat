@@ -1,14 +1,17 @@
 package com.ecard.service;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
+import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.PresentsActivityEntity;
+import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.RechargePresentsStoredValueEntity;
 import com.ecard.entity.RechargePresentsVoucherEntity;
 import com.ecard.mapper.RechargePresentsMapper;
@@ -61,9 +64,9 @@ public class RechargePresentsService {
 	}
 	
 	//查询 充值赠送抵用券信息
-	public List<RechargePresentsVoucherEntity> selectAllRechargePresentsVoucher() throws Exception
+	public List<RechargePresentsVoucherEntity> selectAllRechargePresentsVoucher(String strActivityId) throws Exception
 	{
-		return rechargePresentsMapper.selectAllRechargePresentsVoucher();
+		return rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
 	}
 	
 	//批量新增 充值送储值信息
@@ -110,8 +113,129 @@ public class RechargePresentsService {
 	}
 	
 	//查询 充值赠送储值信息
-	public List<RechargePresentsStoredValueEntity> selectAllRechargePresentsStoredValue() throws Exception
+	public List<RechargePresentsStoredValueEntity> selectAllRechargePresentsStoredValue(String strActivityId) throws Exception
 	{
-		return rechargePresentsMapper.selectAllRechargePresentsStoredValue();
+		return rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
+	}
+	
+	//新增 充值赠送积分规则信息
+	@Transactional
+	public String insertRechargePresentsIntegration(RechargePresentsIntegrationEntity rechargePresentsIntegrationEntity) throws Exception
+	{
+		//先检测是否已经有对应相应活动的积分规则存在，如果存在则提示错误
+		
+		int iInsertNum=0,iUpdateNum=0;
+		String strPresentsIntegrationId;
+		strPresentsIntegrationId=rechargePresentsMapper.isExistsTheRecord(rechargePresentsIntegrationEntity.getStrActivityId());
+		if(ValidateTool.isEmptyStr(strPresentsIntegrationId))
+		{	
+			iInsertNum=rechargePresentsMapper.insertRechargePresentsIntegration(rechargePresentsIntegrationEntity);
+			if(iInsertNum==0)
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
+			else
+				return DataTool.constructResponse(ResultCode.OK,"新增成功",null);
+		}
+		else
+		{
+			//更新
+			rechargePresentsIntegrationEntity.setStrPresentsIntegrationId(strPresentsIntegrationId);//对管理员来说是新增，对后台是履盖原来的记录
+			iUpdateNum=rechargePresentsMapper.updateRechargePresentsIntegration(rechargePresentsIntegrationEntity);
+			
+			if(iUpdateNum==0)
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
+			else
+				return DataTool.constructResponse(ResultCode.OK,"新增成功",null);
+		}
+	}
+	
+	// 更新 充值赠送积分信息
+	public String updateRechargePresentsIntegration(RechargePresentsIntegrationEntity rechargePresentsIntegrationEntity) throws Exception
+	{
+		int iUpdateNum=0;
+		iUpdateNum=rechargePresentsMapper.updateRechargePresentsIntegration(rechargePresentsIntegrationEntity);
+		
+		if(iUpdateNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"更新成功",null);
+		
+	}
+	
+	//查询 充值赠送积分信息
+	public List<RechargePresentsIntegrationEntity> selectAllRechargePresentsIntegration(String strActivityId) throws Exception
+	{
+		return rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
+		
+	}
+	
+	//新增 活动信息
+	@Transactional
+	public String inserPresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception
+	{
+		int iInsertNum=0;
+		int isExists=0;
+		//判断该会员级别在该活动类型下是否已经存在活动数据，若已存在则报错，不存在则执行写入
+		if(presentsActivityEntity==null)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
+		isExists=rechargePresentsMapper.isExistsTheActivityRecord(presentsActivityEntity);
+		if(isExists!=0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败:该会员级别在该活动类型下的活动表记录已经存在",null);
+		iInsertNum=rechargePresentsMapper.inserPresentsActivityInfo(presentsActivityEntity);
+		if(iInsertNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"新增成功",null);	
+	}
+
+	//更新 活动信息
+	@Transactional
+	public String updatePresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception
+	{
+		int iUpdateNum=0;
+		String isExistsStrActivityId=null;
+		if(presentsActivityEntity==null)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
+		//判断该会员级别在该活动类型下的活动表记录已经存在中，若已存在则报错，不存在则执行写入
+		isExistsStrActivityId=rechargePresentsMapper.isExistsTheActivityRecordId(presentsActivityEntity);
+		if(!ValidateTool.isEmptyStr(isExistsStrActivityId)&&!isExistsStrActivityId.equals(presentsActivityEntity.getStrActivityId()))	
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败：该会员级别在该活动类型下的活动表记录已经存在",null);
+		
+		iUpdateNum=rechargePresentsMapper.updatePresentsActivityInfo(presentsActivityEntity);
+		if(iUpdateNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"更新成功",null);	
+	
+	}
+	
+	
+	//查询，活动表总记录条数
+	public int findCount() throws Exception
+	{
+		return rechargePresentsMapper.findCount();
+	}
+	
+	//分页查询 活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+	@Transactional
+	public List<PresentsActivityEntity> selectPresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+	{
+		int iListArrayLength=0;
+		List<PresentsActivityEntity> listPresentsActivityEntity=null;
+		listPresentsActivityEntity=rechargePresentsMapper.selectPresentsActivityInfo(queryMap);
+		if(listPresentsActivityEntity!=null||listPresentsActivityEntity.size()!=0)
+		{
+			//查出活动记录关键字，组装各个属性
+			iListArrayLength=listPresentsActivityEntity.size();
+			for(int i=0;i<iListArrayLength;i++)
+			{
+				//组装属性
+			}
+			
+			
+		}
+
+		
 	}
 }

@@ -69,7 +69,7 @@ update tb_rechargePresents_voucher set
 </delete>
 
 <!-- 查询 充值 赠送抵用券信息 -->
-<select id="selectAllRechargePresentsVoucher" resultType="com.ecard.entity.RechargePresentsVoucherEntity">
+<select id="selectAllRechargePresentsVoucher" resultType="com.ecard.entity.RechargePresentsVoucherEntity" parameterType="String">
 select 
 	strRechargePresentsVoucherId,
 	strVoucherTicketId,
@@ -85,7 +85,7 @@ select
  	strEmployeeName,
  	strEmployeeRealName,
  	strCreationTime,
- 	strLastAccessedTime from tb_rechargePresents_voucher
+ 	strLastAccessedTime from tb_rechargePresents_voucher  where strActivityId=#{strActivityId} order by strLastAccessedTime desc
  	
 </select>
 
@@ -146,7 +146,7 @@ update tb_rechargePresents_storedValue set
 </delete>
 
 <!-- 查询 充值赠送储值信息 -->
-<select id="selectAllRechargePresentsStoredValue" resultType="com.ecard.entity.RechargePresentsStoredValueEntity">
+<select id="selectAllRechargePresentsStoredValue" resultType="com.ecard.entity.RechargePresentsStoredValueEntity" parameterType="String">
 select
 	strPresentsStoredValueId,
 	strActivityId,
@@ -160,7 +160,147 @@ select
 	strEmployeeRealName,
 	strCreationTime,
 	strLastAccessedTime
-	from tb_rechargePresents_storedValue
+	from tb_rechargePresents_storedValue where strActivityId=#{strActivityId} order by strLastAccessedTime desc
 </select>
 
+<!-- 新增 充值送积分规则信息 -->
+<insert id="insertRechargePresentsIntegration" parameterType="com.ecard.entity.RechargePresentsIntegrationEntity">
+insert into tb_rechargePresents_integration
+(
+strPresentsIntegrationId,
+strActivityId,
+dPerTimeRechargeAmount,
+dLeastRechargeAmount,
+iEnabled,
+strEmployeeId,
+strEmployeeName,
+strEmployeeRealName,
+strCreationTime,
+strLastAccessedTime
+)
+values
+(
+#{strPresentsIntegrationId},
+#{strActivityId},
+#{dPerTimeRechargeAmount},
+#{dLeastRechargeAmount},
+#{iEnabled},
+#{strEmployeeId},
+#{strEmployeeName},
+#{strEmployeeRealName},
+#{strCreationTime},
+#{strLastAccessedTime}
+)
+</insert>
+
+<!-- 判断 赠送积分表中是否已经存在相关活动的已启用记录 -->
+<select id="isExistsTheRecord" parameterType="String" resultType="String">
+ select strPresentsIntegrationId from tb_rechargePresents_integration where strActivityId=#{strActivityId}
+</select>
+
+<!-- 更新  赠送积分表中是否已经存在相关活动的已启用记录 -->
+<update id="updateRechargePresentsIntegration" parameterType="com.ecard.entity.RechargePresentsIntegrationEntity">
+	update tb_rechargePresents_integration set
+	strActivityId=#{strActivityId},
+	dPerTimeRechargeAmount=#{dPerTimeRechargeAmount},
+	dLeastRechargeAmount=#{dLeastRechargeAmount},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+    where strPresentsIntegrationId=#{strPresentsIntegrationId}
+</update>
+
+<!-- 查询 充值赠送积分规则信息 -->
+<select id="selectAllRechargePresentsIntegration" parameterType="String" resultType="com.ecard.entity.RechargePresentsIntegrationEntity">
+select 
+	strPresentsIntegrationId,
+	strActivityId,
+	dPerTimeRechargeAmount,
+	dLeastRechargeAmount,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	from tb_rechargePresents_integration where strActivityId=#{strActivityId} order by strLastAccessedTime desc
+	
+</select>
+
+<!-- 新增 活动信息 -->
+<update id="inserPresentsActivityInfo" parameterType="com.ecard.entity.PresentsActivityEntity">
+insert into tb_activity
+(
+	strActivityId,
+	strActivityName,
+	strLevelsId,
+	strActivityBeginTime,
+	strActivityEndTime,
+	iActivityKinds,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+)
+values
+(
+	#{strActivityId},
+	#{strActivityName},
+	#{strLevelsId},
+	#{strActivityBeginTime},
+	#{strActivityEndTime},
+	#{iActivityKinds},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+)
+</update>
+
+<!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
+<select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.PresentsActivityEntity" resultType="int">
+  select count(strActivityId) from tb_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 修改 判断该会员级别在该活动类型下是否已经存在规则数据 -->
+<select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.PresentsActivityEntity" resultType="String">
+	select strActivityId from tb_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 更新活动信息 -->
+<update id="updatePresentsActivityInfo" parameterType="com.ecard.entity.PresentsActivityEntity">
+update tb_activity set
+	strActivityName=#{strActivityName},
+	strLevelsId=#{strLevelsId},
+	strActivityBeginTime=#{strActivityBeginTime},
+	strActivityEndTime=#{strActivityEndTime},
+	iActivityKinds=#{iActivityKinds},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+where strActivityId=#{strActivityId}
+</update>
+
+<!-- 查询 活动表中总记录 -->
+<select id="findCount" resultType="int">
+	select count(*) from tb_activity
+</select>
+
+<!--分页查询 活动表中的记录 -->
+<select id="selectPresentsActivityInfo" parameterType="map" resultType="com.ecard.entity.PresentsActivityEntity">
+ select strActivityId,strActivityName,strLevelsId,strActivityBeginTime,strActivityEndTime from tb_activity
+ <where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strLevelsId}
+ 	</if>
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strLevelsId=#{strLevelsId}
+ 	</if>
+ </where>
+</select>
 </mapper>
