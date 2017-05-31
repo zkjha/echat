@@ -1244,17 +1244,24 @@ public class RechargePresentsController {
 
 	@ResponseBody
 	@RequestMapping("selectRechargePresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=全部
+	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
 	public String selectRechargePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段
-		int iPageNum,iPageSize,iTotalPage=0,iTotalRecord=0,iPageFrom;
+		//strSearchEnabledStatus=活动状态：全部：ALL；过期:EXPIRED，正常:NORMAL
+		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
 		String strPageNum=request.getParameter("iPageNum");
 		String strPageSize=request.getParameter("iPageSize");
 		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
-
+		
+		if(strSearchMemberLevel==null||strSearchMemberLevel.trim()=="")
+			strSearchMemberLevel="";
+		
+		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
+			strSearchEnabledStatus="ALL";
+		
 		if(ValidateTool.isEmptyStr(strPageNum))
 			iPageNum=1;
 		else
@@ -1279,26 +1286,25 @@ public class RechargePresentsController {
 		
 		try{
 			
-			
-			
-				//strSearchEnabledStatus="&lt;"+strCurrentDate;
 			Map<String,Object> queryMap=new HashMap<String,Object>();
 			queryMap.put("strSearchMemberLevel", strSearchMemberLevel);
-			queryMap.put("strSearchEnabledStatus", strCurrentDate);
-			
-			if("全部".equals(strSearchMemberLevel))
-				strSearchMemberLevel="";
-			
-			if("全部".equals(strSearchEnabledStatus))
-				strSearchEnabledStatus="";
-			
-			if("".equals(strSearchEnabledStatus))
+			queryMap.put("strCurrentDate", strCurrentDate);
+
+			if("ALL".equals(strSearchEnabledStatus))
+				{
 				iTotalRecord=rechargePresentsService.findCount(queryMap);
+				
+				}
 			
-			if("过期".equals(strSearchEnabledStatus))
+			if("EXPIRED".equals(strSearchEnabledStatus))
+				{
 				iTotalRecord=rechargePresentsService.findExpiredCount(queryMap);
-			
-			if("正常".equals(strSearchEnabledStatus))
+				
+			/////////////////////////////////////////////////////////////////////////////////////////////////////
+			System.out.println("--normal>>totalrecord:"+iTotalRecord);
+			//////////////////////////////////////////////////////////////////////////////////////////////
+				}
+			if("NORMAL".equals(strSearchEnabledStatus))
 				iTotalRecord=rechargePresentsService.findNormalCount(queryMap);
 			
 			if(iTotalRecord!=0)
@@ -1311,14 +1317,21 @@ public class RechargePresentsController {
 				
 				queryMap.put("iPageFrom",iPageFrom);
 				queryMap.put("iPageSize",iPageSize);
-				if("".equals(strSearchEnabledStatus))
+
+				if("ALL".equals(strSearchEnabledStatus))
+				{
 					listRechargePresentsActivityEntity=rechargePresentsService.selectRechargePresentsActivityInfo(queryMap);
 				
-				if("过期".equals(strSearchEnabledStatus))
+				}
+				
+				if("EXPIRED".equals(strSearchEnabledStatus))
 					listRechargePresentsActivityEntity=rechargePresentsService.selectExpiredRechargePresentsActivityInfo(queryMap);
 				
-				if("正常".equals(strSearchEnabledStatus))
+				if("NORMAL".equals(strSearchEnabledStatus))
+					{
 					listRechargePresentsActivityEntity=rechargePresentsService.selectNormalRechargePresentsActivityInfo(queryMap);
+				
+					}
 				
 				if(listRechargePresentsActivityEntity==null||listRechargePresentsActivityEntity.size()==0)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);

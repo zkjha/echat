@@ -222,12 +222,12 @@ public class RechargePresentsService {
 	//查询，过期活动表总记录条数
 	public int findExpiredCount(Map<String,Object> queryMap) throws Exception
 	{
-		return rechargePresentsMapper.findCount(queryMap);
+		return rechargePresentsMapper.findExpiredCount(queryMap);
 	}
 	//查询，正常活动表总记录条数
 	public int findNormalCount(Map<String,Object> queryMap) throws Exception
 	{
-		return rechargePresentsMapper.findCount(queryMap);
+		return rechargePresentsMapper.findNormalCount(queryMap);
 	}
 	
 	//分页查询 活动状态为"全部" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
@@ -297,37 +297,33 @@ public class RechargePresentsService {
 			
 		}
 		//分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
-				@Transactional
-				public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+		@Transactional
+		public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+		{
+			int iListArrayLength=0;
+			String strActivityId;
+			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
+			listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
+			if(listRechargePresentsActivityEntity!=null)
+			{
+			//查出活动记录关键字，组装各个属性
+				iListArrayLength=listRechargePresentsActivityEntity.size();
+				for(int i=0;i<iListArrayLength;i++)
 				{
-					int iListArrayLength=0;
-					String strActivityId;
-					List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
-					listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
-					if(listRechargePresentsActivityEntity!=null)
-					{
-						//查出活动记录关键字，组装各个属性
-						iListArrayLength=listRechargePresentsActivityEntity.size();
-						for(int i=0;i<iListArrayLength;i++)
-						{
-							//得到活动实体对象
-							RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
-							strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
-							//查充值赠送积分表
-							List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
-							List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
-							List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-							rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-							rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-							rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
-							
-							
-						}
-						
-					}
-					return listRechargePresentsActivityEntity;
-					
+				//得到活动实体对象
+				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
+				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
+				//查充值赠送积分表
+				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
+				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
+				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
+				rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
+				rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
+				rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
 				}
+			}
+			return listRechargePresentsActivityEntity;
+	}
 	
 
 }

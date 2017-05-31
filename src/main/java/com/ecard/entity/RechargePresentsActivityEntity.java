@@ -17,9 +17,21 @@ public class RechargePresentsActivityEntity {
 		private String strCreationTime;				//创建记录时间
 		private String strLastAccessedTime;			//修改时间
 		
+		//-------------------------------
+		private String strMemberLevelName;
 		private List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity;
 		private List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity;
 		private List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity;
+		
+		public void setStrMemberLevelName(String strMemberLevelName)
+		{
+			this.strMemberLevelName=strMemberLevelName;
+		}
+		
+		public String getStrMemberLevelName()
+		{
+			return strMemberLevelName;
+		}
 		
 		public void setListRechargePresentsIntegrationEntity(List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity)
 		{
@@ -160,6 +172,7 @@ public class RechargePresentsActivityEntity {
 		{
 			return strLastAccessedTime;
 		}
+		
 		
 		
 }

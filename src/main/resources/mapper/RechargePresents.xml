@@ -295,9 +295,7 @@ where strActivityId=#{strActivityId}
  		and strLevelsId=#{strSearchMemberLevel}
  	</if>
  	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime=#{strSearchEnabledStatus}
- 	</if>
+ 	
  	</where>
  	
 </select>
@@ -312,8 +310,9 @@ where strActivityId=#{strActivityId}
  		and strLevelsId=#{strSearchMemberLevel}
  	</if>
  	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime&lt;#{strSearchEnabledStatus}
+ 	<if test="strCurrentDate!=null and strCurrentDate!=''">
+
+ 		and strActivityEndTime&lt;#{strCurrentDate}
  	</if>
  	</where>
  	
@@ -321,6 +320,7 @@ where strActivityId=#{strActivityId}
 
 
 <!-- 查询 正常活动表中总记录 -->
+
 <select id="findNormalCount" resultType="int" parameterType="map">
 	select count(*) from tb_rechargePresents_activity
 	
@@ -329,12 +329,12 @@ where strActivityId=#{strActivityId}
  		and strLevelsId=#{strSearchMemberLevel}
  	</if>
  	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime&gt;=#{strSearchEnabledStatus}
+ 	<if test="strCurrentDate!=null and strCurrentDate!=''">
+ 		and strActivityEndTime&gt;=#{strCurrentDate}
  	</if>
  	</where>
- 	
 </select>
+
 
 <!-- 分页查询 活动状态为"全部" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值  -->
 <select id="selectRechargePresentsActivityInfo" resultType="com.ecard.entity.RechargePresentsActivityEntity" parameterType="map">
@@ -354,10 +354,6 @@ where strActivityId=#{strActivityId}
  	<where>
  	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
  		and strLevelsId=#{strSearchMemberLevel}
- 	</if>
- 	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime=#{strSearchEnabledStatus}
  	</if>
  	</where>
  	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
@@ -383,8 +379,8 @@ where strActivityId=#{strActivityId}
  		and strLevelsId=#{strSearchMemberLevel}
  	</if>
  	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime&lt;#{strSearchEnabledStatus}
+ 	<if test="strCurrentDate!=null and strCurrentDate!=''">
+		and strActivityEndTime&lt;#{strCurrentDate}
  	</if>
  	</where>
  	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
@@ -410,8 +406,8 @@ where strActivityId=#{strActivityId}
  		and strLevelsId=#{strSearchMemberLevel}
  	</if>
  	
- 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strActivityEndTime &gt;=#{strSearchEnabledStatus}
+ 	<if test="strCurrentDate!=null and strCurrentDate!=''">
+ 		and strActivityEndTime &gt;=#{strCurrentDate}
  	</if>
  	</where>
  	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
