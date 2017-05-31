@@ -230,7 +230,7 @@ select
 </select>
 
 <!-- 新增 活动信息 -->
-<update id="inserPresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
+<insert id="inserPresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
 insert into tb_rechargePresents_activity
 (
 	strActivityId,
@@ -259,7 +259,7 @@ values
 	#{strCreationTime},
 	#{strLastAccessedTime}
 )
-</update>
+</insert>
 
 <!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
 <select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.RechargePresentsActivityEntity" resultType="int">

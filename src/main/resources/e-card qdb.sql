@@ -861,7 +861,8 @@ strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
 primary key(strRechargePresentsVoucherId)
 ) engine=innodb default charset=utf8;
 -- --------------------------------------------------自定义赠送 活动信息表------------------------
--- tableName:tb_userDefinedPresents_Activity【自定义赠送 活动信息表】结构同充值赠送活动表 tb_rechargePresents_activity
+-- tableName:tb_userDefinedPresents_Activity					【自定义赠送 活动信息表】
+-- 结构同充值赠送活动表 tb_rechargePresents_activity
 -- ---------------------------------------------------------------------------------
 drop table if exists tb_userDefinedPresents_Activity;
 create table tb_userDefinedPresents_Activity
@@ -916,6 +917,26 @@ strLastAccessedTime 				VARCHAR(50) 		NOT NULL,		-- 记录修改时间
 primary key(strPresentsStoredValueId)
 ) engine=innodb default charset=utf8;
 -- --------------------------------------------------------------------------------------------------------
+-- tableName:tb_userDefinedPresents_voucher					【自定义赠送抵用券】
+-- ---------------------------------------------------------------------------------------------
+drop table if exists tb_userDefinedPresents_voucher;
+create table tb_userDefinedPresents_voucher
+(
+strPresentsVoucherId				varchar(50)		not null,		-- 关键字
+strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id;
+strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
+iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
+iRestNum							int 			not null,		-- 还剩的张数
+strValidateBeginTime				varchar(50),					-- 有效期开始时间    暂不使用该属性
+strValidateEndTime					varchar(50),					-- 有效期截止时间	暂不使用该属性
+iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
+strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
+strEmployeeRealName 				VARCHAR(50) 	NOT NULL,		-- 管理员姓名
+strCreationTime 					VARCHAR(50) 	NOT NULL,		-- 记录创建时间
+strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
+primary key(strPresentsVoucherId)
+) engine=innodb default charset=utf8;
 
 
 

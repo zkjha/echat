@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.UserDefinedPresentsMapper">
+
+<!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
+<select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity" resultType="int">
+  select count(strActivityId) from tb_userDefinedPresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 新增 活动信息 -->
+<insert id="inserUserDefinedPresentsActivityInfo" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity">
+insert into tb_userDefinedPresents_Activity
+(
+	strActivityId,
+	strActivityName,
+	strLevelsId,
+	strActivityBeginTime,
+	strActivityEndTime,
+	iActivityKinds,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+)
+values
+(
+	#{strActivityId},
+	#{strActivityName},
+	#{strLevelsId},
+	#{strActivityBeginTime},
+	#{strActivityEndTime},
+	#{iActivityKinds},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+)
+</insert>
+
+
+</mapper>
