@@ -783,8 +783,8 @@ create index indxVoucherTicketOnName on tb_voucherticket_infomanage(strVoucherTi
 -- ------------------------------------------------------------------------------------------------
 -- tableName:tb_activity												活动｜【活动表】
 -- -------------------------------------------------------------------------------------------------
-drop table if exists tb_activity;
-create table tb_activity
+drop table if exists tb_rechargePresents_activity;
+create table tb_rechargePresents_activity
 (
  strActivityId			varchar(50)			not null,		-- 关键字
  strActivityName		varchar(50)			not null,		-- 活动名称
@@ -827,8 +827,8 @@ strPresentsStoredValueId			varchar(50)			not null,		-- 主键字
 strActivityId						varchar(50)			not null,		-- 活动ID 关联 tb_activity id
 dRechargeAmount						decimal(11,2)		not null,		-- 现金充值金额
 dPresentsAmount						decimal(11,2)		not null,		-- 赠送储值量
-strValidateBeginTime				varchar(50)			not null,		-- 有效期开始时间
-strValidateEndTime					varchar(50)			not null,		-- 有效期截止时间
+strValidateBeginTime				varchar(50),						-- 有效期开始时间  暂不使用该属性
+strValidateEndTime					varchar(50),							-- 有效期截止时间 暂不使用该属性
 iEnabled							int(2)				default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 		NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 		NOT NULL,		-- 管理员账号
@@ -850,8 +850,8 @@ dPerTimeRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领�
 dMoreRechargeAmount					decimal(11,2)	not null,		-- 多充值多少钱可以多领一张。张数=1+（总的钱-dPerTimeRechargeAmount)/dMoreRechargeAmount
 iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
 iRestNum							int 			not null,		-- 还剩的张数
-strValidateBeginTime				varchar(50)		not null,		-- 有效期开始时间
-strValidateEndTime					varchar(50)		not null,		-- 有效期截止时间
+strValidateBeginTime				varchar(50),					-- 有效期开始时间    暂不使用该属性
+strValidateEndTime					varchar(50),					-- 有效期截止时间	暂不使用该属性
 iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号

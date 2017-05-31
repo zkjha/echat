@@ -5,7 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.ecard.entity.PresentsActivityEntity;
+
+import com.ecard.entity.RechargePresentsActivityEntity;
 import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.RechargePresentsStoredValueEntity;
 import com.ecard.entity.RechargePresentsVoucherEntity;
@@ -36,15 +37,28 @@ public interface RechargePresentsMapper {
 	//查询 充值赠送积分信息
 	public List<RechargePresentsIntegrationEntity> selectAllRechargePresentsIntegration(String strActivityId) throws Exception;
 	//新增 活动信息
-	public int inserPresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	public int inserPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//查询 指定会员级别在指定活动类型下是否已经存在数据
-	public int isExistsTheActivityRecord(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	public int isExistsTheActivityRecord(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//判断该会员级别在该活动类型下是否已经存在规则数据，若已存在则报错，不存在则执行写入
-	public String isExistsTheActivityRecordId(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	public String isExistsTheActivityRecordId(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//更新 活动信息
-	public int updatePresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception;
+	public int updatePresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//查询，活动表总记录条数
-	public int findCount() throws Exception;
-	//分页查询 活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
-	public List<PresentsActivityEntity> selectPresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
+	public int findCount(Map<String,Object> queryMap) throws Exception;
+	//查询，过期活动表总记录条数
+	public int findExpiredCount(Map<String,Object> queryMap) throws Exception;
+	
+	//查询，正常活动表总记录条数
+	public int findNormalCount(Map<String,Object> queryMap) throws Exception;
+	
+	//分页查询活动状态为"全部"的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
+	
+	//分页查询 活动状态为"过期" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+	public List<RechargePresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
+	
+	//分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+	public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
+	
 }

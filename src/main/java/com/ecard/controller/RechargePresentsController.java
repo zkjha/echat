@@ -24,7 +24,7 @@ import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
-import com.ecard.entity.PresentsActivityEntity;
+import com.ecard.entity.RechargePresentsActivityEntity;
 import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.RechargePresentsStoredValueEntity;
 import com.ecard.entity.RechargePresentsVoucherEntity;
@@ -58,8 +58,10 @@ public class RechargePresentsController {
 		String strRechargePresentsVoucherId;
 		String[] strVoucherTicketIdArray;
 		String[] strActivityIdArray;
+		/*暂不使用该属性
 		String[] strValidateBeginTimeArray;
 		String[] strValidateEndTimeArray;
+		*/
 		String[] strPerTimeRechargeAmountArray;
 		String[] strMoreRechargeAmountArray;
 		String[] strTotalNumArray;
@@ -69,8 +71,10 @@ public class RechargePresentsController {
 		String strPerTimeRechargeAmount=request.getParameter("dPerTimeRechargeAmount");
 		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
 		String strTotalNum=request.getParameter("iTotalNum");
+		/*暂不使用该属性
 		String strValidateBeginTime=request.getParameter("strValidateBeginTime");
 		String strValidateEndTime=request.getParameter("strValidateEndTime");
+		*/
 		String strEnabled=request.getParameter("iEnabled");
 		if(ValidateTool.isEmptyStr(strVoucherTicketId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
@@ -82,10 +86,12 @@ public class RechargePresentsController {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"每多充值金额字段不能为空",null);
 		if(ValidateTool.isEmptyStr(strTotalNum))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
+		/*  暂不使用该属性
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
 		if(ValidateTool.isEmptyStr(strValidateEndTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期结束时间不能为空",null);
+			*/
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		
@@ -123,32 +129,35 @@ public class RechargePresentsController {
 			//默认新增时剩余张数=总张数
 			iRestNumArray[i]=iTotalNumArray[i];
 		}
+		/* 暂不使用该属性
 		strValidateBeginTimeArray=strValidateBeginTime.split(",");
 		strValidateEndTimeArray=strValidateEndTime.split(",");
-		
+		*/
 		strEnabledArray=strEnabled.split(",");
 		iEnabledArray=new int[strEnabledArray.length];
 		
 		//检测各个数组长度是否一致，不一致则报错
-		arrayLength=strValidateEndTimeArray.length;
-		if(arrayLength!=strActivityIdArray.length||arrayLength!=strValidateBeginTimeArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
+		arrayLength=strEnabledArray.length;
+		if(arrayLength!=strActivityIdArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
 		//标准化有效期
+		/*暂不使用该属性
 		for(int i=0;i<arrayLength;i++)
 			{
 			strValidateBeginTimeArray[i]=DateTool.StringToString(strValidateBeginTimeArray[i],DateStyle.YYYY_MM_DD);
 			strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i],DateStyle.YYYY_MM_DD);
 			}
+		*/
 		for(int i=0;i<strEnabledArray.length;i++)
 		{
 			if(!isNumber(strEnabledArray[i]))
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
 			iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
 		}
-		
+		/*暂不使用该属性
 		strValidateBeginTime=DateTool.StringToString(strValidateBeginTime,DateStyle.YYYY_MM_DD);
 		strValidateEndTime=DateTool.StringToString(strValidateEndTime,DateStyle.YYYY_MM_DD);
-		
+		*/
 		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 	/*
@@ -184,8 +193,10 @@ public class RechargePresentsController {
 			rechargePresentsVoucherEntity.setdMoreRechargeAmount(bgMoreRechargeAmountArray[i]);
 			rechargePresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
 			rechargePresentsVoucherEntity.setiRestNum(iRestNumArray[i]);
+			/*暂不使用该属性
 			rechargePresentsVoucherEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
 			rechargePresentsVoucherEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
+			*/
 			rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
 			rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
@@ -227,8 +238,10 @@ public class RechargePresentsController {
 			String[] strRechargePresentsVoucherIdArray;
 			String[] strVoucherTicketIdArray;
 			String[] strActivityIdArray;
+			/*暂不使用该属性
 			String[] strValidateBeginTimeArray;
 			String[] strValidateEndTimeArray;
+			*/
 			String[] strPerTimeRechargeAmountArray;
 			String[] strMoreRechargeAmountArray;
 			String[] strTotalNumArray;
@@ -240,8 +253,10 @@ public class RechargePresentsController {
 			String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
 			String strTotalNum=request.getParameter("iTotalNum");
 			//String strRestNum=request.getParameter("iRestNum");
+			/*暂不使用该属性
 			String strValidateBeginTime=request.getParameter("strValidateBeginTime");
 			String strValidateEndTime=request.getParameter("strValidateEndTime");
+			*/
 			String strEnabled=request.getParameter("iEnabled");
 			if(ValidateTool.isEmptyStr(strRechargePresentsVoucherId))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新记录的主键不能为空",null);
@@ -255,10 +270,12 @@ public class RechargePresentsController {
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"每多充值金额字段不能为空",null);
 			if(ValidateTool.isEmptyStr(strTotalNum))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
+			/*暂不使用该属性
 			if(ValidateTool.isEmptyStr(strValidateBeginTime))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
 			if(ValidateTool.isEmptyStr(strValidateEndTime))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期结束时间不能为空",null);
+			*/
 			if(ValidateTool.isEmptyStr(strEnabled))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 			
@@ -294,31 +311,35 @@ public class RechargePresentsController {
 					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"发放张数格式错误",null);
 				iTotalNumArray[i]=Integer.parseInt(strTotalNumArray[i]);
 			}
+			/*暂不使用该属性
 			strValidateBeginTimeArray=strValidateBeginTime.split(",");
 			strValidateEndTimeArray=strValidateEndTime.split(",");
-			
+			*/
 			strEnabledArray=strEnabled.split(",");
 			iEnabledArray=new int[strEnabledArray.length];
 			
 			//检测各个数组长度是否一致，不一致则报错
-			arrayLength=strValidateEndTimeArray.length;
-			if(arrayLength!=strActivityIdArray.length||arrayLength!=strRechargePresentsVoucherIdArray.length||arrayLength!=strValidateBeginTimeArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
+			arrayLength=strEnabledArray.length;
+			if(arrayLength!=strActivityIdArray.length||arrayLength!=strRechargePresentsVoucherIdArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
 			//标准化有效期
+			/*暂不使用该属性
 			for(int i=0;i<arrayLength;i++)
 				{
 				strValidateBeginTimeArray[i]=DateTool.StringToString(strValidateBeginTimeArray[i],DateStyle.YYYY_MM_DD);
 				strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i],DateStyle.YYYY_MM_DD);
 				}
+			*/
 			for(int i=0;i<strEnabledArray.length;i++)
 			{
 				if(!isNumber(strEnabledArray[i]))
 					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
 				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
 			}
-			
+			/*暂不使用该属性
 			strValidateBeginTime=DateTool.StringToString(strValidateBeginTime,DateStyle.YYYY_MM_DD);
 			strValidateEndTime=DateTool.StringToString(strValidateEndTime,DateStyle.YYYY_MM_DD);
+			*/
 			String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		/*
 			EmployeeEntity employeeEntity = null;
@@ -351,8 +372,10 @@ public class RechargePresentsController {
 				rechargePresentsVoucherEntity.setdPerTimeRechargeAmount(bgPerTimeRechargeAmountArray[i]);
 				rechargePresentsVoucherEntity.setdMoreRechargeAmount(bgMoreRechargeAmountArray[i]);
 				rechargePresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
+				/*暂不使用该属性
 				rechargePresentsVoucherEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
 				rechargePresentsVoucherEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
+				*/
 				rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
 				rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
 				rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
@@ -471,8 +494,10 @@ public class RechargePresentsController {
 		int[] iEnabledArray;
 		
 		String[] strActivityIdArray;
+		/*暂不使用该属性
 		String[] strValidateBeginTimeArray;
 		String[] strValidateEndTimeArray;
+		*/
 		String[] strEnabledArray;
 		String[] strRechargeAmountArray;
 		String[] strPresentsAmountArray;
@@ -483,8 +508,10 @@ public class RechargePresentsController {
 		String strActivityId=request.getParameter("strActivityId");
 		String strRechargeAmount=request.getParameter("dRechargeAmount");
 		String strPresentsAmount=request.getParameter("dPresentsAmount");
+		/*暂不使用该属性
 		String strValidateBeginTime=request.getParameter("strValidateBeginTime");
 		String strValidateEndTime=request.getParameter("strValidateEndTime");
+		*/
 		String strEnabled=request.getParameter("iEnabled");
 		
 		if(ValidateTool.isEmptyStr(strActivityId))
@@ -514,7 +541,7 @@ public class RechargePresentsController {
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送金额格式错误",null);
 			bgPresentsAmountArray[i]=new BigDecimal(Double.parseDouble(strPresentsAmountArray[i]));
 		}
-		
+		/*暂不使用该属性
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
 		strValidateBeginTimeArray=strValidateBeginTime.split(",");
@@ -528,7 +555,7 @@ public class RechargePresentsController {
 		arrayLength=strValidateEndTimeArray.length;
 		for(int i=0;i<arrayLength;i++)
 			strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i], DateStyle.YYYY_MM_DD);
-			
+		*/	
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		strEnabledArray=strEnabled.split(",");
@@ -542,7 +569,7 @@ public class RechargePresentsController {
 		}
 		
 		//检测各个数组长度是否一致
-		if(arrayLength!=strValidateEndTimeArray.length||arrayLength!=strValidateBeginTimeArray.length||arrayLength!=bgPresentsAmountArray.length||arrayLength!=bgRechargeAmountArray.length||arrayLength!=strActivityIdArray.length)
+		if(arrayLength!=bgPresentsAmountArray.length||arrayLength!=bgRechargeAmountArray.length||arrayLength!=strActivityIdArray.length)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"传递参数值有遗漏",null);
 		
 		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
@@ -575,8 +602,10 @@ public class RechargePresentsController {
 			rechargePresentsStoredValueEntity.setStrActivityId(strActivityIdArray[i]);
 			rechargePresentsStoredValueEntity.setdRechargeAmount(bgRechargeAmountArray[i]);
 			rechargePresentsStoredValueEntity.setdPresentsAmount(bgPresentsAmountArray[i]);
+			/*
 			rechargePresentsStoredValueEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
 			rechargePresentsStoredValueEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
+			*/
 			rechargePresentsStoredValueEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsStoredValueEntity.setStrEmployeeId(strEmployeeId);
 			rechargePresentsStoredValueEntity.setStrEmployeeName(strEmployeeName);
@@ -614,8 +643,10 @@ public class RechargePresentsController {
 		
 		String[] strPresentsStoredValueIdArray;
 		String[] strActivityIdArray;
+		/*暂不使用该属性
 		String[] strValidateBeginTimeArray;
 		String[] strValidateEndTimeArray;
+		*/
 		String[] strEnabledArray;
 		String[] strRechargeAmountArray;
 		String[] strPresentsAmountArray;
@@ -627,8 +658,10 @@ public class RechargePresentsController {
 		String strActivityId=request.getParameter("strActivityId");
 		String strRechargeAmount=request.getParameter("dRechargeAmount");
 		String strPresentsAmount=request.getParameter("dPresentsAmount");
+		/*暂不使用该属性
 		String strValidateBeginTime=request.getParameter("strValidateBeginTime");
 		String strValidateEndTime=request.getParameter("strValidateEndTime");
+		*/
 		String strEnabled=request.getParameter("iEnabled");
 		
 		if(ValidateTool.isEmptyStr(strPresentsStoredValueId))
@@ -662,7 +695,7 @@ public class RechargePresentsController {
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送金额格式错误",null);
 			bgPresentsAmountArray[i]=new BigDecimal(Double.parseDouble(strPresentsAmountArray[i]));
 		}
-		
+		/*暂不使用该属性
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
 		strValidateBeginTimeArray=strValidateBeginTime.split(",");
@@ -676,7 +709,7 @@ public class RechargePresentsController {
 		arrayLength=strValidateEndTimeArray.length;
 		for(int i=0;i<arrayLength;i++)
 			strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i], DateStyle.YYYY_MM_DD);
-			
+		*/	
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		strEnabledArray=strEnabled.split(",");
@@ -690,7 +723,7 @@ public class RechargePresentsController {
 		}
 		
 		//检测各个数组长度是否一致
-		if(arrayLength!=strPresentsStoredValueIdArray.length||arrayLength!=strValidateEndTimeArray.length||arrayLength!=strValidateBeginTimeArray.length||arrayLength!=bgPresentsAmountArray.length||arrayLength!=bgRechargeAmountArray.length||arrayLength!=strActivityIdArray.length)
+		if(arrayLength!=strPresentsStoredValueIdArray.length||arrayLength!=bgPresentsAmountArray.length||arrayLength!=bgRechargeAmountArray.length||arrayLength!=strActivityIdArray.length)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"传递参数值有遗漏",null);
 		
 		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
@@ -722,8 +755,10 @@ public class RechargePresentsController {
 			rechargePresentsStoredValueEntity.setStrActivityId(strActivityIdArray[i]);
 			rechargePresentsStoredValueEntity.setdRechargeAmount(bgRechargeAmountArray[i]);
 			rechargePresentsStoredValueEntity.setdPresentsAmount(bgPresentsAmountArray[i]);
+			/*暂不使用该属性
 			rechargePresentsStoredValueEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
 			rechargePresentsStoredValueEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
+			*/
 			rechargePresentsStoredValueEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsStoredValueEntity.setStrEmployeeId(strEmployeeId);
 			rechargePresentsStoredValueEntity.setStrEmployeeName(strEmployeeName);
@@ -1098,7 +1133,7 @@ public class RechargePresentsController {
 		String strEmployeeName="admin";
 		String strEmployeeRealName="david li";
 		
-		PresentsActivityEntity presentsActivityEntity=new PresentsActivityEntity();
+		RechargePresentsActivityEntity presentsActivityEntity=new RechargePresentsActivityEntity();
 		presentsActivityEntity.setStrActivityId(strActivityId);
 		presentsActivityEntity.setStrActivityName(strActivityName);
 		presentsActivityEntity.setStrLevelsId(strLevelsId);
@@ -1178,19 +1213,19 @@ public class RechargePresentsController {
 		String strEmployeeName="admin";
 		String strEmployeeRealName="david li";
 		
-		PresentsActivityEntity presentsActivityEntity=new PresentsActivityEntity();
-		presentsActivityEntity.setStrActivityId(strActivityId);
-		presentsActivityEntity.setStrActivityName(strActivityName);
-		presentsActivityEntity.setStrLevelsId(strLevelsId);
-		presentsActivityEntity.setStrActivityBeginTime(strActivityBeginTime);
-		presentsActivityEntity.setStrActivityEndTime(strActivityEndTime);
-		presentsActivityEntity.setiActivityKinds(iActivityKinds);
-		presentsActivityEntity.setStrEmployeeId(strEmployeeId);
-		presentsActivityEntity.setStrEmployeeName(strEmployeeName);
-		presentsActivityEntity.setStrEmployeeRealName(strEmployeeRealName);
-		presentsActivityEntity.setStrLastAccessedTime(strLastAccessedTime);
+		RechargePresentsActivityEntity rechargePresentsActivityEntity=new RechargePresentsActivityEntity();
+		rechargePresentsActivityEntity.setStrActivityId(strActivityId);
+		rechargePresentsActivityEntity.setStrActivityName(strActivityName);
+		rechargePresentsActivityEntity.setStrLevelsId(strLevelsId);
+		rechargePresentsActivityEntity.setStrActivityBeginTime(strActivityBeginTime);
+		rechargePresentsActivityEntity.setStrActivityEndTime(strActivityEndTime);
+		rechargePresentsActivityEntity.setiActivityKinds(iActivityKinds);
+		rechargePresentsActivityEntity.setStrEmployeeId(strEmployeeId);
+		rechargePresentsActivityEntity.setStrEmployeeName(strEmployeeName);
+		rechargePresentsActivityEntity.setStrEmployeeRealName(strEmployeeRealName);
+		rechargePresentsActivityEntity.setStrLastAccessedTime(strLastAccessedTime);
 		try{
-			return rechargePresentsService.updatePresentsActivityInfo(presentsActivityEntity);
+			return rechargePresentsService.updatePresentsActivityInfo(rechargePresentsActivityEntity);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -1206,23 +1241,20 @@ public class RechargePresentsController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
-	@RequestMapping("selectPresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectPresentsActivityInfo
-	public String selectPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping("selectRechargePresentsActivityInfo")
+	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=全部
+	public String selectRechargePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段
-		int iPageNum,iPageSize,iTotalPage,iTotalRecord,iPageFrom;
+		int iPageNum,iPageSize,iTotalPage=0,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
 		String strPageNum=request.getParameter("iPageNum");
 		String strPageSize=request.getParameter("iPageSize");
-		
-		if("全部".equals(strSearchMemberLevel))
-			strSearchMemberLevel="";
-		if("全部".equals(strSearchEnabledStatus))
-			strSearchEnabledStatus="";
-		
+		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
+
 		if(ValidateTool.isEmptyStr(strPageNum))
 			iPageNum=1;
 		else
@@ -1246,29 +1278,58 @@ public class RechargePresentsController {
 		
 		
 		try{
-			iTotalRecord=rechargePresentsService.findCount();
+			
+			
+			
+				//strSearchEnabledStatus="&lt;"+strCurrentDate;
+			Map<String,Object> queryMap=new HashMap<String,Object>();
+			queryMap.put("strSearchMemberLevel", strSearchMemberLevel);
+			queryMap.put("strSearchEnabledStatus", strCurrentDate);
+			
+			if("全部".equals(strSearchMemberLevel))
+				strSearchMemberLevel="";
+			
+			if("全部".equals(strSearchEnabledStatus))
+				strSearchEnabledStatus="";
+			
+			if("".equals(strSearchEnabledStatus))
+				iTotalRecord=rechargePresentsService.findCount(queryMap);
+			
+			if("过期".equals(strSearchEnabledStatus))
+				iTotalRecord=rechargePresentsService.findExpiredCount(queryMap);
+			
+			if("正常".equals(strSearchEnabledStatus))
+				iTotalRecord=rechargePresentsService.findNormalCount(queryMap);
+			
 			if(iTotalRecord!=0)
 			{
+				List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 				iTotalPage=(iTotalRecord%iPageSize==0?iTotalRecord/iPageSize:iTotalRecord/iPageSize+1);
 				if(iPageNum>iTotalPage)
 					iPageNum=iTotalPage;
 				iPageFrom=(iPageNum-1)*iPageSize;
-				Map<String,Object> queryMap=new HashMap<String,Object>();
-				queryMap.put("strSearchMemberLevel", strSearchMemberLevel);
-				queryMap.put("strSearchEnabledStatus", strSearchEnabledStatus);
+				
 				queryMap.put("iPageFrom",iPageFrom);
 				queryMap.put("iPageSize",iPageSize);
-				List<PresentsActivityEntity> listPresentsActivityEntity=rechargePresentsService.selectPresentsActivityInfo(queryMap);
-				if(listPresentsActivityEntity==null||listPresentsActivityEntity.size()==0)
+				if("".equals(strSearchEnabledStatus))
+					listRechargePresentsActivityEntity=rechargePresentsService.selectRechargePresentsActivityInfo(queryMap);
+				
+				if("过期".equals(strSearchEnabledStatus))
+					listRechargePresentsActivityEntity=rechargePresentsService.selectExpiredRechargePresentsActivityInfo(queryMap);
+				
+				if("正常".equals(strSearchEnabledStatus))
+					listRechargePresentsActivityEntity=rechargePresentsService.selectNormalRechargePresentsActivityInfo(queryMap);
+				
+				if(listRechargePresentsActivityEntity==null||listRechargePresentsActivityEntity.size()==0)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 				Map<String,Object> resultMap=new HashMap<String,Object>();
 				resultMap.put("iTotalRecord",iTotalRecord);
 				resultMap.put("iTotalPage",iTotalPage);
-				resultMap.put("resultMap",resultMap);
+				resultMap.put("resultMap",listRechargePresentsActivityEntity);
 				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 			}
 			else
-				DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		
 		}catch(Exception e)
 		{
@@ -1279,6 +1340,7 @@ public class RechargePresentsController {
 		
 		
 	}
+
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{

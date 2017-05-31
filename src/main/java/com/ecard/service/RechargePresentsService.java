@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
-import com.ecard.entity.PresentsActivityEntity;
+
+import com.ecard.entity.RechargePresentsActivityEntity;
 import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.RechargePresentsStoredValueEntity;
 import com.ecard.entity.RechargePresentsVoucherEntity;
@@ -170,7 +171,7 @@ public class RechargePresentsService {
 	
 	//新增 活动信息
 	@Transactional
-	public String inserPresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception
+	public String inserPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception
 	{
 		int iInsertNum=0;
 		int isExists=0;
@@ -190,7 +191,7 @@ public class RechargePresentsService {
 
 	//更新 活动信息
 	@Transactional
-	public String updatePresentsActivityInfo(PresentsActivityEntity presentsActivityEntity) throws Exception
+	public String updatePresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception
 	{
 		int iUpdateNum=0;
 		String isExistsStrActivityId=null;
@@ -211,31 +212,122 @@ public class RechargePresentsService {
 	}
 	
 	
-	//查询，活动表总记录条数
-	public int findCount() throws Exception
+	//查询，全部活动表总记录条数
+	public int findCount(Map<String,Object> queryMap) throws Exception
 	{
-		return rechargePresentsMapper.findCount();
+		return rechargePresentsMapper.findCount(queryMap);
 	}
 	
-	//分页查询 活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+
+	//查询，过期活动表总记录条数
+	public int findExpiredCount(Map<String,Object> queryMap) throws Exception
+	{
+		return rechargePresentsMapper.findCount(queryMap);
+	}
+	//查询，正常活动表总记录条数
+	public int findNormalCount(Map<String,Object> queryMap) throws Exception
+	{
+		return rechargePresentsMapper.findCount(queryMap);
+	}
+	
+	//分页查询 活动状态为"全部" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
 	@Transactional
-	public List<PresentsActivityEntity> selectPresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
-		List<PresentsActivityEntity> listPresentsActivityEntity=null;
-		listPresentsActivityEntity=rechargePresentsMapper.selectPresentsActivityInfo(queryMap);
-		if(listPresentsActivityEntity!=null||listPresentsActivityEntity.size()!=0)
+		String strActivityId;
+		List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
+		listRechargePresentsActivityEntity=rechargePresentsMapper.selectRechargePresentsActivityInfo(queryMap);
+		if(listRechargePresentsActivityEntity!=null)
 		{
 			//查出活动记录关键字，组装各个属性
-			iListArrayLength=listPresentsActivityEntity.size();
+			iListArrayLength=listRechargePresentsActivityEntity.size();
 			for(int i=0;i<iListArrayLength;i++)
 			{
-				//组装属性
+				//得到活动实体对象
+				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
+				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
+				//查充值赠送积分表
+				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
+				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
+				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
+				rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
+				rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
+				rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
+				
+				
 			}
 			
-			
 		}
-
+		return listRechargePresentsActivityEntity;
 		
 	}
+	
+
+	//分页查询 活动状态为"过期" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+		@Transactional
+		public List<RechargePresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+		{
+			int iListArrayLength=0;
+			String strActivityId;
+			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
+			listRechargePresentsActivityEntity=rechargePresentsMapper.selectExpiredRechargePresentsActivityInfo(queryMap);
+			if(listRechargePresentsActivityEntity!=null)
+			{
+				//查出活动记录关键字，组装各个属性
+				iListArrayLength=listRechargePresentsActivityEntity.size();
+				for(int i=0;i<iListArrayLength;i++)
+				{
+					//得到活动实体对象
+					RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
+					strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
+					//查充值赠送积分表
+					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
+					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
+					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
+					rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
+					rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
+					rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
+					
+					
+				}
+				
+			}
+			return listRechargePresentsActivityEntity;
+			
+		}
+		//分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
+				@Transactional
+				public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
+				{
+					int iListArrayLength=0;
+					String strActivityId;
+					List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
+					listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
+					if(listRechargePresentsActivityEntity!=null)
+					{
+						//查出活动记录关键字，组装各个属性
+						iListArrayLength=listRechargePresentsActivityEntity.size();
+						for(int i=0;i<iListArrayLength;i++)
+						{
+							//得到活动实体对象
+							RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
+							strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
+							//查充值赠送积分表
+							List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
+							List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
+							List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
+							rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
+							rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
+							rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
+							
+							
+						}
+						
+					}
+					return listRechargePresentsActivityEntity;
+					
+				}
+	
+
 }

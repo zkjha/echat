@@ -230,8 +230,8 @@ select
 </select>
 
 <!-- 新增 活动信息 -->
-<update id="inserPresentsActivityInfo" parameterType="com.ecard.entity.PresentsActivityEntity">
-insert into tb_activity
+<update id="inserPresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
+insert into tb_rechargePresents_activity
 (
 	strActivityId,
 	strActivityName,
@@ -262,18 +262,18 @@ values
 </update>
 
 <!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
-<select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.PresentsActivityEntity" resultType="int">
-  select count(strActivityId) from tb_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+<select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.RechargePresentsActivityEntity" resultType="int">
+  select count(strActivityId) from tb_rechargePresents_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
 </select>
 
 <!-- 修改 判断该会员级别在该活动类型下是否已经存在规则数据 -->
-<select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.PresentsActivityEntity" resultType="String">
-	select strActivityId from tb_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+<select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.RechargePresentsActivityEntity" resultType="String">
+	select strActivityId from tb_rechargePresents_activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
 </select>
 
 <!-- 更新活动信息 -->
-<update id="updatePresentsActivityInfo" parameterType="com.ecard.entity.PresentsActivityEntity">
-update tb_activity set
+<update id="updatePresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
+update tb_rechargePresents_activity set
 	strActivityName=#{strActivityName},
 	strLevelsId=#{strLevelsId},
 	strActivityBeginTime=#{strActivityBeginTime},
@@ -286,21 +286,134 @@ update tb_activity set
 where strActivityId=#{strActivityId}
 </update>
 
-<!-- 查询 活动表中总记录 -->
-<select id="findCount" resultType="int">
-	select count(*) from tb_activity
+<!-- 查询 全部活动表中总记录 -->
+<select id="findCount" resultType="int" parameterType="map">
+	select count(*) from tb_rechargePresents_activity
+	
+	<where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strSearchMemberLevel}
+ 	</if>
+ 	
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strActivityEndTime=#{strSearchEnabledStatus}
+ 	</if>
+ 	</where>
+ 	
 </select>
 
-<!--分页查询 活动表中的记录 -->
-<select id="selectPresentsActivityInfo" parameterType="map" resultType="com.ecard.entity.PresentsActivityEntity">
- select strActivityId,strActivityName,strLevelsId,strActivityBeginTime,strActivityEndTime from tb_activity
- <where>
+
+<!-- 查询 过期活动表中总记录 -->
+<select id="findExpiredCount" resultType="int" parameterType="map">
+	select count(*) from tb_rechargePresents_activity
+	
+	<where>
  	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
- 		and strLevelsId=#{strLevelsId}
+ 		and strLevelsId=#{strSearchMemberLevel}
  	</if>
+ 	
  	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
- 		and strLevelsId=#{strLevelsId}
+ 		and strActivityEndTime&lt;#{strSearchEnabledStatus}
  	</if>
- </where>
+ 	</where>
+ 	
+</select>
+
+
+<!-- 查询 正常活动表中总记录 -->
+<select id="findNormalCount" resultType="int" parameterType="map">
+	select count(*) from tb_rechargePresents_activity
+	
+	<where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strSearchMemberLevel}
+ 	</if>
+ 	
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strActivityEndTime&gt;=#{strSearchEnabledStatus}
+ 	</if>
+ 	</where>
+ 	
+</select>
+
+<!-- 分页查询 活动状态为"全部" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值  -->
+<select id="selectRechargePresentsActivityInfo" resultType="com.ecard.entity.RechargePresentsActivityEntity" parameterType="map">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_activity 
+ 	<where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strSearchMemberLevel}
+ 	</if>
+ 	
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strActivityEndTime=#{strSearchEnabledStatus}
+ 	</if>
+ 	</where>
+ 	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
+</select>
+
+<!-- 分页查询 活动状态为"过期" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值  -->
+<select id="selectExpiredRechargePresentsActivityInfo" resultType="com.ecard.entity.RechargePresentsActivityEntity" parameterType="map">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_activity 
+ 	<where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strSearchMemberLevel}
+ 	</if>
+ 	
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strActivityEndTime&lt;#{strSearchEnabledStatus}
+ 	</if>
+ 	</where>
+ 	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
+</select>
+
+<!-- 分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值  -->
+<select id="selectNormalRechargePresentsActivityInfo" resultType="com.ecard.entity.RechargePresentsActivityEntity" parameterType="map">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_activity 
+ 	<where>
+ 	<if test="strSearchMemberLevel!=null and strSearchMemberLevel!=''">
+ 		and strLevelsId=#{strSearchMemberLevel}
+ 	</if>
+ 	
+ 	<if test="strSearchEnabledStatus!=null and strSearchEnabledStatus!=''">
+ 		and strActivityEndTime &gt;=#{strSearchEnabledStatus}
+ 	</if>
+ 	</where>
+ 	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
 </select>
 </mapper>
