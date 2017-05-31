@@ -235,7 +235,7 @@ public class RechargePresentsService {
 	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
-		String strActivityId;
+		String strActivityId,strLevelsId,strLevelsName;
 		List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 		listRechargePresentsActivityEntity=rechargePresentsMapper.selectRechargePresentsActivityInfo(queryMap);
 		if(listRechargePresentsActivityEntity!=null)
@@ -247,7 +247,10 @@ public class RechargePresentsService {
 				//得到活动实体对象
 				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
-				//查充值赠送积分表
+				//取得属性
+				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
+				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
+				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -269,7 +272,7 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
-			String strActivityId;
+			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectExpiredRechargePresentsActivityInfo(queryMap);
 			if(listRechargePresentsActivityEntity!=null)
@@ -281,7 +284,10 @@ public class RechargePresentsService {
 					//得到活动实体对象
 					RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 					strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
-					//查充值赠送积分表
+					//取得属性
+					strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
+					strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
+					rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
 					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -301,7 +307,7 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
-			String strActivityId;
+			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
 			if(listRechargePresentsActivityEntity!=null)
@@ -313,7 +319,10 @@ public class RechargePresentsService {
 				//得到活动实体对象
 				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
-				//查充值赠送积分表
+				//取得属性
+				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
+				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
+				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);

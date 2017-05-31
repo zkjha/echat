@@ -412,4 +412,9 @@ where strActivityId=#{strActivityId}
  	</where>
  	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
 </select>
+
+<!-- 取得会员的级别名称 -->
+<select id="getLevelsNameById" parameterType="String" resultType="String">
+	select strLevelsName from tb_member_levels where strLevelsId=#{strLevelsId}
+</select>
 </mapper>

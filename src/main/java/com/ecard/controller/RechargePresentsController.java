@@ -1249,6 +1249,7 @@ public class RechargePresentsController {
 	{
 		//取得搜索字段
 		//strSearchEnabledStatus=活动状态：全部：ALL；过期:EXPIRED，正常:NORMAL
+		//strSearchMemberLevel=ALL 全部
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
@@ -1257,6 +1258,9 @@ public class RechargePresentsController {
 		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
 		
 		if(strSearchMemberLevel==null||strSearchMemberLevel.trim()=="")
+			strSearchMemberLevel="";
+		
+		if("ALL".equals(strSearchMemberLevel))
 			strSearchMemberLevel="";
 		
 		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
@@ -1291,19 +1295,11 @@ public class RechargePresentsController {
 			queryMap.put("strCurrentDate", strCurrentDate);
 
 			if("ALL".equals(strSearchEnabledStatus))
-				{
 				iTotalRecord=rechargePresentsService.findCount(queryMap);
 				
-				}
-			
 			if("EXPIRED".equals(strSearchEnabledStatus))
-				{
 				iTotalRecord=rechargePresentsService.findExpiredCount(queryMap);
-				
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-			System.out.println("--normal>>totalrecord:"+iTotalRecord);
-			//////////////////////////////////////////////////////////////////////////////////////////////
-				}
+			
 			if("NORMAL".equals(strSearchEnabledStatus))
 				iTotalRecord=rechargePresentsService.findNormalCount(queryMap);
 			
@@ -1319,10 +1315,7 @@ public class RechargePresentsController {
 				queryMap.put("iPageSize",iPageSize);
 
 				if("ALL".equals(strSearchEnabledStatus))
-				{
 					listRechargePresentsActivityEntity=rechargePresentsService.selectRechargePresentsActivityInfo(queryMap);
-				
-				}
 				
 				if("EXPIRED".equals(strSearchEnabledStatus))
 					listRechargePresentsActivityEntity=rechargePresentsService.selectExpiredRechargePresentsActivityInfo(queryMap);

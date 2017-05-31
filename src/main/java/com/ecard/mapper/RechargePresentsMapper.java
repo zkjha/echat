@@ -60,5 +60,7 @@ public interface RechargePresentsMapper {
 	
 	//分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
 	public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
+	//取得会员级别名称
+	public String getLevelsNameById(String strLevelsId) throws Exception;
 	
 }
