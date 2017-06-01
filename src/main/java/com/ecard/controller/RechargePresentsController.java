@@ -1085,9 +1085,9 @@ public class RechargePresentsController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("inserPresentsActivityInfo")
+	@RequestMapping("insertPresentsActivityInfo")
 	//http://localhost:8083/admin/RechargePresentsSetting/inserPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
-	public String inserPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
+	public String insertPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=DataTool.getUUID();
 		String strActivityName=request.getParameter("strActivityName");
@@ -1146,7 +1146,7 @@ public class RechargePresentsController {
 		presentsActivityEntity.setStrCreationTime(strCreationTime);
 		presentsActivityEntity.setStrLastAccessedTime(strLastAccessedTime);
 		try{
-			return rechargePresentsService.inserPresentsActivityInfo(presentsActivityEntity);
+			return rechargePresentsService.insertPresentsActivityInfo(presentsActivityEntity);
 		}catch(Exception e)
 		{
 			e.printStackTrace();

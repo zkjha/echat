@@ -37,7 +37,7 @@ public interface RechargePresentsMapper {
 	//查询 充值赠送积分信息
 	public List<RechargePresentsIntegrationEntity> selectAllRechargePresentsIntegration(String strActivityId) throws Exception;
 	//新增 活动信息
-	public int inserPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
+	public int insertPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//查询 指定会员级别在指定活动类型下是否已经存在数据
 	public int isExistsTheActivityRecord(RechargePresentsActivityEntity presentsActivityEntity) throws Exception;
 	//判断该会员级别在该活动类型下是否已经存在规则数据，若已存在则报错，不存在则执行写入

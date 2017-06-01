@@ -171,7 +171,7 @@ public class RechargePresentsService {
 	
 	//新增 活动信息
 	@Transactional
-	public String inserPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception
+	public String insertPresentsActivityInfo(RechargePresentsActivityEntity presentsActivityEntity) throws Exception
 	{
 		int iInsertNum=0;
 		int isExists=0;
@@ -182,7 +182,7 @@ public class RechargePresentsService {
 		isExists=rechargePresentsMapper.isExistsTheActivityRecord(presentsActivityEntity);
 		if(isExists!=0)
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败:该会员级别在该活动类型下的活动表记录已经存在",null);
-		iInsertNum=rechargePresentsMapper.inserPresentsActivityInfo(presentsActivityEntity);
+		iInsertNum=rechargePresentsMapper.insertPresentsActivityInfo(presentsActivityEntity);
 		if(iInsertNum==0)
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
 		else
@@ -251,6 +251,7 @@ public class RechargePresentsService {
 				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
+				rechargePresentsActivityEntity.setStrActivityStatus("ALL");
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -288,6 +289,7 @@ public class RechargePresentsService {
 					strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 					strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
 					rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
+					rechargePresentsActivityEntity.setStrActivityStatus("EXPIRED");
 					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -323,6 +325,7 @@ public class RechargePresentsService {
 				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
+				rechargePresentsActivityEntity.setStrActivityStatus("NORMAL");
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);

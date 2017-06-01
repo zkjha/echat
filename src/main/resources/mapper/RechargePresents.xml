@@ -230,7 +230,7 @@ select
 </select>
 
 <!-- 新增 活动信息 -->
-<insert id="inserPresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
+<insert id="insertPresentsActivityInfo" parameterType="com.ecard.entity.RechargePresentsActivityEntity">
 insert into tb_rechargePresents_activity
 (
 	strActivityId,
