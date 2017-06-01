@@ -4,111 +4,100 @@ import java.math.BigDecimal;
 
 //充值赠送抵用券实体
 public class RechargePresentsVoucherEntity {
-	private String strRechargePresentsVoucherId;	//主键
-	private String strVoucherTicketId;				//抵用券id
-	private String strActivityId;	//活动ID
-	private BigDecimal dPerTimeRechargeAmount;		//充值多少金额，可获得一张抵用券
-	private BigDecimal dMoreRechargeAmount;			//每多充值多少钱，可多得一张抵用券
-	private int iTotalNum;				//抵用券总张数
-	private int iRestNum;				//抵用券剩余张数
-	private String strValidateBeginTime;	//抵用券有效期开始时间
-	private String strValidateEndTime;//抵用券有效期结束时间
+	private String strRechargePresentsVoucherId;           //关键字
+	private String strBasePresentsVoucherTicketId;           //基本充值赠送抵用券类型
+	private String strMorePresentsVoucherTicketId;           //多充值多赠送抵用券类型
+	private String strActivityId;           //关联活动ID
+	private BigDecimal dMinimumRechargeAmount;        //最低充值金额
+	private int iMinimumPresentsVoucherNumber ;//最低赠送数量
+	private BigDecimal dMoreRechargeAmount;        //多充值金额
+	private int iMoreRresentsVoucherNumber ;//多赠送数量
 	private int iEnabled=0;						//是否启用 1启用 0禁用
 	private String strEmployeeId;				//管理员ID
 	private String strEmployeeName;				//管理员账号
 	private String strEmployeeRealName;			//管理员姓名
 	private String strCreationTime;				//创建记录时间
 	private String strLastAccessedTime;			//修改时间
-	
-	public void setStrRechargePresentsVoucherId(String strRechargePresents_voucherId)
+	public void setStrRechargePresentsVoucherId(String strRechargePresentsVoucherId)
 	{
-		this.strRechargePresentsVoucherId=strRechargePresents_voucherId;
+		this.strRechargePresentsVoucherId=strRechargePresentsVoucherId;
 	}
-	
+
 	public String getStrRechargePresentsVoucherId()
 	{
 		return strRechargePresentsVoucherId;
 	}
-	
-	public void setStrVoucherTicketId(String strVoucherTicketId)
+
+	public void setStrBasePresentsVoucherTicketId(String strBasePresentsVoucherTicketId)
 	{
-		this.strVoucherTicketId=strVoucherTicketId;
+		this.strBasePresentsVoucherTicketId=strBasePresentsVoucherTicketId;
 	}
-	
-	public String getStrVoucherTicketId()
+
+	public String getStrBasePresentsVoucherTicketId()
 	{
-		return strVoucherTicketId;
+		return strBasePresentsVoucherTicketId;
 	}
-	
+
+	public void setStrMorePresentsVoucherTicketId(String strMorePresentsVoucherTicketId)
+	{
+		this.strMorePresentsVoucherTicketId=strMorePresentsVoucherTicketId;
+	}
+
+	public String getStrMorePresentsVoucherTicketId()
+	{
+		return strMorePresentsVoucherTicketId;
+	}
+
 	public void setStrActivityId(String strActivityId)
 	{
 		this.strActivityId=strActivityId;
 	}
-	
+
 	public String getStrActivityId()
 	{
 		return strActivityId;
 	}
-	
-	public void setdPerTimeRechargeAmount(BigDecimal dPerTimeRechargeAmount)
+
+	public void setdMinimumRechargeAmount(BigDecimal dMinimumRechargeAmount)
 	{
-		this.dPerTimeRechargeAmount=dPerTimeRechargeAmount;
+		this.dMinimumRechargeAmount=dMinimumRechargeAmount;
 	}
-	
-	public BigDecimal getdPerTimeRechargeAmount()
+
+public BigDecimal getdMinimumRechargeAmount()
+{
+	return dMinimumRechargeAmount;
+}
+
+	public void setiMinimumPresentsVoucherNumber(int iMinimumPresentsVoucherNumber )
 	{
-		return dPerTimeRechargeAmount;
+		this.iMinimumPresentsVoucherNumber=iMinimumPresentsVoucherNumber;
 	}
-	
+
+	public int getiMinimumPresentsVoucherNumber()
+	{
+		return iMinimumPresentsVoucherNumber;
+	}
+
 	public void setdMoreRechargeAmount(BigDecimal dMoreRechargeAmount)
 	{
 		this.dMoreRechargeAmount=dMoreRechargeAmount;
 	}
-	
+
 	public BigDecimal getdMoreRechargeAmount()
 	{
 		return dMoreRechargeAmount;
 	}
-	
-	public void setiTotalNum(int iTotalNum)
+
+	public void setiMoreRresentsVoucherNumber(int iMoreRresentsVoucherNumber )
 	{
-		this.iTotalNum=iTotalNum;
+		this.iMoreRresentsVoucherNumber=iMoreRresentsVoucherNumber;
 	}
-	
-	public int getiTotalNum()
+
+	public double getiMoreRresentsVoucherNumber()
 	{
-		return iTotalNum;
+		return iMoreRresentsVoucherNumber;
 	}
-	
-	public void setiRestNum(int iRestNum)
-	{
-		this.iRestNum=iRestNum;
-	}
-	
-	public int getiRestNum()
-	{
-		return iRestNum;
-	}
-	
-	public void setStrValidateBeginTime(String strValidateBeginTime)
-	{
-		this.strValidateBeginTime=strValidateBeginTime;
-	}
-	
-	public String getStrValidateBeginTime()
-	{
-		return strValidateBeginTime;
-	}
-	
-	public void setStrValidateEndTime(String strValidateEndTime)
-	{
-		this.strValidateEndTime=strValidateEndTime;
-	}
-	
-	public String getStrValidateEndTime()
-	{
-		return strValidateEndTime;
-	}
+
 	
 	public void setiEnabled(int iEnabled)
 	{

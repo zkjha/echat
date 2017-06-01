@@ -6,60 +6,59 @@
 
 <insert id="batchInsertRechargePresentsVoucher" parameterType="list">
  insert into tb_rechargePresents_voucher
- (
- strRechargePresentsVoucherId,
- strVoucherTicketId,
- strActivityId,
- dPerTimeRechargeAmount,
- dMoreRechargeAmount,
- iTotalNum,
- iRestNum,
- strValidateBeginTime,
- strValidateEndTime,
- iEnabled,
- strEmployeeId,
- strEmployeeName,
- strEmployeeRealName,
- strCreationTime,
- strLastAccessedTime
- ) values
- <foreach collection="listRechargePresentsVoucherEntity" item="entity" index="index" separator=",">
+	(
+	strRechargePresentsVoucherId,
+	strBasePresentsVoucherTicketId,
+	strMorePresentsVoucherTicketId,
+	strActivityId,
+	dMinimumRechargeAmount,
+	iMinimumPresentsVoucherNumber,
+	dMoreRechargeAmount,
+	iMoreRresentsVoucherNumber,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+<foreach collection="listRechargePresentsVoucherEntity" item="entity" index="index" separator=",">
 
  (
- #{entity.strRechargePresentsVoucherId},
- #{entity.strVoucherTicketId},
- #{entity.strActivityId},
- #{entity.dPerTimeRechargeAmount},
- #{entity.dMoreRechargeAmount},
- #{entity.iTotalNum},
- #{entity.iRestNum},
- #{entity.strValidateBeginTime},
- #{entity.strValidateEndTime},
- #{entity.iEnabled},
- #{entity.strEmployeeId},
- #{entity.strEmployeeName},
- #{entity.strEmployeeRealName},
- #{entity.strCreationTime},
- #{entity.strLastAccessedTime}
- )
+	#{entity.strRechargePresentsVoucherId},
+	#{entity.strBasePresentsVoucherTicketId},
+	#{entity.strMorePresentsVoucherTicketId},
+	#{entity.strActivityId},
+	#{entity.dMinimumRechargeAmount},
+	#{entity.iMinimumPresentsVoucherNumber},
+	#{entity.dMoreRechargeAmount},
+	#{entity.iMoreRresentsVoucherNumber},
+	#{entity.iEnabled},
+	#{entity.strEmployeeId},
+	#{entity.strEmployeeName},
+	#{entity.strEmployeeRealName},
+	#{entity.strCreationTime},
+	#{entity.strLastAccessedTime}
+	)
  </foreach>
 </insert>
 
 <!-- 更新 充值赠送抵用券信息 -->
 <update id="updateRechargePresentsVoucher" parameterType="com.ecard.entity.RechargePresentsVoucherEntity">
-update tb_rechargePresents_voucher set
-	strVoucherTicketId=#{strVoucherTicketId},
- 	strActivityId=#{strActivityId},
- 	dPerTimeRechargeAmount=#{dPerTimeRechargeAmount},
- 	dMoreRechargeAmount=#{dMoreRechargeAmount},
- 	iTotalNum=#{iTotalNum},
- 	strValidateBeginTime=#{strValidateBeginTime},
- 	strValidateEndTime=#{strValidateEndTime},
- 	iEnabled=#{iEnabled},
- 	strEmployeeId=#{strEmployeeId},
- 	strEmployeeName=#{strEmployeeName},
- 	strEmployeeRealName=#{strEmployeeRealName},
- 	strLastAccessedTime=#{strLastAccessedTime}
+ update tb_rechargePresents_voucher set 
+	strBasePresentsVoucherTicketId=#{strBasePresentsVoucherTicketId},
+	strMorePresentsVoucherTicketId=#{strMorePresentsVoucherTicketId},
+	strActivityId=#{strActivityId},
+	dMinimumRechargeAmount=#{dMinimumRechargeAmount},
+	iMinimumPresentsVoucherNumber=#{iMinimumPresentsVoucherNumber},
+	dMoreRechargeAmount=#{dMoreRechargeAmount},
+	iMoreRresentsVoucherNumber=#{iMoreRresentsVoucherNumber},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
  	where strRechargePresentsVoucherId=#{strRechargePresentsVoucherId}
 </update>
 
@@ -70,23 +69,23 @@ update tb_rechargePresents_voucher set
 
 <!-- 查询 充值 赠送抵用券信息 -->
 <select id="selectAllRechargePresentsVoucher" resultType="com.ecard.entity.RechargePresentsVoucherEntity" parameterType="String">
-select 
-	strRechargePresentsVoucherId,
-	strVoucherTicketId,
+ select 
+ 	strRechargePresentsVoucherId,
+ 	strBasePresentsVoucherTicketId,
+ 	strMorePresentsVoucherTicketId,
  	strActivityId,
- 	dPerTimeRechargeAmount,
+ 	dMinimumRechargeAmount,
+ 	iMinimumPresentsVoucherNumber,
  	dMoreRechargeAmount,
- 	iTotalNum,
- 	iRestNum,
- 	strValidateBeginTime,
- 	strValidateEndTime,
+ 	iMinimumPresentsVoucherNumber,
  	iEnabled,
  	strEmployeeId,
  	strEmployeeName,
  	strEmployeeRealName,
  	strCreationTime,
- 	strLastAccessedTime from tb_rechargePresents_voucher  where strActivityId=#{strActivityId} order by strLastAccessedTime desc
- 	
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_voucher
+	where strActivityId=#{strActivityId} order by strCreationTime DESC
 </select>
 
 <!-- 新增 充值送储值信息 -->

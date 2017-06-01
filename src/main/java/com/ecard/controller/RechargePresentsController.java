@@ -41,51 +41,66 @@ public class RechargePresentsController {
 	//批量新增 充值赠送抵用券信息
 	@ResponseBody
 	@RequestMapping("batchInsertRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strRechargePresentsVoucherId=123456,7895213&strVoucherTicketId=1,3&strActivityId=1,3&dPerTimeRechargeAmount=100,333&dMoreRechargeAmount=100,333&iTotalNum=50,33&strValidateBeginTime=2017/5/26,2017/4/1&strValidateEndTime=2017/5/31,2017/7/30&iEnabled=1,0
+	//localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strBasePresentsVoucherTicketId=抵用券名1&strMorePresentsVoucherTicketId=抵用券名2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMoreRresentsVoucherNumber=1&iEnabled=1
 	public String batchInsertRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		//以下取得的字符串格式都为：字符串1,字符串2
-		int[] iTotalNumArray;
-		int[] iRestNumArray;
-		int[] iEnabledArray;
+		
 		int arrayLength;
-		
-		double dPerTimeRechargeAmount;
+		int[] iEnabledArray;
+		int[] iMinimumPresentsVoucherNumberArray;
+		int[] iMoreRresentsVoucherNumberArray;
+
 		double dMoreRechargeAmount;
+		double dMinimumRechargeAmount;
 		
-		BigDecimal[] bgPerTimeRechargeAmountArray;
-		BigDecimal[] bgMoreRechargeAmountArray;
-		String strRechargePresentsVoucherId;
-		String[] strVoucherTicketIdArray;
+		BigDecimal[] dMoreRechargeAmountArray;
+		BigDecimal[] dMinimumRechargeAmountArray;
+		
+		
+		String[] strMinimumRechargeAmountArray;
+		String[] strBasePresentsVoucherTicketIdArray;
+		String[] strMorePresentsVoucherTicketIdArray;
 		String[] strActivityIdArray;
-		/*暂不使用该属性
-		String[] strValidateBeginTimeArray;
-		String[] strValidateEndTimeArray;
-		*/
-		String[] strPerTimeRechargeAmountArray;
 		String[] strMoreRechargeAmountArray;
-		String[] strTotalNumArray;
 		String[] strEnabledArray;
-		String strVoucherTicketId=request.getParameter("strVoucherTicketId");
+		String[] strMinimumPresentsVoucherNumberArray;
+		String[] strMoreRresentsVoucherNumberArray;
+		
+		String strRechargePresentsVoucherId;
+		String strBasePresentsVoucherTicketId=request.getParameter("strBasePresentsVoucherTicketId");
+		String strMorePresentsVoucherTicketId=request.getParameter("strMorePresentsVoucherTicketId");
 		String strActivityId=request.getParameter("strActivityId");
-		String strPerTimeRechargeAmount=request.getParameter("dPerTimeRechargeAmount");
+		String strMinimumRechargeAmount=request.getParameter("dMinimumRechargeAmount");
+		String strMinimumPresentsVoucherNumber=request.getParameter("iMinimumPresentsVoucherNumber");
 		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
-		String strTotalNum=request.getParameter("iTotalNum");
-		/*暂不使用该属性
-		String strValidateBeginTime=request.getParameter("strValidateBeginTime");
-		String strValidateEndTime=request.getParameter("strValidateEndTime");
-		*/
+		String strMoreRresentsVoucherNumber=request.getParameter("iMoreRresentsVoucherNumber");
 		String strEnabled=request.getParameter("iEnabled");
-		if(ValidateTool.isEmptyStr(strVoucherTicketId))
+		
+		if(ValidateTool.isEmptyStr(strBasePresentsVoucherTicketId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMorePresentsVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
+		
 		if(ValidateTool.isEmptyStr(strActivityId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动ID不能为空",null);
-		if(ValidateTool.isEmptyStr(strPerTimeRechargeAmount))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"充值金额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMinimumRechargeAmount))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"最低充值金额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMinimumPresentsVoucherNumber))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"赠送数量不能为空",null);
+		
 		if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"每多充值金额字段不能为空",null);
-		if(ValidateTool.isEmptyStr(strTotalNum))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"金充值金额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMoreRresentsVoucherNumber))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strEnabled))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		
 		/*  暂不使用该属性
 		if(ValidateTool.isEmptyStr(strValidateBeginTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
@@ -96,68 +111,67 @@ public class RechargePresentsController {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		
 		//取出各个字段值
-		strVoucherTicketIdArray=strVoucherTicketId.split(",");
+		strBasePresentsVoucherTicketIdArray=strBasePresentsVoucherTicketId.split(",");
+		strMorePresentsVoucherTicketIdArray=strMorePresentsVoucherTicketId.split(",");
 		strActivityIdArray=strActivityId.split(",");
-		strPerTimeRechargeAmountArray=strPerTimeRechargeAmount.split(",");
-		bgPerTimeRechargeAmountArray=new BigDecimal[strPerTimeRechargeAmountArray.length];
-		for(int i=0;i<strPerTimeRechargeAmountArray.length;i++)
+		
+		strMinimumRechargeAmountArray=strMinimumRechargeAmount.split(",");
+		dMinimumRechargeAmountArray=new BigDecimal[strMinimumRechargeAmountArray.length];
+		for(int i=0;i<dMinimumRechargeAmountArray.length;i++)
 		{
-			if(!isNumber(strPerTimeRechargeAmountArray[i]))
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"充值金额格式错误",null);
-			dPerTimeRechargeAmount=Double.parseDouble(strPerTimeRechargeAmountArray[i]);
-			bgPerTimeRechargeAmountArray[i]=new BigDecimal(dPerTimeRechargeAmount);
+			if(!isNumber(strMinimumRechargeAmountArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"最低充值金额格式错误",null);
+			
+			dMinimumRechargeAmount=Double.parseDouble(strMinimumRechargeAmountArray[i]);
+			dMinimumRechargeAmountArray[i]=new BigDecimal(dMinimumRechargeAmount);
 			
 		}
+		
 		strMoreRechargeAmountArray=strMoreRechargeAmount.split(",");
-		bgMoreRechargeAmountArray=new BigDecimal[strMoreRechargeAmountArray.length];
+		dMoreRechargeAmountArray=new BigDecimal[strMoreRechargeAmountArray.length];
 		for(int i=0;i<strMoreRechargeAmountArray.length;i++)
 		{
 			if(!isNumber(strMoreRechargeAmountArray[i]))
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"每多充值金额字段格式错误",null);
 			dMoreRechargeAmount=Double.parseDouble(strMoreRechargeAmountArray[i]);
-			bgMoreRechargeAmountArray[i]=new BigDecimal(dMoreRechargeAmount);
+			dMoreRechargeAmountArray[i]=new BigDecimal(dMoreRechargeAmount);
 		}
 		
-		strTotalNumArray=strTotalNum.split(",");
-		iTotalNumArray=new int[strTotalNumArray.length];
-		iRestNumArray=new int[strTotalNumArray.length];
-		for(int i=0;i<strTotalNumArray.length;i++)
+		strMinimumPresentsVoucherNumberArray=strMinimumPresentsVoucherNumber.split(",");
+		iMinimumPresentsVoucherNumberArray=new int[strMinimumPresentsVoucherNumberArray.length];
+		for(int i=0;i<strMinimumPresentsVoucherNumberArray.length;i++)
 		{
-			if(!isNumber(strTotalNumArray[i]))
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"发放张数格式错误",null);
-			iTotalNumArray[i]=Integer.parseInt(strTotalNumArray[i]);
-			//默认新增时剩余张数=总张数
-			iRestNumArray[i]=iTotalNumArray[i];
+			if(!isNumber(strMinimumPresentsVoucherNumberArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送张数格式错误",null);
+			iMinimumPresentsVoucherNumberArray[i]=Integer.parseInt(strMinimumPresentsVoucherNumberArray[i]);
 		}
-		/* 暂不使用该属性
-		strValidateBeginTimeArray=strValidateBeginTime.split(",");
-		strValidateEndTimeArray=strValidateEndTime.split(",");
-		*/
+
+		strMoreRresentsVoucherNumberArray=strMoreRresentsVoucherNumber.split(",");
+		iMoreRresentsVoucherNumberArray=new int[strMoreRresentsVoucherNumberArray.length];
+		for(int i=0;i<strMoreRresentsVoucherNumberArray.length;i++)
+		{
+			if(!isNumber(strMoreRresentsVoucherNumberArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"多赠送张数格式错误",null);
+			iMoreRresentsVoucherNumberArray[i]=Integer.parseInt(strMoreRresentsVoucherNumberArray[i]);
+		}
+		
+		
 		strEnabledArray=strEnabled.split(",");
 		iEnabledArray=new int[strEnabledArray.length];
-		
-		//检测各个数组长度是否一致，不一致则报错
-		arrayLength=strEnabledArray.length;
-		if(arrayLength!=strActivityIdArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
-			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
-		//标准化有效期
-		/*暂不使用该属性
-		for(int i=0;i<arrayLength;i++)
-			{
-			strValidateBeginTimeArray[i]=DateTool.StringToString(strValidateBeginTimeArray[i],DateStyle.YYYY_MM_DD);
-			strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i],DateStyle.YYYY_MM_DD);
-			}
-		*/
 		for(int i=0;i<strEnabledArray.length;i++)
 		{
 			if(!isNumber(strEnabledArray[i]))
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
 			iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
 		}
-		/*暂不使用该属性
-		strValidateBeginTime=DateTool.StringToString(strValidateBeginTime,DateStyle.YYYY_MM_DD);
-		strValidateEndTime=DateTool.StringToString(strValidateEndTime,DateStyle.YYYY_MM_DD);
-		*/
+		
+		
+		//检测各个数组长度是否一致，不一致则报错
+		arrayLength=strEnabledArray.length;
+		if(arrayLength!=strMoreRresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
+				arrayLength!=strMorePresentsVoucherTicketIdArray.length||arrayLength!=strBasePresentsVoucherTicketIdArray.length	)
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
+	
 		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 	/*
@@ -178,8 +192,8 @@ public class RechargePresentsController {
 	*/
 		//以下3个为测试用数据
 		String strEmployeeId=DataTool.getUUID();
-		String strEmployeeName="admin";
-		String strEmployeeRealName="david li";
+		String strEmployeeName="test";
+		String strEmployeeRealName="test";
 		//数据写入实体
 		List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
 		for(int i=0;i<arrayLength;i++)
@@ -187,16 +201,14 @@ public class RechargePresentsController {
 			RechargePresentsVoucherEntity rechargePresentsVoucherEntity=new RechargePresentsVoucherEntity();
 			strRechargePresentsVoucherId=DataTool.getUUID();
 			rechargePresentsVoucherEntity.setStrRechargePresentsVoucherId(strRechargePresentsVoucherId);
-			rechargePresentsVoucherEntity.setStrVoucherTicketId(strVoucherTicketIdArray[i]);
+			rechargePresentsVoucherEntity.setStrBasePresentsVoucherTicketId(strBasePresentsVoucherTicketIdArray[i]);
+			rechargePresentsVoucherEntity.setStrMorePresentsVoucherTicketId(strMorePresentsVoucherTicketIdArray[i]);
 			rechargePresentsVoucherEntity.setStrActivityId(strActivityIdArray[i]);
-			rechargePresentsVoucherEntity.setdPerTimeRechargeAmount(bgPerTimeRechargeAmountArray[i]);
-			rechargePresentsVoucherEntity.setdMoreRechargeAmount(bgMoreRechargeAmountArray[i]);
-			rechargePresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
-			rechargePresentsVoucherEntity.setiRestNum(iRestNumArray[i]);
-			/*暂不使用该属性
-			rechargePresentsVoucherEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
-			rechargePresentsVoucherEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
-			*/
+			rechargePresentsVoucherEntity.setdMinimumRechargeAmount(dMinimumRechargeAmountArray[i]);
+			rechargePresentsVoucherEntity.setiMinimumPresentsVoucherNumber(iMinimumPresentsVoucherNumberArray[i]);
+			rechargePresentsVoucherEntity.setdMoreRechargeAmount(dMoreRechargeAmountArray[i]);
+			rechargePresentsVoucherEntity.setiMoreRresentsVoucherNumber(iMoreRresentsVoucherNumberArray[i]);
+			
 			rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
 			rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
@@ -216,186 +228,241 @@ public class RechargePresentsController {
 		}
 		
 	}
+
 	
 	
-	
-		//批量更新 充值赠送抵用券信息
-		@ResponseBody
-		@RequestMapping("batchUpdateRechargePresentsVoucher")
-		//http://localhost:8083/admin/RechargePresentsSetting/batchUpdateRechargePresentsVoucher?strRechargePresentsVoucherId=6ce848a2d96e4c9f96f99a490de014d4,8f19a79750ce4ca4ba9a78d25a622fe4&strVoucherTicketId=1,3&strActivityId=1,3&dPerTimeRechargeAmount=100,333&dMoreRechargeAmount=50,50&iTotalNum=150,150&strValidateBeginTime=2017/5/26,2017/5/26&strValidateEndTime=2017/7/31,2017/7/31&iEnabled=1,1
-		public String batchUpdateRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
+	//批量更新 充值赠送抵用券信息
+	@ResponseBody
+	@RequestMapping("updateRechargePresentsVoucher")
+	//localhost:8083/admin/RechargePresentsSetting/updateRechargePresentsVoucher?strRechargePresentsVoucherId=2b5a7a7b8198451484434c4114aca45f&strBasePresentsVoucherTicketId=categor1&strMorePresentsVoucherTicketId=bbn2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMoreRresentsVoucherNumber=1&iEnabled=1
+	public String updateRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
+	{
+		//以下取得的字符串格式都为：字符串1,字符串2
+		
+		int arrayLength;
+		int[] iEnabledArray;
+		int[] iMinimumPresentsVoucherNumberArray;
+		int[] iMoreRresentsVoucherNumberArray;
+
+		double dMoreRechargeAmount;
+		double dMinimumRechargeAmount;
+		
+		BigDecimal[] dMoreRechargeAmountArray;
+		BigDecimal[] dMinimumRechargeAmountArray;
+		
+		
+		String[] strMinimumRechargeAmountArray;
+		String[] strBasePresentsVoucherTicketIdArray;
+		String[] strMorePresentsVoucherTicketIdArray;
+		String[] strActivityIdArray;
+		String[] strMoreRechargeAmountArray;
+		String[] strEnabledArray;
+		String[] strMinimumPresentsVoucherNumberArray;
+		String[] strMoreRresentsVoucherNumberArray;
+		String[] strRechargePresentsVoucherIdArray;
+		
+		String strRechargePresentsVoucherId=request.getParameter("strRechargePresentsVoucherId");
+		String strBasePresentsVoucherTicketId=request.getParameter("strBasePresentsVoucherTicketId");
+		String strMorePresentsVoucherTicketId=request.getParameter("strMorePresentsVoucherTicketId");
+		String strActivityId=request.getParameter("strActivityId");
+		String strMinimumRechargeAmount=request.getParameter("dMinimumRechargeAmount");
+		String strMinimumPresentsVoucherNumber=request.getParameter("iMinimumPresentsVoucherNumber");
+		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
+		String strMoreRresentsVoucherNumber=request.getParameter("iMoreRresentsVoucherNumber");
+		String strEnabled=request.getParameter("iEnabled");
+		
+		if(ValidateTool.isEmptyStr(strRechargePresentsVoucherId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"要更新的记录ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strBasePresentsVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMorePresentsVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMinimumRechargeAmount))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"最低充值金额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMinimumPresentsVoucherNumber))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"赠送数量不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"金充值金额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMoreRresentsVoucherNumber))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strEnabled))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		
+
+		if(ValidateTool.isEmptyStr(strEnabled))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		
+		//取出各个字段值
+		strRechargePresentsVoucherIdArray=strRechargePresentsVoucherId.split(",");
+		strBasePresentsVoucherTicketIdArray=strBasePresentsVoucherTicketId.split(",");
+		strMorePresentsVoucherTicketIdArray=strMorePresentsVoucherTicketId.split(",");
+		strActivityIdArray=strActivityId.split(",");
+		
+		strMinimumRechargeAmountArray=strMinimumRechargeAmount.split(",");
+		dMinimumRechargeAmountArray=new BigDecimal[strMinimumRechargeAmountArray.length];
+		for(int i=0;i<dMinimumRechargeAmountArray.length;i++)
 		{
-			//以下取得的字符串格式都为：字符串1,字符串2
-			int[] iTotalNumArray;
-			int[] iEnabledArray;
-			int arrayLength;
+			if(!isNumber(strMinimumRechargeAmountArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"最低充值金额格式错误",null);
 			
-			double dPerTimeRechargeAmount;
-			double dMoreRechargeAmount;
+			dMinimumRechargeAmount=Double.parseDouble(strMinimumRechargeAmountArray[i]);
+			dMinimumRechargeAmountArray[i]=new BigDecimal(dMinimumRechargeAmount);
 			
-			BigDecimal[] bgPerTimeRechargeAmountArray;
-			BigDecimal[] bgMoreRechargeAmountArray;
-			String[] strRechargePresentsVoucherIdArray;
-			String[] strVoucherTicketIdArray;
-			String[] strActivityIdArray;
-			/*暂不使用该属性
-			String[] strValidateBeginTimeArray;
-			String[] strValidateEndTimeArray;
-			*/
-			String[] strPerTimeRechargeAmountArray;
-			String[] strMoreRechargeAmountArray;
-			String[] strTotalNumArray;
-			String[] strEnabledArray;
-			String strRechargePresentsVoucherId=request.getParameter("strRechargePresentsVoucherId");
-			String strVoucherTicketId=request.getParameter("strVoucherTicketId");
-			String strActivityId=request.getParameter("strActivityId");
-			String strPerTimeRechargeAmount=request.getParameter("dPerTimeRechargeAmount");
-			String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
-			String strTotalNum=request.getParameter("iTotalNum");
-			//String strRestNum=request.getParameter("iRestNum");
-			/*暂不使用该属性
-			String strValidateBeginTime=request.getParameter("strValidateBeginTime");
-			String strValidateEndTime=request.getParameter("strValidateEndTime");
-			*/
-			String strEnabled=request.getParameter("iEnabled");
-			if(ValidateTool.isEmptyStr(strRechargePresentsVoucherId))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"更新记录的主键不能为空",null);
-			if(ValidateTool.isEmptyStr(strVoucherTicketId))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
-			if(ValidateTool.isEmptyStr(strActivityId))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动ID不能为空",null);
-			if(ValidateTool.isEmptyStr(strPerTimeRechargeAmount))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"充值金额不能为空",null);
-			if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"每多充值金额字段不能为空",null);
-			if(ValidateTool.isEmptyStr(strTotalNum))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"总张数不能为空",null);
-			/*暂不使用该属性
-			if(ValidateTool.isEmptyStr(strValidateBeginTime))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期开始时间不能为空",null);
-			if(ValidateTool.isEmptyStr(strValidateEndTime))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期结束时间不能为空",null);
-			*/
-			if(ValidateTool.isEmptyStr(strEnabled))
-				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		}
+		
+		strMoreRechargeAmountArray=strMoreRechargeAmount.split(",");
+		dMoreRechargeAmountArray=new BigDecimal[strMoreRechargeAmountArray.length];
+		for(int i=0;i<strMoreRechargeAmountArray.length;i++)
+		{
+			if(!isNumber(strMoreRechargeAmountArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"每多充值金额字段格式错误",null);
+			dMoreRechargeAmount=Double.parseDouble(strMoreRechargeAmountArray[i]);
+			dMoreRechargeAmountArray[i]=new BigDecimal(dMoreRechargeAmount);
+		}
+		
+		strMinimumPresentsVoucherNumberArray=strMinimumPresentsVoucherNumber.split(",");
+		iMinimumPresentsVoucherNumberArray=new int[strMinimumPresentsVoucherNumberArray.length];
+		for(int i=0;i<strMinimumPresentsVoucherNumberArray.length;i++)
+		{
+			if(!isNumber(strMinimumPresentsVoucherNumberArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"赠送张数格式错误",null);
+			iMinimumPresentsVoucherNumberArray[i]=Integer.parseInt(strMinimumPresentsVoucherNumberArray[i]);
+		}
+
+		strMoreRresentsVoucherNumberArray=strMoreRresentsVoucherNumber.split(",");
+		iMoreRresentsVoucherNumberArray=new int[strMoreRresentsVoucherNumberArray.length];
+		for(int i=0;i<strMoreRresentsVoucherNumberArray.length;i++)
+		{
+			if(!isNumber(strMoreRresentsVoucherNumberArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"多赠送张数格式错误",null);
+			iMoreRresentsVoucherNumberArray[i]=Integer.parseInt(strMoreRresentsVoucherNumberArray[i]);
+		}
+		
+		
+		strEnabledArray=strEnabled.split(",");
+		iEnabledArray=new int[strEnabledArray.length];
+		for(int i=0;i<strEnabledArray.length;i++)
+		{
+			if(!isNumber(strEnabledArray[i]))
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
+			iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
+		}
+		
+		
+		//检测各个数组长度是否一致，不一致则报错
+		arrayLength=strEnabledArray.length;
+		if(arrayLength!=strMoreRresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
+				arrayLength!=strMorePresentsVoucherTicketIdArray.length||arrayLength!=strBasePresentsVoucherTicketIdArray.length||strRechargePresentsVoucherIdArray.length!=arrayLength)
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
+	
+
+		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+	/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		//取得登录员工信息，并增加修改时间记录
+		String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+	*/
+		//以下3个为测试用数据
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="test";
+		String strEmployeeRealName="test";
+		//数据写入实体
+		List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
+		for(int i=0;i<arrayLength;i++)
+		{
+			RechargePresentsVoucherEntity rechargePresentsVoucherEntity=new RechargePresentsVoucherEntity();
+			rechargePresentsVoucherEntity.setStrRechargePresentsVoucherId(strRechargePresentsVoucherIdArray[i]);
+			rechargePresentsVoucherEntity.setStrBasePresentsVoucherTicketId(strBasePresentsVoucherTicketIdArray[i]);
+			rechargePresentsVoucherEntity.setStrMorePresentsVoucherTicketId(strMorePresentsVoucherTicketIdArray[i]);
+			rechargePresentsVoucherEntity.setStrActivityId(strActivityIdArray[i]);
+			rechargePresentsVoucherEntity.setdMinimumRechargeAmount(dMinimumRechargeAmountArray[i]);
+			rechargePresentsVoucherEntity.setiMinimumPresentsVoucherNumber(iMinimumPresentsVoucherNumberArray[i]);
+			rechargePresentsVoucherEntity.setdMoreRechargeAmount(dMoreRechargeAmountArray[i]);
+			rechargePresentsVoucherEntity.setiMoreRresentsVoucherNumber(iMoreRresentsVoucherNumberArray[i]);
+			rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
+			rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
+			rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
+			rechargePresentsVoucherEntity.setStrEmployeeRealName(strEmployeeRealName);
+			rechargePresentsVoucherEntity.setStrLastAccessedTime(strLastAccessedTime);
+			listRechargePresentsVoucherEntity.add(rechargePresentsVoucherEntity);
+		}
+		
+		try{
+			return rechargePresentsService.batchUpdateRechargePresentsVoucher(listRechargePresentsVoucherEntity);
 			
-			//取出各个字段值
-			strRechargePresentsVoucherIdArray=strRechargePresentsVoucherId.split(",");
-			strVoucherTicketIdArray=strVoucherTicketId.split(",");
-			strActivityIdArray=strActivityId.split(",");
-			strPerTimeRechargeAmountArray=strPerTimeRechargeAmount.split(",");
-			bgPerTimeRechargeAmountArray=new BigDecimal[strPerTimeRechargeAmountArray.length];
-			for(int i=0;i<strPerTimeRechargeAmountArray.length;i++)
-			{
-				if(!isNumber(strPerTimeRechargeAmountArray[i]))
-					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"充值金额格式错误",null);
-				dPerTimeRechargeAmount=Double.parseDouble(strPerTimeRechargeAmountArray[i]);
-				bgPerTimeRechargeAmountArray[i]=new BigDecimal(dPerTimeRechargeAmount);
-				
-			}
-			strMoreRechargeAmountArray=strMoreRechargeAmount.split(",");
-			bgMoreRechargeAmountArray=new BigDecimal[strMoreRechargeAmountArray.length];
-			for(int i=0;i<strMoreRechargeAmountArray.length;i++)
-			{
-				if(!isNumber(strMoreRechargeAmountArray[i]))
-					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"每多充值金额字段格式错误",null);
-				dMoreRechargeAmount=Double.parseDouble(strMoreRechargeAmountArray[i]);
-				bgMoreRechargeAmountArray[i]=new BigDecimal(dMoreRechargeAmount);
-			}
-			
-			strTotalNumArray=strTotalNum.split(",");
-			iTotalNumArray=new int[strTotalNumArray.length];
-			for(int i=0;i<strTotalNumArray.length;i++)
-			{
-				if(!isNumber(strTotalNumArray[i]))
-					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"发放张数格式错误",null);
-				iTotalNumArray[i]=Integer.parseInt(strTotalNumArray[i]);
-			}
-			/*暂不使用该属性
-			strValidateBeginTimeArray=strValidateBeginTime.split(",");
-			strValidateEndTimeArray=strValidateEndTime.split(",");
-			*/
-			strEnabledArray=strEnabled.split(",");
-			iEnabledArray=new int[strEnabledArray.length];
-			
-			//检测各个数组长度是否一致，不一致则报错
-			arrayLength=strEnabledArray.length;
-			if(arrayLength!=strActivityIdArray.length||arrayLength!=strRechargePresentsVoucherIdArray.length||arrayLength!=strEnabledArray.length||arrayLength!=strTotalNumArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strPerTimeRechargeAmountArray.length||arrayLength!=strVoucherTicketIdArray.length)
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
-			//标准化有效期
-			/*暂不使用该属性
-			for(int i=0;i<arrayLength;i++)
-				{
-				strValidateBeginTimeArray[i]=DateTool.StringToString(strValidateBeginTimeArray[i],DateStyle.YYYY_MM_DD);
-				strValidateEndTimeArray[i]=DateTool.StringToString(strValidateEndTimeArray[i],DateStyle.YYYY_MM_DD);
-				}
-			*/
-			for(int i=0;i<strEnabledArray.length;i++)
-			{
-				if(!isNumber(strEnabledArray[i]))
-					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"启用状态格式错误",null);
-				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
-			}
-			/*暂不使用该属性
-			strValidateBeginTime=DateTool.StringToString(strValidateBeginTime,DateStyle.YYYY_MM_DD);
-			strValidateEndTime=DateTool.StringToString(strValidateEndTime,DateStyle.YYYY_MM_DD);
-			*/
-			String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
-		/*
-			EmployeeEntity employeeEntity = null;
-			try {
-				employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
-			} catch (Exception e) {
-				e.printStackTrace();
-				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
-			}
-			if (employeeEntity==null) {
-				return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
-			}
-			//取得登录员工信息，并增加修改时间记录
-			String strEmployeeId=employeeEntity.getStrEmployeeid();
-			String strEmployeeName=employeeEntity.getStrLoginname();
-			String strEmployeeRealName=employeeEntity.getStrRealname();
-		*/
-			//以下3个为测试用数据
-			String strEmployeeId=DataTool.getUUID();
-			String strEmployeeName="admin";
-			String strEmployeeRealName="david li";
-			//数据写入实体
-			List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
-			for(int i=0;i<arrayLength;i++)
-			{
-				RechargePresentsVoucherEntity rechargePresentsVoucherEntity=new RechargePresentsVoucherEntity();
-				rechargePresentsVoucherEntity.setStrRechargePresentsVoucherId(strRechargePresentsVoucherIdArray[i]);
-				rechargePresentsVoucherEntity.setStrVoucherTicketId(strVoucherTicketIdArray[i]);
-				rechargePresentsVoucherEntity.setStrActivityId(strActivityIdArray[i]);
-				rechargePresentsVoucherEntity.setdPerTimeRechargeAmount(bgPerTimeRechargeAmountArray[i]);
-				rechargePresentsVoucherEntity.setdMoreRechargeAmount(bgMoreRechargeAmountArray[i]);
-				rechargePresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
-				/*暂不使用该属性
-				rechargePresentsVoucherEntity.setStrValidateBeginTime(strValidateBeginTimeArray[i]);
-				rechargePresentsVoucherEntity.setStrValidateEndTime(strValidateEndTimeArray[i]);
-				*/
-				rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
-				rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
-				rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
-				rechargePresentsVoucherEntity.setStrEmployeeRealName(strEmployeeRealName);
-				rechargePresentsVoucherEntity.setStrLastAccessedTime(strLastAccessedTime);
-				listRechargePresentsVoucherEntity.add(rechargePresentsVoucherEntity);
-			}
-			
-			try{
-				return rechargePresentsService.batchUpdateRechargePresentsVoucher(listRechargePresentsVoucherEntity);
-				
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
-			}
-			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
 	}
+
 	
-	
+	/**
+	 * 查询 充值赠送抵用券信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectAllRechargePresentsVoucher")
+	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=a42c801d8a7b4daa86653bacf88273a5
+	public String selectAllRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
+	{
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/		
+		String strActivityId=request.getParameter("strActivityId");
+		if(ValidateTool.isEmptyStr(strActivityId))
+			DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动关键字不能为空",null);
+		
+		List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
+		try{
+			listRechargePresentsVoucherEntity=rechargePresentsService.selectAllRechargePresentsVoucher(strActivityId);
+			if(listRechargePresentsVoucherEntity==null||listRechargePresentsVoucherEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂时没有数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listRechargePresentsVoucherEntity",listRechargePresentsVoucherEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+
+
 	/**
 	 * 删除 充值赠送抵用券信息
 	 * @param request
@@ -430,53 +497,7 @@ public class RechargePresentsController {
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
 	}
-	
-	
-	
-	
 
-	/**
-	 * 查询 充值赠送抵用券信息
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("selectAllRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=1
-	public String selectAllRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
-	{
-		/*
-		EmployeeEntity employeeEntity = null;
-		try {
-			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
-		}
-		if (employeeEntity==null) {
-			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
-		}
-		*/		
-		String strActivityId=request.getParameter("strActivityId");
-		if(ValidateTool.isEmptyStr(strActivityId))
-			DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动关键字不能为空",null);
-		
-		List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
-		try{
-			listRechargePresentsVoucherEntity=rechargePresentsService.selectAllRechargePresentsVoucher(strActivityId);
-			if(listRechargePresentsVoucherEntity==null||listRechargePresentsVoucherEntity.size()==0)
-			return DataTool.constructResponse(ResultCode.NO_DATA,"暂时没有数据",null);
-			Map<String,Object> resultMap=new HashMap<String,Object>();
-			resultMap.put("listRechargePresentsVoucherEntity",listRechargePresentsVoucherEntity);
-			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
-		}
-	}
-	
 	
 	/**
 	 * 批量新增 充值赠送储值信息
