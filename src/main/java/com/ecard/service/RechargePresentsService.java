@@ -238,8 +238,8 @@ public class RechargePresentsService {
 	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
-		Date currentDate,activityEndDate;
-		String strActivityEndDate;
+		Date currentDate;
+		String strActivityEndDate,strCurrentDate;
 		String strActivityStatus;
 		String strActivityId,strLevelsId,strLevelsName;
 		List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
@@ -256,13 +256,19 @@ public class RechargePresentsService {
 				//取得属性
 				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
+				
 				//在全部的状态下，检测活动是否已经过期
 				currentDate=new Date();
 				strActivityEndDate=rechargePresentsActivityEntity.getStrActivityEndTime();
-				activityEndDate=DateTool.StringToDate(strActivityEndDate, DateStyle.YYYY_MM_DD);
-				//if(activityEndDate>currentDate)///////////////////////////////////////////////////////////////
+				strCurrentDate=DateTool.DateToString(currentDate, DateStyle.YYYY_MM_DD);
+
+				if(strActivityEndDate.compareTo(strCurrentDate)<=0)
+					strActivityStatus="过期";
+				else
+					strActivityStatus="正常";
+
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-				//rechargePresentsActivityEntity.setStrActivityStatus("全部");
+				rechargePresentsActivityEntity.setStrActivityStatus(strActivityStatus);
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
