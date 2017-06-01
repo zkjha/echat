@@ -417,4 +417,21 @@ where strActivityId=#{strActivityId}
 <select id="getLevelsNameById" parameterType="String" resultType="String">
 	select strLevelsName from tb_member_levels where strLevelsId=#{strLevelsId}
 </select>
+
+<!-- 删除分页显示页 积分信息 -->
+<delete id="deleteRechargePresentsIntegration" parameterType="String">
+delete from tb_rechargePresents_integration where strActivityId=#{strActivityId}
+</delete>
+<!-- 删除分页显示页 抵用券信息 -->
+<delete id="batchDeleteRechargePresentsVoucher" parameterType="String">
+delete from tb_rechargePresents_voucher where strActivityId=#{strActivityId}
+</delete>
+<!-- 删除分页显示页 储值券信息 -->
+<delete id="batchDeleteRechargePresentsStoredValue" parameterType="String">
+delete from tb_rechargePresents_storedValue where strActivityId=#{strActivityId}
+</delete>
+<!-- 删除分页显示页 活动信息 -->
+<delete id="deleteRechargePresentsActivityInfo" parameterType="String">
+delete from tb_rechargePresents_activity where strActivityId=#{strActivityId}
+</delete>
 </mapper>

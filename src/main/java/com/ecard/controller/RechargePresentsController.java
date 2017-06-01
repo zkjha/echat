@@ -1346,7 +1346,29 @@ public class RechargePresentsController {
 		
 		
 	}
+	/**
+	 * 分页查询 --删除
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 
+	@ResponseBody
+	@RequestMapping("deleteRechargePresentsActivityInfo")
+	//http://localhost:8083/admin/RechargePresentsSetting/deleteRechargePresentsActivityInfo?strActivityId=ed723c91ad9045b1b712a1b7af62cfa9
+	public String deleterRechargePresentsActivityInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strActivityId=request.getParameter("strActivityId");
+		if(ValidateTool.isEmptyStr("strActivityId"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		try{
+			return rechargePresentsService.deleteRechargePresentsActivityInfo(strActivityId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{

@@ -62,5 +62,15 @@ public interface RechargePresentsMapper {
 	public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception;
 	//取得会员级别名称
 	public String getLevelsNameById(String strLevelsId) throws Exception;
+	//分页查询--删除 
+	public int deleteRechargePresentsActivityInfo(String strActivityId) throws Exception;
+	
+	//分页查询--删除积分信息
+	public void deleteRechargePresentsIntegration(String strActivityId) throws Exception;
+	//分页查询--删除储值券信息
+	public void batchDeleteRechargePresentsStoredValue(String strActivityId) throws Exception;
+	//分页查询--删除抵用券信息
+	public void batchDeleteRechargePresentsVoucher(String strActivityId) throws Exception;
+	
 	
 }

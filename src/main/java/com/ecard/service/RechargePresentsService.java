@@ -1,5 +1,6 @@
 package com.ecard.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
+import com.commontools.date.DateStyle;
+import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 
@@ -235,6 +238,9 @@ public class RechargePresentsService {
 	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
+		Date currentDate,activityEndDate;
+		String strActivityEndDate;
+		String strActivityStatus;
 		String strActivityId,strLevelsId,strLevelsName;
 		List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 		listRechargePresentsActivityEntity=rechargePresentsMapper.selectRechargePresentsActivityInfo(queryMap);
@@ -250,8 +256,13 @@ public class RechargePresentsService {
 				//取得属性
 				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
+				//在全部的状态下，检测活动是否已经过期
+				currentDate=new Date();
+				strActivityEndDate=rechargePresentsActivityEntity.getStrActivityEndTime();
+				activityEndDate=DateTool.StringToDate(strActivityEndDate, DateStyle.YYYY_MM_DD);
+				//if(activityEndDate>currentDate)///////////////////////////////////////////////////////////////
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-				rechargePresentsActivityEntity.setStrActivityStatus("ALL");
+				//rechargePresentsActivityEntity.setStrActivityStatus("全部");
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -289,7 +300,7 @@ public class RechargePresentsService {
 					strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 					strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
 					rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-					rechargePresentsActivityEntity.setStrActivityStatus("EXPIRED");
+					rechargePresentsActivityEntity.setStrActivityStatus("过期");
 					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -325,7 +336,7 @@ public class RechargePresentsService {
 				strLevelsId=rechargePresentsActivityEntity.getStrLevelsId();
 				strLevelsName=rechargePresentsMapper.getLevelsNameById(strLevelsId);
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-				rechargePresentsActivityEntity.setStrActivityStatus("NORMAL");
+				rechargePresentsActivityEntity.setStrActivityStatus("正常");
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -336,6 +347,27 @@ public class RechargePresentsService {
 			}
 			return listRechargePresentsActivityEntity;
 	}
-	
+
+		//分页查询--删除 
+		@Transactional
+		public String deleteRechargePresentsActivityInfo(String strActivityId) throws Exception
+		{
+			int iRcdNum=0;
+			//同时查赠送积分表，赠送抵用券表，赠送储值表信息，有关联活动ID的信息则删除
+			//删除积分信息
+			rechargePresentsMapper.deleteRechargePresentsIntegration(strActivityId);
+			//删除储值信息
+			rechargePresentsMapper.batchDeleteRechargePresentsStoredValue(strActivityId);
+			//删除抵用券信息
+			rechargePresentsMapper.batchDeleteRechargePresentsVoucher(strActivityId);
+			
+			iRcdNum=rechargePresentsMapper.deleteRechargePresentsActivityInfo(strActivityId);
+			
+			if(iRcdNum!=0)
+				return DataTool.constructResponse(ResultCode.OK,"操作成功",null);
+			else 
+				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+		}
 
 }
+
