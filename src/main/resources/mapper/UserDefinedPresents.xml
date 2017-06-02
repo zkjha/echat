@@ -8,7 +8,7 @@
 </select>
 
 <!-- 新增 活动信息 -->
-<insert id="inserUserDefinedPresentsActivityInfo" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity">
+<insert id="insertUserDefinedPresentsActivityInfo" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity">
 insert into tb_userDefinedPresents_Activity
 (
 	strActivityId,
@@ -38,6 +38,189 @@ values
 	#{strLastAccessedTime}
 )
 </insert>
+
+<!-- 修改活动信息判断该会员级别在该活动类型下是否已经存在规则数据 -->
+<select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity" resultType="String">
+	select strActivityId from tb_userDefinedPresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 更新活动信息 -->
+<update id="updateUserDefinedPresentsActivityInfo" parameterType="com.ecard.entity.UserDefinedPresentsActivityEntity">
+update tb_userDefinedPresents_Activity set
+	strActivityName=#{strActivityName},
+	strLevelsId=#{strLevelsId},
+	strActivityBeginTime=#{strActivityBeginTime},
+	strActivityEndTime=#{strActivityEndTime},
+	iActivityKinds=#{iActivityKinds},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+where strActivityId=#{strActivityId}
+</update>
+
+
+<!-- 查询 自定义赠送活动信息 单条_[tb_userDefinedPresents_Activity] -->
+<select id="selectUserDefinedPresentActivityById" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="String">
+ select 
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_userDefinedPresents_Activity
+	where strActivityId=#{strActivityId}
+</select>
+<!-- 新增自定义增送积时先查询表中是否已经有记录存在-->
+<select id="isExistsTheRecord" resultType="String" parameterType="String">
+ select 
+ 	strPresentsIntegrationId
+ 	from tb_userDefinedPresents_Integration
+	where strActivityId=#{strActivityId}
+</select>
+
+<!-- 新增自定义活动赠送积分规则 -->
+<insert id="insertUserDefinedPresentsIntegration" parameterType="com.ecard.entity.UserDefinedPresentsIntegrationEntity">
+ insert into tb_userDefinedPresents_Integration
+	(
+	strPresentsIntegrationId,
+	strActivityId,
+	iPresentsIntegration,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strPresentsIntegrationId},
+	#{strActivityId},
+	#{iPresentsIntegration},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新自定义赠送积分-->
+<update id="updateUserDefinedPresentsIntegration" parameterType="com.ecard.entity.UserDefinedPresentsIntegrationEntity">
+ update tb_userDefinedPresents_Integration set 
+	strActivityId=#{strActivityId},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	iPresentsIntegration=#{iPresentsIntegration},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	<if test="strCreationTime!=null and strCreationTime!=''">
+	strCreationTime=#{strCreationTime},
+	</if>
+	strLastAccessedTime=#{strLastAccessedTime}
+where strPresentsIntegrationId=#{strPresentsIntegrationId}
+</update>
+
+<!-- 删除自定义赠送积分规则_[tableName:tb_userDefinedPresents_Integration] -->
+<delete id="deleteUserDefinedPresentsIntegrationEntity" parameterType="String">
+ delete from tb_userDefinedPresents_Integration where strPresentsIntegrationId=#{strPresentsIntegrationId}
+</delete>
+
+<!-- 查询自定义赠送储值规则_[tableName:tb_userDefinedPresents_storedValue] -->
+<select id="findPresentsStoredValueId" resultType="String" parameterType="String">
+ select 
+ 	strPresentsStoredValueId
+ 	from tb_userDefinedPresents_storedValue
+	where strActivityId=#{strActivityId}
+</select>
+
+<!-- 新增自定义赠送储值规则_[tableName:tb_userDefinedPresents_storedValue] -->
+<insert id="insertUserDefinedPresentsStoredValueEntity" parameterType="com.ecard.entity.UserDefinedPresentsStoredValueEntity">
+ insert into tb_userDefinedPresents_storedValue
+	(
+	strPresentsStoredValueId,
+	strActivityId,
+	dPresentsAmount,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strPresentsStoredValueId},
+	#{strActivityId},
+	#{dPresentsAmount},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新自定义赠送储值规则_[tableName:tb_userDefinedPresents_storedValue] -->
+<update id="updateUserDefinedPresentsStoredValueEntity" parameterType="com.ecard.entity.UserDefinedPresentsStoredValueEntity">
+ update tb_userDefinedPresents_storedValue set 
+	strActivityId=#{strActivityId},
+	dPresentsAmount=#{dPresentsAmount},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+		<if test="strCreationTime!='' and strCreationTime!=null">
+			strCreationTime=#{strCreationTime},
+		</if>
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strPresentsStoredValueId=#{strPresentsStoredValueId}
+</update>
+
+<!-- 删除自定义赠送储值规则_[tableName:tb_userDefinedPresents_storedValue] -->
+<delete id="deleteUserDefinedPresentsStoredValueEntity" parameterType="String">
+ delete from tb_userDefinedPresents_storedValue where strPresentsStoredValueId=#{strPresentsStoredValueId}
+</delete>
+
+<!-- 查询自定义赠送储值规则 单条_[tableName:tb_userDefinedPresents_storedValue] -->
+<select id="selectAllUserDefinedPresentsStoredValueEntity" resultType="com.ecard.entity.UserDefinedPresentsStoredValueEntity" parameterType="String">
+ select 
+ 	strPresentsStoredValueId,
+ 	strActivityId,
+ 	dPresentsAmount,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_userDefinedPresents_storedValue
+	where strActivityId=#{strActivityId}
+</select>
+
+<!-- 查询自定义赠送积分规则 单条_[tableName:tb_userDefinedPresents_Integration] -->
+<select id="selectAllUserDefinedPresentsIntegration" resultType="com.ecard.entity.UserDefinedPresentsIntegrationEntity" parameterType="String">
+ select 
+ 	strPresentsIntegrationId,
+ 	strActivityId,
+ 	iPresentsIntegration,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_userDefinedPresents_Integration
+	where strActivityId=#{strActivityId}
+</select>
 
 
 </mapper>

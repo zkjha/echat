@@ -1307,7 +1307,18 @@ public class RechargePresentsController {
 			else
 				iPageSize=StaticValue.PAGE_SIZE;
 		}
-		
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/	
 		
 		try{
 			
@@ -1370,7 +1381,7 @@ public class RechargePresentsController {
 	
 	
 	/**
-	 * 分页查询 --删除
+	 * 分页显示--删除
 	 * @param request
 	 * @param response
 	 * @return
@@ -1381,6 +1392,18 @@ public class RechargePresentsController {
 	//http://localhost:8083/admin/RechargePresentsSetting/deleteRechargePresentsActivityInfo?strActivityId=ed723c91ad9045b1b712a1b7af62cfa9
 	public String deleterRechargePresentsActivityInfo(HttpServletResponse response,HttpServletRequest request)
 	{
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
 		String strActivityId=request.getParameter("strActivityId");
 		if(ValidateTool.isEmptyStr("strActivityId"))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
@@ -1405,7 +1428,19 @@ public class RechargePresentsController {
 	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity?strActivityId=a42c801d8a7b4daa86653bacf88273a5
 	public String selectAllRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
-		RechargePresentsActivityEntity rechargePresentsActivityEntity=new RechargePresentsActivityEntity();
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		RechargePresentsActivityEntity rechargePresentsActivityEntity=null;
 		String strActivityId=request.getParameter("strActivityId");
 		if(ValidateTool.isEmptyStr("strActivityId"))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"Id不能为空",null);

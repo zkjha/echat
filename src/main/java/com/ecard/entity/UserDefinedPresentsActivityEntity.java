@@ -17,10 +17,20 @@ public class UserDefinedPresentsActivityEntity {
 	private String strLastAccessedTime;			//修改时间
 	
 	//-------------------------------
+	private String strActivityStatus;		//活动状态 :NORMAL正常EXPIRED过期;ALL全部 
 	private String strMemberLevelName;
 	private List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity;
 	private List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity;
 	private List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity;
+	public void setStrActivityStatus(String strActivityStatus)
+	{
+		this.strActivityStatus=strActivityStatus;
+	}
+	
+	public String getStrActivityStatus()
+	{
+		return strActivityStatus;
+	}
 	
 	public void setStrMemberLevelName(String strMemberLevelName)
 	{

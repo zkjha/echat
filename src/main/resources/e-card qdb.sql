@@ -849,8 +849,8 @@ strMorePresentsVoucherTicketId      VARCHAR(50) 	NOT NULL,		-- 多赠送抵用�
 strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
 dMinimumRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
 iMinimumPresentsVoucherNumber		int				not null,		-- 赠送张数
-dMoreRechargeAmount					decimal(11,2)	not null,		-- 每多充值多少钱
-iMoreRresentsVoucherNumber			int				not null,		-- 多赠送多少钱
+dMoreRechargeAmount					decimal(11,2)	default 0,		-- 每多充值多少钱
+iMoreRresentsVoucherNumber			int				default 0,		-- 多赠送多少钱
 iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
@@ -905,8 +905,6 @@ create table tb_userDefinedPresents_storedValue
 strPresentsStoredValueId			varchar(50)			not null,		-- 主键字
 strActivityId						varchar(50)			not null,		-- 活动ID 关联 tb_activity id
 dPresentsAmount						decimal(11,2)		not null,		-- 赠送储值量
-strValidateBeginTime				varchar(50),						-- 有效期开始时间  暂不使用该属性
-strValidateEndTime					varchar(50),						-- 有效期截止时间 暂不使用该属性
 iEnabled							int(2)				default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 		NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 		NOT NULL,		-- 管理员账号

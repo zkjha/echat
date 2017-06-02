@@ -1,8 +1,4 @@
 package com.ecard.service;
-
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +7,10 @@ import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.UserDefinedPresentsActivityEntity;
+import com.ecard.entity.UserDefinedPresentsIntegrationEntity;
+import com.ecard.entity.UserDefinedPresentsStoredValueEntity;
 import com.ecard.mapper.UserDefinedPresentsMapper;
-import com.ecard.entity.RechargePresentsIntegrationEntity;
-import com.ecard.entity.RechargePresentsStoredValueEntity;
-import com.ecard.entity.RechargePresentsVoucherEntity;
+
 
 @Service
 public class UserDefinedPresentsService {
@@ -23,7 +19,7 @@ public class UserDefinedPresentsService {
 	
 	//新增 活动信息
 	@Transactional
-	public String inserPresentsActivityInfo(UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity) throws Exception
+	public String insertUserDefinedPresentsActivityInfo(UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity) throws Exception
 	{
 		int iInsertNum=0;
 		int isExists=0;
@@ -35,156 +31,159 @@ public class UserDefinedPresentsService {
 			if(isExists!=0)
 				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败:该会员级别在该活动类型下的活动表记录已经存在",null);
 			
-			iInsertNum=userDefinedPresentsMapper.inserPresentsActivityInfo(userDefinedPresentsActivityEntity);
+			iInsertNum=userDefinedPresentsMapper.insertUserDefinedPresentsActivityInfo(userDefinedPresentsActivityEntity);
 			if(iInsertNum==0)
 				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"新增失败",null);
 			else
 				return DataTool.constructResponse(ResultCode.OK,"新增成功",null);	
 		}
-/*
+
+	
+	
 		//更新 活动信息
 		@Transactional
-		public String updatePresentsActivityInfo(UserDefineduserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity) throws Exception
+		public String updateUserDefinedPresentsActivityInfo(UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity) throws Exception
 		{
 			int iUpdateNum=0;
 			String isExistsStrActivityId=null;
 			if(userDefinedPresentsActivityEntity==null)
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 			
-			//判断该会员级别在该活动类型下的活动表记录已经存在中，若已存在则报错，不存在则执行写入
+			//判断该会员级别在该活动类型下的活动表记录是否已存在，若已存在则报错，不存在则执行写入
 			isExistsStrActivityId=userDefinedPresentsMapper.isExistsTheActivityRecordId(userDefinedPresentsActivityEntity);
 			if(!ValidateTool.isEmptyStr(isExistsStrActivityId)&&!isExistsStrActivityId.equals(userDefinedPresentsActivityEntity.getStrActivityId()))	
 				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败：该会员级别在该活动类型下的活动表记录已经存在",null);
 			
-			iUpdateNum=userDefinedPresentsMapper.updatePresentsActivityInfo(userDefinedPresentsActivityEntity);
+			iUpdateNum=userDefinedPresentsMapper.updateUserDefinedPresentsActivityInfo(userDefinedPresentsActivityEntity);
 			if(iUpdateNum==0)
 				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
+			
 			else
 				return DataTool.constructResponse(ResultCode.OK,"更新成功",null);	
 		
 		}
+	
+	//查询 自定义活动单条信息
+	public UserDefinedPresentsActivityEntity selectUserDefinedPresentActivityById(String strActivityId) throws Exception
+	{
+	return userDefinedPresentsMapper.selectUserDefinedPresentActivityById(strActivityId);
+	}
 		
-		
-		//查询，全部活动表总记录条数
-		public int findCount(Map<String,Object> queryMap) throws Exception
-		{
-			return userDefinedPresentsMapper.findCount(queryMap);
-		}
-		
+	//插入自定义赠送积分
+	public String insertUserDefinedPresentsIntegration(UserDefinedPresentsIntegrationEntity userDefinedPresentsIntegrationEntity) throws Exception
+	{
+		int iUpdateNum=0;
+		String strActivityId=userDefinedPresentsIntegrationEntity.getStrActivityId();
+		String strPresentsIntegrationId=userDefinedPresentsMapper.isExistsTheRecord(strActivityId);
+		//如果记录存在，则履盖原有数据，不存在则新增
 
-		//查询，过期活动表总记录条数
-		public int findExpiredCount(Map<String,Object> queryMap) throws Exception
-		{
-			return userDefinedPresentsMapper.findExpiredCount(queryMap);
-		}
-		//查询，正常活动表总记录条数
-		public int findNormalCount(Map<String,Object> queryMap) throws Exception
-		{
-			return userDefinedPresentsMapper.findNormalCount(queryMap);
-		}
-		
-		//分页查询 活动状态为"全部" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
-		@Transactional
-		public List<UserDefineduserDefinedPresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
-		{
-			int iListArrayLength=0;
-			String strActivityId,strLevelsId,strLevelsName;
-			List<UserDefineduserDefinedPresentsActivityEntity> listUserDefineduserDefinedPresentsActivityEntity=null;
-			listUserDefineduserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectRechargePresentsActivityInfo(queryMap);
-			if(listUserDefineduserDefinedPresentsActivityEntity!=null)
+		if(ValidateTool.isEmptyStr(strPresentsIntegrationId))
+			iUpdateNum=userDefinedPresentsMapper.insertUserDefinedPresentsIntegration(userDefinedPresentsIntegrationEntity);//新增
+		else
 			{
-				//查出活动记录关键字，组装各个属性
-				iListArrayLength=listUserDefineduserDefinedPresentsActivityEntity.size();
-				for(int i=0;i<iListArrayLength;i++)
-				{
-					//得到活动实体对象
-					UserDefineduserDefinedPresentsActivityEntity UserDefineduserDefinedPresentsActivityEntity=listUserDefineduserDefinedPresentsActivityEntity.get(i);
-					strActivityId=UserDefineduserDefinedPresentsActivityEntity.getStrActivityId();	
-					//取得属性
-					strLevelsId=UserDefineduserDefinedPresentsActivityEntity.getStrLevelsId();
-					strLevelsName=userDefinedPresentsMapper.getLevelsNameById(strLevelsId);
-					UserDefineduserDefinedPresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=userDefinedPresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
-					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=userDefinedPresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
-					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=userDefinedPresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
-					
-					
-				}
-				
-			}
-			return listUserDefineduserDefinedPresentsActivityEntity;
+			//更改实体对象里的关键字行
+			userDefinedPresentsIntegrationEntity.setStrPresentsIntegrationId(strPresentsIntegrationId);
+			iUpdateNum=userDefinedPresentsMapper.updateUserDefinedPresentsIntegration(userDefinedPresentsIntegrationEntity);//更新
 			
-		}
-		
-
-		//分页查询 活动状态为"过期" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
-			@Transactional
-			public List<UserDefineduserDefinedPresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
-			{
-				int iListArrayLength=0;
-				String strActivityId,strLevelsId,strLevelsName;
-				List<UserDefineduserDefinedPresentsActivityEntity> listUserDefineduserDefinedPresentsActivityEntity=null;
-				listUserDefineduserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectExpiredRechargePresentsActivityInfo(queryMap);
-				if(listUserDefineduserDefinedPresentsActivityEntity!=null)
-				{
-					//查出活动记录关键字，组装各个属性
-					iListArrayLength=listUserDefineduserDefinedPresentsActivityEntity.size();
-					for(int i=0;i<iListArrayLength;i++)
-					{
-						//得到活动实体对象
-						UserDefineduserDefinedPresentsActivityEntity UserDefineduserDefinedPresentsActivityEntity=listUserDefineduserDefinedPresentsActivityEntity.get(i);
-						strActivityId=UserDefineduserDefinedPresentsActivityEntity.getStrActivityId();	
-						//取得属性
-						strLevelsId=UserDefineduserDefinedPresentsActivityEntity.getStrLevelsId();
-						strLevelsName=userDefinedPresentsMapper.getLevelsNameById(strLevelsId);
-						UserDefineduserDefinedPresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-						List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=userDefinedPresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
-						List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=userDefinedPresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
-						List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=userDefinedPresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-						UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-						UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-						UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
-						
-						
-					}
-					
-				}
-				return listUserDefineduserDefinedPresentsActivityEntity;
-				
 			}
-			//分页查询 活动状态为"正常" 的活动表及活动的所有属性（如：充值赠送积分，赠送抵用券，赠送储值 
-			@Transactional
-			public List<UserDefineduserDefinedPresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
-			{
-				int iListArrayLength=0;
-				String strActivityId,strLevelsId,strLevelsName;
-				List<UserDefineduserDefinedPresentsActivityEntity> listUserDefineduserDefinedPresentsActivityEntity=null;
-				listUserDefineduserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
-				if(listUserDefineduserDefinedPresentsActivityEntity!=null)
-				{
-				//查出活动记录关键字，组装各个属性
-					iListArrayLength=listUserDefineduserDefinedPresentsActivityEntity.size();
-					for(int i=0;i<iListArrayLength;i++)
-					{
-					//得到活动实体对象
-					UserDefineduserDefinedPresentsActivityEntity UserDefineduserDefinedPresentsActivityEntity=listUserDefineduserDefinedPresentsActivityEntity.get(i);
-					strActivityId=UserDefineduserDefinedPresentsActivityEntity.getStrActivityId();	
-					//取得属性
-					strLevelsId=userDefineduserDefinedPresentsActivityEntity.getStrLevelsId();
-					strLevelsName=userDefinedPresentsMapper.getLevelsNameById(strLevelsId);
-					UserDefineduserDefinedPresentsActivityEntity.setStrMemberLevelName(strLevelsName);
-					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=userDefinedPresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
-					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=userDefinedPresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
-					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=userDefinedPresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-					UserDefineduserDefinedPresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
-					}
-				}
-				return listUserDefineduserDefinedPresentsActivityEntity;
-		}
-*/
+		if(iUpdateNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+		
+		else
+			return DataTool.constructResponse(ResultCode.OK,"操作成功",null);	
+	
+	}
+	
+	
+	
+	//更新 自定义赠送积分信息 
+	public String updateUserDefinedPresentsIntegration(UserDefinedPresentsIntegrationEntity userDefinedPresentsIntegrationEntity) throws Exception
+	{
+		int iUpdateNum=0;
+		iUpdateNum=userDefinedPresentsMapper.updateUserDefinedPresentsIntegration(userDefinedPresentsIntegrationEntity);//更新
+		if(iUpdateNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"操作成功",null);	
+	}
+	
+	//删除 自定义赠送积分信息
+	public String deleteUserDefinedPresentsIntegrationEntity(String strPresentsIntegrationId) throws Exception
+	{
+	int iDeleteNum=0;
+	iDeleteNum=userDefinedPresentsMapper.deleteUserDefinedPresentsIntegrationEntity(strPresentsIntegrationId);
+	if(iDeleteNum==0)
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+	else
+		return DataTool.constructResponse(ResultCode.OK,"操作成功",null);	
+	}
+	
+	//查询一条自定义赠送积分信息
+	public UserDefinedPresentsIntegrationEntity selectAllUserDefinedPresentsIntegration(String strActivityId) throws Exception
+	{
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return null;
+		else
+			return userDefinedPresentsMapper.selectAllUserDefinedPresentsIntegration(strActivityId);
+	
+	}
+	
+	//新增一条UserDefinedPresentsStoredValueEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public String insertUserDefinedPresentsStoredValueEntity(UserDefinedPresentsStoredValueEntity userDefinedPresentsStoredValueEntity) throws Exception
+	{
+		int iAffectNum=0;
+		//查出关联自定义赠送活动的赠送储积信息，如果已经存在则履盖，不存在则新增
+		String strActivity=userDefinedPresentsStoredValueEntity.getStrActivityId();
+		if(ValidateTool.isEmptyStr(strActivity))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数不能为空", null);
+		String strPresentsStoredValueId=userDefinedPresentsMapper.findPresentsStoredValueId(strActivity);
+		
+		if(ValidateTool.isEmptyStr(strPresentsStoredValueId))
+			 iAffectNum =userDefinedPresentsMapper.insertUserDefinedPresentsStoredValueEntity(userDefinedPresentsStoredValueEntity);
+		else
+			 {
+			userDefinedPresentsStoredValueEntity.setStrPresentsStoredValueId(strPresentsStoredValueId);
+			iAffectNum =userDefinedPresentsMapper.updateUserDefinedPresentsStoredValueEntity(userDefinedPresentsStoredValueEntity);
+			 }
+			
+		if (0 == iAffectNum)
+	    {
+	        return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "数据库操作失败", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"添加成功", null);
+	}
+
+	
+	//更新一条自定义赠送储值信息UserDefinedPresentsStoredValueEntity记录
+	public String updateUserDefinedPresentsStoredValueEntity(UserDefinedPresentsStoredValueEntity userDefinedPresentsStoredValueEntity) throws Exception
+	{
+	    int iAffectNum =userDefinedPresentsMapper.updateUserDefinedPresentsStoredValueEntity(userDefinedPresentsStoredValueEntity);
+	    if (0 == iAffectNum)
+	    {
+	        return DataTool.constructResponse(ResultCode.NO_DATA, "数据记录ID不存在", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"修改成功", null);
+	}
+	
+	//删除一条UserDefinedPresentsStoredValueEntity记录
+	public String deleteUserDefinedPresentsStoredValueEntity(String strPresentsStoredValueId) throws Exception
+	{
+	    int iAffectNum = userDefinedPresentsMapper.deleteUserDefinedPresentsStoredValueEntity(strPresentsStoredValueId);
+	    if (0 == iAffectNum)
+	    {
+	        return DataTool.constructResponse(ResultCode.NO_DATA, "无数据", null);
+	    }
+	    return DataTool.constructResponse(ResultCode.OK,"删除成功", null);
+	}
+	
+	//查询一条 自定义活动赠送储值 信息
+	public UserDefinedPresentsStoredValueEntity selectAllUserDefinedPresentsStoredValueEntity(String strActivityId) throws Exception
+	{
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return null;
+		else
+			return userDefinedPresentsMapper.selectAllUserDefinedPresentsStoredValueEntity(strActivityId);
+	}
+
 }
