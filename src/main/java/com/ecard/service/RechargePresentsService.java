@@ -374,6 +374,14 @@ public class RechargePresentsService {
 			else 
 				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
 		}
+		
+		//查询活动信息详情单条
+		public RechargePresentsActivityEntity selectAllRechargePresentsActivityEntity(String strActivityId) throws Exception
+		{
+			
+			return rechargePresentsMapper.selectAllRechargePresentsActivityEntity(strActivityId);
+
+		}
 
 }
 

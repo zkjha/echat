@@ -433,4 +433,21 @@ delete from tb_rechargePresents_storedValue where strActivityId=#{strActivityId}
 <delete id="deleteRechargePresentsActivityInfo" parameterType="String">
 delete from tb_rechargePresents_activity where strActivityId=#{strActivityId}
 </delete>
+
+<!-- 查询充值赠送活动信息_[tableName:tb_rechargePresents_activity] -->
+<select id="selectAllRechargePresentsActivityEntity" resultType="com.ecard.entity.RechargePresentsActivityEntity" parameterType="String">
+ select 
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_activity
+	where strActivityId=#{strActivityId}
+</select>
 </mapper>

@@ -1367,6 +1367,8 @@ public class RechargePresentsController {
 		
 		
 	}
+	
+	
 	/**
 	 * 分页查询 --删除
 	 * @param request
@@ -1389,6 +1391,39 @@ public class RechargePresentsController {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
+	}
+	
+	/**
+	 * 查询 优惠活动详细信息 单条
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+
+	@ResponseBody
+	@RequestMapping("selectAllRechargePresentsActivityEntity")
+	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity?strActivityId=a42c801d8a7b4daa86653bacf88273a5
+	public String selectAllRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+		RechargePresentsActivityEntity rechargePresentsActivityEntity=new RechargePresentsActivityEntity();
+		String strActivityId=request.getParameter("strActivityId");
+		if(ValidateTool.isEmptyStr("strActivityId"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"Id不能为空",null);
+		try{
+			rechargePresentsActivityEntity=rechargePresentsService.selectAllRechargePresentsActivityEntity(strActivityId);
+			if(rechargePresentsActivityEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("rechargePresentsActivityEntity", rechargePresentsActivityEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
+		
 	}
 	//校验
 		public static boolean isNumber(String strCheckString)

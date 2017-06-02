@@ -71,6 +71,8 @@ public interface RechargePresentsMapper {
 	public void batchDeleteRechargePresentsStoredValue(String strActivityId) throws Exception;
 	//分页查询--删除抵用券信息
 	public void batchDeleteRechargePresentsVoucher(String strActivityId) throws Exception;
+	//查询活动信息详情单条
+	public RechargePresentsActivityEntity selectAllRechargePresentsActivityEntity(String strActivityId) throws Exception;
 	
 	
 }

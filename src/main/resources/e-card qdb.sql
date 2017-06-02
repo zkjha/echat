@@ -922,7 +922,7 @@ drop table if exists tb_userDefinedPresents_voucher;
 create table tb_userDefinedPresents_voucher
 (
 strPresentsVoucherId				varchar(50)		not null,		-- 关键字
-strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id;
+strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 tb_voucherticket_infomanage  id
 strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
 iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
 iRestNum							int 			not null,		-- 还剩的张数
