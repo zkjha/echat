@@ -472,7 +472,9 @@ public class UserDefinedPresentsController
 	{
 		//身份检测
 		/*
+		 * 
 		EmployeeEntity employeeEntity = null;
+		
 		try {
 			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
 		} catch (Exception e) {
