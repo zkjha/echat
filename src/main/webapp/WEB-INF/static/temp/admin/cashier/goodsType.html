@@ -58,8 +58,8 @@
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增拓展信息</div>
-                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+                <div class="fl" ng-switch-default>新增商品类型</div>
+                <div class="fl" ng-switch-when="false">修改商品类型</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -74,7 +74,7 @@
                                 <input type="text" ng-value="goodsTypeList.strGoodsTypeDesc" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                             <div class="mt20" ng-hide="true">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;商品类型ID：
-                                <input type="text" ng-value="goodsTypeList.strGoodsTypeId" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeId" ngTrim="true" ng-maxlength="8" required/>
+                                <input type="text" ng-value="goodsTypeList.strGoodsTypeId" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeId" ngTrim="true"/>
                             </div>
                             <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 商品类型名称：
                                 <input type="text" ng-value="goodsTypeList.strGoodsTypeName" name="strInformationname"   ng-model="goodsTypeList.strGoodsTypeName" ngTrim="true" ng-maxlength="8" required/>
