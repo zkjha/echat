@@ -13,6 +13,12 @@ define(
             ////////////////////充值赠送-开始////////////////////////
             recharge:function($scope,$http){
                 console.info(123)
+                //储值券是否启用判断
+                $scope.listRechargePresentsStoredValueEntitydyq = [{}];
+                //抵用券是否启用判断
+                $scope.listRechargePresentsVoucherEntitydyq = [{}];
+
+                $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
                 $scope.isShowListMenu = [];//二级菜单显示必要的一步
@@ -41,7 +47,7 @@ define(
                     $scope.strSearchEnabledStatus = $scope.actStatus;
                     activityCtrl.selectRechargePresentsActivityInfo($scope,$http,$scope.strSearchEnabledStatus,$scope.strSearchMemberLevel)
                 }
-                
+
                 // 调用充值赠送 -- 分页查询
                 activityCtrl.selectRechargePresentsActivityInfo($scope,$http)
                 //调用会员级别查询
@@ -78,20 +84,51 @@ define(
                     activityCtrl.selectAllRechargePresentsStoredValue($scope,$http,strActivityId);
                     //调用接口-抵用券
                     activityCtrl.selectAllRechargePresentsVoucher($scope,$http,strActivityId);
-                }
-            //    调用抵用券模态框
-                $scope.addStoreZs = function(){
-                    $scope.showExpandInfoWindow = false;
-                    $scope.showExpandInfoWindowStore = true;
-                }
-                $scope.clostExpandWindowStore = function(){
+
+                };
+            //    点击抵用券部分的加号
+            //    $scope.addStoreZs = function(ids){
+            //                console.info(ids)
+            //        console.info($scope.listRechargePresentsVoucherEntity)
+            //            }
+
+            //    添加储值券
+                $scope.addchuziquantianjianumber =1;
+                $scope.adddichuzhiquan = function(){
+                    if(!$scope.listRechargePresentsStoredValueEntity.length){
+
+                    }else{
+                        $scope.addchuziquantianjianumber = $scope.listRechargePresentsStoredValueEntity.length;
+                    }
+                    $scope.listRechargePresentsStoredValueEntity[$scope.addchuziquantianjianumber] = $scope.addchuziquantianjia;
+                    $scope.addchuziquantianjianumber += 1;
                     $scope.showExpandInfoWindow = true;
-                    $scope.showExpandInfoWindowStore = false;
-                }
+                    $scope.showExpandInfoWindowCz = false;
+
+                };
+
+
+            ////    调用抵用券模态框
+            //    $scope.addStoreZs = function(){
+            //        $scope.showExpandInfoWindow = false;
+            //        $scope.showExpandInfoWindowStore = true;
+            //    }
+            //    $scope.clostExpandWindowStore = function(){
+            //        $scope.showExpandInfoWindow = true;
+            //        $scope.showExpandInfoWindowStore = false;
+            //    }
                 //    调用储值券模态框
+
                 $scope.addStoreCz = function(){
-                    $scope.showExpandInfoWindow = false;
-                    $scope.showExpandInfoWindowCz = true;
+                    $scope.addchuziquantianjia = {};
+                    //$scope.chuzhiweikong;
+                    if(!$scope.listRechargePresentsStoredValueEntity.length){
+                        $scope.listRechargePresentsStoredValueEntity[0] = $scope.chuzhiweikong;
+
+                    }
+                    //console.info($scope.listRechargePresentsStoredValueEntity)
+                        $scope.showExpandInfoWindow = false;
+                        $scope.showExpandInfoWindowCz = true;
                 }
                 $scope.clostExpandWindowCz = function(){
                     $scope.showExpandInfoWindow = true;
@@ -111,6 +148,8 @@ define(
                         console.info(result)
                         if (code == 1) {
                             $scope.listRechargePresentsVoucherEntity = data.data.listRechargePresentsVoucherEntity;
+                            $scope.listRechargePresentsVoucherEntitydyq.shift();
+                            $scope.listRechargePresentsVoucherEntitydyq.push(data.data.listRechargePresentsVoucherEntity[0]) ;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -152,6 +191,9 @@ define(
                         var code = data.code;
                         if (code == 1) {
                             $scope.listRechargePresentsStoredValueEntity = data.data.listRechargePresentsStoredValueEntity;
+                            $scope.listRechargePresentsStoredValueEntitydyq.shift();
+                            $scope.listRechargePresentsStoredValueEntitydyq.push(data.data.listRechargePresentsStoredValueEntity[0]) ;
+                            console.info($scope.listRechargePresentsStoredValueEntitydyq[0])
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
