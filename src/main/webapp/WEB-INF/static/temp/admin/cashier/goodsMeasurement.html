@@ -54,8 +54,8 @@
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增拓展信息</div>
-                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+                <div class="fl" ng-switch-default>新增计量单位</div>
+                <div class="fl" ng-switch-when="false">修改计量单位</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -70,7 +70,7 @@
                                 <input type="text" ng-value="unitList.strUnitDesc" name="strInformationname"   ng-model="unitList.strUnitDesc" ngTrim="true" ng-maxlength="8" required/>
                             </div>
                             <div class="mt20" ng-hide="true">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;计量单位ID：
-                                <input type="text" ng-value="unitList.strUnitId" name="strInformationname"   ng-model="unitList.strUnitId" ngTrim="true" ng-maxlength="50" required/>
+                                <input type="text" ng-value="unitList.strUnitId"  name="strInformationname"  ng-model="unitList.strUnitId" ngTrim="true" ng-maxlength="50" />
                             </div>
                             <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 计量单位名称：
                                 <input type="text" ng-value="unitList.strUnitName" name="strInformationname"   ng-model="unitList.strUnitName" ngTrim="true" ng-maxlength="8" required/>

@@ -160,3 +160,19 @@
     background-color: transparent;
     outline:none;
 }
+/*充值赠送*/
+.zjl_recharge_bdbm{
+    border-bottom: 2px solid #999999;
+}
+.zjl_recharge_bdbmx{
+    border-bottom: 2px dotted #d3d3d3;
+}
+.w105{
+    width: 105px !important;
+}
+.w250{
+    width: 250px;
+}
+.zjl_bdxs{
+    border: 1px solid transparent;
+}

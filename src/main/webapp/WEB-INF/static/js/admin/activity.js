@@ -72,7 +72,7 @@ requirejs(
 
             }).when("/recharge", {//充值赠送
                 templateUrl: "/static/temp/admin/activity/recharge.html",
-                controller:activityController.uploadImages
+                controller:activityController.recharge
 
             }).when("/firsttime", {//首次入会
                 templateUrl: "/static/temp/admin/activity/firsttime.html",

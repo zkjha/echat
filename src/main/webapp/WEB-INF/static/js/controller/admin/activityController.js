@@ -1,9 +1,5 @@
 /**
- * Created by liupengyan on 17/3/9.
- */
-/**
- * Created by liupengyan on 17/3/9.
- * 处理活动控制器
+ * Created by zhujunliang on 17/5/1
  */
 define(
 	['lib/remoteUrl'],
@@ -11,6 +7,439 @@ define(
 		'use strict'
 
 		var activityCtrl = {
+
+
+
+            ////////////////////充值赠送-开始////////////////////////
+            recharge:function($scope,$http){
+                console.info(123)
+                $scope.currentPage = 1;
+                $scope.pageSize = 5;
+                $scope.isShowListMenu = [];//二级菜单显示必要的一步
+                $scope.strSearchEnabledStatus = null;
+                $scope.strSearchEnabledStatus = null;
+                //活动状态判断
+                $scope.actiStatus = [{id:"NORMAL",name:"正常"},{id:"EXPIRED",name:"过期"}]
+            //    点击新增按钮
+                $scope.newExpandinginfo = function(){
+                    $scope.rechargePresentsActivityEntity = {};
+                    $scope.listRechargePresentsIntegrationEntity = {};
+                    $scope.listRechargePresentsStoredValueEntity = {};
+                    $scope.listRechargePresentsVoucherEntity = {};
+                    $scope.showExpandInfoWindow = true;
+                }
+            //    点击关闭按钮
+                $scope.clostExpandWindow = function(){
+                    $scope.showExpandInfoWindow = false;
+                }
+            // 分页查询赛选
+                $scope.saixuanVip = function () {
+                    $scope.strSearchMemberLevel = $scope.VipGrade;
+                    activityCtrl.selectRechargePresentsActivityInfo($scope,$http,$scope.strSearchEnabledStatus,$scope.strSearchMemberLevel)
+                }
+                $scope.saixuanStu = function () {
+                    $scope.strSearchEnabledStatus = $scope.actStatus;
+                    activityCtrl.selectRechargePresentsActivityInfo($scope,$http,$scope.strSearchEnabledStatus,$scope.strSearchMemberLevel)
+                }
+                
+                // 调用充值赠送 -- 分页查询
+                activityCtrl.selectRechargePresentsActivityInfo($scope,$http)
+                //调用会员级别查询
+                activityCtrl.listAllMemberLevels($scope,$http)
+                //抵用券维护 -- 抵用券详情 -- 分页查询
+                activityCtrl.selectVoucherTicketInfo($scope,$http);
+                //    二级菜单
+                $scope.openCtrMenu = function ($index, type) {
+                    for (var i = 0; i < $scope.isShowListMenu.length; i++) {
+                        $scope.isShowListMenu[i] = false;
+                    }
+                    if (type == 'over') {
+                        $scope.isShowListMenu[$index] = !$scope.isShowListMenu[$index];
+                    }
+
+                };
+                //充值赠送删除
+                $scope.delectExpand = function(strActivityId,strActivityName){
+                    $scope.showConfirm("确认删除"+strActivityName,function(rs){
+                        if(rs){
+                            activityCtrl.deleteRechargePresentsActivityInfo($scope,$http,strActivityId)
+                        }
+                    })
+                }
+            //    充值赠送修改
+                $scope.updataExpand = function(strActivityId){
+                    //显示模态框
+                    $scope.showExpandInfoWindow = true;
+                    //调用接口-活动
+                    activityCtrl.selectAllRechargePresentsActivityEntity($scope,$http,strActivityId);
+                    //调用接口-积分
+                    activityCtrl.selectAllRechargePresentsIntegration($scope,$http,strActivityId);
+                    //调用接口-储值
+                    activityCtrl.selectAllRechargePresentsStoredValue($scope,$http,strActivityId);
+                    //调用接口-抵用券
+                    activityCtrl.selectAllRechargePresentsVoucher($scope,$http,strActivityId);
+                }
+            //    调用抵用券模态框
+                $scope.addStoreZs = function(){
+                    $scope.showExpandInfoWindow = false;
+                    $scope.showExpandInfoWindowStore = true;
+                }
+                $scope.clostExpandWindowStore = function(){
+                    $scope.showExpandInfoWindow = true;
+                    $scope.showExpandInfoWindowStore = false;
+                }
+                //    调用储值券模态框
+                $scope.addStoreCz = function(){
+                    $scope.showExpandInfoWindow = false;
+                    $scope.showExpandInfoWindowCz = true;
+                }
+                $scope.clostExpandWindowCz = function(){
+                    $scope.showExpandInfoWindow = true;
+                    $scope.showExpandInfoWindowCz = false;
+                }
+            },
+            //充值赠送 -- 赠送查询详情
+            selectAllRechargePresentsVoucher:function($scope,$http,strActivityId){
+                var data = {
+                    strActivityId:strActivityId
+                };
+                $http.post(remoteUrl.selectAllRechargePresentsVoucher,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.listRechargePresentsVoucherEntity = data.data.listRechargePresentsVoucherEntity;
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 储值查询详情
+            selectAllRechargePresentsStoredValue:function($scope,$http,strActivityId){
+                var data = {
+                    strActivityId:strActivityId
+                };
+                $http.post(remoteUrl.selectAllRechargePresentsStoredValue,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.listRechargePresentsStoredValueEntity = data.data.listRechargePresentsStoredValueEntity;
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 积分查询详情
+            selectAllRechargePresentsIntegration:function($scope,$http,strActivityId){
+                var data = {
+                    strActivityId:strActivityId
+                };
+                $http.post(remoteUrl.selectAllRechargePresentsIntegration,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.listRechargePresentsIntegrationEntity = data.data.listRechargePresentsIntegrationEntity;
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 查询详情
+            selectAllRechargePresentsActivityEntity:function($scope,$http,strActivityId){
+                var data = {
+                    strActivityId:strActivityId
+                };
+                $http.post(remoteUrl.selectAllRechargePresentsActivityEntity,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.rechargePresentsActivityEntity = data.data.rechargePresentsActivityEntity;
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 更新活动
+            updatePresentsActivityInfo:function($scope,$http,resultMap){
+                var data = {
+                    strActivityBeginTime:resultMap.strActivityBeginTime,
+                    strActivityEndTime:resultMap.strActivityEndTime,
+                    strActivityId:resultMap.strActivityId,
+                    strActivityName:resultMap.strActivityName,
+                    strLevelsId:resultMap.strLevelsId
+                };
+                $http.post(remoteUrl.updatePresentsActivityInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            window.location.reload();
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送删除
+            deleteRechargePresentsActivityInfo:function($scope,$http,strActivityId){
+                var data = {
+                    strActivityId:strActivityId
+                };
+                $http.post(remoteUrl.deleteRechargePresentsActivityInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            window.location.reload();
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //会员级别查询
+            listAllMemberLevels:function($scope,$http){
+                var data = {};
+                $http.post(remoteUrl.listAllMemberLevels,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.memberlevelsEntityList = data.data.memberlevelsEntityList
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送分页查询
+            selectRechargePresentsActivityInfo:function($scope,$http,strSearchEnabledStatus,strSearchMemberLevel){
+                var data = {
+                    iPageNum:$scope.currentPage,
+                    iPageSize:$scope.pageSize,
+                    strSearchEnabledStatus:strSearchEnabledStatus,
+                    strSearchMemberLevel:strSearchMemberLevel
+                };
+                $http.post(remoteUrl.selectRechargePresentsActivityInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.resultMap = data.data.resultMap;
+                            console.info($scope.resultMap)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                            $scope.showAlert(rs.msg);
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+
+            ////////////////////充值赠送-结束////////////////////////
             ////////////////////首次入会-开始////////////////////////
             firsttime:function($scope,$http){
                 $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
@@ -35,7 +464,6 @@ define(
                 //新增
                 $scope.submitExpandinfo = function(){
                     var listVoucherTicketPresentsEntity = $scope.listVoucherTicketPresentsEntity;
-                    //return
                     activityCtrl.insertVoucherTicketPresentsInfo($scope,$http,listVoucherTicketPresentsEntity)
                 }
                 //关闭窗口
@@ -56,7 +484,7 @@ define(
                         +listVoucherTicketPresentsEntity[i].iTotalVoucherTicketNum+","
                         +listVoucherTicketPresentsEntity[i].iEnabled;
                     }
-                    //记录id,抵用券ID,抵用券张数,启用状态
+                    //记录id,抵用券ID,抵用券张数,启用状态|记录id,抵用券ID,抵用券张数,启用状态
                     stringParam = stringParam.join("|");
 
                     $scope.jfqypanduan =  function(){
@@ -66,14 +494,10 @@ define(
                            return integrationPresentsEntity.strEnabledsssId
                         }
                     }
-                    //integrationPresentsEntity.strEnabledsssId = $scope.jfqypanduan() ;
-                    //return
                     $scope.showConfirm("确认修改？",function(rs){
                         if(rs){
                             activityCtrl.updateStoredTicketPresentsInfo($scope,$http,listStoredTicketPresentsEntity)
-                            return
                             activityCtrl.updateFirstMemberInitiationIntegrationPresents($scope,$http,integrationPresentsEntity)
-
                             activityCtrl.insertAndUpdateVoucherTicketPresentsInfo($scope,$http,stringParam)
                             window.location.reload();
                         }
@@ -132,11 +556,6 @@ define(
                     iTotalVoucherTicketNum:listVoucherTicketPresentsEntity.iTotalVoucherTicketNum,
                     strVoucherTicketKindId:listVoucherTicketPresentsEntity.strVoucherTicketKindId
                 };
-                //var data = {
-                //        iEnabled:1,
-                //        iTotalVoucherTicketNum:200,
-                //        strVoucherTicketKindId:5555
-                //    };
                 $http.post(remoteUrl.insertVoucherTicketPresentsInfo,data).then(
                     function(result){
                         var rs = result.data;
@@ -322,9 +741,7 @@ define(
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
-                            //window.location.reload();
                             $scope.listVoucherTicketPresentsEntity = data.data.listVoucherTicketPresentsEntity;
-                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -363,9 +780,7 @@ define(
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
-                            //window.location.reload();
                             $scope.listVoucherTicketInfoEntity = data.data.listVoucherTicketInfoEntity;
-                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -404,11 +819,7 @@ define(
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
-                            //window.location.reload();
                             $scope.listStoredTicketPresentsEntity = data.data.listStoredTicketPresentsEntity;
-                            //for(let i =0;i<$scope.listStoredTicketPresentsEntity.length;i++){
-                            //    $scope.listStoredTicketPresentsEntity[i].strValidateEndTime = new Date($scope.listStoredTicketPresentsEntity[i]);
-                            //}
 
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -448,9 +859,7 @@ define(
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
-                            //window.location.reload();
                             $scope.integrationPresentsEntity = data.data.integrationPresentsEntity;
-                            //$scope.integrationPresentsEntity.strEnabled = $scope.integrationPresentsEntity.iEnabled;
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -483,6 +892,9 @@ define(
 
 
             ////////////////////首次入会-结束/////////////////////////
+
+
+
             ////////////////////抵用券维护-开始/////////////////////////
             dyqxz:function($scope,$http){
                 $scope.currentPage = 1;

@@ -1,5 +1,5 @@
 /**
- * Created by liupengyan on 17/3/9.
+ * Created by zhujunliang on 17/4/3.
  * 处理收银控制器
  */
 define(
@@ -1335,8 +1335,6 @@ define(
             
              ////////////////////服务管理开始/////////////////////////
 				serviceAdministrationController:function($scope, $http){
-				console.info(123)
-
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
                 $scope.isShowListMenu = [];
@@ -1453,28 +1451,6 @@ define(
                 $scope.updataExpand=function(strServiceInfoId){
                 	$scope.shangpinTianjia = false;
                 	$scope.shangpinXiugai = true;
-                	
-                	//增加服务管理分级别优惠
-//              	$scope.listGoodsPreferential = [{
-//              		"strLevelsId" :"",
-//              		"strLevelsName" :"",
-//              		"iRequiredIntegral":""
-//              	}]
-//              	$scope.xiugaiAddAddAdmincont = function(){
-//              		$scope.listGoodsPreferential.push({"strLevelsId": "","strLevelsName" :"","iRequiredIntegral": ""})
-//              	}
-//              	$scope.xiugaislownAddAdmincont = function(){
-//              		if($scope.listGoodsPreferential.length > 1){
-//              			$scope.listGoodsPreferential.pop(); 
-//              		}
-//              		else{
-//              			$scope.listGoodsPreferential.strLevelsId = "";
-//              			$scope.listGoodsPreferential.strLevelsName = "";
-//              			$scope.listGoodsPreferential.iRequiredIntegral = "";
-//              		}
-//              	}
-                	
-                	
                     $scope.showExpandInfoWindow=true;
                     $scope.isAddNewExpand=false;
                     //判断执行添加还是修改

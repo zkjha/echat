@@ -221,19 +221,47 @@ define([],function(){
             //首次入会 -- 储值 -- 删除
             deleteStoredTicketPresentsInfo:"/admin/biz/presentsSetting/deleteStoredTicketPresentsInfo",
             //抵用券维护 -- 抵用券详情 -- 查询 下拉列表
-        getListBoxtVoucherTicketInfo:'/admin/biz/voucherTickeSetting/getListBoxtVoucherTicketInfo',
-        //首次入会 -- 抵用券 -- 新增
-        insertVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo",
-        //首次入会 -- 抵用券 -- 删除
-        deleteVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo",
-        //首次入会 -- 抵用券 -- 批量更新
-        insertAndUpdateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertAndUpdateVoucherTicketPresentsInfo",
-        //首次入会 -- 抵用券 -- 查询
-        selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
-
-
-
-
+            getListBoxtVoucherTicketInfo:'/admin/biz/voucherTickeSetting/getListBoxtVoucherTicketInfo',
+            //首次入会 -- 抵用券 -- 新增
+            insertVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertVoucherTicketPresentsInfo",
+            //首次入会 -- 抵用券 -- 删除
+            deleteVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/deleteVoucherTicketPresentsInfo",
+            //首次入会 -- 抵用券 -- 批量更新
+            insertAndUpdateVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/insertAndUpdateVoucherTicketPresentsInfo",
+            //首次入会 -- 抵用券 -- 查询
+            selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
+            //充值赠送 -- 分页查询
+            selectRechargePresentsActivityInfo:"/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo",
+            //充值赠送 -- 删除
+            deleteRechargePresentsActivityInfo:"/admin/RechargePresentsSetting/deleteRechargePresentsActivityInfo",
+            //充值赠送 -- 更新活动
+            updatePresentsActivityInfo:"/admin/RechargePresentsSetting/updatePresentsActivityInfo",
+            //充值赠送 -- 活动信息 -- 新增
+            inserPresentsActivityInfo:" /admin/RechargePresentsSetting/inserPresentsActivityInfo",
+            //充值赠送 -- 活动信息 -- 查询
+            selectAllRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity",
+            //充值赠送 -- 赠送储值 -- 删除
+            deleteRechargePresentsStoredValue:"/admin/RechargePresentsSetting/deleteRechargePresentsStoredValue",
+            //充值赠送 -- 赠送储值 -- 批量新增
+            batchInsertRechargePresentsStoredValue:"/admin/RechargePresentsSetting/batchInsertRechargePresentsStoredValue",
+            //充值赠送 -- 赠送储值 -- 批量更新
+            batchUpdateRechargePresentsStoredValue:"/admin/RechargePresentsSetting/batchUpdateRechargePresentsStoredValue",
+            //充值赠送 -- 赠送储值 -- 查询
+            selectAllRechargePresentsStoredValue:"/admin/RechargePresentsSetting/selectAllRechargePresentsStoredValue",
+            //充值赠送 -- 赠送抵用券 -- 删除
+            deleteRechargePresentsVoucher:"/admin/RechargePresentsSetting/deleteRechargePresentsVoucher",
+            //充值赠送 -- 赠送抵用券 -- 批量修改
+            batchUpdateRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchUpdateRechargePresentsVoucher",
+            //充值赠送 -- 赠送抵用券 -- 查询
+            selectAllRechargePresentsVoucher:"/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher",
+            //充值赠送 -- 赠送积分 -- 新增
+            insertRechargePresentsIntegration:"/admin/RechargePresentsSetting/insertRechargePresentsIntegration",
+            //充值赠送 -- 赠送积分 -- 更新
+            updateRechargePresentsIntegration:"/admin/RechargePresentsSetting/updateRechargePresentsIntegration",
+            //充值赠送 -- 赠送积分 -- 查询
+            selectAllRechargePresentsIntegration:"/admin/RechargePresentsSetting/selectAllRechargePresentsIntegration",
+            //充值赠送 --抵用券赠送 -- 批量新增
+            batchInsertRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
 
 
 
