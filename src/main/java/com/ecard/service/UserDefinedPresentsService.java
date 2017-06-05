@@ -256,29 +256,49 @@ public class UserDefinedPresentsService {
 	
 	
 	//查询自定义赠送活动在特定会员级别及特定状态下的记录
-	//@Transactional
-	/*public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception
+	@Transactional
+	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception
 	{
 		int iObjNum=0;
-		List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectAllUserDefinedPresentsVoucherEntity(queryMap);
+		List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectAllUserDefinedPresentsActivity(queryMap);
 		iObjNum=listUserDefinedPresentsActivityEntity.size();
 		if(listUserDefinedPresentsActivityEntity==null||iObjNum==0)
 			return null;
 		for(int i=0;i<iObjNum;i++)
 		{
-		
-	*/
 			//将自定义活动状态属性写入对象
-			/*
-			String strActivityEndTime=
+			String strActivityStatus="";
+			String strActivityId="";
+			int iIntegrationEnabled=0;
+			int iStoredTicketEnabled=0;
+			int iVoucherTicketEnabled=0;
+			
+			String strActivityEndTime=listUserDefinedPresentsActivityEntity.get(i).getStrActivityEndTime();
+			strActivityId=listUserDefinedPresentsActivityEntity.get(i).getStrActivityId();
+			String strCurrentTime=(String)queryMap.get("strCurrentDate");
+
+			if(strActivityEndTime.compareTo(strCurrentTime)<0)
+				strActivityStatus="过期";
+			
+			if(strActivityEndTime.compareTo(strCurrentTime)>=0)
+				strActivityStatus="正常";
+			
 			UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity=listUserDefinedPresentsActivityEntity.get(i);
-			UserDefinedPresentsActivityEntity
-			*/
-	/*	
+			userDefinedPresentsActivityEntity.setStrActivityStatus(strActivityStatus);
+			
+			//分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+			iIntegrationEnabled=userDefinedPresentsMapper.selectIntegrationEnabled(strActivityId);
+			iIntegrationEnabled=userDefinedPresentsMapper.selectStoredTicketEnabled(strActivityId);
+			iIntegrationEnabled=userDefinedPresentsMapper.selectVoucherTicketEnabled(strActivityId);
+			userDefinedPresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
+			userDefinedPresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
+			userDefinedPresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
 		}
 		
+		return listUserDefinedPresentsActivityEntity;
+		
 	}
-	*/
+	
 	
 	
 

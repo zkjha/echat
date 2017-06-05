@@ -1088,24 +1088,19 @@ public class UserDefinedPresentsController
 	
 
 	/**
-	 *  分页查询 自定义赠送
+	 *  分页查询 自定义赠送活动信息
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	
-	/*
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsActivity")
-	*/
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
-	
-	/*
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
  	public String selectAllUserDefinedPresentsActivity(HttpServletRequest request,HttpServletResponse response)
 	
 	{
 		//取得搜索字段
-		//strSearchEnabledStatus=活动状态：全部：ALL；过期:EXPIRED，正常:NORMAL
+		//strSearchEnabledStatus=活动状态：参数为空 "全部All",为0 表过期:EXPIRED，1正常:NORMAL
 		//strSearchMemberLevel=ALL 全部
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
@@ -1122,6 +1117,12 @@ public class UserDefinedPresentsController
 		
 		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
 			strSearchEnabledStatus="ALL";
+		
+		if("0".equals(strSearchEnabledStatus))
+			strSearchEnabledStatus="EXPIRED";
+		
+		if("1".equals(strSearchEnabledStatus))
+			strSearchEnabledStatus="NORMAL";
 		
 		if(ValidateTool.isEmptyStr(strPageNum))
 			iPageNum=1;
@@ -1144,7 +1145,7 @@ public class UserDefinedPresentsController
 				iPageSize=StaticValue.PAGE_SIZE;
 		}
 	
-	*/
+	
 		/*
 		EmployeeEntity employeeEntity = null;
 		try {
@@ -1158,7 +1159,7 @@ public class UserDefinedPresentsController
 		}
 		*/	
 	
-	/*
+
 		try{
 			
 			Map<String,Object> queryMap=new HashMap<String,Object>();
@@ -1178,8 +1179,6 @@ public class UserDefinedPresentsController
 				queryMap.put("iPageSize",iPageSize);
 				
 				listUserDefinedPresentsActivityEntity=userDefinedPresentsService.selectAllUserDefinedPresentsActivity(queryMap);
-				
-				
 				if(listUserDefinedPresentsActivityEntity==null||listUserDefinedPresentsActivityEntity.size()==0)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 				Map<String,Object> resultMap=new HashMap<String,Object>();
@@ -1197,7 +1196,7 @@ public class UserDefinedPresentsController
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
 	}
-	 */
+	 
 	
 	
 	//校验

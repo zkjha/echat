@@ -262,7 +262,7 @@ public class RechargePresentsService {
 				strActivityEndDate=rechargePresentsActivityEntity.getStrActivityEndTime();
 				strCurrentDate=DateTool.DateToString(currentDate, DateStyle.YYYY_MM_DD);
 
-				if(strActivityEndDate.compareTo(strCurrentDate)<=0)
+				if(strActivityEndDate.compareTo(strCurrentDate)<0)
 					strActivityStatus="过期";
 				else
 					strActivityStatus="正常";

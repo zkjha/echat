@@ -56,5 +56,14 @@ public interface UserDefinedPresentsMapper {
 	public int findTheRecordCount(Map<String,Object> queryMap) throws Exception;
 	//查询自定义赠送活动在特定会员级别及特定状态下的记录
 	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception;
+	
+	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	public int selectIntegrationEnabled(String strActivityId) throws Exception;
+	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	public int selectStoredTicketEnabled(String strActivityId) throws Exception;
+	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	public int selectVoucherTicketEnabled(String strActivityId) throws Exception;
+	
+	
 
 }
