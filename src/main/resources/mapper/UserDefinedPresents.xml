@@ -222,5 +222,127 @@ where strPresentsIntegrationId=#{strPresentsIntegrationId}
 	where strActivityId=#{strActivityId}
 </select>
 
+<!-- 新增自定义活动赠送抵用券规则_[tableName:tb_userDefinedPresents_voucher] -->
+<insert id="insertUserDefinedPresentsVoucherEntity" parameterType="com.ecard.entity.UserDefinedPresentsVoucherEntity">
+ insert into tb_userDefinedPresents_voucher
+	(
+	strPresentsVoucherId,
+	strVoucherTicketId,
+	strActivityId,
+	iTotalNum,
+	iRestNum,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strPresentsVoucherId},
+	#{strVoucherTicketId},
+	#{strActivityId},
+	#{iTotalNum},
+	#{iRestNum},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新自定义活动赠送抵用券规则_[tableName:tb_userDefinedPresents_voucher] -->
+<update id="updateUserDefinedPresentsVoucherEntity" parameterType="com.ecard.entity.UserDefinedPresentsVoucherEntity">
+ update tb_userDefinedPresents_voucher set 
+	strVoucherTicketId=#{strVoucherTicketId},
+	strActivityId=#{strActivityId},
+	iTotalNum=#{iTotalNum},
+	iRestNum=#{iRestNum},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strPresentsVoucherId=#{strPresentsVoucherId}
+</update>
+
+<!-- 查询自定义活动赠送抵用券规则_[tableName:tb_userDefinedPresents_voucher] -->
+<select id="selectAllUserDefinedPresentsVoucherEntity" resultType="com.ecard.entity.UserDefinedPresentsVoucherEntity">
+ select 
+ 	strPresentsVoucherId,
+ 	strVoucherTicketId,
+ 	strActivityId,
+ 	iTotalNum,
+ 	iRestNum,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_userDefinedPresents_voucher
+	where strActivityId=#{strActivityId} order by strCreationTime DESC
+</select>
+
+<!-- 删除自定义活动赠送抵用券规则_[tableName:tb_userDefinedPresents_voucher] -->
+<delete id="deleteUserDefinedPresentsVoucherEntity" parameterType="String">
+ delete from tb_userDefinedPresents_voucher
+	where strPresentsVoucherId=#{strPresentsVoucherId}
+</delete>
+
+<!-- 查询自定义活动在指定会员级别及活动状态下的记录条数：分页显示 -->
+<select id="selectUserDefinedPresentsActivityEntity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="map">
+	select count(strActivityId) from tb_userDefinedPresents_Activity
+	<where>
+		
+		<if test="strSearchEnabledStatus='EXPIRED' and strCurrentDate!=''">
+			strActivityEndTime&gt;#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchEnabledStatus='NORMAL' and strCurrentDate!=''">
+			strActivityEndTime&lt;=#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchMemberLevel!='' and strSearchMemberLevel!=null">
+			and strLevelsId=#{strSearchMemberLevel}
+		</if>
+		
+	</where>
+</select>
+
+<!-- 查询自定义赠送活动_[tableName:tb_userDefinedPresents_Activity] -->
+<select id="selectAllUserDefinedPresentsActivityEntity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="map">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	<where>
+		
+		<if test="strSearchEnabledStatus='EXPIRED' and strCurrentDate!=''">
+			strActivityEndTime&gt;#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchEnabledStatus='NORMAL' and strCurrentDate!=''">
+			strActivityEndTime&lt;=#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchMemberLevel!='' and strSearchMemberLevel!=null">
+			and strLevelsId=#{strSearchMemberLevel}
+		</if>
+		
+	</where>
+ 	from tb_userDefinedPresents_Activity order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
+</select>
 
 </mapper>

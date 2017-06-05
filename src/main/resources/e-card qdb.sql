@@ -924,8 +924,6 @@ strVoucherTicketId        			VARCHAR(50) 	NOT NULL,       -- 抵用券ID关联 t
 strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
 iTotalNum							int				not null,		-- 对所有可赠送会员的总张数
 iRestNum							int 			not null,		-- 还剩的张数
-strValidateBeginTime				varchar(50),					-- 有效期开始时间    暂不使用该属性
-strValidateEndTime					varchar(50),					-- 有效期截止时间	暂不使用该属性
 iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
