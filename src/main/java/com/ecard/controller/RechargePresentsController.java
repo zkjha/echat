@@ -1460,6 +1460,45 @@ public class RechargePresentsController {
 		
 		
 	}
+	
+
+	
+	//查询一条充值赠送活动信息rechargePresentsActivityEntity
+	@ResponseBody
+	@RequestMapping("selectRechargePresentsActivityEntity")
+	public String selectRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+
+	//身份检测
+	/*
+	EmployeeEntity employeeEntity = null;
+	try {
+		employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+	}
+	if(employeeEntity==null){
+		return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+	}
+	*/
+
+	RechargePresentsActivityEntity rechargePresentsActivityEntity=null;
+	try{
+		rechargePresentsActivityEntity=rechargePresentsService.selectRechargePresentsActivityEntity();
+		if(rechargePresentsActivityEntity==null)
+		return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("rechargePresentsActivityEntity",rechargePresentsActivityEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+	}
+	}
+	
+	
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{

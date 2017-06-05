@@ -269,6 +269,7 @@ public class RechargePresentsService {
 
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
 				rechargePresentsActivityEntity.setStrActivityStatus(strActivityStatus);
+				
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
@@ -382,6 +383,14 @@ public class RechargePresentsService {
 			return rechargePresentsMapper.selectAllRechargePresentsActivityEntity(strActivityId);
 
 		}
+		
+		//查询刚写入的充值赠送活动详情单条
+	public RechargePresentsActivityEntity selectRechargePresentsActivityEntity() throws Exception
+	{
+					
+	return rechargePresentsMapper.selectRechargePresentsActivityEntity();
+
+	}
 
 }
 
