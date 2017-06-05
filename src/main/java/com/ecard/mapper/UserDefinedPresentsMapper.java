@@ -55,6 +55,6 @@ public interface UserDefinedPresentsMapper {
 	//查询自定义赠送活动在特定会员级别及特定状态下的记录条数
 	public int findTheRecordCount(Map<String,Object> queryMap) throws Exception;
 	//查询自定义赠送活动在特定会员级别及特定状态下的记录
-	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsVoucherEntity(Map<String,Object> queryMap) throws Exception;
+	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception;
 
 }

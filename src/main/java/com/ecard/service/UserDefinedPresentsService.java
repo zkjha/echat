@@ -1,4 +1,7 @@
 package com.ecard.service;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +12,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.entity.UserDefinedPresentsActivityEntity;
 import com.ecard.entity.UserDefinedPresentsIntegrationEntity;
 import com.ecard.entity.UserDefinedPresentsStoredValueEntity;
+import com.ecard.entity.UserDefinedPresentsVoucherEntity;
 import com.ecard.mapper.UserDefinedPresentsMapper;
 
 
@@ -185,5 +189,97 @@ public class UserDefinedPresentsService {
 		else
 			return userDefinedPresentsMapper.selectAllUserDefinedPresentsStoredValueEntity(strActivityId);
 	}
+	
+	
+	//批量插入自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity
+	@Transactional
+	public String batchInsertUserDefinedPresentsVoucherEntity(List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity) throws Exception
+	{
+	int iAffectNum=0,iObjLength;
+	iObjLength=listUserDefinedPresentsVoucherEntity.size();
+	if(listUserDefinedPresentsVoucherEntity==null||iObjLength==0)
+		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	for(int i=0;i<iObjLength;i++)
+	{	UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=listUserDefinedPresentsVoucherEntity.get(i);
+		iAffectNum=userDefinedPresentsMapper.insertUserDefinedPresentsVoucherEntity(userDefinedPresentsVoucherEntity);
+	}
+	
+	if(iAffectNum==0)
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"未知错误",null);
+	else
+		return DataTool.constructResponse(ResultCode.OK,"批量插入成功",null);
+	}
+	
+	
+	//批量插入自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity
+	@Transactional
+	public String batchUpdateUserDefinedPresentsVoucherEntity(List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity) throws Exception
+	{
+	int iAffectNum=0,iObjLength;
+	iObjLength=listUserDefinedPresentsVoucherEntity.size();
+	if(listUserDefinedPresentsVoucherEntity==null||iObjLength==0)
+		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	for(int i=0;i<iObjLength;i++)
+	{	
+		UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=listUserDefinedPresentsVoucherEntity.get(i);
+		iAffectNum=userDefinedPresentsMapper.updateUserDefinedPresentsVoucherEntity(userDefinedPresentsVoucherEntity);
+	}
+	
+	if(iAffectNum==0)
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"未知错误",null);
+	else
+		return DataTool.constructResponse(ResultCode.OK,"批量修改成功",null);
+	}	
+
+	//查询自定义赠送抵用券UserDefinedPresentsVoucherEntity列表
+	public List<UserDefinedPresentsVoucherEntity> selectAllUserDefinedPresentsVoucherEntity(String strActivityId) throws Exception
+	{
+		return userDefinedPresentsMapper.selectAllUserDefinedPresentsVoucherEntity(strActivityId);
+	}
+		
+	//删除一条自定义赠送抵用券信息userDefinedPresentsVoucherEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public String deleteUserDefinedPresentsVoucherEntity(String strPresentsVoucherId) throws Exception
+	{int iAffectNum=userDefinedPresentsMapper.deleteUserDefinedPresentsVoucherEntity(strPresentsVoucherId);
+	if(0==iAffectNum)
+	{
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "数据库操作失败",null);
+	}
+	return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
+	
+	//查询自定义赠送活动在特定会员级别及特定状态下的记录条数
+	public int findTheRecordCount(Map<String,Object> queryMap) throws Exception
+	{
+		return userDefinedPresentsMapper.findTheRecordCount(queryMap);
+	}
+	
+	
+	//查询自定义赠送活动在特定会员级别及特定状态下的记录
+	//@Transactional
+	/*public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception
+	{
+		int iObjNum=0;
+		List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectAllUserDefinedPresentsVoucherEntity(queryMap);
+		iObjNum=listUserDefinedPresentsActivityEntity.size();
+		if(listUserDefinedPresentsActivityEntity==null||iObjNum==0)
+			return null;
+		for(int i=0;i<iObjNum;i++)
+		{
+		
+	*/
+			//将自定义活动状态属性写入对象
+			/*
+			String strActivityEndTime=
+			UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity=listUserDefinedPresentsActivityEntity.get(i);
+			UserDefinedPresentsActivityEntity
+			*/
+	/*	
+		}
+		
+	}
+	*/
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.ecard.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.ecard.entity.RechargePresentsIntegrationEntity;
 import com.ecard.entity.UserDefinedPresentsActivityEntity;
 import com.ecard.entity.UserDefinedPresentsIntegrationEntity;
 import com.ecard.entity.UserDefinedPresentsStoredValueEntity;
+import com.ecard.entity.UserDefinedPresentsVoucherEntity;
 import com.ecard.service.UserDefinedPresentsService;
 import com.ecard.util.WebSessionUtil;
 
@@ -749,8 +751,455 @@ public class UserDefinedPresentsController
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
 		
-		
 	}
+		
+	//批量插入自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity记录
+	@ResponseBody
+	@RequestMapping("batchInsertUserDefinedPresentsVoucherEntity")
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity?strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=100,50&iEnabled=1,1
+	public String batchInsertUserDefinedPresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+
+		//声明数组
+		int iArrayLength;	//定义数组长度
+		int[] iTotalNumArray;
+		int[] iRestNumArray;
+		int[] iEnabledArray;
+		String[] strVoucherTicketIdArray;
+		String[] strActivityIdArray;
+		String[] strTotalNumArray;
+
+		String[] strEnabledArray;
+
+		//获取参数
+		String strVoucherTicketId=request.getParameter("strVoucherTicketId");
+		String strActivityId=request.getParameter("strActivityId");
+		String strTotalNum=request.getParameter("iTotalNum");
+		String strEnabled=request.getParameter("iEnabled");
+		//检测字符串有效性
+
+		if(ValidateTool.isEmptyStr(strVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "关联抵用券ID不能为空", null);
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "关联活动ID不能为空", null);
+		if(ValidateTool.isEmptyStr(strTotalNum))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "总张数不能为空", null);
+		if(ValidateTool.isEmptyStr(strEnabled))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "是否启用不能为空", null);
+
+		//将字符串折成数组
+		strVoucherTicketIdArray=strVoucherTicketId.split(",");
+		strActivityIdArray=strActivityId.split(",");
+		strTotalNumArray=strTotalNum.split(",");
+		strEnabledArray=strEnabled.split(",");
+		
+		iArrayLength=strVoucherTicketIdArray.length;
+		if(iArrayLength!=strActivityIdArray.length||iArrayLength!=strTotalNumArray.length||iArrayLength!=strEnabledArray.length)
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "数据有遗漏", null);
+
+		iTotalNumArray=new int[iArrayLength];
+		iRestNumArray=new int[iArrayLength];
+		iEnabledArray=new int[iArrayLength];
+		for(int i=0;i<iArrayLength;i++)
+		{
+			if(isNumber(strTotalNumArray[i]))
+			{
+				iTotalNumArray[i]=Integer.parseInt(strTotalNumArray[i]);
+				iRestNumArray[i]=iTotalNumArray[i];
+				
+			}
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+			
+		}
+		
+		
+		for(int i=0;i<iArrayLength;i++)
+		{
+			if(isNumber(strEnabledArray[i]))
+				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+			
+		}
+		
+		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+
+		//身份检测
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if(employeeEntity==null){
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		//取得登录员工信息
+		/*String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+		*/
+
+		//以下3个为测试用数据
+
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="test";
+		String strEmployeeRealName="test";
+
+
+		//属性组装进对象
+		List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity=new ArrayList<UserDefinedPresentsVoucherEntity>();
+		for(int i=0;i<iArrayLength;i++)
+		{
+		UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=new UserDefinedPresentsVoucherEntity();
+		userDefinedPresentsVoucherEntity.setStrPresentsVoucherId(DataTool.getUUID());
+		userDefinedPresentsVoucherEntity.setStrVoucherTicketId(strVoucherTicketIdArray[i]);
+		userDefinedPresentsVoucherEntity.setStrActivityId(strActivityIdArray[i]);
+		userDefinedPresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
+		userDefinedPresentsVoucherEntity.setiRestNum(iRestNumArray[i]);
+		userDefinedPresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
+		userDefinedPresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
+		userDefinedPresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
+		userDefinedPresentsVoucherEntity.setStrEmployeeRealName(strEmployeeRealName);
+		userDefinedPresentsVoucherEntity.setStrCreationTime(strCreationTime);
+		userDefinedPresentsVoucherEntity.setStrLastAccessedTime(strLastAccessedTime);
+		listUserDefinedPresentsVoucherEntity.add(userDefinedPresentsVoucherEntity);
+		}
+		try{
+			return userDefinedPresentsService.batchInsertUserDefinedPresentsVoucherEntity(listUserDefinedPresentsVoucherEntity);
+		}
+		catch(Exception e)
+		{	e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+
+	//批量更新自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity记录
+	@ResponseBody
+	@RequestMapping("batchUpdateUserDefinedPresentsVoucherEntity")
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163,303e51e59d53490491705fe3b2002146&strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=500,500&iEnabled=0,0
+	public String batchUpdateUserDefinedPresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+		//声明数组
+		int iArrayLength;	//定义数组长度
+		int[] iTotalNumArray;
+		int[] iRestNumArray;
+		int[] iEnabledArray;
+		String[] strVoucherTicketIdArray;
+		String[] strActivityIdArray;
+		String[] strTotalNumArray;
+		String[] strPresentsVoucherIdArray;
+		String[] strEnabledArray;
+
+		//获取参数
+		String strVoucherTicketId=request.getParameter("strVoucherTicketId");
+		String strActivityId=request.getParameter("strActivityId");
+		String strTotalNum=request.getParameter("iTotalNum");
+		String strEnabled=request.getParameter("iEnabled");
+		String strPresentsVoucherId=request.getParameter("strPresentsVoucherId");
+		//检测字符串有效性
+		if(ValidateTool.isEmptyStr(strPresentsVoucherId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "修改记录关键字不能为空", null);
+		if(ValidateTool.isEmptyStr(strVoucherTicketId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "关联抵用券ID不能为空", null);
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "关联活动ID不能为空", null);
+		if(ValidateTool.isEmptyStr(strTotalNum))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "总张数不能为空", null);
+		if(ValidateTool.isEmptyStr(strEnabled))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "是否启用不能为空", null);
+
+		//将字符串折成数组
+		strPresentsVoucherIdArray=strPresentsVoucherId.split(",");
+		strVoucherTicketIdArray=strVoucherTicketId.split(",");
+		strActivityIdArray=strActivityId.split(",");
+		strTotalNumArray=strTotalNum.split(",");
+		strEnabledArray=strEnabled.split(",");
+				
+		iArrayLength=strVoucherTicketIdArray.length;
+		if(iArrayLength!=strActivityIdArray.length||iArrayLength!=strTotalNumArray.length||iArrayLength!=strEnabledArray.length||iArrayLength!=strPresentsVoucherIdArray.length)
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "数据有遗漏", null);
+
+		iTotalNumArray=new int[iArrayLength];
+		iRestNumArray=new int[iArrayLength];
+		iEnabledArray=new int[iArrayLength];
+		for(int i=0;i<iArrayLength;i++)
+		{
+			if(isNumber(strTotalNumArray[i]))
+			{
+				iTotalNumArray[i]=Integer.parseInt(strTotalNumArray[i]);
+				iRestNumArray[i]=iTotalNumArray[i];
+						
+			}
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+					
+		}
+				
+				
+		for(int i=0;i<iArrayLength;i++)
+		{
+			if(isNumber(strEnabledArray[i]))
+				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
+			else
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+					
+		}
+				
+		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+
+	//身份检测
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+					e.printStackTrace();
+					return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+				}
+		if(employeeEntity==null)
+		{
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		//取得登录员工信息
+		/*
+		String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+		*/
+
+		//以下3个为测试用数据
+
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="test";
+		String strEmployeeRealName="test";
+
+
+		//属性组装进对象
+		List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity=new ArrayList<UserDefinedPresentsVoucherEntity>();
+		for(int i=0;i<iArrayLength;i++)
+		{
+			UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=new UserDefinedPresentsVoucherEntity();
+			userDefinedPresentsVoucherEntity.setStrPresentsVoucherId(strPresentsVoucherIdArray[i]);
+			userDefinedPresentsVoucherEntity.setStrVoucherTicketId(strVoucherTicketIdArray[i]);
+			userDefinedPresentsVoucherEntity.setStrActivityId(strActivityIdArray[i]);
+			userDefinedPresentsVoucherEntity.setiTotalNum(iTotalNumArray[i]);
+			userDefinedPresentsVoucherEntity.setiRestNum(iRestNumArray[i]);
+			userDefinedPresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
+			userDefinedPresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
+			userDefinedPresentsVoucherEntity.setStrEmployeeName(strEmployeeName);
+			userDefinedPresentsVoucherEntity.setStrEmployeeRealName(strEmployeeRealName);
+			userDefinedPresentsVoucherEntity.setStrLastAccessedTime(strLastAccessedTime);
+			listUserDefinedPresentsVoucherEntity.add(userDefinedPresentsVoucherEntity);
+		}
+		try{
+			return userDefinedPresentsService.batchUpdateUserDefinedPresentsVoucherEntity(listUserDefinedPresentsVoucherEntity);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}	
+
+	
+	//查询自定义赠送抵用券信息UserDefinedPresentsVoucherEntity列表
+	@ResponseBody
+	@RequestMapping("selectAllUserDefinedPresentsVoucherEntity")
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity
+	public String selectAllUserDefinedPresentsVoucherEntity(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strActivityId=request.getParameter("strActivityId");
+		if(ValidateTool.isEmptyStr(strActivityId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "查询记录关键字不能为空", null);
+
+	//身份检测
+	/*
+	EmployeeEntity employeeEntity = null;
+	try {
+		employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+	}
+	if(employeeEntity==null){
+		return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+	}
+	*/
+	try{
+		List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity=userDefinedPresentsService.selectAllUserDefinedPresentsVoucherEntity(strActivityId);
+		if(ValidateTool.isNull(listUserDefinedPresentsVoucherEntity)||listUserDefinedPresentsVoucherEntity.size()<=0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		else
+		{
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("listUserDefinedPresentsVoucherEntity",listUserDefinedPresentsVoucherEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"查询失败",null);
+	}
+  }
+	
+	
+	//删除一条自定义赠送抵用券信息userDefinedPresentsVoucherEntity记录
+	@ResponseBody
+	@RequestMapping("deleteUserDefinedPresentsVoucherEntity")
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163
+	public String deleteUserDefinedPresentsVoucherEntity(HttpServletRequest request, HttpServletResponse response)
+	{
+	String strPresentsVoucherId=request.getParameter("strPresentsVoucherId");
+	if(ValidateTool.isEmptyStr(strPresentsVoucherId))
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "删除关键字不能为空",null);
+	
+
+	//身份检测
+	/*
+	EmployeeEntity employeeEntity = null;
+	try {
+		employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+	}
+	if(employeeEntity==null){
+		return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+	}
+	*/
+	try{
+		return userDefinedPresentsService.deleteUserDefinedPresentsVoucherEntity(strPresentsVoucherId);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"删除失败", null);
+	}
+  }
+
+	
+
+	/**
+	 *  分页查询 自定义赠送
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	
+	/*
+	@ResponseBody
+	@RequestMapping("selectAllUserDefinedPresentsActivity")
+	*/
+	//http://localhost:8083/admin/RechargePresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
+	
+	/*
+ 	public String selectAllUserDefinedPresentsActivity(HttpServletRequest request,HttpServletResponse response)
+	
+	{
+		//取得搜索字段
+		//strSearchEnabledStatus=活动状态：全部：ALL；过期:EXPIRED，正常:NORMAL
+		//strSearchMemberLevel=ALL 全部
+		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
+		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
+		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
+		String strPageNum=request.getParameter("iPageNum");
+		String strPageSize=request.getParameter("iPageSize");
+		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
+		
+		if(strSearchMemberLevel==null||strSearchMemberLevel.trim()=="")
+			strSearchMemberLevel="";
+		
+		if("ALL".equals(strSearchMemberLevel))
+			strSearchMemberLevel="";
+		
+		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
+			strSearchEnabledStatus="ALL";
+		
+		if(ValidateTool.isEmptyStr(strPageNum))
+			iPageNum=1;
+		else
+		{
+			if(isNumber(strPageNum))
+				iPageNum=Integer.parseInt(strPageNum);
+			else
+				iPageNum=1;
+				
+		}
+		
+		if(ValidateTool.isEmptyStr(strPageSize))
+			iPageSize=StaticValue.PAGE_SIZE;
+		else
+		{
+			if(isNumber(strPageSize))
+				iPageSize=Integer.parseInt(strPageSize);
+			else
+				iPageSize=StaticValue.PAGE_SIZE;
+		}
+	
+	*/
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/	
+	
+	/*
+		try{
+			
+			Map<String,Object> queryMap=new HashMap<String,Object>();
+			queryMap.put("strSearchMemberLevel", strSearchMemberLevel);
+			queryMap.put("strSearchEnabledStatus",strSearchEnabledStatus);
+			queryMap.put("strCurrentDate", strCurrentDate);
+			iTotalRecord=userDefinedPresentsService.findTheRecordCount(queryMap);
+			
+			if(iTotalRecord!=0)
+			{
+				List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=null;
+				iTotalPage=(iTotalRecord%iPageSize==0?iTotalRecord/iPageSize:iTotalRecord/iPageSize+1);
+				if(iPageNum>iTotalPage)
+					iPageNum=iTotalPage;
+				iPageFrom=(iPageNum-1)*iPageSize;
+				queryMap.put("iPageFrom",iPageFrom);
+				queryMap.put("iPageSize",iPageSize);
+				
+				listUserDefinedPresentsActivityEntity=userDefinedPresentsService.selectAllUserDefinedPresentsActivity(queryMap);
+				
+				
+				if(listUserDefinedPresentsActivityEntity==null||listUserDefinedPresentsActivityEntity.size()==0)
+					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("iTotalRecord",iTotalRecord);
+				resultMap.put("iTotalPage",iTotalPage);
+				resultMap.put("resultMap",listUserDefinedPresentsActivityEntity);
+				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}
+			else
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	 */
+	
+	
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{

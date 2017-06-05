@@ -314,7 +314,7 @@ where strPresentsIntegrationId=#{strPresentsIntegrationId}
 </select>
 
 <!-- 查询自定义赠送活动_[tableName:tb_userDefinedPresents_Activity] -->
-<select id="selectAllUserDefinedPresentsActivityEntity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="map">
+<select id="selectAllUserDefinedPresentsActivity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="map">
  select 
  	strActivityId,
  	strActivityName,
