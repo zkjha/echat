@@ -74,6 +74,7 @@ public class UserDefinedPresentsService {
 	}
 		
 	//插入自定义赠送积分
+	
 	public String insertUserDefinedPresentsIntegration(UserDefinedPresentsIntegrationEntity userDefinedPresentsIntegrationEntity) throws Exception
 	{
 		int iUpdateNum=0;
@@ -272,34 +273,57 @@ public class UserDefinedPresentsService {
 			int iIntegrationEnabled=0;
 			int iStoredTicketEnabled=0;
 			int iVoucherTicketEnabled=0;
-			
+			//不用String strMemberLevelId=(String)queryMap.get("strSearchMemberLevelId");
+			String strMemberLevelName;
 			String strActivityEndTime=listUserDefinedPresentsActivityEntity.get(i).getStrActivityEndTime();
 			strActivityId=listUserDefinedPresentsActivityEntity.get(i).getStrActivityId();
+			String strLevelsId=listUserDefinedPresentsActivityEntity.get(i).getStrLevelsId();
+			//对活动状态：如正常和过期进行判断
 			String strCurrentTime=(String)queryMap.get("strCurrentDate");
-
 			if(strActivityEndTime.compareTo(strCurrentTime)<0)
 				strActivityStatus="过期";
 			
 			if(strActivityEndTime.compareTo(strCurrentTime)>=0)
 				strActivityStatus="正常";
-			
 			UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity=listUserDefinedPresentsActivityEntity.get(i);
 			userDefinedPresentsActivityEntity.setStrActivityStatus(strActivityStatus);
 			
 			//分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+			//默认查已关联该活动的积分，储值和抵用券的已启用状态信息，如果存在一个已启用的，则分页显示为打勾状态
 			iIntegrationEnabled=userDefinedPresentsMapper.selectIntegrationEnabled(strActivityId);
-			iIntegrationEnabled=userDefinedPresentsMapper.selectStoredTicketEnabled(strActivityId);
-			iIntegrationEnabled=userDefinedPresentsMapper.selectVoucherTicketEnabled(strActivityId);
+			iStoredTicketEnabled=userDefinedPresentsMapper.selectStoredTicketEnabled(strActivityId);
+			iVoucherTicketEnabled=userDefinedPresentsMapper.selectVoucherTicketEnabled(strActivityId);
 			userDefinedPresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
 			userDefinedPresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
 			userDefinedPresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
+			
+			//查出该条活动信息所对应的会员级别名称
+			strMemberLevelName=userDefinedPresentsMapper.findMemberLevelNameById(strLevelsId);
+			userDefinedPresentsActivityEntity.setStrMemberLevelName(strMemberLevelName);
+
 		}
 		
 		return listUserDefinedPresentsActivityEntity;
 		
 	}
 	
+
+	//查询一条自定义赠送活动
+	public UserDefinedPresentsActivityEntity selectUserDefinedPresentsActivityEntity() throws Exception
+	{
+		return userDefinedPresentsMapper.selectUserDefinedPresentsActivityEntity();
+	}
 	
+	//删除  分页显示 自定义赠送活动及关联的积分，储值，抵用券信息
+	@Transactional
+	public String deleteUserDefinedPresentsActivityInfo(String strActivityId) throws Exception
+	{
+		userDefinedPresentsMapper.deleteUserDefinedPresentsActivityInfo(strActivityId);
+		userDefinedPresentsMapper.deleteUserDefinedPresentsIntegrationInfo(strActivityId);
+		userDefinedPresentsMapper.deleteUserDefinedPresentsStoredTicketInfo(strActivityId);
+		userDefinedPresentsMapper.deleteUserDefinedPresentsVoucherTicketInfo(strActivityId);
+		return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
 	
 
 }

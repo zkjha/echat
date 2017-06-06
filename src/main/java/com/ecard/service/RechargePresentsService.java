@@ -360,6 +360,7 @@ public class RechargePresentsService {
 		public String deleteRechargePresentsActivityInfo(String strActivityId) throws Exception
 		{
 			int iRcdNum=0;
+
 			//同时查赠送积分表，赠送抵用券表，赠送储值表信息，有关联活动ID的信息则删除
 			//删除积分信息
 			rechargePresentsMapper.deleteRechargePresentsIntegration(strActivityId);

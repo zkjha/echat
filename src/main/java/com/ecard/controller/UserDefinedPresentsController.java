@@ -1095,7 +1095,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsActivity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1
  	public String selectAllUserDefinedPresentsActivity(HttpServletRequest request,HttpServletResponse response)
 	
 	{
@@ -1103,17 +1103,17 @@ public class UserDefinedPresentsController
 		//strSearchEnabledStatus=活动状态：参数为空 "全部All",为0 表过期:EXPIRED，1正常:NORMAL
 		//strSearchMemberLevel=ALL 全部
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
-		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
+		String strSearchMemberLevelId=request.getParameter("strSearchMemberLevelId");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
 		String strPageNum=request.getParameter("iPageNum");
 		String strPageSize=request.getParameter("iPageSize");
 		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
 		
-		if(strSearchMemberLevel==null||strSearchMemberLevel.trim()=="")
-			strSearchMemberLevel="";
+		if(strSearchMemberLevelId==null||strSearchMemberLevelId.trim()=="")
+			strSearchMemberLevelId="";
 		
-		if("ALL".equals(strSearchMemberLevel))
-			strSearchMemberLevel="";
+		if("ALL".equals(strSearchMemberLevelId))
+			strSearchMemberLevelId="";
 		
 		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
 			strSearchEnabledStatus="ALL";
@@ -1163,11 +1163,11 @@ public class UserDefinedPresentsController
 		try{
 			
 			Map<String,Object> queryMap=new HashMap<String,Object>();
-			queryMap.put("strSearchMemberLevel", strSearchMemberLevel);
+			queryMap.put("strSearchMemberLevelId", strSearchMemberLevelId);
 			queryMap.put("strSearchEnabledStatus",strSearchEnabledStatus);
 			queryMap.put("strCurrentDate", strCurrentDate);
 			iTotalRecord=userDefinedPresentsService.findTheRecordCount(queryMap);
-			
+
 			if(iTotalRecord!=0)
 			{
 				List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=null;
@@ -1197,6 +1197,74 @@ public class UserDefinedPresentsController
 		}
 	}
 	 
+
+		//查询一条自定义赠送活动信息rechargePresentsActivityEntity
+		@ResponseBody
+		@RequestMapping("selectUserDefinedPresentsActivityEntity")
+		//localhost:8083/admin/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity
+		public String selectUserDefinedPresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
+		{
+
+		//身份检测
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if(employeeEntity==null){
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+
+			UserDefinedPresentsActivityEntity userDefinedPresentsActivityEntity=null;
+		try{
+			userDefinedPresentsActivityEntity=userDefinedPresentsService.selectUserDefinedPresentsActivityEntity();
+			if(userDefinedPresentsActivityEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("userDefinedPresentsActivityEntity",userDefinedPresentsActivityEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+
+		
+	//删除除活动，及活动所关联的积分，储值信息
+	@ResponseBody
+	@RequestMapping("deleteUserDefinedActivityInfo")
+	//localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo?strActivityId=tyurhh445556
+	public String deleteUserDefinedActivityInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if (employeeEntity==null) {
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		*/
+		String strActivityId=request.getParameter("strActivityId");
+		if(ValidateTool.isEmptyStr("strActivityId"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		try{
+			return userDefinedPresentsService.deleteUserDefinedPresentsActivityInfo(strActivityId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
 	
 	
 	//校验

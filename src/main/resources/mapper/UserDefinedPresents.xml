@@ -294,20 +294,19 @@ where strPresentsIntegrationId=#{strPresentsIntegrationId}
 </delete>
 
 <!-- 查询自定义活动在指定会员级别及活动状态下的记录条数：分页显示 -->
-<select id="selectUserDefinedPresentsActivityEntity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="map">
+<select id="findTheRecordCount" resultType="int" parameterType="map">
 	select count(strActivityId) from tb_userDefinedPresents_Activity
 	<where>
-		
-		<if test="strSearchEnabledStatus='EXPIRED' and strCurrentDate!=''">
-			strActivityEndTime&gt;#{strCurrentDate}
+		<if test="strSearchEnabledStatus=='EXPIRED' and strCurrentDate!=''">
+			and strActivityEndTime &lt;#{strCurrentDate}
 		</if>
 		
-		<if test="strSearchEnabledStatus='NORMAL' and strCurrentDate!=''">
-			strActivityEndTime&lt;=#{strCurrentDate}
+		<if test="strSearchEnabledStatus=='NORMAL' and strCurrentDate!=''">
+			and strActivityEndTime &gt;=#{strCurrentDate}
 		</if>
 		
-		<if test="strSearchMemberLevel!='' and strSearchMemberLevel!=null">
-			and strLevelsId=#{strSearchMemberLevel}
+		<if test="strSearchMemberLevelId!='' and strSearchMemberLevelId!=null">
+			and strLevelsId=#{strSearchMemberLevelId}
 		</if>
 		
 	</where>
@@ -327,37 +326,80 @@ where strPresentsIntegrationId=#{strPresentsIntegrationId}
  	strEmployeeRealName,
  	strCreationTime,
  	strLastAccessedTime
- 	<where>
-		
-		<if test="strSearchEnabledStatus='EXPIRED' and strCurrentDate!=''">
-			strActivityEndTime&gt;#{strCurrentDate}
+	from tb_userDefinedPresents_Activity 
+	<where>
+		<if test="strSearchEnabledStatus=='EXPIRED' and strCurrentDate!=''">
+			and strActivityEndTime &lt;#{strCurrentDate}
 		</if>
 		
-		<if test="strSearchEnabledStatus='NORMAL' and strCurrentDate!=''">
-			strActivityEndTime&lt;=#{strCurrentDate}
+		<if test="strSearchEnabledStatus=='NORMAL' and strCurrentDate!=''">
+			and strActivityEndTime &gt;=#{strCurrentDate}
 		</if>
 		
-		<if test="strSearchMemberLevel!='' and strSearchMemberLevel!=null">
-			and strLevelsId=#{strSearchMemberLevel}
+		<if test="strSearchMemberLevelId!='' and strSearchMemberLevelId!=null">
+			and strLevelsId=#{strSearchMemberLevelId}
 		</if>
 		
 	</where>
- 	from tb_userDefinedPresents_Activity order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
+	
+	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
 </select>
 
 
 <!-- 查出 特定活动在特定状态和会员级别下 积分的启用状态 -->
 <select id="selectIntegrationEnabled" parameterType="String" resultType="int">
-	select iEnabled from tb_userDefinedPresents_Integration	where strActivityId=#{strActivityId}
+	select count(iEnabled) from tb_userDefinedPresents_Integration	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
 
 <!-- 查出 特定活动在特定状态和会员级别下 储值的启用状态 -->
 <select id="selectStoredTicketEnabled" parameterType="String" resultType="int">
-	select iEnabled from tb_userDefinedPresents_storedValue	where strActivityId=#{strActivityId}
+	select count(iEnabled) from tb_userDefinedPresents_storedValue	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
 
 <!-- 查出 特定活动在特定状态和会员级别下 抵用券的启用状态 -->
 <select id="selectVoucherTicketEnabled" parameterType="String" resultType="int">
-	select iEnabled from tb_userDefinedPresents_voucher	where strActivityId=#{strActivityId}
+	select count(iEnabled) from tb_userDefinedPresents_voucher	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
+
+<!-- 查出自定义活动所对应的会员级别名称 -->
+<select id="findMemberLevelNameById" parameterType="String" resultType="String">
+   select strLevelsName from tb_member_levels where strLevelsId=#{strLevelsId}
+</select>
+
+<!-- 查询_一条自定义活动信息[tableName:tb_userDefinedPresents_Activity] -->
+<select id="selectUserDefinedPresentsActivityEntity" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_userDefinedPresents_Activity order by strCreationTime DESC limit 0,1
+</select>
+
+<!-- 删除分页显示页面中的活动信息 -->
+<delete id="deleteUserDefinedPresentsActivityInfo" parameterType="String">
+	delete from tb_userDefinedPresents_Activity where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除分页显示页面中的积分信息 -->
+<delete id="deleteUserDefinedPresentsIntegrationInfo" parameterType="String">
+	delete from tb_userDefinedPresents_Integration where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除分页显示页面中的储值信息 -->
+<delete id="deleteUserDefinedPresentsStoredTicketInfo" parameterType="String">
+	delete from tb_userDefinedPresents_storedValue where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除分页显示页面中的抵用券信息 -->
+<delete id="deleteUserDefinedPresentsVoucherTicketInfo" parameterType="String">
+	delete from tb_userDefinedPresents_voucher where strActivityId=#{strActivityId}
+</delete>
 </mapper>

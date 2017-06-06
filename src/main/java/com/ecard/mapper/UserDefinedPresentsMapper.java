@@ -57,12 +57,23 @@ public interface UserDefinedPresentsMapper {
 	//查询自定义赠送活动在特定会员级别及特定状态下的记录
 	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception;
 	
-	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	//分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
 	public int selectIntegrationEnabled(String strActivityId) throws Exception;
-	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	//分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
 	public int selectStoredTicketEnabled(String strActivityId) throws Exception;
-	////分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+	//别对关联该活动的，积分，储值和抵用券的禁启用进行判断
 	public int selectVoucherTicketEnabled(String strActivityId) throws Exception;
+	//查出活动所对对应的会员级别名称
+	public String findMemberLevelNameById(String strMemberLevelId) throws Exception;
+	//查询一条自定义赠送活动
+	public UserDefinedPresentsActivityEntity selectUserDefinedPresentsActivityEntity() throws Exception;
+	
+	//删除活动及关联该活动的抵用券，积分，储值信息
+	public int deleteUserDefinedPresentsActivityInfo(String strActivity) throws Exception;		//删除活动信息
+	public int deleteUserDefinedPresentsIntegrationInfo(String strActivity) throws Exception;	//删除积分信息
+	public int deleteUserDefinedPresentsStoredTicketInfo(String strActivity) throws Exception;	//删除储值信息
+	public int deleteUserDefinedPresentsVoucherTicketInfo(String strActivity) throws Exception;	//删除抵用券信息
+	
 	
 	
 
