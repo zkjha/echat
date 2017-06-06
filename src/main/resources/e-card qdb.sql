@@ -933,5 +933,25 @@ strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
 primary key(strPresentsVoucherId)
 ) engine=innodb default charset=utf8;
 
-
+-- --------------------------------------------------------------------------
+-- tableName:tb_userDefinedPresents_Activity					【消费增送 活动信息表】
+-- 结构同充值赠送活动表 tb_rechargePresents_activity
+-- ---------------------------------------------------------------------------------
+drop table if exists tb_consumePresents_Activity;
+create table tb_consumePresents_Activity
+(
+ strActivityId			varchar(50)			not null,		-- 关键字
+ strActivityName		varchar(50)			not null,		-- 活动名称
+ strLevelsId			varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
+ strActivityBeginTime	varchar(50)			not null,		-- 活动开始时间
+ strActivityEndTime		varchar(50)			not null,		-- 活动结束时间
+ iActivityKinds			int(2)				not null,		-- 活动类型:0现金储值消费，1线上现金消费
+ strIsCumulation		varchar(2)			not null,		-- 单笔消费是否累积赠送 ，0不累积 1 累积
+ strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
+ strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号
+ strEmployeeRealName 	VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+ strCreationTime 		VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+ strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+ primary key(strActivityId)
+) engine=innodb default charset=utf8;
 

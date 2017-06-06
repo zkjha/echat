@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.ConsumePresentsMapper">
+<!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
+<select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.ConsumePresentsActivityEntity" resultType="int">
+  select count(strActivityId) from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 新增消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
+<insert id="insertConsumePresentsActivityEntity" parameterType="com.ecard.entity.ConsumePresentsActivityEntity">
+ insert into tb_consumePresents_Activity
+	(
+	strActivityId,
+	strActivityName,
+	strLevelsId,
+	strActivityBeginTime,
+	strActivityEndTime,
+	iActivityKinds,
+	strIsCumulation,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strActivityId},
+	#{strActivityName},
+	#{strLevelsId},
+	#{strActivityBeginTime},
+	#{strActivityEndTime},
+	#{iActivityKinds},
+	#{strIsCumulation},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+
+<!-- 修改活动信息判断该会员级别在该活动类型下是否已经存在规则数据 -->
+<select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.ConsumePresentsActivityEntity" resultType="String">
+	select strActivityId from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+</select>
+
+<!-- 更新消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
+<update id="updateConsumePresentsActivityInfo" parameterType="com.ecard.entity.ConsumePresentsActivityEntity">
+ update tb_consumePresents_Activity set 
+	strActivityId=#{strActivityId},
+	strActivityName=#{strActivityName},
+	strLevelsId=#{strLevelsId},
+	strActivityBeginTime=#{strActivityBeginTime},
+	strActivityEndTime=#{strActivityEndTime},
+	iActivityKinds=#{iActivityKinds},
+	strIsCumulation=#{strIsCumulation},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strActivityId=#{strActivityId}
+</update>
+</mapper>

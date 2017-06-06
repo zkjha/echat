@@ -318,11 +318,16 @@ public class UserDefinedPresentsService {
 	@Transactional
 	public String deleteUserDefinedPresentsActivityInfo(String strActivityId) throws Exception
 	{
-		userDefinedPresentsMapper.deleteUserDefinedPresentsActivityInfo(strActivityId);
+		int iAffectNum=0;
+		
 		userDefinedPresentsMapper.deleteUserDefinedPresentsIntegrationInfo(strActivityId);
 		userDefinedPresentsMapper.deleteUserDefinedPresentsStoredTicketInfo(strActivityId);
 		userDefinedPresentsMapper.deleteUserDefinedPresentsVoucherTicketInfo(strActivityId);
-		return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+		iAffectNum=userDefinedPresentsMapper.deleteUserDefinedPresentsActivityInfo(strActivityId);
+		if(iAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"删除失败",null);
 	}
 	
 
