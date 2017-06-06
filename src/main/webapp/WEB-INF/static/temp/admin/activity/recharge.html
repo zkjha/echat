@@ -50,13 +50,13 @@
                 <td>{{resultMap.strActivityBeginTime}}</td>
                 <td>{{resultMap.strActivityEndTime}}</td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsIntegrationEntity).length"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsIntegrationEntity)[0].iEnabled"/>
                 </td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsStoredValueEntity).length"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsStoredValueEntity)[0].iEnabled"/>
                 </td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsVoucherEntity).length"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsVoucherEntity)[0].iEnabled"/>
                 </td>
                 <td>{{resultMap.strActivityStatus }}</td>
                 <td>
@@ -84,8 +84,8 @@
             <div class="clearfix"></div>
         </div>
     </div>
-	
-	
+
+
     <!--模态框-->
     <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
@@ -151,87 +151,96 @@
 
                         <!--积分部分-->
                         <div ng-repeat="listRechargePresentsIntegrationEntity in listRechargePresentsIntegrationEntity">
-                        <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
-                            <div class="fl">积分</div>
-                            <div class="fr -mr10">
-                                <input type="text" ng-hide="true"  ng-value="listRechargePresentsIntegrationEntity.strActivityId" class="z_id_if_flx"/>
-                                <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsIntegrationEntity.iEnabled)" ng-model="panduanxuanzhong"/>
-                                <input type="text" ng-hide="true" ng-value="(listRechargePresentsIntegrationEntity.strEnabledsssId) = strEnabledsss" ng-model="strEnabledsss"/>
-                                <integralrules-Directive></integralrules-Directive>
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
+                                <div class="fl">积分</div>
+                                <div class="fr -mr10">
+                                    <input type="text" ng-hide="true"  ng-value="listRechargePresentsIntegrationEntity.strActivityId" class="z_id_if_flx"/>
+                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsIntegrationEntity.iEnabled)" ng-model="panduanxuanzhong"/>
+                                    <input type="text" ng-hide="true" ng-value="(listRechargePresentsIntegrationEntity.strEnabledsssId) = strEnabledsss" ng-model="strEnabledsss"/>
+                                    <integralrules-Directive></integralrules-Directive>
+                                </div>
                             </div>
-                        </div>
-                        <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
-                            <div class="fl mt10 w200">
-                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 每充值</div>
-                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount" ng-value="listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                <div class="fl">赠送1积分</div>
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
+                                <div class="fl mt10 w200">
+                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 每充值</div>
+                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount" ng-value="listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                    <div class="fl">赠送1积分</div>
+                                </div>
+                                <div class="fl mt10 w250 ml50">
+                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 最低充值</div>
+                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsIntegrationEntity.dLeastRechargeAmount" ng-value="listRechargePresentsIntegrationEntity.dLeastRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                    <div class="fl">可赠送积分</div>
+                                </div>
                             </div>
-                            <div class="fl mt10 w250 ml50">
-                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 最低充值</div>
-                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsIntegrationEntity.dLeastRechargeAmount" ng-value="listRechargePresentsIntegrationEntity.dLeastRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                <div class="fl">可赠送积分</div>
-                            </div>
-                        </div>
                         </div>
 
                         <!--储值券部分-->
                         <div class="zjl_recharge_bdbm w500 ml50 pr10 mb5">
-                        <div ng-repeat="listRechargePresentsStoredValueEntity in listRechargePresentsStoredValueEntity">
-                            <div class="w500  clearfix zjl_recharge_bdbmx pr10 mb5">
-                                <div class="fl">储值</div>
-                                <div class="fr -mr10">
-                                    <input type="text" ng-hide="true"  ng-value="listRechargePresentsStoredValueEntity.strActivityId" class="z_id_if_flx"/>
-                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsStoredValueEntity.iEnabled)" ng-model="panduanxuanzhong"/>
-                                    <input type="text" ng-hide="true" value="{{(listRechargePresentsStoredValueEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
-                                    <integralrules-Directive></integralrules-Directive>
+                            <div>
+                                <div class="w500  clearfix zjl_recharge_bdbmx pr10 mb5">
+                                    <div class="fl">储值</div>
+                                    <div class="fr -mr10" ng-repeat="listRechargePresentsStoredValueEntitydyq in listRechargePresentsStoredValueEntitydyq">
+                                        <input type="text" ng-hide="true"  ng-value="listRechargePresentsStoredValueEntitydyq.strActivityId" class="z_id_if_flx"/>
+                                        <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsStoredValueEntitydyq.iEnabled)" ng-model="panduanxuanzhong"/>
+                                        <input type="text" ng-hide="true" value="{{(listRechargePresentsStoredValueEntitydyq.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
+                                        <integralrules-Directive></integralrules-Directive>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="w500  clearfix zjl_recharge_bdbmx pb10 pl10">
-                                <div class="fl mt10 w200">
-                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 现金充值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dRechargeAmount" ng-value="listRechargePresentsStoredValueEntity.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                    <!--<div class="fl">赠送1积分</div>-->
+                                <div class="w500  clearfix zjl_recharge_bdbmx pb10 pl10"  ng-repeat="listRechargePresentsStoredValueEntity in listRechargePresentsStoredValueEntity">
+                                    <div class="fl mt10 w200">
+                                        <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 现金充值</div>
+                                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dRechargeAmount" ng-value="listRechargePresentsStoredValueEntity.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                        <!--<div class="fl">赠送1积分</div>-->
+                                    </div>
+                                    <div class="fl mt10 w250 ml50">
+                                        <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送储值</div>
+                                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dPresentsAmount" ng-value="listRechargePresentsStoredValueEntity.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                        <!--加减号-->
+                                        <div class="fr f20 oranger-color mr10">
+                                            <div class="fl -lpy-list-control-title" ng-click="z_delete(listSignIntegrationRuleEntity.strSignId)">-</div>
+                                            <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreCz()">+</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="fl mt10 w250 ml50">
-                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送储值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dPresentsAmount" ng-value="listRechargePresentsStoredValueEntity.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                    <!--加减号-->
-                                    <div class="fr f20 oranger-color mr10">
-                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listSignIntegrationRuleEntity.strSignId)">-</div>
-                                        <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreCz()">+</div>
+                                <!--储值券为空判断-->
+                                <div class="w500  clearfix zjl_recharge_bdbmx pb10 pl10" ng-hide="listRechargePresentsStoredValueEntity[0]">
+                                    <div class="fl mt10 w200">
+                                        <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 现金充值</div>
+                                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="chuzhiweikong.dRechargeAmount" ng-value="chuzhiweikong.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                        <!--<div class="fl">赠送1积分</div>-->
+                                    </div>
+                                    <div class="fl mt10 w250 ml50">
+                                        <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送储值</div>
+                                        <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="chuzhiweikong.dPresentsAmount" ng-value="chuzhiweikong.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                        <!--加减号-->
+                                        <div class="fr f20 oranger-color mr10">
+                                            <div class="fl -lpy-list-control-title" ng-click="z_delete(chuzhiweikong.strSignId)">-</div>
+                                            <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreCz()">+</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!--储值券为空判断-->
-                        <div ng-show="listRechargePresentsStoredValueEntity.length == 0">
-                            <div class="w500  clearfix zjl_recharge_bdbmx pr10 mb5">
-                                <div class="fl">储值</div>
-                                <div class="fr -mr10">
-                                    <input type="text" ng-hide="true"  ng-value="listRechargePresentsStoredValueEntity.strActivityId" class="z_id_if_flx"/>
-                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsStoredValueEntity.iEnabled)" ng-model="panduanxuanzhong"/>
-                                    <input type="text" ng-hide="true" value="{{(listRechargePresentsStoredValueEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
-                                    <integralrules-Directive></integralrules-Directive>
-                                </div>
-                            </div>
-                            <div class="w500  clearfix zjl_recharge_bdbmx pb10 pl10">
-                                <div class="fl mt10 w200">
-                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 现金充值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dRechargeAmount" ng-value="listRechargePresentsStoredValueEntity.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                    <!--<div class="fl">赠送1积分</div>-->
-                                </div>
-                                <div class="fl mt10 w250 ml50">
-                                    <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送储值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dPresentsAmount" ng-value="listRechargePresentsStoredValueEntity.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
-                                    <!--加减号-->
-                                    <div class="fr f20 oranger-color mr10">
-                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listSignIntegrationRuleEntity.strSignId)">-</div>
-                                        <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreCz()">+</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        <!--<div>-->
+                            <!--&lt;!&ndash;<form action="" ng-submit="addStoreCz()">&ndash;&gt;-->
+                            <!--<div class="fr f20 oranger-color mr10">-->
+                                <!--<div class="fl -lpy-list-control-title" ng-click="z_delete(chuzhiweikong.strSignId)">-</div>-->
+                                <!--<div class="fl ml10 -lpy-list-control-title" ng-click="addStoreCz()">+</div>-->
+                            <!--</div>-->
+                            <!--<div class="w500  clearfix zjl_recharge_bdbmx pr10 mb5">-->
+                                <!--<div class="fl">储值</div>-->
+                                <!--<div class="fr -mr10">-->
+                                    <!--<input type="text" ng-hide="true"  ng-value="chuzhiweikong.strActivityId" class="z_id_if_flx"/>-->
+                                    <!--<input type="text" ng-hide="true" ng-value="panduanxuanzhong = (chuzhiweikong.iEnabled)" ng-model="panduanxuanzhong"/>-->
+                                    <!--<input type="text" ng-hide="true" value="{{(chuzhiweikong.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>-->
+                                    <!--<integralrules-Directive></integralrules-Directive>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                        <!--</div>-->
+
                         </div>
 
 
@@ -276,29 +285,31 @@
                                 </div>
                                 <div class="fl mt10 w200">
                                     <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送抵用券</div>
-                                    <select ng-model="listRechargePresentsVoucherEntity.strMorePresentsVoucherTicketId" ng-options="listRechargePresentsVoucherEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity" required>
+                                    <select ng-model="listRechargePresentsVoucherEntity.strMorePresentsVoucherTicketId" ng-options="listVoucherTicketInfoEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity" required>
                                         <option  value="">全部</option>
                                     </select>
                                 </div>
                                 <!--加减号-->
                                 <div class="fr f20 oranger-color mr20 mt20">
                                     <div class="fl -lpy-list-control-title" ng-click="z_delete(listRechargePresentsVoucherEntity.strActivityId)">-</div>
-                                    <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfo()">+</div>
+                                    <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreZs($index)">+</div>
                                 </div>
                             </div>
                         </div>
                         <!--抵用券部分-->
-                        <div ng-repeat="listRechargePresentsVoucherEntity in listRechargePresentsVoucherEntity">
+                        <div>
                         <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
                             <div class="fl">抵用券</div>
-                            <div class="fr -mr10">
-                                <input type="text" ng-hide="true"  ng-value="listRechargePresentsVoucherEntity.strSignId" class="z_id_if_flx"/>
-                                <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsVoucherEntity.iEnabled)" ng-model="panduanxuanzhong"/>
+                            <!--{{listRechargePresentsVoucherEntitydyq}}-->
+                            <div class="fr -mr10" ng-repeat="listRechargePresentsVoucherEntitydyq in listRechargePresentsVoucherEntitydyq">
+                                <!--<input type="text" ng-hide="true"  ng-value="listRechargePresentsVoucherEntity[0].strSignId" class="z_id_if_flx"/>-->
+                                <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsVoucherEntitydyq.iEnabled)" ng-model="panduanxuanzhong"/>
                                 <input type="text" ng-hide="true" value="{{(listRechargePresentsVoucherEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
                                 <integralrules-Directive></integralrules-Directive>
                             </div>
+                            <!--{{listRechargePresentsVoucherEntity[0].iEnabled}}-->
                         </div>
-                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pb10 pl10">
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pb10 pl10"  ng-repeat="listRechargePresentsVoucherEntity in listRechargePresentsVoucherEntity">
                                 <div class="fl mt10 w200">
                                     <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 最低充值</div>
                                     <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsVoucherEntity.dMinimumRechargeAmount" ng-value="listRechargePresentsVoucherEntity.dMinimumRechargeAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
@@ -335,7 +346,7 @@
                                 <!--加减号-->
                                 <div class="fr f20 oranger-color mr20 mt20">
                                     <div class="fl -lpy-list-control-title" ng-click="z_delete(listRechargePresentsVoucherEntity.strActivityId)">-</div>
-                                    <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreZs()">+</div>
+                                    <div class="fl ml10 -lpy-list-control-title" ng-click="addStoreZs($index)">+</div>
                                 </div>
                             </div>
                         </div>
@@ -365,8 +376,8 @@
         <div class="-lpy-alert-window-main-content ">
 
             <div class="-lpy-edit-staff-content">
-                <form action="">
-                    <div class="mt30">
+                <form  name="memberexpandinformationEntityForm" ng-submit="adddiyongquan()">
+                <div class="mt30">
                         <div class="w500 ml50 clearfix pb10 pl10">
                             <div class="fl mt10 w200">
                                 <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 最低充值</div>
@@ -401,13 +412,13 @@
                                     <option  value="">全部</option>
                                 </select>
                             </div>
-                            <!--启用禁用-->
-                            <div class="fl ml50 mt10">
-                                <input type="text" ng-hide="true"  ng-value="listRechargePresentsVoucherEntity.strSignId" class="z_id_if_flx"/>
-                                <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsVoucherEntity.iEnabled)" ng-model="panduanxuanzhong"/>
-                                <input type="text" ng-hide="true" value="{{(listRechargePresentsVoucherEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
-                                <integralrules-Directive></integralrules-Directive>
-                            </div>
+                            <!--&lt;!&ndash;启用禁用&ndash;&gt;-->
+                            <!--<div class="fl ml50 mt10">-->
+                                <!--<input type="text" ng-hide="true"  ng-value="listRechargePresentsVoucherEntity.strSignId" class="z_id_if_flx"/>-->
+                                <!--<input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsVoucherEntity.iEnabled)" ng-model="panduanxuanzhong"/>-->
+                                <!--<input type="text" ng-hide="true" value="{{(listRechargePresentsVoucherEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>-->
+                                <!--<integralrules-Directive></integralrules-Directive>-->
+                            <!--</div>-->
                         </div>
                     </div>
                     <div class="w150 center mt20">
@@ -430,28 +441,32 @@
             <div class="fr  close_btn" ng-click="clostExpandWindowCz()">x</div>
         </div>
         <div class="-lpy-alert-window-main-content ">
-
             <div class="-lpy-edit-staff-content">
-                <form action="">
+                <form  name="memberexpandinformationEntityForm" ng-submit="adddichuzhiquan()">
                     <div class=" w500 ml50 pr10 mb5 mt20">
-                        <div ng-repeat="listRechargePresentsStoredValueEntity in listRechargePresentsStoredValueEntity">
+                        <div>
                             <div class="w500  clearfix  pb10 pl10">
-                                <div class="fl mt10 w200">
+                                <div class="mt10 ml80 clearfix">
                                     <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 现金充值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dRechargeAmount" ng-value="listRechargePresentsStoredValueEntity.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                    <div class="zjl_firsttime_input w150 fl ml5"><input class="w120 zjl_bdxs" type="text" ng-model="addchuziquantianjia.dRechargeAmount" ng-value="addchuziquantianjia.dRechargeAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
                                     <!--<div class="fl">赠送1积分</div>-->
                                 </div>
-                                <div class="fl mt10 w250 ml50">
+                                <div class="mt10 ml80 clearfix">
                                     <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送储值</div>
-                                    <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="listRechargePresentsStoredValueEntity.dPresentsAmount" ng-value="listRechargePresentsStoredValueEntity.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                    <div class="zjl_firsttime_input w150 fl ml5"><input class="w120 zjl_bdxs" type="text" ng-model="addchuziquantianjia.dPresentsAmount" ng-value="addchuziquantianjia.dPresentsAmount"   name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
                                     <!--启用-->
                                 </div>
-                                <div class="fl  mt10 ml10">
-                                    <input type="text" ng-hide="true"  ng-value="listRechargePresentsStoredValueEntity.strActivityId" class="z_id_if_flx"/>
-                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listRechargePresentsStoredValueEntity.iEnabled)" ng-model="panduanxuanzhong"/>
-                                    <input type="text" ng-hide="true" value="{{(listRechargePresentsStoredValueEntity.strEnabledsssId) = strEnabledsss}}" ng-model="strEnabledsss"/>
-                                    <integralrules-Directive></integralrules-Directive>
-                                </div>
+
+
+
+                                <!--<div class=" mt10 ml80 clearfix">-->
+                                    <!--<div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 是否启用</div>-->
+                                    <!--<div class="fl">&nbsp;-->
+                                        <!--<select ng-model="addchuziquantianjia.strEnabledsssId" ng-options="iIsValid.id as iIsValid.name for iIsValid in iIsValid" required>-->
+                                            <!--<option  value="">全部</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </div>
                         </div>
                     </div>
@@ -459,7 +474,6 @@
                         <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindowStore()">取消</a>
                     </div>
                 </form>
-
                 <div class="h50"></div>
             </div>
         </div>
