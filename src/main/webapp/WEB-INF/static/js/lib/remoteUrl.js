@@ -237,7 +237,7 @@ define([],function(){
             //充值赠送 -- 更新活动
             updatePresentsActivityInfo:"/admin/RechargePresentsSetting/updatePresentsActivityInfo",
             //充值赠送 -- 活动信息 -- 新增
-            inserPresentsActivityInfo:" /admin/RechargePresentsSetting/inserPresentsActivityInfo",
+            insertPresentsActivityInfo:"/admin/RechargePresentsSetting/insertPresentsActivityInfo",
             //充值赠送 -- 活动信息 -- 查询
             selectAllRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity",
             //充值赠送 -- 赠送储值 -- 删除
@@ -262,7 +262,8 @@ define([],function(){
             selectAllRechargePresentsIntegration:"/admin/RechargePresentsSetting/selectAllRechargePresentsIntegration",
             //充值赠送 --抵用券赠送 -- 批量新增
             batchInsertRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
-
+            //充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
+            selectRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity",
 
 
 
