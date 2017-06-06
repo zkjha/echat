@@ -455,7 +455,7 @@ delete from tb_rechargePresents_activity where strActivityId=#{strActivityId}
 <!-- 查询刚刚新建的赠送活动信息_[tableName:tb_rechargePresents_activity] -->
 <select id="selectRechargePresentsActivityEntity" resultType="com.ecard.entity.RechargePresentsActivityEntity">
  select 
- 	strActivityId
+ 	strActivityId,
  	strActivityName,
  	strLevelsId,
  	strActivityBeginTime,

@@ -1466,6 +1466,7 @@ public class RechargePresentsController {
 	//查询一条充值赠送活动信息rechargePresentsActivityEntity
 	@ResponseBody
 	@RequestMapping("selectRechargePresentsActivityEntity")
+	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity
 	public String selectRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
