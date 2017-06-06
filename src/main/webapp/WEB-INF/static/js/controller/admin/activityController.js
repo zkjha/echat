@@ -17,7 +17,9 @@ define(
                 $scope.listRechargePresentsStoredValueEntitydyq = [{}];
                 //抵用券是否启用判断
                 $scope.listRechargePresentsVoucherEntitydyq = [{}];
-
+                //判断是否调用储值券单挑查询结果
+                $scope.panduandiaoyungchuzhiquanjiekou = false;//判断是否调用了储值券接口没
+                $scope.panduandiaoyungdiyongquanjiekou = false;//判断是否调用了抵用券接口没
                 $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
                 $scope.currentPage = 1;
                 $scope.pageSize = 5;
@@ -25,9 +27,14 @@ define(
                 $scope.strSearchEnabledStatus = null;
                 $scope.strSearchEnabledStatus = null;
                 //活动状态判断
-                $scope.actiStatus = [{id:"NORMAL",name:"正常"},{id:"EXPIRED",name:"过期"}]
+                $scope.actiStatus = [{id:"NORMAL",name:"正常"},{id:"EXPIRED",name:"过期"}];
+            // 充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
+                activityCtrl.selectRechargePresentsActivityEntity($scope,$http);
             //    点击新增按钮
                 $scope.newExpandinginfo = function(){
+                    $scope.addchuziquantianjianumber =1; //储值券中取值的判断
+                    $scope.adddiyongquantianjianumber =1; //抵用券取值的判断
+                    //清空所有查询的内容
                     $scope.rechargePresentsActivityEntity = {};
                     $scope.listRechargePresentsIntegrationEntity = {};
                     $scope.listRechargePresentsStoredValueEntity = {};
@@ -36,6 +43,8 @@ define(
                 }
             //    点击关闭按钮
                 $scope.clostExpandWindow = function(){
+                    $scope.panduandiaoyungchuzhiquanjiekou = false;//判断是否调用了储值券接口没
+                    $scope.panduandiaoyungdiyongquanjiekou = false;//判断是否调用了抵用券接口没
                     $scope.showExpandInfoWindow = false;
                 }
             // 分页查询赛选
@@ -84,7 +93,6 @@ define(
                     activityCtrl.selectAllRechargePresentsStoredValue($scope,$http,strActivityId);
                     //调用接口-抵用券
                     activityCtrl.selectAllRechargePresentsVoucher($scope,$http,strActivityId);
-
                 };
             //    点击抵用券部分的加号
             //    $scope.addStoreZs = function(ids){
@@ -95,45 +103,180 @@ define(
             //    添加储值券
                 $scope.addchuziquantianjianumber =1;
                 $scope.adddichuzhiquan = function(){
-                    if(!$scope.listRechargePresentsStoredValueEntity.length){
-
-                    }else{
+                    if($scope.panduandiaoyungchuzhiquanjiekou){
+                        $scope.panduandiaoyungchuzhiquanjiekou = false;//判断调用了储值券接口没
                         $scope.addchuziquantianjianumber = $scope.listRechargePresentsStoredValueEntity.length;
+                        console.info("我是用来测试的")
                     }
                     $scope.listRechargePresentsStoredValueEntity[$scope.addchuziquantianjianumber] = $scope.addchuziquantianjia;
                     $scope.addchuziquantianjianumber += 1;
+                    $scope.chuzhiweikong = {};
                     $scope.showExpandInfoWindow = true;
                     $scope.showExpandInfoWindowCz = false;
-
                 };
-
+            //    添加抵用券
+                $scope.adddiyongquantianjianumber =1;
+                $scope.adddiyongquan = function(){
+                    //if(!$scope.listRechargePresentsVoucherEntity.length){
+                    //
+                    //}else{
+                    //    $scope.adddiyongquantianjianumber = $scope.listRechargePresentsVoucherEntity.length;
+                    //}
+                    if($scope.panduandiaoyungdiyongquanjiekou){
+                        $scope.panduandiaoyungdiyongquanjiekou = false;//判断调用了储值券接口没
+                        $scope.adddiyongquantianjianumber = $scope.listRechargePresentsVoucherEntity.length;
+                        console.info("我是用来测试的")
+                    }
+                    $scope.listRechargePresentsVoucherEntity[$scope.adddiyongquantianjianumber] = $scope.diyongquanxinzeng;
+                    $scope.adddiyongquantianjianumber += 1;
+                    $scope.diyongquanweikong = {};
+                    $scope.showExpandInfoWindow = true;
+                    $scope.showExpandInfoWindowStore = false;
+                    console.info($scope.listRechargePresentsVoucherEntity)
+                }
 
             ////    调用抵用券模态框
-            //    $scope.addStoreZs = function(){
-            //        $scope.showExpandInfoWindow = false;
-            //        $scope.showExpandInfoWindowStore = true;
-            //    }
-            //    $scope.clostExpandWindowStore = function(){
-            //        $scope.showExpandInfoWindow = true;
-            //        $scope.showExpandInfoWindowStore = false;
-            //    }
+                $scope.addStoreZs = function(paixu){
+                    $scope.diyongquanxinzeng = {};
+                    //$scope.chuzhiweikong;
+                    if(!$scope.diyongquanweikong&& ! $scope.listRechargePresentsVoucherEntity.length){
+                        $scope.showAlert("抵用券券相关内容不能为空！");
+                    }else{
+                        if(!paixu){
+                            if(!$scope.diyongquanweikong){
+                                $scope.listRechargePresentsVoucherEntity[0] = $scope.listRechargePresentsVoucherEntity[0];
+                                $scope.diyongquanweikong = $scope.listRechargePresentsVoucherEntity[0];
+                            }else{
+                                $scope.listRechargePresentsVoucherEntity[0] = $scope.diyongquanweikong;
+                            }
+                        }
+                        //console.info($scope.listRechargePresentsStoredValueEntity)
+                        $scope.showExpandInfoWindow = false;
+                        $scope.showExpandInfoWindowStore = true;
+                    }
+
+                }
+                $scope.clostExpandWindowStore = function(){
+                    $scope.showExpandInfoWindow = true;
+                    $scope.showExpandInfoWindowStore = false;
+                }
                 //    调用储值券模态框
 
-                $scope.addStoreCz = function(){
+                $scope.addStoreCz = function(paixu){
                     $scope.addchuziquantianjia = {};
                     //$scope.chuzhiweikong;
-                    if(!$scope.listRechargePresentsStoredValueEntity.length){
-                        $scope.listRechargePresentsStoredValueEntity[0] = $scope.chuzhiweikong;
-
-                    }
-                    //console.info($scope.listRechargePresentsStoredValueEntity)
+                    if(!$scope.chuzhiweikong && ! $scope.listRechargePresentsStoredValueEntity.length){
+                        $scope.showAlert("储值券相关内容不能为空！");
+                    }else{
+                        if(!paixu){
+                            if(!$scope.chuzhiweikong){
+                                $scope.listRechargePresentsStoredValueEntity[0] = $scope.listRechargePresentsStoredValueEntity[0];
+                                $scope.chuzhiweikong = $scope.listRechargePresentsStoredValueEntity[0];
+                            }else{
+                                $scope.listRechargePresentsStoredValueEntity[0] = $scope.chuzhiweikong;
+                            }
+                        }
+                        console.info($scope.listRechargePresentsStoredValueEntity)
                         $scope.showExpandInfoWindow = false;
                         $scope.showExpandInfoWindowCz = true;
-                }
+                    }
+
+                };
+                //关闭储值券模态框
                 $scope.clostExpandWindowCz = function(){
                     $scope.showExpandInfoWindow = true;
                     $scope.showExpandInfoWindowCz = false;
-                }
+                };
+                //新增
+                $scope.submitExpandinfoAll = function(){
+                    console.info($scope.rechargePresentsActivityEntity)
+                    var rechargePresentsActivityEntity = $scope.rechargePresentsActivityEntity;
+                    activityCtrl.insertPresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity)
+                };
+            },
+            //充值赠送 -- 活动信息 -- 新增
+            insertPresentsActivityInfo:function($scope,$http,rechargePresentsActivityEntity){
+                var data = {
+                    strActivityBeginTime:rechargePresentsActivityEntity.strActivityBeginTime,
+                    strActivityEndTime:rechargePresentsActivityEntity.strActivityEndTime,
+                    strActivityName:rechargePresentsActivityEntity.strActivityName,
+                    strLevelsId:rechargePresentsActivityEntity.strLevelsId
+                };
+                $http.post(remoteUrl.insertPresentsActivityInfo,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            console.info(rs.msg)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
+            selectRechargePresentsActivityEntity:function($scope,$http){
+                var data = {};
+                $http.post(remoteUrl.selectRechargePresentsActivityEntity,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        if (code == 1) {
+                            $scope.rechargePresentsActivityEntity = data.data.rechargePresentsActivityEntity;
+                            console.info($scope.rechargePresentsActivityEntity)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
             },
             //充值赠送 -- 赠送查询详情
             selectAllRechargePresentsVoucher:function($scope,$http,strActivityId){
@@ -149,7 +292,8 @@ define(
                         if (code == 1) {
                             $scope.listRechargePresentsVoucherEntity = data.data.listRechargePresentsVoucherEntity;
                             $scope.listRechargePresentsVoucherEntitydyq.shift();
-                            $scope.listRechargePresentsVoucherEntitydyq.push(data.data.listRechargePresentsVoucherEntity[0]) ;
+                            $scope.listRechargePresentsVoucherEntitydyq.push(data.data.listRechargePresentsVoucherEntity[0]) ;//用来判断是否已经启用
+                            $scope.panduandiaoyungdiyongquanjiekou = false;//判断是否调用了抵用券接口没
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -186,14 +330,14 @@ define(
                 };
                 $http.post(remoteUrl.selectAllRechargePresentsStoredValue,data).then(
                     function(result){
+                        $scope.panduandiaoyungchuzhiquanjiekou = true;
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
                             $scope.listRechargePresentsStoredValueEntity = data.data.listRechargePresentsStoredValueEntity;
                             $scope.listRechargePresentsStoredValueEntitydyq.shift();
-                            $scope.listRechargePresentsStoredValueEntitydyq.push(data.data.listRechargePresentsStoredValueEntity[0]) ;
-                            console.info($scope.listRechargePresentsStoredValueEntitydyq[0])
+                            $scope.listRechargePresentsStoredValueEntitydyq.push(data.data.listRechargePresentsStoredValueEntity[0]);//用来判断是否已经启用
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
