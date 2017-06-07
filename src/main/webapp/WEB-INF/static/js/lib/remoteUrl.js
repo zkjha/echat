@@ -251,7 +251,7 @@ define([],function(){
             //充值赠送 -- 赠送抵用券 -- 删除
             deleteRechargePresentsVoucher:"/admin/RechargePresentsSetting/deleteRechargePresentsVoucher",
             //充值赠送 -- 赠送抵用券 -- 批量修改
-            batchUpdateRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchUpdateRechargePresentsVoucher",
+            updateRechargePresentsVoucher:"/admin/RechargePresentsSetting/updateRechargePresentsVoucher",
             //充值赠送 -- 赠送抵用券 -- 查询
             selectAllRechargePresentsVoucher:"/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher",
             //充值赠送 -- 赠送积分 -- 新增

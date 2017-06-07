@@ -227,7 +227,6 @@ define(
                             }else{
                                 $scope.listRechargePresentsStoredValueEntity[0] = $scope.chuzhiweikong;
                             }
-                            console.info(4585522625)
                         }
 
                         console.info($scope.listRechargePresentsStoredValueEntity)
@@ -236,6 +235,12 @@ define(
                     //}
 
                 };
+                //点击取消后显示的模态框
+                $scope.clostExpandWindowStores = function(){
+                    $scope.showExpandInfoWindow = true;
+                    $scope.showExpandInfoWindowCz = false;
+                    $scope.showExpandInfoWindowStore = false;
+                }
                 //关闭储值券模态框
                 $scope.clostExpandWindowCz = function(){
                     $scope.showExpandInfoWindow = true;
@@ -252,49 +257,72 @@ define(
                             }
                         })
                     }else{
+                        var deferred = $q.defer();
+                        var promise = deferred.promise;
+
+                        promise.then(function (result) {
+                            activityCtrl.updatePresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity);
+                        }).then(function (result) {
+                            activityCtrl.updateRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);                            console.info("我爱死你了1")
+                        }).then(function (result) {
+                            activityCtrl.batchUpdateRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity);                            console.info("我爱死你了2")
+                        }).then(function (result){
+                            activityCtrl.updateRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);
+                        }).then(function(){
+                            $scope.showAlert("修改成功",function(){
+                                window.location.reload()
+                            })
+
+                        })
+                        if(true){
+                            deferred.resolve("执行成功");
+                        }else{
+                            deferred.reject("sorry, it lost!");
+                        }
+
                         //活动更新接口调用
-                        activityCtrl.updatePresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity);
-                        console.info($scope.listRechargePresentsIntegrationEntity)
-                        activityCtrl.updateRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);
-                        //储值券修改
-                        activityCtrl.batchUpdateRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity);
+                    //    activityCtrl.updatePresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity);
+                    //    console.info($scope.listRechargePresentsIntegrationEntity)
+                    //    activityCtrl.updateRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);
+                    //    //储值券修改
+                    //    activityCtrl.batchUpdateRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity);
+                    ////    抵用券修改
+                    //    activityCtrl.updateRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);
                     }
                 };
             //    执行其他新增操作
                 $scope.qitachaozuoxingzeng = function(){
-                    //var deferred = $q.defer();
-                    //var promise = deferred.promise;
-                    //
-                    //promise.then(function (result) {
-                    //   return activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity)//储值券新增
-                    //
-                    //}).then(function (result) {
-                    //    return activityCtrl.batchInsertRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);//抵用券新增
-                    //    console.info("我爱死你了1")
-                    //}).then(function (result) {
-                    //    return activityCtrl.insertRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);//积分新增
-                    //    console.info("我爱死你了2")
-                    //}).then(function (result){
-                    //    console.info("我爱死你了3")
-                    //    return;
-                    //    window.location.reload();
-                    //})
-                    //if(true){
-                    //    deferred.resolve("执行成功");
-                    //}else{
-                    //    deferred.reject("sorry, it lost!");
-                    //}
+                    var deferred = $q.defer();
+                    var promise = deferred.promise;
 
-                    activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity)//储值券新增
-                    activityCtrl.batchInsertRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);//抵用券新增
-                    activityCtrl.insertRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);//积分新增
-                    var id = setInterval(function(){//检验是不是全部新增成功
-                        console.info($scope.jifendiaoyongchenggong+"one" +  $scope.diyongquandiaoyongchenggong +"Two" +   $scope.chuzhiquandiaoyongchenggong)
-                        if($scope.jifendiaoyongchenggong && $scope.diyongquandiaoyongchenggong && $scope.chuzhiquandiaoyongchenggong){
-                            clearInterval(id);
-                            window.location.reload();
-                        }
-                    },100);
+                    promise.then(function (result) {
+                       activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity)//储值券新增
+
+                    }).then(function (result) {
+                        activityCtrl.batchInsertRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);//抵用券新增
+                    }).then(function (result) {
+                        activityCtrl.insertRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);//积分新增
+                    }).then(function (result){
+                       $scope.showAlert("新增成功",function(){
+                           window.location.reload();
+                       })
+                    })
+                    if(true){
+                        deferred.resolve("执行成功");
+                    }else{
+                        deferred.reject("sorry, it lost!");
+                    }
+
+                    //activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity)//储值券新增
+                    //activityCtrl.batchInsertRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);//抵用券新增
+                    //activityCtrl.insertRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);//积分新增
+                    //var id = setInterval(function(){//检验是不是全部新增成功
+                    //    console.info($scope.jifendiaoyongchenggong+"one" +  $scope.diyongquandiaoyongchenggong +"Two" +   $scope.chuzhiquandiaoyongchenggong)
+                    //    if($scope.jifendiaoyongchenggong && $scope.diyongquandiaoyongchenggong && $scope.chuzhiquandiaoyongchenggong){
+                    //        clearInterval(id);
+                    //        window.location.reload();
+                    //    }
+                    //},100);
                 }
             //    调用删除储值接口
 
@@ -342,6 +370,85 @@ define(
 
                 }
             },
+            //抵用券更新
+            updateRechargePresentsVoucher:function($scope,$http,listRechargePresentsVoucherEntity){
+                var dMinimumRechargeAmounts = [];
+                var dMoreRechargeAmounts = [];
+                var iEnableds = [];
+                var iMinimumPresentsVoucherNumbers = [];
+                var iMoreRresentsVoucherNumbers = [];
+                var strActivityIds = [];
+                var strBasePresentsVoucherTicketIds=[];
+                var strMorePresentsVoucherTicketIds = [];
+                var strRechargePresentsVoucherIds = [];
+                for(let i in listRechargePresentsVoucherEntity){
+                    dMinimumRechargeAmounts[i] =  listRechargePresentsVoucherEntity[i].dMinimumRechargeAmount;
+                    dMoreRechargeAmounts[i] = listRechargePresentsVoucherEntity[i].dMoreRechargeAmount;
+                    iEnableds[i] = (function(listRechargePresentsVoucherEntity){
+                                        if(listRechargePresentsVoucherEntity[0].strEnabledsssId ==undefined){
+                                            return listRechargePresentsVoucherEntity[0].iEnabled
+                                        }else{
+                                            return listRechargePresentsVoucherEntity[0].strEnabledsssId
+                                        }
+
+                                    })(listRechargePresentsVoucherEntity);
+                    iMinimumPresentsVoucherNumbers[i] =  listRechargePresentsVoucherEntity[i].iMinimumPresentsVoucherNumber;
+                    iMoreRresentsVoucherNumbers[i] = listRechargePresentsVoucherEntity[i].iMoreRresentsVoucherNumber;
+                    strActivityIds[i] = listRechargePresentsVoucherEntity[i].strActivityId;
+                    strBasePresentsVoucherTicketIds[i] = listRechargePresentsVoucherEntity[i].strBasePresentsVoucherTicketId;
+                    strMorePresentsVoucherTicketIds[i] = listRechargePresentsVoucherEntity[i].strMorePresentsVoucherTicketId;
+                    strRechargePresentsVoucherIds[i] = listRechargePresentsVoucherEntity[i].strRechargePresentsVoucherId;
+                }
+                var data = {
+                    dMinimumRechargeAmount:dMinimumRechargeAmounts.join(","),
+                    dMoreRechargeAmount:dMoreRechargeAmounts.join(",") ,
+                    iEnabled:iEnableds.join(","),
+                    iMinimumPresentsVoucherNumber:iMinimumPresentsVoucherNumbers.join(","),
+                    iMoreRresentsVoucherNumber:iMoreRresentsVoucherNumbers.join(",") ,
+                    strActivityId:strActivityIds.join(","),
+                    strBasePresentsVoucherTicketId:strBasePresentsVoucherTicketIds.join(","),
+                    strMorePresentsVoucherTicketId:strMorePresentsVoucherTicketIds.join(","),
+                    strRechargePresentsVoucherId:strRechargePresentsVoucherIds.join(",")
+                }
+
+                $http.post(remoteUrl.updateRechargePresentsVoucher,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            console.info(result)
+                            //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
             //储值批量更新
             batchUpdateRechargePresentsStoredValue:function($scope,$http,listRechargePresentsStoredValueEntity){
                 var dPresentsAmounts = [];
@@ -352,7 +459,15 @@ define(
                 for(let i in listRechargePresentsStoredValueEntity){
                     dPresentsAmounts[i] =  listRechargePresentsStoredValueEntity[i].dPresentsAmount;
                     dRechargeAmounts[i] = listRechargePresentsStoredValueEntity[i].dRechargeAmount;
-                    iEnableds[i] = $scope.listRechargePresentsStoredValueEntityCzq[0].strEnabledsssId || listRechargePresentsStoredValueEntity[0].iEnabled;
+                    iEnableds[i] = (function(listRechargePresentsStoredValueEntity){
+                                        if(listRechargePresentsStoredValueEntity[0].strEnabledsssId ==undefined){
+                                            return listRechargePresentsStoredValueEntity[0].iEnabled
+                                        }else{
+                                            return listRechargePresentsStoredValueEntity[0].strEnabledsssId
+                                        }
+
+                                    })(listRechargePresentsStoredValueEntity);
+                    listRechargePresentsStoredValueEntity[0].strEnabledsssId;
                     strActivityIds[i] = listRechargePresentsStoredValueEntity[i].strActivityId;
                     strPresentsStoredValueIds[i] = listRechargePresentsStoredValueEntity[i].strPresentsStoredValueId;
                 }
@@ -370,8 +485,7 @@ define(
                         var code = data.code;
                         console.info(result)
                         if (code == 1) {
-                            $scope.showAlert(rs.msg)
-
+                            console.info(result)
                             //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
@@ -407,7 +521,14 @@ define(
                 var data = {
                     dLeastRechargeAmount:listRechargePresentsIntegrationEntity.dLeastRechargeAmount || listRechargePresentsIntegrationEntity[0].dLeastRechargeAmount  ,
                     dPerTimeRechargeAmount:listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount ||listRechargePresentsIntegrationEntity[0].dPerTimeRechargeAmount ,
-                    iEnabled:listRechargePresentsIntegrationEntity.strEnabledsssId || listRechargePresentsIntegrationEntity[0].iEnabled,
+                    iEnabled:(function(listRechargePresentsIntegrationEntity){
+                        if(listRechargePresentsIntegrationEntity.strEnabledsssId ==undefined){
+                            return listRechargePresentsIntegrationEntity[0].iEnabled
+                        }else{
+                            return listRechargePresentsIntegrationEntity.strEnabledsssId
+                        }
+
+                    })(listRechargePresentsIntegrationEntity),
                     strActivityId:listRechargePresentsIntegrationEntity[0].strActivityId,
                     strPresentsIntegrationId:listRechargePresentsIntegrationEntity[0].strPresentsIntegrationId
                 }
@@ -418,7 +539,6 @@ define(
                         var code = data.code;
                         console.info(result)
                         if (code == 1) {
-                            $scope.showAlert(rs.msg)
 
                             //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
                         } else if (code == -1) {
