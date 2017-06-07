@@ -108,7 +108,7 @@
                             </div>
 
                             <div class="mt10 fl ml50">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送类型：
-                                <input type="text" class="w100" ng-value="rechargePresentsActivityEntity.strActivityName" name="strInformationname1"   ng-model="rechargePresentsActivityEntity.strActivityName" ngTrim="true" ng-maxlength="8" required/>
+                                <input type="text" class="w100" ng-value="rechargePresentsActivityEntity.strActivityName" name="strInformationname1"   ng-model="rechargePresentsActivityEntity.strActivityName" ngTrim="true" ng-maxlength="20" required/>
                             </div>
 
 
@@ -370,7 +370,7 @@
                             </div>
                             <div class="fl mt10 w200">
                                 <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送抵用券</div>
-                                <select ng-model="diyongquanxinzeng.strBasePresentsVoucherTicketId" ng-options="listRechargePresentsVoucherEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity" required>
+                                <select ng-model="diyongquanxinzeng.strBasePresentsVoucherTicketId" ng-options="listVoucherTicketInfoEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity" required>
                                     <option  value="">全部</option>
                                 </select>
                             </div>

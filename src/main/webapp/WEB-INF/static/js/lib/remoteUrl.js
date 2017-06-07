@@ -264,7 +264,8 @@ define([],function(){
             batchInsertRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
             //充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
             selectRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity",
-
+        //    充值赠送 -- 赠送活动 -- 抵用券查询刚新建的 单条
+        selectRechargePresentsStoredValueEntity:"/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity",
 
 
 
