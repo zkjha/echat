@@ -1,6 +1,9 @@
 package com.ecard.mapper;
+import java.util.List;
 
 import com.ecard.entity.ConsumePresentsActivityEntity;
+import com.ecard.entity.ConsumePresentsIntegrationEntity;
+import com.ecard.entity.ConsumePresentsStoredValueEntity;
 
 public interface ConsumePresentsMapper
 {
@@ -13,4 +16,25 @@ public interface ConsumePresentsMapper
 	public String isExistsTheActivityRecordId(ConsumePresentsActivityEntity consumePresentsActivityEntity) throws Exception;
 	//更新 消费赠送活动信息
 	public int updateConsumePresentsActivityInfo(ConsumePresentsActivityEntity consumePresentsActivityEntity) throws Exception;
+	//查询一条消费赠送活动规则信息consumePresentsActivityEntity记录
+	public ConsumePresentsActivityEntity selectConsumePresentsActivityEntity(String strActivityId) throws Exception;
+	//查询一条刚新建的消费赠送活动规则信息consumePresentsActivityEntity记录
+	public ConsumePresentsActivityEntity selectConsumePresentsActivityInfo() throws Exception;
+	//批量插入消费赠送积分规则信息consumePresentsIntegrationEntity
+	public int batchInsertConsumePresentsIntegrationEntity(ConsumePresentsIntegrationEntity consumePresentsIntegrationEntity) throws Exception;
+	//批量更新消费赠送积分规则信息consumePresentsIntegrationEntity
+	public int batchUpdateConsumePresentsIntegrationEntity(ConsumePresentsIntegrationEntity consumePresentsIntegrationEntity) throws Exception;
+	//删除一条消费赠送积分规则信息consumePresentsIntegrationEntity记录
+	public int deleteConsumePresentsIntegrationEntity(String strIntegrationId) throws Exception;
+	//查询消费赠送积分规则信息ConsumePresentsIntegrationEntity列表
+	public List<ConsumePresentsIntegrationEntity> selectAllConsumePresentsIntegrationEntity(String strActivity) throws Exception;
+	//批量插入消费赠送储值规则信息consumePresentsStoredValueEntity
+	public int batchInsertConsumePresentsStoredValueEntity(ConsumePresentsStoredValueEntity consumePresentsStoredValueEntity) throws Exception;
+	//批量更新消费赠送储值规则信息consumePresentsStoredValueEntity
+	public int batchUpdateConsumePresentsStoredValueEntity(ConsumePresentsStoredValueEntity consumePresentsStoredValueEntity) throws Exception;
+	//删除一条消费赠送储值规则信息consumePresentsStoredValueEntity记录
+	public int deleteConsumePresentsStoredValueEntity(String strStoredTicketId) throws Exception;
+	//查询消费赠送储值规则信息ConsumePresentsStoredValueEntity列表
+	public List<ConsumePresentsStoredValueEntity> selectAllConsumePresentsStoredValueEntity(String strActivity) throws Exception;
+	
 }

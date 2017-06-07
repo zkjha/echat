@@ -62,4 +62,173 @@
 	strLastAccessedTime=#{strLastAccessedTime}
 	where strActivityId=#{strActivityId}
 </update>
+
+<!-- 查询消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
+<select id="selectConsumePresentsActivityEntity" resultType="com.ecard.entity.ConsumePresentsActivityEntity" parameterType="String">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strIsCumulation,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_Activity
+	where strActivityId=#{strActivityId}
+</select>
+
+<!-- 查询刚新建的一条消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
+<select id="selectConsumePresentsActivityInfo" resultType="com.ecard.entity.ConsumePresentsActivityEntity">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	iActivityKinds,
+ 	strIsCumulation,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_Activity order by strCreationTime DESC limit 0,1
+</select>
+
+<!-- 新增消费赠送积分规则信息_[tableName:tb_consumePresents_integration] -->
+<insert id="batchInsertConsumePresentsIntegrationEntity" parameterType="com.ecard.entity.ConsumePresentsIntegrationEntity">
+ insert into tb_consumePresents_integration
+	(
+	strIntegrationId,
+	strActivityId,
+	dConsumeCashAmount,
+	iPresentsIntegrationAmount,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strIntegrationId},
+	#{strActivityId},
+	#{dConsumeCashAmount},
+	#{iPresentsIntegrationAmount},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新消费赠送积分规则信息_[tableName:tb_consumePresents_integration] -->
+<update id="batchUpdateConsumePresentsIntegrationEntity" parameterType="com.ecard.entity.ConsumePresentsIntegrationEntity">
+ update tb_consumePresents_integration set 
+	strActivityId=#{strActivityId},
+	dConsumeCashAmount=#{dConsumeCashAmount},
+	iPresentsIntegrationAmount=#{iPresentsIntegrationAmount},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strIntegrationId=#{strIntegrationId}
+</update>
+
+<!-- 删除消费赠送积分规则信息_[tableName:tb_consumePresents_integration] -->
+<delete id="deleteConsumePresentsIntegrationEntity" parameterType="String">
+ delete from tb_consumePresents_integration where strIntegrationId=#{strIntegrationId}
+</delete>
+
+<!-- 查询消费赠送积分规则信息_[tableName:tb_rechargePresents_storedValue] -->
+<select id="selectAllConsumePresentsIntegrationEntity" resultType="com.ecard.entity.ConsumePresentsIntegrationEntity" parameterType="String">
+ select 
+ 	strIntegrationId,
+ 	strActivityId,
+ 	dConsumeCashAmount,
+ 	iPresentsIntegrationAmount,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_integration
+	where strActivityId=#{strActivityId} order by strCreationTime DESC
+</select>
+
+<!-- 新增消费赠送储值规则信息_[tableName:tb_consumePresents_storedValue] -->
+<insert id="batchInsertConsumePresentsStoredValueEntity" parameterType="com.ecard.entity.ConsumePresentsStoredValueEntity">
+ insert into tb_consumePresents_storedValue
+	(
+	strStoredTicketId,
+	strActivityId,
+	dConsumeCashAmount,
+	iPresentsIntegrationAmount,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strStoredTicketId},
+	#{strActivityId},
+	#{dConsumeCashAmount},
+	#{iPresentsIntegrationAmount},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新消费赠送储值规则信息_[tableName:tb_consumePresents_storedValue] -->
+<update id="batchUpdateConsumePresentsStoredValueEntity" parameterType="com.ecard.entity.ConsumePresentsStoredValueEntity">
+ update tb_consumePresents_storedValue set 
+	strActivityId=#{strActivityId},
+	dConsumeCashAmount=#{dConsumeCashAmount},
+	iPresentsIntegrationAmount=#{iPresentsIntegrationAmount},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strStoredTicketId=#{strStoredTicketId}
+</update>
+
+<!-- 删除消费赠送储值规则信息_[tableName:tb_consumePresents_storedValue] -->
+<delete id="deleteConsumePresentsStoredValueEntity" parameterType="String">
+ delete from tb_consumePresents_storedValue where strStoredTicketId=#{strStoredTicketId}
+</delete>
+
+<!-- 查询消费赠送储值规则信息_[tableName:tb_consumePresents_storedValue] -->
+<select id="selectAllConsumePresentsStoredValueEntity" resultType="com.ecard.entity.ConsumePresentsStoredValueEntity" parameterType="String">
+ select 
+ 	strStoredTicketId,
+ 	strActivityId,
+ 	dConsumeCashAmount,
+ 	iPresentsIntegrationAmount,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_storedValue
+	where strActivityId=#{strActivityId} order by strCreationTime DESC
+</select>
 </mapper>
