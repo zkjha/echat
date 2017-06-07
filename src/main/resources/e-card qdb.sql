@@ -954,4 +954,40 @@ create table tb_consumePresents_Activity
  strLastAccessedTime 	VARCHAR(50) 		NOT NULL,		-- 记录修改时间
  primary key(strActivityId)
 ) engine=innodb default charset=utf8;
+-- -------------------------------------------------------------------------------------------
+-- tableName:tb_consumePresents_integration						【消费赠送积分】
+-- -----------------------------------------------------------------------------------------
+drop table if exists tb_consumePresents_integration;
+create table tb_consumePresents_integration
+(
+strIntegrationId							varchar(50)			not null,		-- 关键字
+strActivityId								varchar(50)			not null,		-- 活动ID 关联 tb_activity id
+dConsumeCashAmount							decimal(11,2)		not null,		-- 消费额
+iPresentsIntegrationAmount					int					default 0,		-- 赠送积分数量
+iEnabled									int(2)				default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   						VARCHAR(50) 		NOT NULL,		-- 管理员ID
+strEmployeeName 							VARCHAR(50) 		NOT NULL,		-- 管理员账号
+strEmployeeRealName 						VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+strCreationTime 							VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+strLastAccessedTime 						VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+primary key(strIntegrationId)
+) engine=innodb default charset=utf8;
+-- -------------------------------------------------------------------------------------------------
+-- tableName:tb_consumePresents_storedValue							【消费赠送储值】
+-- -----------------------------------------------------------------------------------------------
+drop table if exists tb_consumePresents_storedValue;
+create table tb_consumePresents_storedValue
+(
+strStoredTicketId							varchar(50)			not null,		-- 关键字
+strActivityId								varchar(50)			not null,		-- 活动ID 关联 tb_activity id
+dConsumeCashAmount							decimal(11,2)		not null,		-- 消费额
+iPresentsIntegrationAmount					int					default 0,		-- 赠送积分数量
+iEnabled									int(2)				default 0,		-- 启用状态：1启用，0禁用
+strEmployeeId 		   						VARCHAR(50) 		NOT NULL,		-- 管理员ID
+strEmployeeName 							VARCHAR(50) 		NOT NULL,		-- 管理员账号
+strEmployeeRealName 						VARCHAR(50) 		NOT NULL,		-- 管理员姓名
+strCreationTime 							VARCHAR(50) 		NOT NULL,		-- 记录创建时间
+strLastAccessedTime 						VARCHAR(50) 		NOT NULL,		-- 记录修改时间
+primary key(strStoredTicketId)
+) engine=innodb default charset=utf8;
 

@@ -392,6 +392,15 @@ public class RechargePresentsService {
 	return rechargePresentsMapper.selectRechargePresentsActivityEntity();
 
 	}
+	
+	
+	//查询一条刚新建的充值赠送储值规则信息rechargePresentsStoredValueEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public RechargePresentsStoredValueEntity selectRechargePresentsStoredValueEntity() throws Exception
+	{
+	
+	return rechargePresentsMapper.selectRechargePresentsStoredValueEntity();
+	}
 
 }
 

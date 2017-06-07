@@ -75,6 +75,8 @@ public interface RechargePresentsMapper {
 	public RechargePresentsActivityEntity selectAllRechargePresentsActivityEntity(String strActivityId) throws Exception;
 	//查询刚写入的充值赠送活动信息
 	public RechargePresentsActivityEntity selectRechargePresentsActivityEntity() throws Exception;
+	//查询一条刚新建的充值赠送储值规则信息rechargePresentsStoredValueEntity记录
+	public RechargePresentsStoredValueEntity selectRechargePresentsStoredValueEntity() throws Exception;
 	
 	
 	

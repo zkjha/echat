@@ -224,7 +224,7 @@ select
 	strEmployeeRealName,
 	strCreationTime,
 	strLastAccessedTime
-	from tb_rechargePresents_integration where strActivityId=#{strActivityId} order by strLastAccessedTime desc
+	from tb_rechargePresents_integration where strActivityId=#{strActivityId} order by strLastAccessedTime DESC
 	
 </select>
 
@@ -466,6 +466,24 @@ delete from tb_rechargePresents_activity where strActivityId=#{strActivityId}
  	strEmployeeRealName,
  	strCreationTime,
  	strLastAccessedTime
- 	from tb_rechargePresents_activity order by strCreationTime desc limit 0,1
+ 	from tb_rechargePresents_activity order by strCreationTime DESC limit 0,1
+</select>
+
+<!-- 查询一条刚新增的充值赠送储值规则信息_[tableName:tb_rechargePresents_storedValue] -->
+<select id="selectRechargePresentsStoredValueEntity" resultType="com.ecard.entity.RechargePresentsStoredValueEntity">
+ select 
+ 	strPresentsStoredValueId,
+ 	strActivityId,
+ 	dRechargeAmount,
+ 	dPresentsAmount,
+ 	strValidateBeginTime,
+ 	strValidateEndTime,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_rechargePresents_storedValue order by strCreationTime DESC limit 0,1
 </select>
 </mapper>

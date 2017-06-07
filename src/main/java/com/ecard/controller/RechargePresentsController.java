@@ -428,7 +428,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=a42c801d8a7b4daa86653bacf88273a5
+	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=91389ff76fce478d8c546ed1dd0386bd
 	public String selectAllRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -1499,6 +1499,43 @@ public class RechargePresentsController {
 	}
 	}
 	
+
+	
+	//查询一条刚新建的充值赠送储值规则信息rechargePresentsStoredValueEntity
+	@ResponseBody
+	@RequestMapping("selectRechargePresentsStoredValueEntity")
+	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity
+	public String selectRechargePresentsStoredValueEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+
+	//身份检测
+	/*
+	EmployeeEntity employeeEntity = null;
+	try {
+		employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+	}
+	if(employeeEntity==null){
+		return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+	}
+	*/
+
+	RechargePresentsStoredValueEntity rechargePresentsStoredValueEntity=null;
+	try{
+		rechargePresentsStoredValueEntity=rechargePresentsService.selectRechargePresentsStoredValueEntity();
+		if(rechargePresentsStoredValueEntity==null)
+		return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("rechargePresentsStoredValueEntity",rechargePresentsStoredValueEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+	}
+  }
 	
 	//校验
 		public static boolean isNumber(String strCheckString)
