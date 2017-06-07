@@ -12,12 +12,8 @@ define(
 
             ////////////////////充值赠送-开始////////////////////////
             recharge:function($scope,$http){
-                console.info(123)
-                ////储值券是否启用判断
-                //$scope.listRechargePresentsStoredValueEntitydyq = [{}];
-                ////抵用券是否启用判断
-                //$scope.listRechargePresentsVoucherEntitydyq = [{}];
-                //判断是否调用储值券单挑查询结果
+                $scope.gonggongstrActivityId = null;//取到查询出来公共id
+                $scope.panduanshixinzenghaishiqitaxiaoxiugai = false;//判断是新增还是其它小修改
                 $scope.panduandiaoyungchuzhiquanjiekou = false;//判断是否调用了储值券接口没
                 $scope.panduandiaoyungdiyongquanjiekou = false;//判断是否调用了抵用券接口没
                 $scope.iIsValid=[{"id":1,"name":"启用"},{"id":0,"name":"禁用"}];
@@ -38,6 +34,8 @@ define(
                     $scope.listRechargePresentsStoredValueEntity = {};
                     $scope.listRechargePresentsVoucherEntity = {};
                     $scope.showExpandInfoWindow = true;
+
+                    $scope.panduanshixinzenghaishiqitaxiaoxiugai = true;//判断是新增还是其它小修改
                 }
                 //分页查询
                 $scope.onPageChange = function () {
@@ -89,6 +87,7 @@ define(
             //    充值赠送修改
                 $scope.updataExpand = function(strActivityId){
                     //显示模态框
+                    $scope.panduanshixinzenghaishiqitaxiaoxiugai = false;
                     $scope.showExpandInfoWindow = true;
                     //调用接口-活动
                     activityCtrl.selectAllRechargePresentsActivityEntity($scope,$http,strActivityId);
@@ -108,12 +107,27 @@ define(
             //    添加储值券
                 $scope.addchuziquantianjianumber =1;
                 $scope.adddichuzhiquan = function(){
-                    if($scope.panduandiaoyungchuzhiquanjiekou){
-                        $scope.panduandiaoyungchuzhiquanjiekou = false;//判断调用了储值券接口没
+                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai){//总体新增执行的操作
+                        if($scope.panduandiaoyungchuzhiquanjiekou){
+                            $scope.panduandiaoyungchuzhiquanjiekou = false;//判断调用了储值券接口没
+                            $scope.addchuziquantianjianumber = $scope.listRechargePresentsStoredValueEntity.length;
+                            console.info("我是用来测试的")
+                        }
+                        $scope.listRechargePresentsStoredValueEntity[$scope.addchuziquantianjianumber] = $scope.addchuziquantianjia;
+
+                    }else{
                         $scope.addchuziquantianjianumber = $scope.listRechargePresentsStoredValueEntity.length;
-                        console.info("我是用来测试的")
+                        var chuzhiquan = $scope.addchuziquantianjia;
+                        chuzhiquan.strEnabledsssId = $scope.listRechargePresentsVoucherEntitydyq[0].iEnabled;
+                        chuzhiquan.strActivityId = $scope.gonggongstrActivityId;
+                        var chuzhiquans = [];//为了跟后面的格式达成共识
+                        chuzhiquans.push(chuzhiquan)
+                        activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,chuzhiquans)//储值券新增
+
+                        $scope.listRechargePresentsStoredValueEntity[$scope.addchuziquantianjianumber] = chuzhiquans[0];
+                        console.info(chuzhiquans[0])
                     }
-                    $scope.listRechargePresentsStoredValueEntity[$scope.addchuziquantianjianumber] = $scope.addchuziquantianjia;
+
                     $scope.addchuziquantianjianumber += 1;
                     $scope.chuzhiweikong = {};
                     $scope.showExpandInfoWindow = true;
@@ -122,22 +136,26 @@ define(
             //    添加抵用券
                 $scope.adddiyongquantianjianumber =1;
                 $scope.adddiyongquan = function(){
-                    if($scope.panduandiaoyungdiyongquanjiekou){
-                        $scope.panduandiaoyungdiyongquanjiekou = false;//判断调用了储值券接口没
-                        $scope.adddiyongquantianjianumber = $scope.listRechargePresentsVoucherEntity.length;
-                        console.info("我是用来测试的")
+                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai){//总体新增执行的操作
+                        if($scope.panduandiaoyungdiyongquanjiekou){
+                            $scope.panduandiaoyungdiyongquanjiekou = false;//判断调用了储值券接口没
+                            $scope.adddiyongquantianjianumber = $scope.listRechargePresentsVoucherEntity.length;
+                            console.info("我是用来测试的")
+                        }
+                        $scope.listRechargePresentsVoucherEntity[$scope.adddiyongquantianjianumber] = $scope.diyongquanxinzeng;
+                        $scope.adddiyongquantianjianumber += 1;
+                        $scope.diyongquanweikong = {};
+                        $scope.showExpandInfoWindow = true;
+                        $scope.showExpandInfoWindowStore = false;
+                        console.info($scope.listRechargePresentsVoucherEntity)
                     }
-                    $scope.listRechargePresentsVoucherEntity[$scope.adddiyongquantianjianumber] = $scope.diyongquanxinzeng;
-                    $scope.adddiyongquantianjianumber += 1;
-                    $scope.diyongquanweikong = {};
-                    $scope.showExpandInfoWindow = true;
-                    $scope.showExpandInfoWindowStore = false;
-                    console.info($scope.listRechargePresentsVoucherEntity)
+
                 }
 
             ////    调用抵用券模态框
                 $scope.jianchadiyongquanpaixu = 0;
-                $scope.addStoreZs = function(paixu){
+                $scope.addStoreZs = function(paixu,id){
+                    $scope.gonggongstrActivityId = id; //取到查询出来的公共id，为以后新增做准备
                     $scope.diyongquanxinzeng = {};
                     //$scope.chuzhiweikong;
                     //if(!$scope.diyongquanweikong){
@@ -164,7 +182,8 @@ define(
                 }
                 //    调用储值券模态框
                 $scope.jianchachuzhipaixu = 0;
-                $scope.addStoreCz = function(paixu){
+                $scope.addStoreCz = function(paixu,id){
+                    $scope.gonggongstrActivityId = id //取到id值
                     $scope.addchuziquantianjia = {};
                     //$scope.chuzhiweikong;
                     //if(!$scope.listRechargePresentsStoredValueEntity[0]){
@@ -196,22 +215,164 @@ define(
                 $scope.submitExpandinfoAll = function(){
                     //console.info($scope.rechargePresentsActivityEntity)
                     //充值赠送新增
-                    activityCtrl.insertPresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity);
+                    $scope.showConfirm("确定新增？",function(rs){
+                        if(rs){
+                            activityCtrl.insertPresentsActivityInfo($scope,$http,$scope.rechargePresentsActivityEntity);
+                        }
+                    })
                 };
             //    执行其他新增操作
-                $scope.shujupanduan=1;
                 $scope.qitachaozuoxingzeng = function(){
                     activityCtrl.batchInsertRechargePresentsStoredValue($scope,$http,$scope.listRechargePresentsStoredValueEntity)//储值券新增
                     activityCtrl.batchInsertRechargePresentsVoucher($scope,$http,$scope.listRechargePresentsVoucherEntity);//抵用券新增
                     activityCtrl.insertRechargePresentsIntegration($scope,$http,$scope.listRechargePresentsIntegrationEntity);//抵用券新增
                 }
+            //    调用删除储值接口
+
+                $scope.z_delete = function(strPresentsStoredValueId,strActivityId,shanchujitiao,who){
+                    console.info(strPresentsStoredValueId)
+                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai) {//查询前面新增执行的操作
+                        console.info(shanchujitiao)
+                        var chuzhiquan = $scope.listRechargePresentsStoredValueEntity;
+                        delete chuzhiquan[shanchujitiao];
+                            console.info(chuzhiquan)
+                        $scope.listRechargePresentsStoredValueEntity=chuzhiquan;
+                    }else{//查询后删除执行的操作
+                        if ($scope.listRechargePresentsStoredValueEntity.length == 1) {
+                            $scope.showAlert("最后一条数据不能删除！")
+                        } else {
+                            $scope.showConfirm("确认删除" + who + "?", function (rs) {
+                                if (rs) {
+                                    activityCtrl.deleteRechargePresentsStoredValue($scope, $http, strPresentsStoredValueId, strActivityId, shanchujitiao);
+                                }
+                            })
+                        }
+                    }
+
+                }
+                //    调用删除抵用券接口
+
+                $scope.z_deletedyq = function(strRechargePresentsVoucherId,strActivityId,shanchujitiao,who){
+                    console.info(strRechargePresentsVoucherId)
+                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai){//查询前面新增执行的操作
+                        var diyongquan = $scope.listRechargePresentsVoucherEntity;
+                        delete diyongquan[shanchujitiao];
+                        $scope.listRechargePresentsVoucherEntity=diyongquan;
+                    }else{
+                        if($scope.listRechargePresentsVoucherEntity.length == 1){
+                            $scope.showAlert("最后一条数据不能删除！")
+                        }else{
+                            $scope.showConfirm("确认删除"+who+"?",function(rs){
+                                if(rs){
+                                    activityCtrl.deleteRechargePresentsVoucher($scope,$http,strRechargePresentsVoucherId,strActivityId,shanchujitiao);
+                                }
+                            })
+                        }
+                    }
+
+
+                }
+            },
+            //充值赠送 -- 赠送抵用券 -- 删除
+            deleteRechargePresentsVoucher:function($scope,$http,strRechargePresentsVoucherId,strActivityId,shanchujitiao){
+                var data = {
+                    strRechargePresentsVoucherId:strRechargePresentsVoucherId
+                }
+                $http.post(remoteUrl.deleteRechargePresentsVoucher,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg)
+                            var diyongquan = $scope.listRechargePresentsVoucherEntity;
+                            diyongquan.splice(shanchujitiao,1);
+                            $scope.listRechargePresentsVoucherEntity=diyongquan;
+                            console.info($scope.listRechargePresentsVoucherEntity.length);
+                            //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //充值赠送 -- 储值券 -- 删除
+            deleteRechargePresentsStoredValue:function($scope,$http,strPresentsStoredValueId,strActivityId,shanchujitiao){
+                var data = {
+                    strPresentsStoredValueId:strPresentsStoredValueId
+                }
+                $http.post(remoteUrl.deleteRechargePresentsStoredValue,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result)
+                        if (code == 1) {
+                            $scope.showAlert(rs.msg)
+                            var chuzhiquan = $scope.listRechargePresentsStoredValueEntity;
+                            chuzhiquan.splice(shanchujitiao,1);
+                            $scope.listRechargePresentsStoredValueEntity=chuzhiquan;
+                            console.info($scope.listRechargePresentsStoredValueEntity.length);
+                            //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
             },
             //充值赠送 -- 赠送积分 -- 新增
             insertRechargePresentsIntegration:function($scope,$http,listRechargePresentsIntegrationEntity){
                 var data = {
                     dLeastRechargeAmount:listRechargePresentsIntegrationEntity.dLeastRechargeAmount,
                     dPerTimeRechargeAmount:listRechargePresentsIntegrationEntity.dPerTimeRechargeAmount,
-                    iEnabled:listRechargePresentsIntegrationEntity[0].strEnabledsssId || 0,
+                    iEnabled:listRechargePresentsIntegrationEntity.strEnabledsssId || 0,
                     strActivityId:$scope.gonggongstrActivityId
                 };
                 console.info(data)
@@ -266,7 +427,7 @@ define(
                 for(let i in listRechargePresentsStoredValueEntity){
                     dMinimumRechargeAmounts[i] =  listRechargePresentsStoredValueEntity[i].dMinimumRechargeAmount;
                     dMoreRechargeAmounts[i] = listRechargePresentsStoredValueEntity[i].dMoreRechargeAmount;
-                    iEnableds[i] = listRechargePresentsStoredValueEntity[0].strEnabledsssId || 0;
+                    iEnableds[i] =listRechargePresentsStoredValueEntity[0].strEnabledsssId || 0;
                     iMinimumPresentsVoucherNumbers[i] = listRechargePresentsStoredValueEntity[i].iMinimumPresentsVoucherNumber;
                     iMoreRresentsVoucherNumbers[i] =  listRechargePresentsStoredValueEntity[i].iMoreRresentsVoucherNumber;
                     gonggongstrActivityIds[i] = $scope.gonggongstrActivityId;
@@ -283,6 +444,7 @@ define(
                     strBasePresentsVoucherTicketId:strBasePresentsVoucherTicketIds.join(","),
                     strMorePresentsVoucherTicketId:strMorePresentsVoucherTicketIds.join(",")
                 };
+                console.info(data)
                 console.info(data)
                 $http.post(remoteUrl.batchInsertRechargePresentsVoucher,data).then(
                     function(result){
@@ -331,7 +493,7 @@ define(
                 for(let i in listRechargePresentsStoredValueEntity){
                      dPresentsAmounts[i] =  listRechargePresentsStoredValueEntity[i].dPresentsAmount;
                      dRechargeAmounts[i] = listRechargePresentsStoredValueEntity[i].dRechargeAmount;
-                     iEnableds[i] = listRechargePresentsStoredValueEntity[0].strEnabledsssId||0;
+                     iEnableds[i] = listRechargePresentsStoredValueEntity[0].strEnabledsssId || 0;
                     gonggongstrActivityId[i] = $scope.gonggongstrActivityId;
                 }
                 var data = {
@@ -347,7 +509,10 @@ define(
                         var data = result.data;
                         var code = data.code;
                         if (code == 1) {
-                            //activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
+                            //$scope.showAlert(rs.msg,function(){
+                            //    window.location.reload()
+                            //})
+                            ////activityCtrl.selectRechargePresentsActivityEntity($scope,$http);//调用刚刚新增的内容
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -477,10 +642,12 @@ define(
                         var rs = result.data;
                         var data = result.data;
                         var code = data.code;
-                        console.info(result)
                         if (code == 1) {
+                            console.info(result)
                             $scope.listRechargePresentsVoucherEntity = data.data.listRechargePresentsVoucherEntity;
                             $scope.panduandiaoyungdiyongquanjiekou = false;//判断是否调用了抵用券接口没
+                            $scope.listRechargePresentsVoucherEntitydyq =[];
+                            $scope.listRechargePresentsVoucherEntitydyq[0] = data.data.listRechargePresentsVoucherEntity[0];
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
@@ -523,8 +690,8 @@ define(
                         var code = data.code;
                         if (code == 1) {
                             $scope.listRechargePresentsStoredValueEntity = data.data.listRechargePresentsStoredValueEntity;
-                            //$scope.listRechargePresentsStoredValueEntitydyq.shift();
-                            //$scope.listRechargePresentsStoredValueEntitydyq.push(data.data.listRechargePresentsStoredValueEntity[0]);//用来判断是否已经启用
+                            $scope.listRechargePresentsStoredValueEntityCzq =[];
+                            $scope.listRechargePresentsStoredValueEntityCzq[0] = data.data.listRechargePresentsStoredValueEntity[0];
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname
