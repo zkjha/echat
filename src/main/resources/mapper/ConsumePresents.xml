@@ -3,7 +3,7 @@
 <mapper namespace="com.ecard.mapper.ConsumePresentsMapper">
 <!-- 查询 指定会员级别在指定活动类型下是否已经存在数据 -->
 <select id="isExistsTheActivityRecord" parameterType="com.ecard.entity.ConsumePresentsActivityEntity" resultType="int">
-  select count(strActivityId) from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+  select count(strActivityId) from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and strActivityKinds=#{strActivityKinds}
 </select>
 
 <!-- 新增消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
@@ -15,7 +15,7 @@
 	strLevelsId,
 	strActivityBeginTime,
 	strActivityEndTime,
-	iActivityKinds,
+	strActivityKinds,
 	strIsCumulation,
 	strEmployeeId,
 	strEmployeeName,
@@ -30,7 +30,7 @@
 	#{strLevelsId},
 	#{strActivityBeginTime},
 	#{strActivityEndTime},
-	#{iActivityKinds},
+	#{strActivityKinds},
 	#{strIsCumulation},
 	#{strEmployeeId},
 	#{strEmployeeName},
@@ -43,7 +43,7 @@
 
 <!-- 修改活动信息判断该会员级别在该活动类型下是否已经存在规则数据 -->
 <select id="isExistsTheActivityRecordId" parameterType="com.ecard.entity.ConsumePresentsActivityEntity" resultType="String">
-	select strActivityId from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and iActivityKinds=#{iActivityKinds}
+	select strActivityId from tb_consumePresents_Activity where strActivityName=#{strActivityName} and strLevelsId=#{strLevelsId} and strActivityKinds=#{strActivityKinds}
 </select>
 
 <!-- 更新消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
@@ -54,7 +54,7 @@
 	strLevelsId=#{strLevelsId},
 	strActivityBeginTime=#{strActivityBeginTime},
 	strActivityEndTime=#{strActivityEndTime},
-	iActivityKinds=#{iActivityKinds},
+	strActivityKinds=#{strActivityKinds},
 	strIsCumulation=#{strIsCumulation},
 	strEmployeeId=#{strEmployeeId},
 	strEmployeeName=#{strEmployeeName},
@@ -71,7 +71,7 @@
  	strLevelsId,
  	strActivityBeginTime,
  	strActivityEndTime,
- 	iActivityKinds,
+ 	strActivityKinds,
  	strIsCumulation,
  	strEmployeeId,
  	strEmployeeName,
@@ -90,7 +90,7 @@
  	strLevelsId,
  	strActivityBeginTime,
  	strActivityEndTime,
- 	iActivityKinds,
+ 	strActivityKinds,
  	strIsCumulation,
  	strEmployeeId,
  	strEmployeeName,
@@ -230,5 +230,170 @@
  	strLastAccessedTime
  	from tb_consumePresents_storedValue
 	where strActivityId=#{strActivityId} order by strCreationTime DESC
+</select>
+
+<!-- 新增消费赠送抵用券规则信息_[tableName:tb_consumePresents_voucher] -->
+<insert id="batchInsertConsumePresentsVoucherEntity" parameterType="com.ecard.entity.ConsumePresentsVoucherEntity">
+ insert into tb_consumePresents_voucher
+	(
+	strConsumePresentsVoucherId,
+	strVoucherTicketId,
+	strActivityId,
+	dConsumeCashAmount,
+	iPresentsIntegrationAmount,
+	iEnabled,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strConsumePresentsVoucherId},
+	#{strVoucherTicketId},
+	#{strActivityId},
+	#{dConsumeCashAmount},
+	#{iPresentsIntegrationAmount},
+	#{iEnabled},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+
+<!-- 更新消费赠送抵用券规则信息_[tableName:tb_consumePresents_voucher] -->
+<update id="batchUpdateConsumePresentsVoucherEntity" parameterType="com.ecard.entity.ConsumePresentsVoucherEntity">
+ update tb_consumePresents_voucher set 
+	strVoucherTicketId=#{strVoucherTicketId},
+	strActivityId=#{strActivityId},
+	dConsumeCashAmount=#{dConsumeCashAmount},
+	iPresentsIntegrationAmount=#{iPresentsIntegrationAmount},
+	iEnabled=#{iEnabled},
+	strEmployeeId=#{strEmployeeId},
+	strEmployeeName=#{strEmployeeName},
+	strEmployeeRealName=#{strEmployeeRealName},
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strConsumePresentsVoucherId=#{strConsumePresentsVoucherId}
+</update>
+
+<!-- 删除消费赠送抵用券规则信息_[tableName:tb_consumePresents_voucher] -->
+<delete id="deleteConsumePresentsVoucherEntity" parameterType="String">
+ delete from tb_consumePresents_voucher
+	where strConsumePresentsVoucherId=#{strConsumePresentsVoucherId}
+</delete>
+
+
+<!-- 查询消费赠送抵用券规则信息_[tableName:tb_consumePresents_voucher] -->
+<select id="selectAllConsumePresentsVoucherEntity" resultType="com.ecard.entity.ConsumePresentsVoucherEntity" parameterType="String">
+ select 
+ 	strConsumePresentsVoucherId,
+ 	strVoucherTicketId,
+ 	strActivityId,
+ 	dConsumeCashAmount,
+ 	iPresentsIntegrationAmount,
+ 	iEnabled,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_voucher
+	where strActivityId=#{strActivityId} order by strCreationTime DESC
+</select>
+
+<!-- 删除消费赠送积分规则信息_[tableName:tb_consumePresents_integration] -->
+<delete id="deleteConsumePresentsIntegrationInfo" parameterType="String">
+ delete from tb_consumePresents_integration where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除消费赠送储值规则信息_[tableName:tb_consumePresents_storedValue] -->
+<delete id="deleteConsumePresentsStoredValueInfo" parameterType="String">
+ delete from tb_consumePresents_storedValue where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除消费赠送抵用券规则信息_[tableName:tb_consumePresents_voucher] -->
+<delete id="deleteConsumePresentsVoucherInfo" parameterType="String">
+ delete from tb_consumePresents_voucher where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 删除消费赠送活动规则信息_[tableName:tb_consumePresents_Activity] -->
+<delete id="deleteConsumePresentsActivityInfo" parameterType="String">
+ delete from tb_consumePresents_Activity where strActivityId=#{strActivityId}
+</delete>
+
+<!-- 查询消费赠送活动在指定会员级别及活动状态下的记录条数：分页显示 -->
+<select id="findTheRecordCount" resultType="int" parameterType="map">
+	select count(strActivityId) from tb_consumePresents_Activity
+	<where>
+		<if test="strSearchEnabledStatus=='EXPIRED' and strCurrentDate!=''">
+			and strActivityEndTime &lt;#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchEnabledStatus=='NORMAL' and strCurrentDate!=''">
+			and strActivityEndTime &gt;=#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchMemberLevelId!='' and strSearchMemberLevelId!=null">
+			and strLevelsId=#{strSearchMemberLevelId}
+		</if>
+		
+	</where>
+</select>
+
+<!-- 查询消费赠送活动_[tableName:tb_consumePresents_Activity] -->
+<select id="selectAllConsumePresentsActivity" resultType="com.ecard.entity.ConsumePresentsActivityEntity" parameterType="map">
+ select 
+ 	strActivityId,
+ 	strActivityName,
+ 	strLevelsId,
+ 	strActivityBeginTime,
+ 	strActivityEndTime,
+ 	strActivityKinds,
+ 	strIsCumulation,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_consumePresents_Activity
+	<where>
+		<if test="strSearchEnabledStatus=='EXPIRED' and strCurrentDate!=''">
+			and strActivityEndTime &lt;#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchEnabledStatus=='NORMAL' and strCurrentDate!=''">
+			and strActivityEndTime &gt;=#{strCurrentDate}
+		</if>
+		
+		<if test="strSearchMemberLevelId!='' and strSearchMemberLevelId!=null">
+			and strLevelsId=#{strSearchMemberLevelId}
+		</if>
+	</where>
+	order by strCreationTime DESC limit #{iPageFrom},#{iPageSize}
+	</select>
+	
+
+<!-- 查出 特定活动在特定状态和会员级别下 积分的启用状态 -->
+<select id="selectIntegrationEnabled" parameterType="String" resultType="int">
+	select count(iEnabled) from tb_consumePresents_integration	where strActivityId=#{strActivityId} and iEnabled=1
+</select>
+
+<!-- 查出 特定活动在特定状态和会员级别下 储值的启用状态 -->
+<select id="selectStoredTicketEnabled" parameterType="String" resultType="int">
+	select count(iEnabled) from tb_consumePresents_storedValue	where strActivityId=#{strActivityId} and iEnabled=1
+</select>
+
+<!-- 查出 特定活动在特定状态和会员级别下 抵用券的启用状态 -->
+<select id="selectVoucherTicketEnabled" parameterType="String" resultType="int">
+	select count(iEnabled) from tb_consumePresents_voucher	where strActivityId=#{strActivityId} and iEnabled=1
+</select>
+
+
+<!-- 查出自定义活动所对应的会员级别名称 -->
+<select id="findMemberLevelNameById" parameterType="String" resultType="String">
+   select strLevelsName from tb_member_levels where strLevelsId=#{strLevelsId}
 </select>
 </mapper>

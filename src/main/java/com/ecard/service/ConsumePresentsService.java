@@ -1,6 +1,7 @@
 package com.ecard.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.entity.ConsumePresentsActivityEntity;
 import com.ecard.entity.ConsumePresentsIntegrationEntity;
 import com.ecard.entity.ConsumePresentsStoredValueEntity;
+import com.ecard.entity.ConsumePresentsVoucherEntity;
 import com.ecard.mapper.ConsumePresentsMapper;
 @Service
 public class ConsumePresentsService
@@ -207,4 +209,134 @@ public class ConsumePresentsService
 	{
 		return consumePresentsMapper.selectAllConsumePresentsStoredValueEntity(strActivity);
 	}
+	
+	//批量插入消费赠送抵用券规则信息consumePresentsVoucherEntity
+	@Transactional
+	public String batchInsertConsumePresentsVoucherEntity(List<ConsumePresentsVoucherEntity> listConsumePresentsVoucherEntity) throws Exception
+	{
+	int iAffectNum=0,iObjLength;
+	iObjLength=listConsumePresentsVoucherEntity.size();
+	if(listConsumePresentsVoucherEntity==null||iObjLength==0)
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	for(int i=0;i<iObjLength;i++)
+	{	
+		ConsumePresentsVoucherEntity consumePresentsVoucherEntity=listConsumePresentsVoucherEntity.get(i);
+		iAffectNum=consumePresentsMapper.batchInsertConsumePresentsVoucherEntity(consumePresentsVoucherEntity);
+	}
+	if(iAffectNum==0)
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"批量插入失败",null);
+	else
+		return DataTool.constructResponse(ResultCode.OK,"批量插入成功",null);
+	}
+	
+	
+	//批量更新消费赠送抵用券规则信息consumePresentsVoucherEntity
+	@Transactional
+	public String batchUpdateConsumePresentsVoucherEntity(List<ConsumePresentsVoucherEntity> listConsumePresentsVoucherEntity) throws Exception
+	{
+		int iAffectNum=0,iObjLength;
+		iObjLength=listConsumePresentsVoucherEntity.size();
+		if(listConsumePresentsVoucherEntity==null||iObjLength==0)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		for(int i=0;i<iObjLength;i++)
+		{	
+			ConsumePresentsVoucherEntity consumePresentsVoucherEntity=listConsumePresentsVoucherEntity.get(i);
+			iAffectNum=consumePresentsMapper.batchUpdateConsumePresentsVoucherEntity(consumePresentsVoucherEntity);
+		}
+		if(iAffectNum==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"批量更新失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"批量更新成功",null);
+	}
+	
+	//删除一条消费赠送抵用券规则信息consumePresentsVoucherEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public String deleteConsumePresentsVoucherEntity(String strConsumePresentsVoucherId) throws Exception
+	{
+	int iAffectNum=consumePresentsMapper.deleteConsumePresentsVoucherEntity(strConsumePresentsVoucherId);
+	if(0==iAffectNum)
+	{
+		return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "数据库操作失败",null);
+	}
+	return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
+	
+	//查询消费赠送抵用券规则信息ConsumePresentsVoucherEntity列表
+	public List<ConsumePresentsVoucherEntity> selectAllConsumePresentsVoucherEntity(String strActivity) throws Exception
+	{
+		return consumePresentsMapper.selectAllConsumePresentsVoucherEntity(strActivity);
+	}
+	
+	//分页浏览---删除接口 删除 关联的积分，储值，抵用券规则信息
+	@Transactional
+	public String deleteConsumePresentsActivityInfo(String strActivityId) throws Exception
+	{
+		int iAffectNum=0;
+		consumePresentsMapper.deleteConsumePresentsIntegrationInfo(strActivityId);
+		consumePresentsMapper.deleteConsumePresentsStoredValueInfo(strActivityId);
+		consumePresentsMapper.deleteConsumePresentsVoucherInfo(strActivityId);
+		iAffectNum=consumePresentsMapper.deleteConsumePresentsActivityInfo(strActivityId);
+		if(0==iAffectNum)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "数据库操作失败",null);
+		return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+	}
+
+	
+	//查询消费赠送活动在特定会员级别及特定状态下的记录条数
+	public int findTheRecordCount(Map<String,Object> queryMap) throws Exception
+	{
+		return consumePresentsMapper.findTheRecordCount(queryMap);
+	}
+		
+	//分页查询消费赠送活动信息
+	@Transactional
+	public List<ConsumePresentsActivityEntity> selectAllConsumePresentsActivity(Map<String,Object> queryMap) throws Exception
+	{
+		int iObjNum=0;
+		List<ConsumePresentsActivityEntity> listConsumePresentsActivityEntity=consumePresentsMapper.selectAllConsumePresentsActivity(queryMap);
+		iObjNum=listConsumePresentsActivityEntity.size();
+		if(listConsumePresentsActivityEntity==null||iObjNum==0)
+			return null;
+		for(int i=0;i<iObjNum;i++)
+		{
+			//将自定义活动状态属性写入对象
+			String strActivityStatus="";
+			String strActivityId="";
+			int iIntegrationEnabled=0;
+			int iStoredTicketEnabled=0;
+			int iVoucherTicketEnabled=0;
+			//不用String strMemberLevelId=(String)queryMap.get("strSearchMemberLevelId");
+			String strMemberLevelName;
+			String strActivityEndTime=listConsumePresentsActivityEntity.get(i).getStrActivityEndTime();
+			strActivityId=listConsumePresentsActivityEntity.get(i).getStrActivityId();
+			String strLevelsId=listConsumePresentsActivityEntity.get(i).getStrLevelsId();
+			//对活动状态：如正常和过期进行判断
+			String strCurrentTime=(String)queryMap.get("strCurrentDate");
+			if(strActivityEndTime.compareTo(strCurrentTime)<0)
+				strActivityStatus="过期";
+			
+			if(strActivityEndTime.compareTo(strCurrentTime)>=0)
+				strActivityStatus="正常";
+			ConsumePresentsActivityEntity consumePresentsActivityEntity=listConsumePresentsActivityEntity.get(i);
+			consumePresentsActivityEntity.setStrActivityStatus(strActivityStatus);
+			
+			//分别对关联该活动的，积分，储值和抵用券的禁启用进行判断
+			//默认查已关联该活动的积分，储值和抵用券的已启用状态信息，如果存在一个已启用的，则分页显示为打勾状态
+			iIntegrationEnabled=consumePresentsMapper.selectIntegrationEnabled(strActivityId);
+			iStoredTicketEnabled=consumePresentsMapper.selectStoredTicketEnabled(strActivityId);
+			iVoucherTicketEnabled=consumePresentsMapper.selectVoucherTicketEnabled(strActivityId);
+			consumePresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
+			consumePresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
+			consumePresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
+			
+			//查出该条活动信息所对应的会员级别名称
+			strMemberLevelName=consumePresentsMapper.findMemberLevelNameById(strLevelsId);
+			consumePresentsActivityEntity.setStrMemberLevelName(strMemberLevelName);
+
+		}
+		
+		return listConsumePresentsActivityEntity;
+		
+	}
+	
 }
