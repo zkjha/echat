@@ -49,7 +49,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("insertUserDefinedPresentsActivityInfo")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/inserPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
+	//http://localhost:8083/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
 	public String insertUserDefinedPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=DataTool.getUUID();
