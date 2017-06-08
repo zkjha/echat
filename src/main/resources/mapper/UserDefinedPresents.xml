@@ -63,6 +63,7 @@ where strActivityId=#{strActivityId}
 <!-- 查询 自定义赠送活动信息 单条_[tb_userDefinedPresents_Activity] -->
 <select id="selectUserDefinedPresentActivityById" resultType="com.ecard.entity.UserDefinedPresentsActivityEntity" parameterType="String">
  select 
+ 	strActivityId,
  	strActivityName,
  	strLevelsId,
  	strActivityBeginTime,
