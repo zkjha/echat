@@ -582,10 +582,10 @@ CREATE TABLE tb_storedticket_rule
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxStoreTicketOnEndTime on tb_storedticket_rule(strValidEndTime);
 create index indxStoreTicketOnId on tb_storedticket_rule(strTicketId);
-insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
-values('100001','售后储值',0,'2099-03-01 00:00:00',0,'No desc','');
-insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
-values('100002','现金储值',1,'',0,'No desc','');
+-- insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+-- values('100001','售后储值',0,'2099-03-01 00:00:00',0,'No desc','');
+-- insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
+-- values('100002','现金储值',1,'',0,'No desc','');
 
 
 -- ==============================================================
@@ -641,7 +641,7 @@ CREATE TABLE tb_sign_integration_rule
 strSignId			VARCHAR(50)		NOT NULL,		-- 主键
 strSignDays			VARCHAR(50)		NOT NULL,		-- 签到天数
 strStatus			VARCHAR(5)		DEFAULT '1',	-- 签到状态:1表示连续签到 0表示非连续签到
-iIntegration	 	int,			not null,		-- 积分
+iIntegration	 	int				not null,		-- 积分
 strEnabled			VARCHAR(5)		DEFAULT '1',	-- 是否启用：1表示启用 0表示禁用
 strCreationTime		varchar(50)		Not null,		-- 创建规则时间
 strLastAccessedTime varchar(50)		Not Null,		-- 最后一次修改时间
@@ -657,7 +657,7 @@ DROP TABLE IF EXISTS tb_integration_cash_rule;
 CREATE TABLE tb_integration_cash_rule
 (
     strId				VARCHAR(50)		NOT NULL,		-- 关键字
-    iIntegration		int,			not null,		-- 积分
+    iIntegration		int				not null,		-- 积分
     dCash				decimal(11,2)	Not null,		-- 可抵扣现金
     strEnabled			VARCHAR(5)		DEFAULT '1',	-- 是否启用
     strCreationTime		varchar(50)		Not null,		-- 创建规则时间
@@ -819,7 +819,7 @@ primary key(strPresentsIntegrationId)
 ) engine=innodb default charset=utf8;
 -- ---------------------------------------------------------------------------------------------
 -- tableName:tb_rechargeStoredTicketPresents_storedValue			活动|【充储值卡送储值】
--------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------
 drop table if exists tb_rechargePresents_storedValue;
 create table tb_rechargePresents_storedValue
 (
@@ -850,7 +850,7 @@ strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
 dMinimumRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
 iMinimumPresentsVoucherNumber		int				not null,		-- 赠送张数
 dMoreRechargeAmount					decimal(11,2)	default 0,		-- 每多充值多少钱
-iMoreRresentsVoucherNumber			int				default 0,		-- 多赠送多少钱
+iMorePresentsVoucherNumber			int				default 0,		-- 多赠送多少钱
 iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
