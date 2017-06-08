@@ -586,8 +586,6 @@ create index indxStoreTicketOnId on tb_storedticket_rule(strTicketId);
 -- values('100001','售后储值',0,'2099-03-01 00:00:00',0,'No desc','');
 -- insert into tb_storedticket_rule(strTicketId,strTicketName,iTicketType,strValidEndTime,iIsValid,strTicketRuleDesc,strReserved)
 -- values('100002','现金储值',1,'',0,'No desc','');
-
-
 -- ==============================================================
 -- Table: tb_voucherticket_rule               【抵用券规则信息】                          
 -- ==============================================================

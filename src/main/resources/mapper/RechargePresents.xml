@@ -77,6 +77,7 @@
  	dMinimumRechargeAmount,
  	iMinimumPresentsVoucherNumber,
  	dMoreRechargeAmount,
+ 	iMorePresentsVoucherNumber,
  	iMinimumPresentsVoucherNumber,
  	iEnabled,
  	strEmployeeId,
@@ -160,7 +161,7 @@ select
 	strEmployeeRealName,
 	strCreationTime,
 	strLastAccessedTime
-	from tb_rechargePresents_storedValue where strActivityId=#{strActivityId} order by strLastAccessedTime desc
+	from tb_rechargePresents_storedValue where strActivityId=#{strActivityId} order by strLastAccessedTime DESC
 </select>
 
 <!-- 新增 充值送积分规则信息 -->

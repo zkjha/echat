@@ -76,7 +76,6 @@ public class RechargePresentsController {
 		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
 		String strMorePresentsVoucherNumber=request.getParameter("iMorePresentsVoucherNumber");
 		String strEnabled=request.getParameter("iEnabled");
-		
 		if(ValidateTool.isEmptyStr(strBasePresentsVoucherTicketId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"抵用券ID不能为空",null);
 		
@@ -94,9 +93,10 @@ public class RechargePresentsController {
 		
 		if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"金充值金额不能为空",null);
-		
+	
 		if(ValidateTool.isEmptyStr(strMorePresentsVoucherNumber))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
+		
 		
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
@@ -428,7 +428,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=91389ff76fce478d8c546ed1dd0386bd
+	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=a42c801d8a7b4daa86653bacf88273a5
 	public String selectAllRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
