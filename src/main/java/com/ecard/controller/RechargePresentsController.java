@@ -41,7 +41,7 @@ public class RechargePresentsController {
 	//批量新增 充值赠送抵用券信息
 	@ResponseBody
 	@RequestMapping("batchInsertRechargePresentsVoucher")
-	//localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strBasePresentsVoucherTicketId=抵用券名1&strMorePresentsVoucherTicketId=抵用券名2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMoreRresentsVoucherNumber=1&iEnabled=1
+	//localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strBasePresentsVoucherTicketId=抵用券名1&strMorePresentsVoucherTicketId=抵用券名2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
 	public String batchInsertRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		//以下取得的字符串格式都为：字符串1,字符串2
@@ -49,7 +49,7 @@ public class RechargePresentsController {
 		int arrayLength;
 		int[] iEnabledArray;
 		int[] iMinimumPresentsVoucherNumberArray;
-		int[] iMoreRresentsVoucherNumberArray;
+		int[] iMorePresentsVoucherNumberArray;
 
 		double dMoreRechargeAmount;
 		double dMinimumRechargeAmount;
@@ -65,7 +65,7 @@ public class RechargePresentsController {
 		String[] strMoreRechargeAmountArray;
 		String[] strEnabledArray;
 		String[] strMinimumPresentsVoucherNumberArray;
-		String[] strMoreRresentsVoucherNumberArray;
+		String[] strMorePresentsVoucherNumberArray;
 		
 		String strRechargePresentsVoucherId;
 		String strBasePresentsVoucherTicketId=request.getParameter("strBasePresentsVoucherTicketId");
@@ -74,7 +74,7 @@ public class RechargePresentsController {
 		String strMinimumRechargeAmount=request.getParameter("dMinimumRechargeAmount");
 		String strMinimumPresentsVoucherNumber=request.getParameter("iMinimumPresentsVoucherNumber");
 		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
-		String strMoreRresentsVoucherNumber=request.getParameter("iMoreRresentsVoucherNumber");
+		String strMorePresentsVoucherNumber=request.getParameter("iMorePresentsVoucherNumber");
 		String strEnabled=request.getParameter("iEnabled");
 		
 		if(ValidateTool.isEmptyStr(strBasePresentsVoucherTicketId))
@@ -95,7 +95,7 @@ public class RechargePresentsController {
 		if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"金充值金额不能为空",null);
 		
-		if(ValidateTool.isEmptyStr(strMoreRresentsVoucherNumber))
+		if(ValidateTool.isEmptyStr(strMorePresentsVoucherNumber))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
 		
 		if(ValidateTool.isEmptyStr(strEnabled))
@@ -146,13 +146,13 @@ public class RechargePresentsController {
 			iMinimumPresentsVoucherNumberArray[i]=Integer.parseInt(strMinimumPresentsVoucherNumberArray[i]);
 		}
 
-		strMoreRresentsVoucherNumberArray=strMoreRresentsVoucherNumber.split(",");
-		iMoreRresentsVoucherNumberArray=new int[strMoreRresentsVoucherNumberArray.length];
-		for(int i=0;i<strMoreRresentsVoucherNumberArray.length;i++)
+		strMorePresentsVoucherNumberArray=strMorePresentsVoucherNumber.split(",");
+		iMorePresentsVoucherNumberArray=new int[strMorePresentsVoucherNumberArray.length];
+		for(int i=0;i<strMorePresentsVoucherNumberArray.length;i++)
 		{
-			if(!isNumber(strMoreRresentsVoucherNumberArray[i]))
+			if(!isNumber(strMorePresentsVoucherNumberArray[i]))
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"多赠送张数格式错误",null);
-			iMoreRresentsVoucherNumberArray[i]=Integer.parseInt(strMoreRresentsVoucherNumberArray[i]);
+			iMorePresentsVoucherNumberArray[i]=Integer.parseInt(strMorePresentsVoucherNumberArray[i]);
 		}
 		
 		
@@ -168,7 +168,7 @@ public class RechargePresentsController {
 		
 		//检测各个数组长度是否一致，不一致则报错
 		arrayLength=strEnabledArray.length;
-		if(arrayLength!=strMoreRresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
+		if(arrayLength!=strMorePresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
 				arrayLength!=strMorePresentsVoucherTicketIdArray.length||arrayLength!=strBasePresentsVoucherTicketIdArray.length	)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
 	
@@ -207,7 +207,7 @@ public class RechargePresentsController {
 			rechargePresentsVoucherEntity.setdMinimumRechargeAmount(dMinimumRechargeAmountArray[i]);
 			rechargePresentsVoucherEntity.setiMinimumPresentsVoucherNumber(iMinimumPresentsVoucherNumberArray[i]);
 			rechargePresentsVoucherEntity.setdMoreRechargeAmount(dMoreRechargeAmountArray[i]);
-			rechargePresentsVoucherEntity.setiMoreRresentsVoucherNumber(iMoreRresentsVoucherNumberArray[i]);
+			rechargePresentsVoucherEntity.setiMorePresentsVoucherNumber(iMorePresentsVoucherNumberArray[i]);
 			
 			rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
@@ -234,7 +234,7 @@ public class RechargePresentsController {
 	//批量更新 充值赠送抵用券信息
 	@ResponseBody
 	@RequestMapping("updateRechargePresentsVoucher")
-	//localhost:8083/admin/RechargePresentsSetting/updateRechargePresentsVoucher?strRechargePresentsVoucherId=2b5a7a7b8198451484434c4114aca45f&strBasePresentsVoucherTicketId=categor1&strMorePresentsVoucherTicketId=bbn2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMoreRresentsVoucherNumber=1&iEnabled=1
+	//localhost:8083/admin/RechargePresentsSetting/updateRechargePresentsVoucher?strRechargePresentsVoucherId=2b5a7a7b8198451484434c4114aca45f&strBasePresentsVoucherTicketId=categor1&strMorePresentsVoucherTicketId=bbn2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
 	public String updateRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		//以下取得的字符串格式都为：字符串1,字符串2
@@ -242,7 +242,7 @@ public class RechargePresentsController {
 		int arrayLength;
 		int[] iEnabledArray;
 		int[] iMinimumPresentsVoucherNumberArray;
-		int[] iMoreRresentsVoucherNumberArray;
+		int[] iMorePresentsVoucherNumberArray;
 
 		double dMoreRechargeAmount;
 		double dMinimumRechargeAmount;
@@ -258,7 +258,7 @@ public class RechargePresentsController {
 		String[] strMoreRechargeAmountArray;
 		String[] strEnabledArray;
 		String[] strMinimumPresentsVoucherNumberArray;
-		String[] strMoreRresentsVoucherNumberArray;
+		String[] strMorePresentsVoucherNumberArray;
 		String[] strRechargePresentsVoucherIdArray;
 		
 		String strRechargePresentsVoucherId=request.getParameter("strRechargePresentsVoucherId");
@@ -268,7 +268,7 @@ public class RechargePresentsController {
 		String strMinimumRechargeAmount=request.getParameter("dMinimumRechargeAmount");
 		String strMinimumPresentsVoucherNumber=request.getParameter("iMinimumPresentsVoucherNumber");
 		String strMoreRechargeAmount=request.getParameter("dMoreRechargeAmount");
-		String strMoreRresentsVoucherNumber=request.getParameter("iMoreRresentsVoucherNumber");
+		String strMorePresentsVoucherNumber=request.getParameter("iMorePresentsVoucherNumber");
 		String strEnabled=request.getParameter("iEnabled");
 		
 		if(ValidateTool.isEmptyStr(strRechargePresentsVoucherId))
@@ -292,7 +292,7 @@ public class RechargePresentsController {
 		if(ValidateTool.isEmptyStr(strMoreRechargeAmount))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"金充值金额不能为空",null);
 		
-		if(ValidateTool.isEmptyStr(strMoreRresentsVoucherNumber))
+		if(ValidateTool.isEmptyStr(strMorePresentsVoucherNumber))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
 		
 		if(ValidateTool.isEmptyStr(strEnabled))
@@ -339,13 +339,13 @@ public class RechargePresentsController {
 			iMinimumPresentsVoucherNumberArray[i]=Integer.parseInt(strMinimumPresentsVoucherNumberArray[i]);
 		}
 
-		strMoreRresentsVoucherNumberArray=strMoreRresentsVoucherNumber.split(",");
-		iMoreRresentsVoucherNumberArray=new int[strMoreRresentsVoucherNumberArray.length];
-		for(int i=0;i<strMoreRresentsVoucherNumberArray.length;i++)
+		strMorePresentsVoucherNumberArray=strMorePresentsVoucherNumber.split(",");
+		iMorePresentsVoucherNumberArray=new int[strMorePresentsVoucherNumberArray.length];
+		for(int i=0;i<strMorePresentsVoucherNumberArray.length;i++)
 		{
-			if(!isNumber(strMoreRresentsVoucherNumberArray[i]))
+			if(!isNumber(strMorePresentsVoucherNumberArray[i]))
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"多赠送张数格式错误",null);
-			iMoreRresentsVoucherNumberArray[i]=Integer.parseInt(strMoreRresentsVoucherNumberArray[i]);
+			iMorePresentsVoucherNumberArray[i]=Integer.parseInt(strMorePresentsVoucherNumberArray[i]);
 		}
 		
 		
@@ -361,7 +361,7 @@ public class RechargePresentsController {
 		
 		//检测各个数组长度是否一致，不一致则报错
 		arrayLength=strEnabledArray.length;
-		if(arrayLength!=strMoreRresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
+		if(arrayLength!=strMorePresentsVoucherNumberArray.length||arrayLength!=strMinimumPresentsVoucherNumberArray.length||arrayLength!=strMoreRechargeAmountArray.length||arrayLength!=strMinimumRechargeAmountArray.length||
 				arrayLength!=strMorePresentsVoucherTicketIdArray.length||arrayLength!=strBasePresentsVoucherTicketIdArray.length||strRechargePresentsVoucherIdArray.length!=arrayLength)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"参数值有遗漏",null);
 	
@@ -399,7 +399,7 @@ public class RechargePresentsController {
 			rechargePresentsVoucherEntity.setdMinimumRechargeAmount(dMinimumRechargeAmountArray[i]);
 			rechargePresentsVoucherEntity.setiMinimumPresentsVoucherNumber(iMinimumPresentsVoucherNumberArray[i]);
 			rechargePresentsVoucherEntity.setdMoreRechargeAmount(dMoreRechargeAmountArray[i]);
-			rechargePresentsVoucherEntity.setiMoreRresentsVoucherNumber(iMoreRresentsVoucherNumberArray[i]);
+			rechargePresentsVoucherEntity.setiMorePresentsVoucherNumber(iMorePresentsVoucherNumberArray[i]);
 			rechargePresentsVoucherEntity.setiEnabled(iEnabledArray[i]);
 			rechargePresentsVoucherEntity.setStrEmployeeId(strEmployeeId);
 			rechargePresentsVoucherEntity.setStrEmployeeName(strEmployeeName);

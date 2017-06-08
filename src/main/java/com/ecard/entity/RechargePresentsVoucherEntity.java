@@ -11,7 +11,7 @@ public class RechargePresentsVoucherEntity {
 	private BigDecimal dMinimumRechargeAmount;        //最低充值金额
 	private int iMinimumPresentsVoucherNumber ;//最低赠送数量
 	private BigDecimal dMoreRechargeAmount;        //多充值金额
-	private int iMoreRresentsVoucherNumber ;//多赠送数量
+	private int iMorePresentsVoucherNumber ;//多赠送数量
 	private int iEnabled=0;						//是否启用 1启用 0禁用
 	private String strEmployeeId;				//管理员ID
 	private String strEmployeeName;				//管理员账号
@@ -88,14 +88,14 @@ public BigDecimal getdMinimumRechargeAmount()
 		return dMoreRechargeAmount;
 	}
 
-	public void setiMoreRresentsVoucherNumber(int iMoreRresentsVoucherNumber )
+	public void setiMorePresentsVoucherNumber(int iMorePresentsVoucherNumber )
 	{
-		this.iMoreRresentsVoucherNumber=iMoreRresentsVoucherNumber;
+		this.iMorePresentsVoucherNumber=iMorePresentsVoucherNumber;
 	}
 
-	public double getiMoreRresentsVoucherNumber()
+	public double getiMorePresentsVoucherNumber()
 	{
-		return iMoreRresentsVoucherNumber;
+		return iMorePresentsVoucherNumber;
 	}
 
 	
