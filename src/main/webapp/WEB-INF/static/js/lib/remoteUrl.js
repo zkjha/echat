@@ -264,8 +264,55 @@ define([],function(){
             batchInsertRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
             //充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
             selectRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity",
-        //    充值赠送 -- 赠送活动 -- 抵用券查询刚新建的 单条
-        selectRechargePresentsStoredValueEntity:"/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity",
+            //    充值赠送 -- 赠送活动 -- 抵用券查询刚新建的 单条
+            selectRechargePresentsStoredValueEntity:"/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity",
+         //   自定义赠送 --活动信息-- 分页查询
+        selectAllUserDefinedPresentsActivity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity",
+        //   自定义赠送 -- 分页显示 --删除
+        deleteUserDefinedActivityInfo:"/admin/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo",
+        //   自定义赠送 -- 活动信息 -- 新增
+        insertUserDefinedPresentsActivityInfo:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo",
+        //   自定义赠送 -- 活动信息 -- 新建记录查询单条
+        selectUserDefinedPresentsActivityEntity:"/admin/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity",
+        //   自定义赠送 -- 活动信息 -- 更新
+        updateUserDefinedPresentsActivityInfo:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsActivityInfo",
+        //   自定义赠送 -- 活动信息 -- 查询单条
+        selectUserDefinedPresentActivityById:"/admin/UserDefinedPresentsSetting/selectUserDefinedPresentActivityById",
+        //   自定义赠送 -- 赠送储值 -- 修改
+        updateUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsStoredValueEntity",
+        //   自定义赠送 -- 赠送储值 -- 删除
+        deleteUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsStoredValueEntity",
+        //   自定义赠送 -- 赠送储值 -- 新增
+        insertUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsStoredValueEntity",
+        //   自定义赠送 -- 赠送储值 -- 查询 单条
+        selectAllUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsStoredValueEntity",
+        //   自定义赠送 -- 赠送抵用券 -- 删除
+        deleteUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity",
+        //   自定义赠送 -- 赠送抵用券 -- 批量修改
+        batchUpdateUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity",
+        //   自定义赠送 -- 赠送抵用券 -- 批量新增
+        batchInsertUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity",
+        //   自定义赠送 -- 赠送积分 -- 修改
+        updateUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsIntegration",
+        //   自定义赠送 -- 赠送积分 -- 删除
+        deleteUserDefinedPresentsIntegrationEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsIntegrationEntity",
+        // 自定义赠送 -- 赠送积分 -- 新增
+        insertUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsIntegration",
+        // 自定义赠送 -- 赠送积分 -- 查询单条
+        selectAllUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration",
+        // 自定义赠送 --赠送抵用券 --查询
+        selectAllUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity",
+
+
+
+
+
+
+
+
+
+
+
 
 
 

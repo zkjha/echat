@@ -64,7 +64,7 @@ requirejs(
 
             }).when("/customgift", {//自定义赠送
                 templateUrl: "/static/temp/admin/activity/customgift.html",
-	            controller:activityController.uploadImages
+	            controller:activityController.customgift
 
             }).when("/consumptiongift", {//消费赠送
                 templateUrl: "/static/temp/admin/activity/consumptiongift.html",
