@@ -629,7 +629,7 @@ public class UserDefinedPresentsController
 	    if(isNumber(strEnabled))
 	    	 iEnabled=Integer.parseInt(strEnabled);
 	    else
-	    	return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "赠送金额格式错误", null);
+	    	return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "是否启用格式错误", null);
 	    
 	    String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 	    //身份检测
@@ -819,7 +819,7 @@ public class UserDefinedPresentsController
 			if(isNumber(strEnabledArray[i]))
 				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
 			else
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "启用状态格式错误", null);
 			
 		}
 		
@@ -947,7 +947,7 @@ public class UserDefinedPresentsController
 			if(isNumber(strEnabledArray[i]))
 				iEnabledArray[i]=Integer.parseInt(strEnabledArray[i]);
 			else
-				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "总张数格式错误", null);
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "是否启用式错误", null);
 					
 		}
 				
@@ -1109,13 +1109,13 @@ public class UserDefinedPresentsController
 		String strPageSize=request.getParameter("iPageSize");
 		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
 		
-		if(strSearchMemberLevelId==null||strSearchMemberLevelId.trim()=="")
+		if(strSearchMemberLevelId==null||"".equals(strSearchMemberLevelId.trim()))
 			strSearchMemberLevelId="";
 		
 		if("ALL".equals(strSearchMemberLevelId))
 			strSearchMemberLevelId="";
 		
-		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
+		if(strSearchEnabledStatus==null||"".equals(strSearchEnabledStatus.trim()))
 			strSearchEnabledStatus="ALL";
 		
 		if("0".equals(strSearchEnabledStatus))

@@ -89,24 +89,26 @@ public class ConsumePresentsService
 	@Transactional
 	public String batchInsertConsumePresentsIntegrationEntity(List<ConsumePresentsIntegrationEntity> listConsumePresentsIntegrationEntity) throws Exception
 	{
-		int iAffectNum=0,iObjLength,iflag=0;
-		iObjLength=listConsumePresentsIntegrationEntity.size();
-		if(listConsumePresentsIntegrationEntity==null||iObjLength==0)
+		int iAffectNum=0,iObjLength,iflag=0;		
+		if(listConsumePresentsIntegrationEntity==null)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 		else
-		{
-			for(int i=0;i<iObjLength;i++)
-			{	
-				ConsumePresentsIntegrationEntity consumePresentsIntegrationEntity=listConsumePresentsIntegrationEntity.get(i);
-				iAffectNum=consumePresentsMapper.batchInsertConsumePresentsIntegrationEntity(consumePresentsIntegrationEntity);
-				if(iAffectNum!=0)
-					iflag=iflag+1;
-			}
-			if(iflag==iObjLength)
-				return DataTool.constructResponse(ResultCode.OK,"批量插入成功",null);
-			else
-				return	DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+			iObjLength=listConsumePresentsIntegrationEntity.size();
+		if(iObjLength==0)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
+		for(int i=0;i<iObjLength;i++)
+		{	
+			ConsumePresentsIntegrationEntity consumePresentsIntegrationEntity=listConsumePresentsIntegrationEntity.get(i);
+			iAffectNum=consumePresentsMapper.batchInsertConsumePresentsIntegrationEntity(consumePresentsIntegrationEntity);
+			if(iAffectNum!=0)
+				iflag=iflag+1;
 		}
+		if(iflag==iObjLength)
+			return DataTool.constructResponse(ResultCode.OK,"批量插入成功",null);
+		else
+			return	DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"操作失败",null);
+		
 	}
 
 	//批量更新消费赠送积分规则信息consumePresentsIntegrationEntity
@@ -114,12 +116,14 @@ public class ConsumePresentsService
 	public String batchUpdateConsumePresentsIntegrationEntity(List<ConsumePresentsIntegrationEntity> listConsumePresentsIntegrationEntity) throws Exception
 	{
 		int iAffectNum=0,iObjLength,iflag=0;
-		iObjLength=listConsumePresentsIntegrationEntity.size();
-		if(listConsumePresentsIntegrationEntity==null||iObjLength==0)
+		if(listConsumePresentsIntegrationEntity==null)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 		else
-		{
-			for(int i=0;i<iObjLength;i++)
+			iObjLength=listConsumePresentsIntegrationEntity.size();
+		if(iObjLength==0)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+			
+		for(int i=0;i<iObjLength;i++)
 			{	
 				ConsumePresentsIntegrationEntity consumePresentsIntegrationEntity=listConsumePresentsIntegrationEntity.get(i);
 				iAffectNum=consumePresentsMapper.batchUpdateConsumePresentsIntegrationEntity(consumePresentsIntegrationEntity);
@@ -132,7 +136,7 @@ public class ConsumePresentsService
 				return DataTool.constructResponse(ResultCode.OK,"批量更新成功",null);
 			else
 				return	DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"更新失败",null);
-		}
+		
 	}
 
 	
@@ -160,9 +164,14 @@ public class ConsumePresentsService
 	public String batchInsertConsumePresentsStoredValueEntity(List<ConsumePresentsStoredValueEntity> listConsumePresentsStoredValueEntity) throws Exception
 	{
 	int iAffectNum=0,iObjLength;
-	iObjLength=listConsumePresentsStoredValueEntity.size();
-	if(listConsumePresentsStoredValueEntity==null||iObjLength==0)
+	
+	if(listConsumePresentsStoredValueEntity==null)
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	else
+		iObjLength=listConsumePresentsStoredValueEntity.size();
+	if(iObjLength==0)
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	
 	for(int i=0;i<iObjLength;i++)
 	{	ConsumePresentsStoredValueEntity consumePresentsStoredValueEntity=listConsumePresentsStoredValueEntity.get(i);
 		iAffectNum=consumePresentsMapper.batchInsertConsumePresentsStoredValueEntity(consumePresentsStoredValueEntity);
@@ -179,9 +188,13 @@ public class ConsumePresentsService
 	public String batchUpdateConsumePresentsStoredValueEntity(List<ConsumePresentsStoredValueEntity> listConsumePresentsStoredValueEntity) throws Exception
 	{
 	int iAffectNum=0,iObjLength;
-	iObjLength=listConsumePresentsStoredValueEntity.size();
-	if(listConsumePresentsStoredValueEntity==null||iObjLength==0)
+	if(listConsumePresentsStoredValueEntity==null)
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	else
+		iObjLength=listConsumePresentsStoredValueEntity.size();
+	if(iObjLength==0)
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	
 	for(int i=0;i<iObjLength;i++)
 	{	ConsumePresentsStoredValueEntity consumePresentsStoredValueEntity=listConsumePresentsStoredValueEntity.get(i);
 		iAffectNum=consumePresentsMapper.batchUpdateConsumePresentsStoredValueEntity(consumePresentsStoredValueEntity);
@@ -214,10 +227,15 @@ public class ConsumePresentsService
 	@Transactional
 	public String batchInsertConsumePresentsVoucherEntity(List<ConsumePresentsVoucherEntity> listConsumePresentsVoucherEntity) throws Exception
 	{
-	int iAffectNum=0,iObjLength;
-	iObjLength=listConsumePresentsVoucherEntity.size();
-	if(listConsumePresentsVoucherEntity==null||iObjLength==0)
+	int iAffectNum=0,iObjLength=0;
+	
+	if(listConsumePresentsVoucherEntity==null)
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	else
+		iObjLength=listConsumePresentsVoucherEntity.size();
+	if(iObjLength==0)
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	
 	for(int i=0;i<iObjLength;i++)
 	{	
 		ConsumePresentsVoucherEntity consumePresentsVoucherEntity=listConsumePresentsVoucherEntity.get(i);
@@ -234,9 +252,13 @@ public class ConsumePresentsService
 	@Transactional
 	public String batchUpdateConsumePresentsVoucherEntity(List<ConsumePresentsVoucherEntity> listConsumePresentsVoucherEntity) throws Exception
 	{
-		int iAffectNum=0,iObjLength;
-		iObjLength=listConsumePresentsVoucherEntity.size();
-		if(listConsumePresentsVoucherEntity==null||iObjLength==0)
+		int iAffectNum=0,iObjLength=0;
+		
+		if(listConsumePresentsVoucherEntity==null)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		else
+			iObjLength=listConsumePresentsVoucherEntity.size();
+		if(iObjLength==0)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 		for(int i=0;i<iObjLength;i++)
 		{	
@@ -294,9 +316,14 @@ public class ConsumePresentsService
 	{
 		int iObjNum=0;
 		List<ConsumePresentsActivityEntity> listConsumePresentsActivityEntity=consumePresentsMapper.selectAllConsumePresentsActivity(queryMap);
-		iObjNum=listConsumePresentsActivityEntity.size();
-		if(listConsumePresentsActivityEntity==null||iObjNum==0)
+		
+		if(listConsumePresentsActivityEntity==null)
 			return null;
+		else
+			iObjNum=listConsumePresentsActivityEntity.size();
+		if(iObjNum==0)
+			return null;
+		
 		for(int i=0;i<iObjNum;i++)
 		{
 			//将自定义活动状态属性写入对象

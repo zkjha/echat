@@ -74,7 +74,7 @@ public class UserDefinedPresentsService {
 	}
 		
 	//插入自定义赠送积分
-	
+	@Transactional
 	public String insertUserDefinedPresentsIntegration(UserDefinedPresentsIntegrationEntity userDefinedPresentsIntegrationEntity) throws Exception
 	{
 		int iUpdateNum=0;
@@ -196,10 +196,15 @@ public class UserDefinedPresentsService {
 	@Transactional
 	public String batchInsertUserDefinedPresentsVoucherEntity(List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity) throws Exception
 	{
-	int iAffectNum=0,iObjLength;
-	iObjLength=listUserDefinedPresentsVoucherEntity.size();
-	if(listUserDefinedPresentsVoucherEntity==null||iObjLength==0)
+	int iAffectNum=0,iObjLength=0;
+	
+	if(listUserDefinedPresentsVoucherEntity==null)
 		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	else
+		iObjLength=listUserDefinedPresentsVoucherEntity.size();
+	if(iObjLength==0)
+		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	
 	for(int i=0;i<iObjLength;i++)
 	{	UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=listUserDefinedPresentsVoucherEntity.get(i);
 		iAffectNum=userDefinedPresentsMapper.insertUserDefinedPresentsVoucherEntity(userDefinedPresentsVoucherEntity);
@@ -216,10 +221,15 @@ public class UserDefinedPresentsService {
 	@Transactional
 	public String batchUpdateUserDefinedPresentsVoucherEntity(List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity) throws Exception
 	{
-	int iAffectNum=0,iObjLength;
-	iObjLength=listUserDefinedPresentsVoucherEntity.size();
-	if(listUserDefinedPresentsVoucherEntity==null||iObjLength==0)
+	int iAffectNum=0,iObjLength=0;
+	
+	if(listUserDefinedPresentsVoucherEntity==null)
 		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+	else
+		iObjLength=listUserDefinedPresentsVoucherEntity.size();
+	if(iObjLength==0)
+		DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);	
+	
 	for(int i=0;i<iObjLength;i++)
 	{	
 		UserDefinedPresentsVoucherEntity userDefinedPresentsVoucherEntity=listUserDefinedPresentsVoucherEntity.get(i);
@@ -260,12 +270,10 @@ public class UserDefinedPresentsService {
 	@Transactional
 	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception
 	{
-		int iObjNum=0;
 		List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectAllUserDefinedPresentsActivity(queryMap);
-		iObjNum=listUserDefinedPresentsActivityEntity.size();
-		if(listUserDefinedPresentsActivityEntity==null||iObjNum==0)
+		if(listUserDefinedPresentsActivityEntity==null||listUserDefinedPresentsActivityEntity.size()==0)
 			return null;
-		for(int i=0;i<iObjNum;i++)
+		for(int i=0;i<listUserDefinedPresentsActivityEntity.size();i++)
 		{
 			//将自定义活动状态属性写入对象
 			String strActivityStatus="";

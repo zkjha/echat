@@ -942,7 +942,7 @@ create table tb_consumePresents_Activity
  strLevelsId			varchar(50)			not null,		-- 会员级别id	关联tb_member_level id
  strActivityBeginTime	varchar(50)			not null,		-- 活动开始时间
  strActivityEndTime		varchar(50)			not null,		-- 活动结束时间
- strActivityKinds		varchar(50)			not null,		-- 活动类型:0现金储值消费，1线上现金消费
+ iActivityKinds			int(2)				not null,		-- 活动类型:0现金储值消费，1线上现金消费
  strIsCumulation		varchar(2)			not null,		-- 单笔消费是否累积赠送 ，0不累积 1 累积
  strEmployeeId 		    VARCHAR(50) 		NOT NULL,		-- 管理员ID
  strEmployeeName 		VARCHAR(50) 		NOT NULL,		-- 管理员账号

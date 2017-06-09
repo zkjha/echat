@@ -42,9 +42,14 @@ public class RechargePresentsService {
 	public String batchUpdateRechargePresentsVoucher(List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity) throws Exception
 	{
 		int iRcdNum=0;
-		int iLength=listRechargePresentsVoucherEntity.size();
-		if(listRechargePresentsVoucherEntity==null||iLength==0)
+		int iLength=0;
+		if(listRechargePresentsVoucherEntity==null)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		else
+			iLength=listRechargePresentsVoucherEntity.size();
+		if(iLength==0)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
 		for(int i=0;i<iLength;i++)
 		{
 		iRcdNum=rechargePresentsMapper.updateRechargePresentsVoucher(listRechargePresentsVoucherEntity.get(i));
@@ -77,7 +82,7 @@ public class RechargePresentsService {
 	public String batchInsertRechargePresentsStoredValue(List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity) throws Exception
 	{
 		int iRcdNum=0;
-		if(listRechargePresentsStoredValueEntity.size()==0||listRechargePresentsStoredValueEntity==null)
+		if(listRechargePresentsStoredValueEntity==null||listRechargePresentsStoredValueEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 		iRcdNum=rechargePresentsMapper.batchInsertRechargePresentsStoredValue(listRechargePresentsStoredValueEntity);
 		
@@ -91,10 +96,14 @@ public class RechargePresentsService {
 	//批量修改 充值赠送储值信息
 	public String batchUpdateRechargePresentsStoredValue(List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity) throws Exception
 	{
-		int iRcdNum=0;
-		int iLoopTime=listRechargePresentsStoredValueEntity.size();
-		if(iLoopTime==0||listRechargePresentsStoredValueEntity==null)
+		int iRcdNum=0,iLoopTime=0;
+		if(listRechargePresentsStoredValueEntity==null)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		else
+			iLoopTime=listRechargePresentsStoredValueEntity.size();
+		if(iLoopTime==0)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
 		for(int i=0;i<iLoopTime;i++)
 		{
 			iRcdNum=rechargePresentsMapper.updateRechargePresentsStoredValue(listRechargePresentsStoredValueEntity.get(i));
@@ -276,7 +285,7 @@ public class RechargePresentsService {
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-				
+				if(listRechargePresentsIntegrationEntity!=null)
 				for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
 				{
 					if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
@@ -286,6 +295,7 @@ public class RechargePresentsService {
 						}
 				}
 				
+				if(listRechargePresentsStoredValueEntity!=null)
 				for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
 				{
 					if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
@@ -295,6 +305,7 @@ public class RechargePresentsService {
 						}
 				}
 				
+				if(listRechargePresentsVoucherEntity!=null)
 				for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
 				{
 					if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)
@@ -343,7 +354,7 @@ public class RechargePresentsService {
 					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-					
+					if(listRechargePresentsIntegrationEntity!=null)
 					for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
 					{
 						if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
@@ -353,6 +364,7 @@ public class RechargePresentsService {
 							}
 					}
 					
+					if(listRechargePresentsStoredValueEntity!=null)
 					for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
 					{
 						if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
@@ -362,6 +374,7 @@ public class RechargePresentsService {
 							}
 					}
 					
+					if(listRechargePresentsVoucherEntity!=null)
 					for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
 					{
 						if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)
@@ -409,6 +422,7 @@ public class RechargePresentsService {
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
+				if(listRechargePresentsIntegrationEntity!=null)
 				for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
 				{
 					if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
@@ -418,6 +432,7 @@ public class RechargePresentsService {
 						}
 				}
 				
+				if(listRechargePresentsStoredValueEntity!=null)
 				for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
 				{
 					if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
@@ -428,6 +443,7 @@ public class RechargePresentsService {
 					
 				}
 				
+				if(listRechargePresentsVoucherEntity!=null)
 				for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
 				{
 					if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)

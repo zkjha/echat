@@ -1284,7 +1284,7 @@ public class RechargePresentsController {
 		if("ALL".equals(strSearchMemberLevel))
 			strSearchMemberLevel="";
 		
-		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
+		if(strSearchEnabledStatus==null||"".equals(strSearchEnabledStatus.trim()))
 			strSearchEnabledStatus="ALL";
 		
 		if(ValidateTool.isEmptyStr(strPageNum))

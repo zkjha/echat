@@ -43,18 +43,19 @@ public class ConsumePresentsController
 	//新增一条consumePresentsActivityEntity记录
 	@ResponseBody
 	@RequestMapping("insertConsumePresentsActivityEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/insertConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&strActivityKinds=1&strIsCumulation=1
+	//http://localhost:8083/admin/consumePresentsSetting/insertConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
 	public String insertConsumePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
 	//获取参数
-	//strActivityKinds=0 现金储值消费 ;1 线上现金消费
+	//iActivityKinds=0 现金储值消费 ;1 线上现金消费
+	int iActivityKinds=0;
 	String strActivityId=DataTool.getUUID();
 	String strActivityName=request.getParameter("strActivityName");
 	String strLevelsId=request.getParameter("strLevelsId");
 	String strActivityBeginTime=request.getParameter("strActivityBeginTime");
 	String strActivityEndTime=request.getParameter("strActivityEndTime");
-	String strActivityKinds=request.getParameter("strActivityKinds");	
+	String strActivityKinds=request.getParameter("iActivityKinds");	
 	String strIsCumulation=request.getParameter("strIsCumulation");
 
 	//检测字符串有效性
@@ -74,11 +75,10 @@ public class ConsumePresentsController
 	
 	if(ValidateTool.isEmptyStr(strActivityKinds))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "活动类型不能为空", null);
-	if("0".equals(strActivityKinds))
-		strActivityKinds="现金储值消费";
-	
-	if("1".equals(strActivityKinds))
-		strActivityKinds="线上现金消费";
+	if(isNumber(strActivityKinds))
+			iActivityKinds=Integer.parseInt(strActivityKinds);
+	else
+		return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "活动类型格式错误", null);
 
 	if(ValidateTool.isEmptyStr(strIsCumulation))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "单笔消费是否累计不能为空", null);
@@ -121,7 +121,7 @@ public class ConsumePresentsController
 	consumePresentsActivityEntity.setStrLevelsId(strLevelsId);
 	consumePresentsActivityEntity.setStrActivityBeginTime(strActivityBeginTime);
 	consumePresentsActivityEntity.setStrActivityEndTime(strActivityEndTime);
-	consumePresentsActivityEntity.setStrActivityKinds(strActivityKinds);
+	consumePresentsActivityEntity.setiActivityKinds(iActivityKinds);
 	consumePresentsActivityEntity.setStrIsCumulation(strIsCumulation);
 	consumePresentsActivityEntity.setStrEmployeeId(strEmployeeId);
 	consumePresentsActivityEntity.setStrEmployeeName(strEmployeeName);
@@ -144,18 +144,19 @@ public class ConsumePresentsController
 	
 	@ResponseBody
 	@RequestMapping("updateConsumePresentsActivityEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/updateConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&strActivityKinds=1&strIsCumulation=1
+	//http://localhost:8083/admin/consumePresentsSetting/updateConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
 	public String updateConsumePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
 	//获取参数
 	//strActivityKinds=0 现金储值消费 ;1 线上现金消费
+	int iActivityKinds;
 	String strActivityId=request.getParameter("strActivityId");
 	String strActivityName=request.getParameter("strActivityName");
 	String strLevelsId=request.getParameter("strLevelsId");
 	String strActivityBeginTime=request.getParameter("strActivityBeginTime");
 	String strActivityEndTime=request.getParameter("strActivityEndTime");
-	String strActivityKinds=request.getParameter("strActivityKinds");
+	String strActivityKinds=request.getParameter("iActivityKinds");
 	String strIsCumulation=request.getParameter("strIsCumulation");
 
 	//检测字符串有效性
@@ -177,11 +178,10 @@ public class ConsumePresentsController
 	
 	if(ValidateTool.isEmptyStr(strActivityKinds))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "活动类型不能为空", null);
-	if("0".equals(strActivityKinds))
-		strActivityKinds="现金储值消费";
-	
-	if("1".equals(strActivityKinds))
-		strActivityKinds="线上现金消费";
+	if(isNumber(strActivityKinds))
+		iActivityKinds=Integer.parseInt(strActivityKinds);
+	else
+		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "活动类型格式错误", null);
 	
 	if(ValidateTool.isEmptyStr(strIsCumulation))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "单笔消费是否累计不能为空", null);
@@ -223,7 +223,7 @@ public class ConsumePresentsController
 	consumePresentsActivityEntity.setStrLevelsId(strLevelsId);
 	consumePresentsActivityEntity.setStrActivityBeginTime(strActivityBeginTime);
 	consumePresentsActivityEntity.setStrActivityEndTime(strActivityEndTime);
-	consumePresentsActivityEntity.setStrActivityKinds(strActivityKinds);
+	consumePresentsActivityEntity.setiActivityKinds(iActivityKinds);
 	consumePresentsActivityEntity.setStrIsCumulation(strIsCumulation);
 	consumePresentsActivityEntity.setStrEmployeeId(strEmployeeId);
 	consumePresentsActivityEntity.setStrEmployeeName(strEmployeeName);
@@ -376,7 +376,7 @@ public class ConsumePresentsController
 		if(isNumber(strEnabledArray[i]))
 			iEnabledArray[i]=Integer.parseInt((strEnabledArray[i]));
 		else
-			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "消费金额格式错误", null);
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "启用状态格式错误", null);
 	}
 	
 	iPresentsIntegrationAmountArray=new int[iArrayLength];
@@ -505,7 +505,7 @@ public class ConsumePresentsController
 		if(isNumber(strEnabledArray[i]))
 			iEnabledArray[i]=Integer.parseInt((strEnabledArray[i]));
 		else
-			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "消费金额格式错误", null);
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "启用状态格式错误", null);
 	}
 	
 	iPresentsIntegrationAmountArray=new int[iArrayLength];
@@ -1360,7 +1360,7 @@ public class ConsumePresentsController
 			strSearchMemberLevelId="";
 			
 		//搜索关键字：strSearchEnabledStatus="" 默认查询全部的活动规则信息
-		if(strSearchEnabledStatus==null||strSearchEnabledStatus.trim()=="")
+		if(strSearchEnabledStatus==null||"".equals(strSearchEnabledStatus.trim()))
 			strSearchEnabledStatus="ALL";
 		
 		if("0".equals(strSearchEnabledStatus))

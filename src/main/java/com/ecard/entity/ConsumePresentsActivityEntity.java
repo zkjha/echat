@@ -7,7 +7,7 @@ public class ConsumePresentsActivityEntity
 	private String strLevelsId;           //会员级别ID
 	private String strActivityBeginTime;           //活动开始时间
 	private String strActivityEndTime;           //活动结束时间
-	private String strActivityKinds;           //活动类型 现金储值消费，线上现金消费
+	private int	iActivityKinds;           //活动类型 0现金储值消费，1线上现金消费
 	private String strIsCumulation;           //单笔消费是否累积 1是，0不是
 	private String strEmployeeId;           //COMMENT
 	private String strEmployeeName;           //COMMENT
@@ -120,14 +120,14 @@ public class ConsumePresentsActivityEntity
 		return strActivityEndTime;
 	}
 
-	public void setStrActivityKinds(String strActivityKinds)
+	public void setiActivityKinds(int iActivityKinds)
 	{
-		this.strActivityKinds=strActivityKinds;
+		this.iActivityKinds=iActivityKinds;
 	}
 
-	public String getStrActivityKinds()
+	public int getiActivityKinds()
 	{
-		return strActivityKinds;
+		return iActivityKinds;
 	}
 
 	public void setStrIsCumulation(String strIsCumulation)
