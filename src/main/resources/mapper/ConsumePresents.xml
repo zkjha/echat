@@ -378,17 +378,17 @@
 
 <!-- 查出 特定活动在特定状态和会员级别下 积分的启用状态 -->
 <select id="selectIntegrationEnabled" parameterType="String" resultType="int">
-	select count(iEnabled) from tb_consumePresents_integration	where strActivityId=#{strActivityId} and iEnabled=1
+	select (case when count(strIntegrationId)>0 then 1 else 0 end) from tb_consumePresents_integration	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
 
 <!-- 查出 特定活动在特定状态和会员级别下 储值的启用状态 -->
 <select id="selectStoredTicketEnabled" parameterType="String" resultType="int">
-	select count(iEnabled) from tb_consumePresents_storedValue	where strActivityId=#{strActivityId} and iEnabled=1
+	select (case when count(strStoredTicketId)>0 then 1 else 0 end) from tb_consumePresents_storedValue	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
 
 <!-- 查出 特定活动在特定状态和会员级别下 抵用券的启用状态 -->
 <select id="selectVoucherTicketEnabled" parameterType="String" resultType="int">
-	select count(iEnabled) from tb_consumePresents_voucher	where strActivityId=#{strActivityId} and iEnabled=1
+	select (case when count(strConsumePresentsVoucherId)>0 then 1 else 0 end) from tb_consumePresents_voucher	where strActivityId=#{strActivityId} and iEnabled=1
 </select>
 
 
