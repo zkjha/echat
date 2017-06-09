@@ -238,6 +238,11 @@ public class RechargePresentsService {
 	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
+		
+		int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+		int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+		int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
+		
 		Date currentDate;
 		String strActivityEndDate,strCurrentDate;
 		String strActivityStatus;
@@ -273,13 +278,39 @@ public class RechargePresentsService {
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-				rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-				rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-				rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
 				
+				for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
+				{
+					if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
+						{
+						iIntegrationEnabled=1;
+						break;
+						}
+				}
 				
-			}
-			
+				for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
+				{
+					if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
+					{
+						iStoredTicketEnabled=1;
+						break;
+						}
+				}
+				
+				for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
+				{
+					if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)
+					{
+						iVoucherTicketEnabled=1;
+						break;
+					}
+				}
+				
+				rechargePresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
+				rechargePresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
+				rechargePresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
+				
+				}
 		}
 		return listRechargePresentsActivityEntity;
 		
@@ -291,6 +322,9 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
+			int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+			int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+			int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectExpiredRechargePresentsActivityInfo(queryMap);
@@ -311,10 +345,37 @@ public class RechargePresentsService {
 					List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 					List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 					List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-					rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-					rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-					rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
 					
+					for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
+					{
+						if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
+							{
+							iIntegrationEnabled=1;
+							break;
+							}
+					}
+					
+					for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
+					{
+						if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
+						{
+							iStoredTicketEnabled=1;
+							break;
+							}
+					}
+					
+					for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
+					{
+						if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)
+						{
+							iVoucherTicketEnabled=1;
+							break;
+						}
+					}
+					
+					rechargePresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
+					rechargePresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
+					rechargePresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
 					
 				}
 				
@@ -327,6 +388,9 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
+			int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+			int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+			int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
@@ -347,9 +411,36 @@ public class RechargePresentsService {
 				List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsMapper.selectAllRechargePresentsIntegration(strActivityId);
 				List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsMapper.selectAllRechargePresentsStoredValue(strActivityId);
 				List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=rechargePresentsMapper.selectAllRechargePresentsVoucher(strActivityId);
-				rechargePresentsActivityEntity.setListRechargePresentsIntegrationEntity(listRechargePresentsIntegrationEntity);
-				rechargePresentsActivityEntity.setListRechargePresentsStoredValueEntity(listRechargePresentsStoredValueEntity);
-				rechargePresentsActivityEntity.setListRechargePresentsVoucherEntity(listRechargePresentsVoucherEntity);
+				for(int j=0;j<listRechargePresentsIntegrationEntity.size();j++)
+				{
+					if(listRechargePresentsIntegrationEntity.get(j).getiEnabled()==1)
+						{
+						iIntegrationEnabled=1;
+						break;
+						}
+				}
+				
+				for(int j=0;j<listRechargePresentsStoredValueEntity.size();j++)
+				{
+					if(listRechargePresentsStoredValueEntity.get(j).getiEnabled()==1)
+					{
+						iStoredTicketEnabled=1;
+						break;
+						}
+				}
+				
+				for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
+				{
+					if(listRechargePresentsVoucherEntity.get(j).getiEnabled()==1)
+					{
+						iVoucherTicketEnabled=1;
+						break;
+					}
+				}
+				
+				rechargePresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
+				rechargePresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
+				rechargePresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
 				}
 			}
 			return listRechargePresentsActivityEntity;

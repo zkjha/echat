@@ -1,9 +1,5 @@
 package com.ecard.entity;
 
-
-import java.util.List;
-
-
 public class RechargePresentsActivityEntity {
 		private String strActivityId;	//活动ID
 		private String strActivityName;	//活动名称
@@ -12,7 +8,7 @@ public class RechargePresentsActivityEntity {
 		private String strActivityEndTime;	//活动强束时间
 		private int iActivityKinds;	//活动类别：:0自定义赠送型，1消费赠送型，2充值 赠送型
 		private String strEmployeeId;				//管理员ID
-		private String strEmployeeName;				//管理员账号
+		private String strEmployeeName;				//管理员账号	
 		private String strEmployeeRealName;			//管理员姓名
 		private String strCreationTime;				//创建记录时间
 		private String strLastAccessedTime;			//修改时间
@@ -20,9 +16,38 @@ public class RechargePresentsActivityEntity {
 		//-------------------------------
 		private String strActivityStatus;		//活动状态 :NORMAL正常EXPIRED过期;ALL全部 
 		private String strMemberLevelName;
-		private List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity;
-		private List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity;
-		private List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity;
+		private int iIntegrationEnabled;		//关联该活动的赠送积分启用情况
+		private int iStoredTicketEnabled;		//关联该活动的赠送储值启用情况
+		private int iVoucherTicketEnabled;		//关联该活动的赠送抵用券启用情况
+		public void setiIntegrationEnabled(int iIntegrationEnabled)
+		{
+			this.iIntegrationEnabled=iIntegrationEnabled;
+		}
+		
+		public int getiIntegrationEnabled()
+		{
+			return iIntegrationEnabled;
+		}
+		
+		public void setiStoredTicketEnabled(int iStoredTicketEnabled)
+		{
+			this.iStoredTicketEnabled=iStoredTicketEnabled;
+		}
+		
+		public int getiStoredTicketEnabled()
+		{
+			return iStoredTicketEnabled;
+		}
+		
+		public void setiVoucherTicketEnabled(int iVoucherTicketEnabled)
+		{
+			this.iVoucherTicketEnabled=iVoucherTicketEnabled;
+		}
+		
+		public int getiVoucherTicketEnabled()
+		{
+			return iVoucherTicketEnabled;
+		}
 		
 		public void setStrActivityStatus(String strActivityStatus)
 		{
@@ -44,35 +69,6 @@ public class RechargePresentsActivityEntity {
 			return strMemberLevelName;
 		}
 		
-		public void setListRechargePresentsIntegrationEntity(List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity)
-		{
-			this.listRechargePresentsIntegrationEntity=listRechargePresentsIntegrationEntity;
-		}
-		
-		public List<RechargePresentsIntegrationEntity> getListRechargePresentsIntegrationEntity()
-		{
-			return listRechargePresentsIntegrationEntity;
-		}
-		
-		public void setListRechargePresentsVoucherEntity(List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity)
-		{
-			this.listRechargePresentsVoucherEntity=listRechargePresentsVoucherEntity;
-		}
-		
-		public List<RechargePresentsVoucherEntity> getListRechargePresentsVoucherEntity()
-		{
-			return listRechargePresentsVoucherEntity;
-		}
-		
-		public void setListRechargePresentsStoredValueEntity(List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity)
-		{
-			this.listRechargePresentsStoredValueEntity=listRechargePresentsStoredValueEntity;
-		}
-		
-		public List<RechargePresentsStoredValueEntity> getListRechargePresentsStoredValueEntity()
-		{
-			return listRechargePresentsStoredValueEntity;
-		}
 		
 		public void setStrActivityId(String strActivityId)
 		{
