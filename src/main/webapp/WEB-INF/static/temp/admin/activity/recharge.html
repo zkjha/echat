@@ -49,13 +49,13 @@
                 <td>{{resultMap.strActivityBeginTime}}</td>
                 <td>{{resultMap.strActivityEndTime}}</td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsIntegrationEntity)[0].iEnabled"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iIntegrationEnabled"/>
                 </td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsStoredValueEntity)[0].iEnabled"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iStoredTicketEnabled"/>
                 </td>
                 <td>
-                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="(resultMap.listRechargePresentsVoucherEntity)[0].iEnabled"/>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iVoucherTicketEnabled"/>
                 </td>
                 <td>{{resultMap.strActivityStatus}}</td>
                 <td>

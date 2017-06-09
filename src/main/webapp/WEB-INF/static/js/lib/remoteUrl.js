@@ -302,8 +302,42 @@ define([],function(){
         selectAllUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration",
         // 自定义赠送 --赠送抵用券 --查询
         selectAllUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity",
-
-
+        //消费赠送 -- 分页浏览 -- 删除
+        deleteConsumePresentsActivityInfo:"/admin/consumePresentsSetting/deleteConsumePresentsActivityInfo",
+         //消费赠送 -- 活动 -- 分页查询
+        selectAllConsumePresentsActivity:"/admin/consumePresentsSetting/selectAllConsumePresentsActivity",
+        //消费赠送 -- 活动信息 -- 新增
+        insertConsumePresentsActivityEntity:"/admin/consumePresentsSetting/insertConsumePresentsActivityEntity",
+        //消费赠送 -- 活动信息 -- 更新
+        updateConsumePresentsActivityEntity:"/admin/consumePresentsSetting/updateConsumePresentsActivityEntity",
+        //消费赠送 -- 活动信息 -- 查询 单条 刚新建的活动信息
+        selectConsumePresentsActivityInfo:"/admin/consumePresentsSetting/selectConsumePresentsActivityInfo",
+        //消费赠送 -- 活动信息 -- 查询单条
+        selectConsumePresentsActivityEntity:"/admin/consumePresentsSetting/selectConsumePresentsActivityEntity",
+        //消费赠送 -- 赠送储值 -- 删除
+        deleteConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/deleteConsumePresentsStoredValueEntity",
+        //消费赠送 -- 赠送储值 -- 批量新增
+        batchInsertConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsStoredValueEntity",
+        //消费赠送 -- 赠送储值 -- 批量更新
+        batchUpdateConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsStoredValueEntity",
+        //消费赠送 -- 赠送储值 -- 查询列表
+        selectAllConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsStoredValueEntity",
+        //消费赠送 -- 赠送抵用券 -- 删除
+        deleteConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/deleteConsumePresentsVoucherEntity",
+        //消费赠送 -- 赠送抵用券 -- 批量新增
+        batchInsertConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsVoucherEntity",
+         //消费赠送 -- 赠送抵用券 -- 批量更新
+        batchUpdateConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsVoucherEntity",
+        //消费赠送 -- 赠送抵用券 -- 查询列表
+        selectAllConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsVoucherEntity",
+        //消费赠送 -- 赠送积分 -- 删除
+        deleteConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/deleteConsumePresentsIntegrationEntity",
+        //消费赠送 -- 赠送积分 -- 批量修改
+        batchUpdateConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsIntegrationEntity",
+        //消费赠送 -- 赠送积分 -- 批量新增
+        batchInsertConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsIntegrationEntity",
+        //消费赠送 -- 赠送积分 -- 查询 列表
+        selectAllConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsIntegrationEntity",
 
 
 

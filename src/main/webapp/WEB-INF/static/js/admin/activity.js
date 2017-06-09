@@ -68,7 +68,7 @@ requirejs(
 
             }).when("/consumptiongift", {//消费赠送
                 templateUrl: "/static/temp/admin/activity/consumptiongift.html",
-                controller:activityController.uploadImages
+                controller:activityController.consumptiongift
 
             }).when("/recharge", {//充值赠送
                 templateUrl: "/static/temp/admin/activity/recharge.html",

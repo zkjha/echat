@@ -1,4 +1,4 @@
-<!--活动-消费赠送  -->
+<!--活动-充值赠送  -->
 <div class="right-content-main">
     <div class="right-content-header">
         <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">服务</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>服务类型</a></div>
@@ -13,16 +13,16 @@
         <div class="fl zjl_cg_se">
             <div class="fl">会员级别</div>
             <div class="fl">
-                <select name="">
-                    <option value="全部">全部</option>
+                <select ng-model="VipGrade" ng-change="saixuanVip()" ng-options="memberlevelsEntityList.strLevelsid as memberlevelsEntityList.strLevelsname for memberlevelsEntityList in memberlevelsEntityList">
+                    <option  value="">全部</option>
                 </select>
             </div>
         </div>
         <div class="fl zjl_cg_se ml5">
             <div class="fl">活动状态</div>
             <div class="fl">
-                <select name="">
-                    <option value="全部">全部</option>
+                <select ng-model="actStatus"  ng-change="saixuanStu()" ng-options="actiStatus.id as actiStatus.name for actiStatus in actiStatus">
+                    <option  value="">全部</option>
                 </select>
             </div>
         </div>
@@ -32,23 +32,43 @@
         <table class="list-table">
             <tr>
                 <th>序号</th>
-                <th>类别</th>
-                <th>操作员</th>
+                <th>活动名称</th>
+                <th>会员级别</th>
+                <th>活动开始时间</th>
+                <th>活动截止时间</th>
+                <th>积分</th>
+                <th>储值</th>
+                <th>抵用券</th>
+                <th>活动状态</th>
                 <th class="w40">操作</th>
             </tr>
-            <tr ng-repeat='listServiceType  in listServiceType'>
+            <tr ng-repeat='resultMap in resultMap'>
                 <td>{{$index+(currentPage-1)*pageSize+1}}</td>
-                <td>{{listServiceType.strServiceTypeName}}</td>
-                <td>{{listServiceType.strEmployeeLoginName }}</td>
-
+                <td>
+                    <span ng-show="resultMap.iActivityKinds">线上现金消费</span>
+                    <span ng-hide="resultMap.iActivityKinds">现金储值消费</span>
+                </td>
+                <td>{{resultMap.strMemberLevelName	 }}</td>
+                <td>{{resultMap.strActivityBeginTime}}</td>
+                <td>{{resultMap.strActivityEndTime}}</td>
+                <td>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iIntegrationEnabled"/>
+                </td>
+                <td>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iStoredTicketEnabled"/>
+                </td>
+                <td>
+                    <img src="/static/images/gougou.png" class="w20 h20" ng-if="resultMap.iVoucherTicketEnabled"/>
+                </td>
+                <td>{{resultMap.strActivityStatus}}</td>
                 <td>
                     <div class="-lpy-list-control">
                         <div class="-lpy-list-control-title" ng-mouseout="openCtrMenu($index,'out')" ng-mouseover="openCtrMenu($index,'over')">
                             操作
 
                             <ul ng-show="isShowListMenu[$index]">
-                                <li><a ng-click="updataExpand(listServiceType.strServiceTypeId)">修改</a></li>
-                                <li><a ng-click="delectExpand(listServiceType.strServiceTypeId,listServiceType.strServiceTypeName)">删除</a></li>
+                                <li><a ng-click="updataExpand(resultMap.strActivityId)">修改</a></li>
+                                <li><a ng-click="delectExpand(resultMap.strActivityId,resultMap.strActivityName)">删除</a></li>
                                 <!-- <li><a>修改2</a></li> -->
                             </ul>
                         </div>
@@ -58,14 +78,7 @@
                 </td>
 
             </tr>
-
         </table>
-        <div class="no-data-container" ng-click="newExpandinginfo()" ng-if="isNoData">
-            <div class="no-data-add-btn" ></div>
-            <div class="no-data-info" >添加拓展资料</div>
-        </div>
-
-
         <div class="bottom-pager" >
             <pager class="fr"  page-count="pageCount"  current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text=">" prev-text="<" last-text="尾页"  goto-text="跳转"></pager>
             <div class="clearfix"></div>
@@ -78,8 +91,8 @@
     <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
-                <div class="fl" ng-switch-default>新增拓展信息</div>
-                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+                <div class="fl" ng-switch-default>新增自定义赠送</div>
+                <div class="fl" ng-switch-when="false">新增自定义赠送</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -87,28 +100,265 @@
 
             <div class="-lpy-edit-staff-content">
 
-                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
+                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfoAll()">
                     <div class="form-container">
-                        <div class=" w300 center">
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型描述：
-                                <input type="text" ng-value="listServiceType.strServiceTypeDesc" name="strInformationname"   ng-model="listServiceType.strServiceTypeDesc" ngTrim="true" ng-maxlength="8" required/>
-                            </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span>&nbsp;&nbsp;&nbsp;&nbsp;服务类型ID：
-                                <input type="text" ng-value="listServiceType.strServiceTypeId" name="strInformationname"   ng-model="listServiceType.strServiceTypeId" ngTrim="true" ng-maxlength="8" required/>
-                            </div>
-                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 服务类型名称：
-                                <input type="text" ng-value="listServiceType.strServiceTypeName" name="strInformationname"   ng-model="listServiceType.strServiceTypeName" ngTrim="true" ng-maxlength="8" required/>
+                        <!--会员级别部分-->
+                        <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
+                            <div>
+                                <input type="text" ng-hide="true" ng-value="consumePresentsActivityEntity.xuyaostrActivityKinds = panduanXfzsXy"/>
+                                <panduan-xflx></panduan-xflx>
                             </div>
                         </div>
+                        <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
+                            <div class="mt10 fl w200">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 会员卡级别：
+                                <select ng-model="consumePresentsActivityEntity.strLevelsId" ng-change="saixuanVip()" ng-options="memberlevelsEntityList.strLevelsid as memberlevelsEntityList.strLevelsname for memberlevelsEntityList in memberlevelsEntityList" required>
+                                    <option  value="">全部</option>
+                                </select>
+                            </div>
+                            <input type="text" ng-hide="true" ng-model="consumePresentsActivityEntity.strActivityId" ng-value="consumePresentsActivityEntity.strActivityId"/>
+                            <div class="mt10 fl ml50">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送类型：
+                                <input type="text" class="w100" ng-value="consumePresentsActivityEntity.strActivityName" name="strInformationname1"   ng-model="consumePresentsActivityEntity.strActivityName" ngTrim="true" ng-maxlength="20" required/>
+                            </div>
+
+
+                            <div class="mt10 fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 活动起止时间：
+                                <input type="date" class="w120" ng-value="consumePresentsActivityEntity.strActivityBeginTime| date:'yyyy-MM-dd'"name="strInformationname2"   ng-model="consumePresentsActivityEntity.strActivityBeginTime" ngTrim="true"  required/>
+                                至
+                                <input type="date" class="w120"  ng-value="consumePresentsActivityEntity.strActivityEndTime| date:'yyyy-MM-dd'" name="strInformationname3"   ng-model="consumePresentsActivityEntity.strActivityEndTime" ngTrim="true"  required/>
+
+                            </div>
+                            <div class="mt10 fl w300">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 单笔消费是否累计赠送
+                                <select ng-model="consumePresentsActivityEntity.strIsCumulation"  ng-options="leijixiaofei.id as leijixiaofei.name for leijixiaofei in leijixiaofei" required>
+                                    <option  value="">全部</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!--积分部分-->
+                        <div>
+                            <!--为了保证不为空，随便来两条-->
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsIntegrationEntity[0].baozhengbuweikong = 1"/>
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsIntegrationEntityJf[0].baozhengbuweikong = 1"/>
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
+                                <div class="fl">积分</div>
+                                <div class="fr -mr10" ng-repeat="listConsumePresentsIntegrationEntityJf in listConsumePresentsIntegrationEntityJf">
+                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listConsumePresentsIntegrationEntityJf.iEnabled)" ng-model="panduanxuanzhong"/>
+                                    <input type="text" ng-hide="true" ng-value="listConsumePresentsIntegrationEntity[0].strEnabledsssId = strEnabledsss" ng-model="strEnabledsss"/>
+                                    <integralrules-Directive></integralrules-Directive>
+                                </div>
+                            </div>
+
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
+                                <div class="clearfix" ng-repeat="listConsumePresentsIntegrationEntity in listConsumePresentsIntegrationEntity">
+                                    <div class="fl mt20 zjl_xcInputk">
+                                        <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsIntegrationEntity.dConsumeCashAmount"  ng-model="listConsumePresentsIntegrationEntity.dConsumeCashAmount" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsIntegrationEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsIntegrationEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
+                                    </div>
+                                    <div class="fl f20 oranger-color ml50 mt20">
+                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsIntegrationEntity.strIntegrationId)">-</div>
+                                        <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoJf()">+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--储值券部分-->
+                        <div>
+                            <!--为了保证不为空，随便来两条-->
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsStoredValueEntity[0].baozhengbuweikong = 1"/>
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsStoredValueEntityCz[0].baozhengbuweikong = 1"/>
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
+                                <div class="fl">储值</div>
+                                <div class="fr -mr10" ng-repeat="listConsumePresentsStoredValueEntityCz in listConsumePresentsStoredValueEntityCz">
+                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listConsumePresentsStoredValueEntityCz.iEnabled)" ng-model="panduanxuanzhong"/>
+                                    <input type="text" ng-hide="true" ng-value="listConsumePresentsStoredValueEntity[0].strEnabledsssId = strEnabledsss" ng-model="strEnabledsss"/>
+                                    <integralrules-Directive></integralrules-Directive>
+                                </div>
+                            </div>
+
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
+                                <div class="clearfix" ng-repeat="listConsumePresentsStoredValueEntity in listConsumePresentsStoredValueEntity">
+                                    <div class="fl mt20 zjl_xcInputk">
+                                        <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsStoredValueEntity.dConsumeCashAmount"  ng-model="listConsumePresentsStoredValueEntity.strSignDays" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
+                                    </div>
+                                    <div class="fl f20 oranger-color ml50 mt20">
+                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsStoredValueEntity.strIntegrationId)">-</div>
+                                        <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoCz()">+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--抵用券部分-->
+                        <div>
+                            <!--为了保证不为空，随便来两条-->
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsVoucherEntity[0].baozhengbuweikong = 1"/>
+                            <input type="text" ng-hide="true" ng-value="listConsumePresentsVoucherEntityDyq[0].baozhengbuweikong = 1"/>
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbmx pr10 mb5">
+                                <div class="fl">抵用券</div>
+                                <div class="fr -mr10" ng-repeat="listConsumePresentsVoucherEntityDyq in listConsumePresentsVoucherEntityDyq">
+                                    <input type="text" ng-hide="true" ng-value="panduanxuanzhong = (listConsumePresentsVoucherEntityDyq.iEnabled)" ng-model="panduanxuanzhong"/>
+                                    <input type="text" ng-hide="true" ng-value="listConsumePresentsVoucherEntity[0].strEnabledsssId = strEnabledsss" ng-model="strEnabledsss"/>
+                                    <integralrules-Directive></integralrules-Directive>
+                                </div>
+                            </div>
+
+                            <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
+                                <div class="clearfix" ng-repeat="listConsumePresentsVoucherEntity in listConsumePresentsVoucherEntity">
+                                    <div class="fl mt20 zjl_xcInputk">
+                                        <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsVoucherEntity.dConsumeCashAmount"  ng-model="listConsumePresentsVoucherEntity.dConsumeCashAmount" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsVoucherEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsVoucherEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
+                                    </div>
+                                    <div class="fl f20 oranger-color ml50 mt20">
+                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsVoucherEntity.strIntegrationId)">-</div>
+                                        <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoDyq()">+</div>
+                                    </div>
+                                    <div class="fl mt10 w200">
+                                        <div class="fl"><span class="red-require">*</span>抵用券类型</div>
+                                        <select ng-model="listConsumePresentsVoucherEntity.strVoucherTicketId" ng-options="listVoucherTicketInfoEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity"  required>
+                                            <option  value="">全部</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt10"></div>
                     </div>
-
-                    <div class="w150 center ">
+                    <div class="w150 center">
                         <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
                     </div>
                 </form>
+                <div class="h50"></div>
             </div>
         </div>
     </div>
 
+    <!--积分新增模态框-->
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindowJf"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindowJf">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>积分</div>
+            </div>
+            <div class="fr  close_btn" ng-click="CloseExpandInfoWindowDyq()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+                <form  name="memberexpandinformationEntityForm" ng-submit="addjifen()">
+                    <div class="mt30">
+                        <div class="w500 ml50 clearfix pb10 pl10">
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 消费金额</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="jifenxingzeng.dConsumeCashAmount"  ng-value="jifenxingzeng.dConsumeCashAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送积分</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="jifenxingzeng.iPresentsIntegrationAmount"  ng-value="jifenxingzeng.iPresentsIntegrationAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="h100"></div>
+                    <div class="w150 center">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="CloseExpandInfoWindowDyq()">取消</a>
+                    </div>
+                </form>
+
+                <div class="h50"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--储值新增模态框-->
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindowCz"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindowCz">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>储值券</div>
+            </div>
+            <div class="fr  close_btn" ng-click="CloseExpandInfoWindowDyq()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+                <form  name="memberexpandinformationEntityForm" ng-submit="addchuzhiquan()">
+                    <div class="mt30">
+                        <div class="w500 ml50 clearfix pb10 pl10">
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 消费金额</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="chuzhiquanxinzeng.dConsumeCashAmount"  ng-value="chuzhiquanxinzeng.dConsumeCashAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送积分</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="chuzhiquanxinzeng.iPresentsIntegrationAmount"  ng-value="chuzhiquanxinzeng.iPresentsIntegrationAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="h100"></div>
+                    <div class="w150 center">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="CloseExpandInfoWindowDyq()">取消</a>
+                    </div>
+                </form>
+
+                <div class="h50"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--抵用券券新增模态框-->
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindowDyq"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindowDyq">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>抵用券</div>
+            </div>
+            <div class="fr  close_btn" ng-click="CloseExpandInfoWindowDyq()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+                <form  name="memberexpandinformationEntityForm" ng-submit="adddiyongquan()">
+                    <div class="mt30">
+                        <div class="w500 ml50 clearfix pb10 pl10">
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 消费金额</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="diyongquanxinzeng.dConsumeCashAmount"  ng-value="diyongquanxinzeng.dConsumeCashAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/><span class="fr mr5">元</span></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 赠送积分</div>
+                                <div class="zjl_firsttime_input w80 fl ml5"><input class="w50 zjl_bdxs" type="text" ng-model="diyongquanxinzeng.iPresentsIntegrationAmount"  ng-value="diyongquanxinzeng.iPresentsIntegrationAmount"  name="strInformationname" ngTrim ng-maxlength="7" required/></div>
+                                <!--<div class="fl">赠送1积分</div>-->
+                            </div>
+
+                            <div class="fl mt10 w200">
+                                <div class="fl">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 抵用券类型</div>
+                                <select ng-model="diyongquanxinzeng.strVoucherTicketId" ng-options="listVoucherTicketInfoEntity.strVoucherTicketId as listVoucherTicketInfoEntity.strVoucherTicketName for listVoucherTicketInfoEntity in listVoucherTicketInfoEntity" required>
+                                    <option  value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h100"></div>
+                    <div class="w150 center">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="CloseExpandInfoWindowDyq()">取消</a>
+                    </div>
+                </form>
+
+                <div class="h50"></div>
+            </div>
+        </div>
+    </div>
 </div>

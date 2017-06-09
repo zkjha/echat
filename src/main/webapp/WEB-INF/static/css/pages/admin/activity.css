@@ -185,3 +185,27 @@
 .ml80{
     margin-left: 80px;
 }
+/*消费赠送*/
+.zjl_xfzs_pd{
+    background-color:#ffa038;
+    color: #ffffff;
+    border: 1px solid #ffa038;
+    border-radius: 3px;
+    padding: 1px 5px;
+    cursor: pointer;
+    float: left;
+    margin-left: 10px;
+}
+.zjl_xfzs_pdO{
+    background-color:#ffffff;
+    color: #5c5c5c;
+    border: 1px solid #c6c6c6;
+    border-radius: 3px;
+    padding: 1px 5px;
+    cursor: pointer;
+    float: left;
+    margin-left: 10px;
+}
+.zjl_xcInputk input{
+    border: 1px solid transparent;
+}
