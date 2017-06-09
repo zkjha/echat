@@ -48,12 +48,13 @@ public class ConsumePresentsController
 	{
 
 	//获取参数
+	//strActivityKinds=0 现金储值消费 ;1 线上现金消费
 	String strActivityId=DataTool.getUUID();
 	String strActivityName=request.getParameter("strActivityName");
 	String strLevelsId=request.getParameter("strLevelsId");
 	String strActivityBeginTime=request.getParameter("strActivityBeginTime");
 	String strActivityEndTime=request.getParameter("strActivityEndTime");
-	String strActivityKinds=request.getParameter("strActivityKinds");
+	String strActivityKinds=request.getParameter("strActivityKinds");	
 	String strIsCumulation=request.getParameter("strIsCumulation");
 
 	//检测字符串有效性
@@ -73,6 +74,11 @@ public class ConsumePresentsController
 	
 	if(ValidateTool.isEmptyStr(strActivityKinds))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "活动类型不能为空", null);
+	if("0".equals(strActivityKinds))
+		strActivityKinds="现金储值消费";
+	
+	if("1".equals(strActivityKinds))
+		strActivityKinds="线上现金消费";
 
 	if(ValidateTool.isEmptyStr(strIsCumulation))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "单笔消费是否累计不能为空", null);
@@ -143,6 +149,7 @@ public class ConsumePresentsController
 	{
 
 	//获取参数
+	//strActivityKinds=0 现金储值消费 ;1 线上现金消费
 	String strActivityId=request.getParameter("strActivityId");
 	String strActivityName=request.getParameter("strActivityName");
 	String strLevelsId=request.getParameter("strLevelsId");
@@ -170,6 +177,11 @@ public class ConsumePresentsController
 	
 	if(ValidateTool.isEmptyStr(strActivityKinds))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "活动类型不能为空", null);
+	if("0".equals(strActivityKinds))
+		strActivityKinds="现金储值消费";
+	
+	if("1".equals(strActivityKinds))
+		strActivityKinds="线上现金消费";
 	
 	if(ValidateTool.isEmptyStr(strIsCumulation))
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "单笔消费是否累计不能为空", null);

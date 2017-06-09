@@ -1363,7 +1363,7 @@ public class RechargePresentsController {
 				Map<String,Object> resultMap=new HashMap<String,Object>();
 				resultMap.put("iTotalRecord",iTotalRecord);
 				resultMap.put("iTotalPage",iTotalPage);
-				resultMap.put("resultMap",listRechargePresentsActivityEntity);
+				resultMap.put("listRechargePresentsActivityEntity",listRechargePresentsActivityEntity);
 				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 			}
 			else
