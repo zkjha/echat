@@ -238,11 +238,6 @@ public class RechargePresentsService {
 	public List<RechargePresentsActivityEntity> selectRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 	{
 		int iListArrayLength=0;
-		
-		int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
-		int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
-		int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
-		
 		Date currentDate;
 		String strActivityEndDate,strCurrentDate;
 		String strActivityStatus;
@@ -255,6 +250,9 @@ public class RechargePresentsService {
 			iListArrayLength=listRechargePresentsActivityEntity.size();
 			for(int i=0;i<iListArrayLength;i++)
 			{
+				int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+				int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+				int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 				//得到活动实体对象
 				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
@@ -271,7 +269,7 @@ public class RechargePresentsService {
 					strActivityStatus="过期";
 				else
 					strActivityStatus="正常";
-
+					
 				rechargePresentsActivityEntity.setStrMemberLevelName(strLevelsName);
 				rechargePresentsActivityEntity.setStrActivityStatus(strActivityStatus);
 				
@@ -305,12 +303,12 @@ public class RechargePresentsService {
 						break;
 					}
 				}
-				
+		
 				rechargePresentsActivityEntity.setiIntegrationEnabled(iIntegrationEnabled);
 				rechargePresentsActivityEntity.setiStoredTicketEnabled(iStoredTicketEnabled);
 				rechargePresentsActivityEntity.setiVoucherTicketEnabled(iVoucherTicketEnabled);
 				
-				}
+		   }
 		}
 		return listRechargePresentsActivityEntity;
 		
@@ -322,9 +320,6 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectExpiredRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
-			int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
-			int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
-			int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectExpiredRechargePresentsActivityInfo(queryMap);
@@ -334,6 +329,9 @@ public class RechargePresentsService {
 				iListArrayLength=listRechargePresentsActivityEntity.size();
 				for(int i=0;i<iListArrayLength;i++)
 				{
+					int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+					int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+					int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 					//得到活动实体对象
 					RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 					strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
@@ -388,9 +386,6 @@ public class RechargePresentsService {
 		public List<RechargePresentsActivityEntity> selectNormalRechargePresentsActivityInfo(Map<String,Object> queryMap) throws Exception
 		{
 			int iListArrayLength=0;
-			int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
-			int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
-			int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 			String strActivityId,strLevelsId,strLevelsName;
 			List<RechargePresentsActivityEntity> listRechargePresentsActivityEntity=null;
 			listRechargePresentsActivityEntity=rechargePresentsMapper.selectNormalRechargePresentsActivityInfo(queryMap);
@@ -400,6 +395,9 @@ public class RechargePresentsService {
 				iListArrayLength=listRechargePresentsActivityEntity.size();
 				for(int i=0;i<iListArrayLength;i++)
 				{
+				int iIntegrationEnabled=0;		//关联该活动的赠送积分启用情况
+				int iStoredTicketEnabled=0;		//关联该活动的赠送储值启用情况
+				int iVoucherTicketEnabled=0;		//关联该活动的赠送抵用券启用情况
 				//得到活动实体对象
 				RechargePresentsActivityEntity rechargePresentsActivityEntity=listRechargePresentsActivityEntity.get(i);
 				strActivityId=rechargePresentsActivityEntity.getStrActivityId();	
@@ -427,6 +425,7 @@ public class RechargePresentsService {
 						iStoredTicketEnabled=1;
 						break;
 						}
+					
 				}
 				
 				for(int j=0;j<listRechargePresentsVoucherEntity.size();j++)
