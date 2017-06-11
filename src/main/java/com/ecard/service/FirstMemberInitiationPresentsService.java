@@ -115,7 +115,12 @@ public class FirstMemberInitiationPresentsService {
 	public String updateVoucherTicketPresentsInfo(List<FirstMemberInitiationVoucherTicketPresentsEntity> listVoucherTicketPresentsEntity) throws Exception
 	{
 		int rcdNum=0;
-		int totalNum=listVoucherTicketPresentsEntity.size();
+		int totalNum=0;
+		if(listVoucherTicketPresentsEntity!=null)
+			totalNum=listVoucherTicketPresentsEntity.size();
+		else
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		
 		for(int i=0;i<totalNum;i++)
 		{
 			FirstMemberInitiationVoucherTicketPresentsEntity voucherTicketPresentsEntity=listVoucherTicketPresentsEntity.get(i);

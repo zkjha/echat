@@ -76,9 +76,9 @@ public class DutyController {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
 		}
 		String [] arrPrivilegeid = privilegeids.split(",");
-		if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
-		}
+	//	if(arrPrivilegeid==null||arrPrivilegeid.length<0) {
+	//		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "权限不能为空", null);
+	//	}
 		try {
 			
 			return dutyService.insertDuty(strDutyname.trim(),arrPrivilegeid);

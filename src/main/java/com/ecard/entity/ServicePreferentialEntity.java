@@ -9,15 +9,15 @@ package com.ecard.entity;
 
 /**
  * @author apple
- *
+ *服务按会员等级优惠信息表
  */
 public class ServicePreferentialEntity {
-	private String strPreferentialId="";
-	private String strServiceInfoId="";
-	private String strServiceInfoName="";
-	private String strLevelsId="";
-	private String strLevelsName="";
-	private int iRequiredIntegral=0;
+	private String strPreferentialId="";	//主键
+	private String strServiceInfoId="";		//服务ID
+	private String strServiceInfoName="";	//服务名称
+	private String strLevelsId="";			//会员等级ID
+	private String strLevelsName="";		//会员卡级别名称
+	private int iRequiredIntegral=0;	//兑换服务所需积分
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";

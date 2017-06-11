@@ -11,10 +11,11 @@ package com.ecard.entity;
  * @author apple
  *
  */
+//积分清零
 public class IntegralclearRuleEntity {
-	private String strValidBeginTime="";
-	private String strValidEndTime="";
-	private int iIsValid=0;
+	private String strValidBeginTime="";	//有效期开始时间
+	private String strValidEndTime="";		//有效期截止时间
+	private int iIsValid=0;					//是否生效
 	private String strReserved="";
 	
 	

@@ -536,6 +536,8 @@ public class UserDefinedPresentsController
 	    
 	    if(isNumber(strEnabled))
 	    	iEnabled=Integer.parseInt(strEnabled);
+	    else
+	    	 return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "启用状态格式错误", null);
 	    
 	    String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 	    String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
@@ -650,10 +652,10 @@ public class UserDefinedPresentsController
 	  		String strEmployeeRealName=employeeEntity.getStrRealname();
 	  	 */
 	  		
-	  		//以下3个为测试用数据
-	  		String strEmployeeId=DataTool.getUUID();
-	  		String strEmployeeName="admin";
-	  		String strEmployeeRealName="david li";
+	  	//以下3个为测试用数据
+	  	String strEmployeeId=DataTool.getUUID();
+	  	String strEmployeeName="admin";
+	  	String strEmployeeRealName="david li";
 	    UserDefinedPresentsStoredValueEntity userDefinedPresentsStoredValueEntity=new UserDefinedPresentsStoredValueEntity();
 	    userDefinedPresentsStoredValueEntity.setStrPresentsStoredValueId(strPresentsStoredValueId);
 	    userDefinedPresentsStoredValueEntity.setStrActivityId(strActivityId);
@@ -1034,15 +1036,15 @@ public class UserDefinedPresentsController
 	*/
 	try{
 		List<UserDefinedPresentsVoucherEntity> listUserDefinedPresentsVoucherEntity=userDefinedPresentsService.selectAllUserDefinedPresentsVoucherEntity(strActivityId);
-		if(ValidateTool.isNull(listUserDefinedPresentsVoucherEntity)||listUserDefinedPresentsVoucherEntity.size()<=0)
+		if(ValidateTool.isNull(listUserDefinedPresentsVoucherEntity))
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
-		else
-		{
+		if(listUserDefinedPresentsVoucherEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("listUserDefinedPresentsVoucherEntity",listUserDefinedPresentsVoucherEntity);
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
-		}
+		
 	}catch(Exception e)
 	{
 		e.printStackTrace();
@@ -1100,8 +1102,8 @@ public class UserDefinedPresentsController
 	
 	{
 		//取得搜索字段
-		//strSearchEnabledStatus=活动状态：参数为空 "全部All",为0 表过期:EXPIRED，1正常:NORMAL
-		//strSearchMemberLevel=ALL 全部
+		//strSearchEnabledStatus=活动状态：接收参数值  All:(或为 空值)表全部,为0 表过期:EXPIRED，1正常:NORMAL
+		//strSearchMemberLevel=接收参数值:ALL(或空值) 表示全部会员级别
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevelId=request.getParameter("strSearchMemberLevelId");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");

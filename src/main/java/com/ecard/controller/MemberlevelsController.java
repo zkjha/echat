@@ -155,16 +155,18 @@ public class MemberlevelsController {
 			queryMap.put("pageSize", iPagesize);
 			queryMap.put("strSearchkey", strSearchkey);
 			List<MemberlevelsEntity> memberlevelsEntityList = memberlevelsService.listMemberlevels(queryMap);
-			if(ValidateTool.isNull(memberlevelsEntityList)||memberlevelsEntityList.size()<=0) {
+			if(ValidateTool.isNull(memberlevelsEntityList)) 
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
-			} else {
+			if(memberlevelsEntityList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
+			
 				int totalrecord = memberlevelsService.getMemberlevelsTotalCount(queryMap); //查询员工总数量
 				Map<String,Object> resultMap = new HashMap<String, Object>();
 				resultMap.put("memberlevelsEntityList", memberlevelsEntityList);
 				resultMap.put("iTotalRecord", totalrecord);
 				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
 				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);

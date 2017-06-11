@@ -298,16 +298,15 @@ public class VoucherticketUseInfoController {
 
 	    try{
 	        List<VoucherticketUseInfoEntity> listVoucherticketUseInfo= tVoucherticketUseInfoService.getListVoucherticketUseInfoByMemberId(strMemberId,Integer.parseInt(iStat));
-	        if (ValidateTool.isNull(listVoucherticketUseInfo) || listVoucherticketUseInfo.size() <= 0)
-	        {
+	        if (ValidateTool.isNull(listVoucherticketUseInfo))
 	            return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
-	        }
-	        else
-	        {
+	        if(listVoucherticketUseInfo.size() <= 0)
+	        	return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+	        
             Map<String, Object> resultMap = new HashMap<String, Object>();
-	            resultMap.put("listVoucherticketUseInfo", listVoucherticketUseInfo);
-	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-	        }
+	        resultMap.put("listVoucherticketUseInfo", listVoucherticketUseInfo);
+	        return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	        
 	    }catch(Exception e) {
 	        e.printStackTrace();
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);

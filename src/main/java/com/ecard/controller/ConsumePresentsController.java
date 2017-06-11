@@ -632,8 +632,10 @@ public class ConsumePresentsController
 		return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动ID不能为空",null);
 	try{
 		List<ConsumePresentsIntegrationEntity> listConsumePresentsIntegrationEntity=consumePresentsService.selectAllConsumePresentsIntegrationEntity(strActivityId);
-		if(listConsumePresentsIntegrationEntity==null||listConsumePresentsIntegrationEntity.size()==0)
-		return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listConsumePresentsIntegrationEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listConsumePresentsIntegrationEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		Map<String,Object> resultMap=new HashMap<String,Object>();
 		resultMap.put("listConsumePresentsIntegrationEntity",listConsumePresentsIntegrationEntity);
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
@@ -954,7 +956,9 @@ public class ConsumePresentsController
 	*/
 	try{
 		List<ConsumePresentsStoredValueEntity> listConsumePresentsStoredValueEntity=consumePresentsService.selectAllConsumePresentsStoredValueEntity(strActivityId);
-		if(ValidateTool.isNull(listConsumePresentsStoredValueEntity)||listConsumePresentsStoredValueEntity.size()<=0)
+		if(ValidateTool.isNull(listConsumePresentsStoredValueEntity))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listConsumePresentsStoredValueEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("listConsumePresentsStoredValueEntity",listConsumePresentsStoredValueEntity);
@@ -1300,7 +1304,9 @@ public class ConsumePresentsController
 	*/
 	try{
 		List<ConsumePresentsVoucherEntity> listConsumePresentsVoucherEntity=consumePresentsService.selectAllConsumePresentsVoucherEntity(strActivityId);
-		if(ValidateTool.isNull(listConsumePresentsVoucherEntity)||listConsumePresentsVoucherEntity.size()<=0)
+		if(ValidateTool.isNull(listConsumePresentsVoucherEntity))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listConsumePresentsVoucherEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		Map<String,Object> resultMap=new HashMap<String,Object>();
 		resultMap.put("listConsumePresentsVoucherEntity",listConsumePresentsVoucherEntity);
@@ -1343,8 +1349,8 @@ public class ConsumePresentsController
  	public String selectAllConsumePresentsActivity(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段
-		//strSearchEnabledStatus=活动状态：参数为空表:全部All;为0 表:过期:EXPIRED;1正常:NORMAL
-		//strSearchMemberLeveliD 搜索的会员级别ID,为空表：全部
+		//strSearchEnabledStatus=活动状态 接收参数值:All（或空值)表全部活动状态;为0 表:过期:EXPIRED;1正常:NORMAL
+		//strSearchMemberLeveliD 搜索的会员级别ID,为空表(或ALL)表示全部会员级别
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevelId=request.getParameter("strSearchMemberLevelId");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
@@ -1424,7 +1430,9 @@ public class ConsumePresentsController
 				queryMap.put("iPageSize",iPageSize);
 				
 				listConsumePresentsActivityEntity=consumePresentsService.selectAllConsumePresentsActivity(queryMap);
-				if(listConsumePresentsActivityEntity==null||listConsumePresentsActivityEntity.size()==0)
+				if(listConsumePresentsActivityEntity==null)
+					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				if(listConsumePresentsActivityEntity.size()==0)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 				Map<String,Object> resultMap=new HashMap<String,Object>();
 				resultMap.put("iTotalRecord",iTotalRecord);

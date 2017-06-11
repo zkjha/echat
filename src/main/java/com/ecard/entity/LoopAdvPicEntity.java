@@ -9,14 +9,14 @@ package com.ecard.entity;
 
 /**
  * @author apple
- *
+ *首页广告轮播图片信息
  */
 public class LoopAdvPicEntity {
-	private String strAdvPicId="";
-	private String strAdvPicName="";
-	private int iAdvPicWeight=0;
-	private String strAdvLinkPage="";
-	private String strInsertTime="";
+	private String strAdvPicId="";		//主键
+	private String strAdvPicName="";	//广告图片名称
+	private int iAdvPicWeight=0;		//广告图片权重
+	private String strAdvLinkPage="";	//页面链接地址
+	private String strInsertTime="";	//录入时间
 	private String strReserved="";
 	
 	/**

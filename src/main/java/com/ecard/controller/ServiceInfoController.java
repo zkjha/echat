@@ -175,7 +175,13 @@ public class ServiceInfoController {
 	    		String [] arrOneLineStrings = arrServicePreferentialInfos[iLoop].split(",");
 	    		System.out.println(arrServicePreferentialInfos[iLoop]);
 	    		
-	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 3)
+	    		if (arrOneLineStrings == null)
+	    		{
+	    			iRight = 0;
+	    			break;
+	    		}
+	    		
+	    		if( arrOneLineStrings.length != 3)
 	    		{
 	    			iRight = 0;
 	    			break;
@@ -372,12 +378,16 @@ public class ServiceInfoController {
 	    		
 	    		// 解析单行
 	    		String [] arrOneLineStrings = arrServicePreferentialInfos[iLoop].split(",");
-	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 4)
+	    		if (arrOneLineStrings == null)
 	    		{
 	    			iRight = 0;
 	    			break;
 	    		}
-	    		
+	    		if(arrOneLineStrings.length != 4)
+	    		{
+	    			iRight = 0;
+	    			break;
+	    		}
 	    		tServicePreferentialEntity.setStrPreferentialId(arrOneLineStrings[0]);
 	    		tServicePreferentialEntity.setStrLevelsId(arrOneLineStrings[1]);
 	    		tServicePreferentialEntity.setStrLevelsName(arrOneLineStrings[2]);
@@ -450,19 +460,19 @@ public class ServiceInfoController {
 	    queryMap.put("pageSize", iPagesize);
 	    try{
 	        List<ServiceInfoEntity> listServiceInfo= tServiceInfoService.getListServiceInfo(queryMap);
-	        if (ValidateTool.isNull(listServiceInfo) || listServiceInfo.size() <= 0)
-	        {
+	        if (ValidateTool.isNull(listServiceInfo))
 	            return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
-	        }
-	        else
-	        {
-	            int totalrecord = tServiceInfoService.getServiceInfoTotalCount(queryMap);
-	            Map<String, Object> resultMap = new HashMap<String, Object>();
-	            resultMap.put("listServiceInfo", listServiceInfo);
-	            resultMap.put("iTotalRecord", totalrecord);
-	            resultMap.put("iTotalPage", totalrecord % iPagesize == 0 ? totalrecord / iPagesize : totalrecord / iPagesize + 1);
-	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-	        }
+	        
+	        if(listServiceInfo.size() <= 0)
+	        	return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+	       
+	        int totalrecord = tServiceInfoService.getServiceInfoTotalCount(queryMap);
+	        Map<String, Object> resultMap = new HashMap<String, Object>();
+	        resultMap.put("listServiceInfo", listServiceInfo);
+	        resultMap.put("iTotalRecord", totalrecord);
+	        resultMap.put("iTotalPage", totalrecord % iPagesize == 0 ? totalrecord / iPagesize : totalrecord / iPagesize + 1);
+	        return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	        
 	    }catch(Exception e) {
 	        e.printStackTrace();
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);
@@ -484,16 +494,16 @@ public class ServiceInfoController {
 	    
 	    try{
 	        List<ServicePreferentialEntity> listServicePreferentialEntity= tServiceInfoService.getListServicePreferentialByServiceId(strServiceInfoId);
-	        if (ValidateTool.isNull(listServicePreferentialEntity) || listServicePreferentialEntity.size() <= 0)
-	        {
+	        if (ValidateTool.isNull(listServicePreferentialEntity))
 	            return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
-	        }
-	        else
-	        {
-	            Map<String, Object> resultMap = new HashMap<String, Object>();
-	            resultMap.put("listServicePreferentialEntity", listServicePreferentialEntity);
-                return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-	        }
+	     
+	        if( listServicePreferentialEntity.size() <= 0)
+	        	return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+	        
+	        Map<String, Object> resultMap = new HashMap<String, Object>();
+	        resultMap.put("listServicePreferentialEntity", listServicePreferentialEntity);
+             return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+	       
 	    }catch(Exception e) {
 	        e.printStackTrace();
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);

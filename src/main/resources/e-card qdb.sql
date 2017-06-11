@@ -443,8 +443,8 @@ DROP TABLE IF EXISTS tb_goods_type;
 CREATE TABLE tb_goods_type
 (
   strGoodsTypeId             VARCHAR(50) NOT NULL,       -- 主键
-  strGoodsTypeName           VARCHAR(50) NOT NULL,       -- 计量单位名称
-  strGoodsTypeDesc           VARCHAR(255) NULL,          -- 计量描述
+  strGoodsTypeName           VARCHAR(50) NOT NULL,       -- 商品类别名称
+  strGoodsTypeDesc           VARCHAR(255) NULL,          -- 商品类别描述
   strEmployeeId              VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeName            VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName       VARCHAR(50) NOT NULL,       -- 操作员工登录账号
@@ -550,7 +550,7 @@ create index indxAdvPicInfoOnTime on tb_advertispic_info(strInsertTime);
 create index indxAdvPicInfoOnWeight on tb_advertispic_info(iAdvPicWeight);
 
 -- ==============================================================
--- Table: tb_integralclear_rule                【首页广告轮播图片信息】                          
+-- Table: tb_integralclear_rule                【积分清零】                          
 -- ==============================================================
 DROP TABLE IF EXISTS tb_integralclear_rule;
 CREATE TABLE tb_integralclear_rule

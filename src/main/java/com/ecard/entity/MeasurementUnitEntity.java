@@ -9,12 +9,12 @@ package com.ecard.entity;
 
 /**
  * author qidongbo
- *
+ *计量单位表
  */
 public class MeasurementUnitEntity {
-	private String strUnitId="";
-	private String strUnitName="";
-	private String strUnitDesc="";
+	private String strUnitId="";	//主键
+	private String strUnitName="";	//计量单位名称
+	private String strUnitDesc="";	//计量单位描述
 	private String strReserved="";
 	
 	/**

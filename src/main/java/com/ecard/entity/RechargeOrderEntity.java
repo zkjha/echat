@@ -9,12 +9,12 @@ import java.math.BigDecimal;
  */
 public class RechargeOrderEntity {
 	
-	private String strOrderId;
-	private String strMemberId;
-	private String strMemberCardNum;
-	private String strMemberName;
-	private String strDesc;
-	private BigDecimal dBalance;
+	private String strOrderId;		//主键
+	private String strMemberId;		//会员ID
+	private String strMemberCardNum;	//会员卡号
+	private String strMemberName;	//用户姓名
+	private String strDesc;			//
+	private BigDecimal dBalance;	//充值金额
 	private String strEmployeeId;
 	private String strEmployeeRealName;
 	private String strEmployeeLoginName;

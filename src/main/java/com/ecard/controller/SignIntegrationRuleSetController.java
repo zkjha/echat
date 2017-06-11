@@ -128,9 +128,9 @@ public class SignIntegrationRuleSetController {
 
 			// 取得非连续签到积分规则
 			int iIntegration;
-			String strSignDays= request.getParameter("strSignDays");							//校验数据有效性????????????
+			String strSignDays= request.getParameter("strSignDays");							//校验数据有效性
 			String strStatus ="0";																	//非连续性签到状态为0
-			String strIntegration = request.getParameter("iIntegration");					//校验数据有效性???????????
+			String strIntegration = request.getParameter("iIntegration");					//校验数据有效性
 			String strEnabled = request.getParameter("strEnabled");	
 			
 			if (ValidateTool.isEmptyStr(strSignDays)) {
@@ -212,8 +212,8 @@ public class SignIntegrationRuleSetController {
 		{
 			int iIntegration;
 			BigDecimal dCash=null;
-			String strIntegration = request.getParameter("iIntegration");	//校验有效性?????????????
-			String strCash =request.getParameter("dCash");				//校验有效性？？？、？
+			String strIntegration = request.getParameter("iIntegration");	//校验有效性
+			String strCash =request.getParameter("dCash");				//校验有效性
 			String strEnabled = request.getParameter("strEnabled");
 		
 			if(ValidateTool.isEmptyStr(strIntegration)) {
@@ -300,9 +300,9 @@ public class SignIntegrationRuleSetController {
 			{
 				int iIntegration;
 				String strSignId = request.getParameter("strId"); 
-				String strSignDays= request.getParameter("strSignDays");							//检验?????????
+				String strSignDays= request.getParameter("strSignDays");							//检验
 				String strStatus ="1";																	//连续性签 到状态为1
-				String strIntegration =request.getParameter("iIntegration");						//检验??????
+				String strIntegration =request.getParameter("iIntegration");						//检验
 				String strEnabled = request.getParameter("strEnabled");	
 				
 				if (ValidateTool.isEmptyStr(strSignId)) {
@@ -644,14 +644,15 @@ public class SignIntegrationRuleSetController {
 			try{
 				List<SignIntegrationRuleEntity> listSignIntegrationRuleEntity=signIntegrationRuleSetService.findAllSignIntegrationRule();
 				
-				if(listSignIntegrationRuleEntity==null||listSignIntegrationRuleEntity.size()==0)
+				if(listSignIntegrationRuleEntity==null)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
-				else
-				{
-					Map<String,Object> resultMap=new HashMap<String,Object>();
-					resultMap.put("listSignIntegrationRuleEntity", listSignIntegrationRuleEntity);
-					return DataTool.constructResponse(ResultCode.OK,"查询连续签到成功",resultMap);
-				}
+				if(listSignIntegrationRuleEntity.size()==0)
+					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("listSignIntegrationRuleEntity", listSignIntegrationRuleEntity);
+				return DataTool.constructResponse(ResultCode.OK,"查询连续签到成功",resultMap);
+				
 			}catch(Exception e)
 			{
 			e.printStackTrace();
@@ -667,14 +668,15 @@ public class SignIntegrationRuleSetController {
 	{
 	try{
 		List<IntegrationCashRuleEntity> listIntegrationCashRuleEntity=signIntegrationRuleSetService.findAllIntegrationCashRule();
-		if(listIntegrationCashRuleEntity==null||listIntegrationCashRuleEntity.size()==0)
+		if(listIntegrationCashRuleEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"还没有数据",null);
-		else
-			{
-			Map<String,Object> resultMap=new HashMap<String,Object>();
-			resultMap.put("listIntegrationCashRuleEntity", listIntegrationCashRuleEntity);
-			return DataTool.constructResponse(ResultCode.OK, "查询成功",resultMap);
-			}
+		if(listIntegrationCashRuleEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"还没有数据",null);
+		
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listIntegrationCashRuleEntity", listIntegrationCashRuleEntity);
+		return DataTool.constructResponse(ResultCode.OK, "查询成功",resultMap);
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();

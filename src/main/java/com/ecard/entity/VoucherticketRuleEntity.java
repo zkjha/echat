@@ -12,13 +12,13 @@ package com.ecard.entity;
  * 抵用券信息
  */
 public class VoucherticketRuleEntity {
-	private String strVoucherTicketId="";
-	private String strVoucherTicketName="";
-	private String strValidEndTime="";
-	private int iIsValid=0;
-	private int iCanUseCount=0;
-	private String strUseCountDesc="";
-	private String strRuleDesc="";
+	private String strVoucherTicketId="";	//主键
+	private String strVoucherTicketName="";	//储值券名称
+	private String strValidEndTime="";	//有效期截止时间
+	private int iIsValid=0;		//是否生效 0 禁用 1 启用
+	private int iCanUseCount=0;	//可使用次数
+	private String strUseCountDesc="";	//使用次数描述
+	private String strRuleDesc="";	//储值券使用规则描述
 	private String strReserved="";
 	
 	/**

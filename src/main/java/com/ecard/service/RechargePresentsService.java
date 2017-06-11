@@ -82,7 +82,9 @@ public class RechargePresentsService {
 	public String batchInsertRechargePresentsStoredValue(List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity) throws Exception
 	{
 		int iRcdNum=0;
-		if(listRechargePresentsStoredValueEntity==null||listRechargePresentsStoredValueEntity.size()==0)
+		if(listRechargePresentsStoredValueEntity==null)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
+		if(listRechargePresentsStoredValueEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数不能为空",null);
 		iRcdNum=rechargePresentsMapper.batchInsertRechargePresentsStoredValue(listRechargePresentsStoredValueEntity);
 		
@@ -94,6 +96,7 @@ public class RechargePresentsService {
 	}
 	
 	//批量修改 充值赠送储值信息
+	@Transactional
 	public String batchUpdateRechargePresentsStoredValue(List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity) throws Exception
 	{
 		int iRcdNum=0,iLoopTime=0;

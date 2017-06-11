@@ -11,13 +11,14 @@ package com.ecard.entity;
  * @author apple
  *
  */
+//商品按会员等级优惠信息
 public class GoodsPreferentialEntity {
-	private String strPreferentialId="";
-	private String strGoodsId="";
-	private String strGoodsName="";
-	private String strLevelsId="";
-	private String strLevelsName="";
-	private int iRequiredIntegral=0;
+	private String strPreferentialId="";	//主键
+	private String strGoodsId="";			//关联的优惠商品ID
+	private String strGoodsName="";			//商品名称
+	private String strLevelsId="";			//会员级别 ID
+	private String strLevelsName="";		//会员卡级别名称
+	private int iRequiredIntegral=0;		//所需积分数量
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";

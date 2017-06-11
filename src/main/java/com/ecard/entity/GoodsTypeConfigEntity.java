@@ -11,10 +11,11 @@ package com.ecard.entity;
  * @author kinglong
  *
  */
+//商品分类
 public class GoodsTypeConfigEntity {
-	private String strGoodsTypeId="";
-	private String strGoodsTypeName="";
-	private String strGoodsTypeDesc="";
+	private String strGoodsTypeId="";	//商品类别 主键
+	private String strGoodsTypeName="";	//商品类别名称
+	private String strGoodsTypeDesc="";	//商品类别描述
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";

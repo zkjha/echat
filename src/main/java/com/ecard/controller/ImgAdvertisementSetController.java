@@ -253,14 +253,15 @@ public class ImgAdvertisementSetController {
 		*/
 		try{
 			List<ImgAdvertisementEntity> listImgAdvertisementEntity=imgAdvertisementSetService.findAllImaggeAdvertisement();
-			if(listImgAdvertisementEntity==null||listImgAdvertisementEntity.size()==0)
+			if(listImgAdvertisementEntity==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
-			else
-				{
-					Map<String,Object> resultMap=new HashMap<String,Object>();
-					resultMap.put("listImgAdvertisementEntity", listImgAdvertisementEntity);
-					return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-				}
+			if(listImgAdvertisementEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+		
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listImgAdvertisementEntity", listImgAdvertisementEntity);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+				
 		}catch (Exception e)
 		{
 			e.printStackTrace();

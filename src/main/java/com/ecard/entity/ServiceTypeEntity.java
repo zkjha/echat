@@ -9,15 +9,15 @@ package com.ecard.entity;
 
 /**
  * @author apple
- *
+ *service_type
  */
 public class ServiceTypeEntity {
-	private String strServiceTypeId="";
-	private String strServiceTypeName="";
+	private String strServiceTypeId="";		//主键
+	private String strServiceTypeName="";	//服务类别名称
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";
-	private String strServiceTypeDesc="";
+	private String strServiceTypeDesc="";	//服务类别描述
 	private String strReserved="";
 	
 	/**

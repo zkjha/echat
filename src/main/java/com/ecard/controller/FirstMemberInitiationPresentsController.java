@@ -434,14 +434,15 @@ public class FirstMemberInitiationPresentsController {
 		List<FirstMemberInitiationStoredTicketPresentsEntity> listStoredTicketPresentsEntity=null;
 		try{
 			listStoredTicketPresentsEntity=firstMemberInitiationPresentsService.selectStoredTicketPresentsInfo();
-			if(listStoredTicketPresentsEntity==null||listStoredTicketPresentsEntity.size()==0)
+			if(listStoredTicketPresentsEntity==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"数据库还没有数据",null);
-			else
-			{
+			if(listStoredTicketPresentsEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"数据库还没有数据",null);
+			
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("listStoredTicketPresentsEntity", listStoredTicketPresentsEntity);
 			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
-			}
+			
 			}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -733,14 +734,15 @@ public class FirstMemberInitiationPresentsController {
 		*/
 		try{
 			List<FirstMemberInitiationVoucherTicketPresentsEntity> listVoucherTicketPresentsEntity=firstMemberInitiationPresentsService.selectVoucherTicketPresentsInfo();
-			if(listVoucherTicketPresentsEntity.size()==0||listVoucherTicketPresentsEntity==null)
+			if(listVoucherTicketPresentsEntity==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据据",null);
-			else
-			{
+			if(listVoucherTicketPresentsEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据据",null);
+		
 				Map<String,Object> resultMap=new HashMap<String,Object>();
 				resultMap.put("listVoucherTicketPresentsEntity", listVoucherTicketPresentsEntity);
 				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
-			}
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -961,11 +963,17 @@ public class FirstMemberInitiationPresentsController {
 				entityAttributes=entitys[i].split(",");		//取出每第记录
 				//取出每第条记录的各个属性
 				
-					if(ValidateTool.isNull(entityAttributes)||entityAttributes.length!=4)
-					{
-						flag=0;
-						break;
-					}
+				if(ValidateTool.isNull(entityAttributes))
+				{
+					flag=0;
+					break;
+				}
+					
+				if(entityAttributes.length!=4)
+				{
+					flag=0;
+					break;
+				}
 					strVoucherTicketPresentsId=entityAttributes[0];
 					strVoucherTicketKindId=entityAttributes[1];
 					strTotalVoucherTicketNum=entityAttributes[2];

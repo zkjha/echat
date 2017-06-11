@@ -46,13 +46,15 @@ public class PrivilegeController {
 		try {
 			
 			List<PrivilegeVO> privilegeList = privilegeService.listAllPrivilege(strDutyid); //查询所有的权限信息
-			if(ValidateTool.isNull(privilegeList)||privilegeList.size()<=0) {
+			if(ValidateTool.isNull(privilegeList))
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无权限", null);
-			} else {
-				Map<String,Object> resultMap = new HashMap<String,Object>();
-				resultMap.put("privilegeList", privilegeList);
-				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-			}
+			if(privilegeList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无权限", null);
+			
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("privilegeList", privilegeList);
+			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

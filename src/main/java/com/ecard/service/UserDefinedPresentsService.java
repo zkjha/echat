@@ -271,7 +271,9 @@ public class UserDefinedPresentsService {
 	public List<UserDefinedPresentsActivityEntity> selectAllUserDefinedPresentsActivity(Map<String,Object> queryMap) throws Exception
 	{
 		List<UserDefinedPresentsActivityEntity> listUserDefinedPresentsActivityEntity=userDefinedPresentsMapper.selectAllUserDefinedPresentsActivity(queryMap);
-		if(listUserDefinedPresentsActivityEntity==null||listUserDefinedPresentsActivityEntity.size()==0)
+		if(listUserDefinedPresentsActivityEntity==null)
+			return null;
+		if(listUserDefinedPresentsActivityEntity.size()==0)
 			return null;
 		for(int i=0;i<listUserDefinedPresentsActivityEntity.size();i++)
 		{

@@ -56,8 +56,11 @@ public class MemberLevelsRightsMappingService {
 			queryMap.put("iPageFrom",iPageFrom);
 			queryMap.put("iPageSize",iPageSize);
 			List<MemberLevelsRightsMappingEntity> listMemberLevelsRightsMappingEntity=memberLevelsRightsMapper.selectAllMemberLevelsRightsMappingInfo(queryMap);
-			if(listMemberLevelsRightsMappingEntity==null||listMemberLevelsRightsMappingEntity.size()==0)
-				return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"未知错误",null);
+			if(listMemberLevelsRightsMappingEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listMemberLevelsRightsMappingEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("iTotalRecord",iTotalRecord);
 			resultMap.put("iTotalPage", iTotalPage);

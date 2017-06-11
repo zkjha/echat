@@ -183,16 +183,18 @@ public class MemberexpandinformationController {
 			queryMap.put("pageSize", iPagesize);
 			queryMap.put("strSearchkey", strSearchkey);
 			List<MemberexpandinformationEntity> memberexpandinformationEntityList = memberexpandinformationService.listMemberexpandinformation(queryMap);//查询会员拓展资料
-			if(ValidateTool.isNull(memberexpandinformationEntityList)||memberexpandinformationEntityList.size()<=0) {
+			if(ValidateTool.isNull(memberexpandinformationEntityList))
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
-			} else {
+			if(memberexpandinformationEntityList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
+			 
 				int totalrecord = memberexpandinformationService.getMemberexpandinformationTotalCount(queryMap); //查询会员拓展资料总数量
 				Map<String,Object> resultMap = new HashMap<String, Object>();
 				resultMap.put("memberexpandinformationEntityList", memberexpandinformationEntityList);
 				resultMap.put("iTotalRecord", totalrecord);
 				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
 				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

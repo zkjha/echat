@@ -12,18 +12,18 @@ package com.ecard.entity;
  * 抵用券使用情况记录
  */
 public class VoucherticketUseInfoEntity {
-	private String strVoucherUseInfoId="";
-	private String strVoucherTicketId="";
-	private String strVoucherTicketName="";
-	private String strValidEndTime="";
-	private String strMemberId="";
-	private String strMemberName="";
-	private int iStat=0;
-	private int iCanUseCount=0;
-	private int iUsedCount=0;
-	private int iIsValid=0;
-	private String strUseCountDesc="";
-	private String strRuleDesc="";
+	private String strVoucherUseInfoId="";	//主键
+	private String strVoucherTicketId="";	//关联抵用券ID
+	private String strVoucherTicketName="";	//储值券名称
+	private String strValidEndTime="";	//有效期截止时间
+	private String strMemberId="";	//领用会员ID
+	private String strMemberName="";	//领用会员姓名
+	private int iStat=0;	//抵用券状态 1未使用 2已使用 3已过期
+	private int iCanUseCount=0;	//可使用次数
+	private int iUsedCount=0;	//已经使用次数
+	private int iIsValid=0;	//是否生效 0 禁用 1 启用
+	private String strUseCountDesc="";//使用次数描述
+	private String strRuleDesc="";//储值券使用规则描述
 	private String strReserved="";
 	
 	/**

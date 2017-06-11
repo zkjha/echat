@@ -15,22 +15,22 @@ import java.util.List;
  *
  */
 public class GoodsInfoEntity {
-	private String strGoodsId="";
-	private String strGoodsBarCode="";
-	private String strUnitId="";
-	private String strUnitName="";
-	private String strGoodsName="";
-	private String strGoodsTypeId="";
-	private String strGoodsTypeName="";
-	private String strSupplierName="";
-	private int iRequiredIntegral=0;
-	private BigDecimal dEnterPrice;
-	private BigDecimal dSalePrice;
-	private int iStock=0;
-	private int iPreferentialType=0;
-	private int iState=0;
-	private String txtGoodsDesc="";
-	private String txtGoodsDescDetail="";
+	private String strGoodsId="";			//主键
+	private String strGoodsBarCode="";		//商品条码
+	private String strUnitId="";			//计量单位ID
+	private String strUnitName="";			//商品计量单位名称
+	private String strGoodsName="";			//商品名称
+	private String strGoodsTypeId="";		//商品所属种类ID
+	private String strGoodsTypeName="";		//商品种类名称
+	private String strSupplierName="";		//商品供应商名称
+	private int iRequiredIntegral=0;		//兑换商品所需积分
+	private BigDecimal dEnterPrice;			//商品进价
+	private BigDecimal dSalePrice;			//商品销售价格
+	private int iStock=0;					//商品库存
+	private int iPreferentialType=0;		//商品优惠类型 0 不优惠 1 按照会员等级优惠
+	private int iState=0;					//商品状态 0 不使用 1 使用
+	private String txtGoodsDesc="";			//富文本描述信息
+	private String txtGoodsDescDetail="";	//富文本描述信息
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";

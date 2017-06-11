@@ -11,21 +11,21 @@ import java.math.BigDecimal;
 
 /**
  * author:qidongbo
- *
+ *后台售后充值记录表
  */
 public class MemberRechargeRecord {
 
-	private String strRechargeId="";
-	private String strMemberId="";
-	private String strMemberCardNum="";
-	private String strMemberName="";
-	private BigDecimal dBalance;
+	private String strRechargeId="";	//主键
+	private String strMemberId="";		//会员ID
+	private String strMemberCardNum="";	//会员卡号
+	private String strMemberName="";	//用户姓名
+	private BigDecimal dBalance;		//金额
 	private String strEmployeeId="";
 	private String strEmployeeRealName="";
 	private String strEmployeeLoginName="";
 	private String strInsertTime="";
 	private String strReserved="";
-	private int iRechargeType=0;
+	private int iRechargeType=0;	//充值类型 0:现金充值 1售后储值充值
 
 	
 	/**

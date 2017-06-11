@@ -9,15 +9,15 @@ package com.ecard.entity;
 
 /**
  * @author apple
- *
+ *储值卡规则信息
  */
 public class StoredticketRuleEntity {
-	private String strTicketId="";
-	private String strTicketName="";
-	private int iTicketType=0;
-	private String strValidEndTime="";
-	private int iIsValid=0;
-	private String strTicketRuleDesc="";
+	private String strTicketId="";	//主键
+	private String strTicketName="";	//储值券名称
+	private int iTicketType=0;		//储值券类型  0 售后储值 1 现金储值
+	private String strValidEndTime="";	//有效期截止时间  只有售后充值才有有效期 售后充值就是赠送给用户的
+	private int iIsValid=0;	//是否生效 0 禁用 1 启用
+	private String strTicketRuleDesc="";	//储值券使用规则描述
 	private String strReserved="";
 	
 	/**

@@ -198,16 +198,17 @@ public class VoucherTicketInfoController {
 				queryMap.put("iPageFrom", iPageFrom);
 				queryMap.put("iPageSize", iPageSize);
 				List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=voucherTicketInfoService.selectVoucherTicketInfo(queryMap);
-				if(listVoucherTicketInfoEntity==null||listVoucherTicketInfoEntity.size()==0)
+				if(listVoucherTicketInfoEntity==null)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
-				else
-				{
-					Map<String,Object> resultMap=new HashMap<String,Object>();
-					resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
-					resultMap.put("iTotalRecord", iTotalRecord);
-					resultMap.put("iTotalPage", iTotalPage);
-					return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
-				}
+				if(listVoucherTicketInfoEntity.size()==0)
+					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				
+				Map<String,Object> resultMap=new HashMap<String,Object>();
+				resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+				resultMap.put("iTotalRecord", iTotalRecord);
+				resultMap.put("iTotalPage", iTotalPage);
+				return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+				
 			}
 			else
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
@@ -425,7 +426,9 @@ public class VoucherTicketInfoController {
 		*/
 		try{
 			List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=voucherTicketInfoService.getListBoxtVoucherTicketInfo();
-			if(listVoucherTicketInfoEntity==null||listVoucherTicketInfoEntity.size()==0)
+			if(listVoucherTicketInfoEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listVoucherTicketInfoEntity.size()==0)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);

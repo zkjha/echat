@@ -97,7 +97,6 @@ public class RechargePresentsController {
 		if(ValidateTool.isEmptyStr(strMorePresentsVoucherNumber))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"多赠送数量不能为空",null);
 		
-		
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		
@@ -107,8 +106,7 @@ public class RechargePresentsController {
 		if(ValidateTool.isEmptyStr(strValidateEndTime))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"有效期结束时间不能为空",null);
 			*/
-		if(ValidateTool.isEmptyStr(strEnabled))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
+		
 		
 		//取出各个字段值
 		strBasePresentsVoucherTicketIdArray=strBasePresentsVoucherTicketId.split(",");
@@ -298,10 +296,6 @@ public class RechargePresentsController {
 		if(ValidateTool.isEmptyStr(strEnabled))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
 		
-
-		if(ValidateTool.isEmptyStr(strEnabled))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"启用状态不能为空",null);
-		
 		//取出各个字段值
 		strRechargePresentsVoucherIdArray=strRechargePresentsVoucherId.split(",");
 		strBasePresentsVoucherTicketIdArray=strBasePresentsVoucherTicketId.split(",");
@@ -450,8 +444,10 @@ public class RechargePresentsController {
 		List<RechargePresentsVoucherEntity> listRechargePresentsVoucherEntity=new ArrayList<RechargePresentsVoucherEntity>();
 		try{
 			listRechargePresentsVoucherEntity=rechargePresentsService.selectAllRechargePresentsVoucher(strActivityId);
-			if(listRechargePresentsVoucherEntity==null||listRechargePresentsVoucherEntity.size()==0)
-			return DataTool.constructResponse(ResultCode.NO_DATA,"暂时没有数据",null);
+			if(listRechargePresentsVoucherEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂时没有数据",null);
+			if(listRechargePresentsVoucherEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂时没有数据",null);
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("listRechargePresentsVoucherEntity",listRechargePresentsVoucherEntity);
 			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
@@ -865,8 +861,11 @@ public class RechargePresentsController {
 			DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动关键字不能为空",null);
 		try{
 			List<RechargePresentsStoredValueEntity> listRechargePresentsStoredValueEntity=rechargePresentsService.selectAllRechargePresentsStoredValue(strActivityId);
-			if(listRechargePresentsStoredValueEntity==null||listRechargePresentsStoredValueEntity.size()==0)
+			if(listRechargePresentsStoredValueEntity==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listRechargePresentsStoredValueEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("listRechargePresentsStoredValueEntity", listRechargePresentsStoredValueEntity);
 			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
@@ -1084,7 +1083,9 @@ public class RechargePresentsController {
 			DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"活动关键字不能为空",null);
 		try{
 			List<RechargePresentsIntegrationEntity> listRechargePresentsIntegrationEntity=rechargePresentsService.selectAllRechargePresentsIntegration(strActivityId);
-			if(listRechargePresentsIntegrationEntity==null||listRechargePresentsIntegrationEntity.size()==0)
+			if(listRechargePresentsIntegrationEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listRechargePresentsIntegrationEntity.size()==0)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 			Map<String,Object> resultMap=new HashMap<String,Object>();
 			resultMap.put("listRechargePresentsIntegrationEntity", listRechargePresentsIntegrationEntity);
@@ -1269,8 +1270,8 @@ public class RechargePresentsController {
 	public String selectRechargePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段
-		//strSearchEnabledStatus=活动状态：全部：ALL；过期:EXPIRED，正常:NORMAL
-		//strSearchMemberLevel=ALL 全部
+		//strSearchEnabledStatus=接收参数值为：全部:"ALL(或空值)"；过期:"EXPIRED"，正常:"NORMAL"
+		//strSearchMemberLevel=接收参数值为："ALL(或空值)" 全部；其它会员级别ID值
 		int iPageNum,iPageSize,iTotalPage,iTotalRecord=0,iPageFrom;
 		String strSearchMemberLevel=request.getParameter("strSearchMemberLevel");
 		String strSearchEnabledStatus=request.getParameter("strSearchEnabledStatus");
@@ -1278,7 +1279,7 @@ public class RechargePresentsController {
 		String strPageSize=request.getParameter("iPageSize");
 		String strCurrentDate=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD);
 		
-		if(strSearchMemberLevel==null||strSearchMemberLevel.trim()=="")
+		if(strSearchMemberLevel==null||"".equals(strSearchMemberLevel.trim()))
 			strSearchMemberLevel="";
 		
 		if("ALL".equals(strSearchMemberLevel))
@@ -1353,13 +1354,12 @@ public class RechargePresentsController {
 					listRechargePresentsActivityEntity=rechargePresentsService.selectExpiredRechargePresentsActivityInfo(queryMap);
 				
 				if("NORMAL".equals(strSearchEnabledStatus))
-					{
 					listRechargePresentsActivityEntity=rechargePresentsService.selectNormalRechargePresentsActivityInfo(queryMap);
-				
-					}
-				
-				if(listRechargePresentsActivityEntity==null||listRechargePresentsActivityEntity.size()==0)
+				if(listRechargePresentsActivityEntity==null)
 					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				if(listRechargePresentsActivityEntity.size()==0)
+					return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+				
 				Map<String,Object> resultMap=new HashMap<String,Object>();
 				resultMap.put("iTotalRecord",iTotalRecord);
 				resultMap.put("iTotalPage",iTotalPage);

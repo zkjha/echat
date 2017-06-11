@@ -197,7 +197,7 @@ public class GoodsInfoController {
 	    
 	    //解析商品会员优惠信息  会员ID1,会员名称1,兑换积分数1｜会员ID2,会员名称2,兑换积分数2｜
 	    String [] arrGoodsPreferentialInfos = strGoodsPreferentialInfos.split("\\|");
-	    System.out.println(strGoodsPreferentialInfos);
+	    //System.out.println(strGoodsPreferentialInfos);
 	    List<GoodsPreferentialEntity> listGoodsPreferentialEntity = new ArrayList<GoodsPreferentialEntity>();
 	    if (arrGoodsPreferentialInfos != null)
 	    {
@@ -211,14 +211,17 @@ public class GoodsInfoController {
 	    		String [] arrOneLineStrings = arrGoodsPreferentialInfos[iLoop].split(",");
 	    		System.out.println(arrGoodsPreferentialInfos[iLoop]);
 	    		
-	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 3)
+	    		if (arrOneLineStrings == null)
 	    		{
 	    			iRight = 0;
 	    			break;
 	    		}
 	    		
-	    		
-
+	    		if(arrOneLineStrings.length != 3)
+	    		{
+	    			iRight = 0;
+	    			break;
+	    		}
 	    		tGoodsPreferentialEntity.setStrLevelsId(arrOneLineStrings[0]);
 	    		tGoodsPreferentialEntity.setStrLevelsName(arrOneLineStrings[1]);
 	    		tGoodsPreferentialEntity.setiRequiredIntegral(Integer.parseInt(arrOneLineStrings[2]));
@@ -400,12 +403,17 @@ public class GoodsInfoController {
 	    		
 	    		// 解析单行
 	    		String [] arrOneLineStrings = arrGoodsPreferentialInfos[iLoop].split(",");
-	    		if (arrOneLineStrings == null || arrOneLineStrings.length != 4)
+	    		if (arrOneLineStrings == null)
 	    		{
 	    			iRight = 0;
 	    			break;
 	    		}
 	    		
+	    		if(arrOneLineStrings.length != 4)
+				{
+					iRight = 0;
+					break;
+				}
 	    		tGoodsPreferentialEntity.setStrPreferentialId(arrOneLineStrings[0]);
 	    		tGoodsPreferentialEntity.setStrLevelsId(arrOneLineStrings[1]);
 	    		tGoodsPreferentialEntity.setStrLevelsName(arrOneLineStrings[2]);
@@ -531,19 +539,19 @@ public class GoodsInfoController {
 	    try{
 	        List<GoodsInfoEntity> listGoodsInfo= tGoodsInfoService.getListGoodsInfo(queryMap);
 	        
-	        if (ValidateTool.isNull(listGoodsInfo) || listGoodsInfo.size() <= 0)
-	        {
+	        if (ValidateTool.isNull(listGoodsInfo)) 
 	            return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
-	        }
-	        else
-	        {
+	        
+	        if(listGoodsInfo.size() <= 0)
+	        	 return DataTool.constructResponse(ResultCode.NO_DATA, "暂无数据", null);
+	       
 	            int totalrecord = tGoodsInfoService.getGoodsInfoTotalCount(queryMap);
 	            Map<String, Object> resultMap = new HashMap<String, Object>();
 	            resultMap.put("listGoodsInfo", listGoodsInfo);
 	            resultMap.put("iTotalRecord", totalrecord);
 	            resultMap.put("iTotalPage", totalrecord % iPagesize == 0 ? totalrecord / iPagesize : totalrecord / iPagesize + 1);
 	            return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-	        }
+	        
 	    }catch(Exception e) {
 	        e.printStackTrace();
 	        return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "查询失败", null);

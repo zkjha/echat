@@ -12,22 +12,22 @@ import java.util.List;
 
 /**
  * @author apple
- *
+ *服务项目信息
  */
 public class ServiceInfoEntity {
-	private BigDecimal dSalePrice;	
-	private String strServiceInfoId="";
-	private String strServiceInfoName="";
-	private String strServiceTypeId="";
-	private String strServiceTypeName="";
-	private String strServiceBarCode="";
-	private String strUnitId="";
-	private String strUnitName="";
-	private String strSupplierName="";
-	private int iPreferentialType=0;
-	private int iState=0;
-	private String txtServiceDesc="";
-	private String txtServiceDescDetail="";
+	private BigDecimal dSalePrice;	//服务销售价格
+	private String strServiceInfoId="";	//主键
+	private String strServiceInfoName="";	//服务类别名称
+	private String strServiceTypeId="";		//关联的服务类别 ID
+	private String strServiceTypeName="";	//关联的服务类别名称
+	private String strServiceBarCode="";//编号条码
+	private String strUnitId="";	//服务单位ID
+	private String strUnitName="";	//服务计量单位名称
+	private String strSupplierName="";	//供应商名称
+	private int iPreferentialType=0;	//商品优惠类型 0 不优惠 1 按照会员等级优惠
+	private int iState=0;		//商品状态 0 不使用 1 使用 
+	private String txtServiceDesc="";	//富文本描述信息
+	private String txtServiceDescDetail="";	//富文本详情描述信息
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";

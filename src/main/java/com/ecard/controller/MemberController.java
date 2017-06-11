@@ -259,15 +259,20 @@ public class MemberController {
 				resultMap.put("memberdetailEntity", new Object());
 			}
 			List<MemberlevelsEntity> memberlevelsEntityList = memberService.listAllMemberLevels(MemberlevelsStatusEnum.ACTIVATE.getValue()); //查询所有可用的会员级别
-			if(memberlevelsEntityList==null||memberlevelsEntityList.size()<=0) {
+			if(memberlevelsEntityList==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
-			}
+			if(memberlevelsEntityList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
+			
 			resultMap.put("memberlevelsEntityList", memberlevelsEntityList);
 			
 			List<MemberexpandinformationVO> memberexpandinformationVOList = memberService.listAllExpandInfo(strMemberid); //查询并组装会员拓展资料信息
-			if(memberexpandinformationVOList==null||memberexpandinformationVOList.size()<=0) {
+			if(memberexpandinformationVOList==null) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
 			}
+			
+			if(memberexpandinformationVOList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
 			resultMap.put("memberexpandinformationVOList", memberexpandinformationVOList);
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
 			
@@ -451,9 +456,11 @@ public class MemberController {
 	public String listAllMemberLevels(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<MemberlevelsEntity> memberlevelsEntityList = memberService.listAllMemberLevels(MemberlevelsStatusEnum.ACTIVATE.getValue()); //查询所有可用的会员级别
-			if(memberlevelsEntityList==null||memberlevelsEntityList.size()<=0) {
+			if(memberlevelsEntityList==null) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
 			}
+			if(memberlevelsEntityList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员级别", null);
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("memberlevelsEntityList", memberlevelsEntityList);
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
@@ -476,9 +483,11 @@ public class MemberController {
 		String strMemberid = request.getParameter("strMemberid");
 		try {
 			List<MemberexpandinformationVO> memberexpandinformationVOList = memberService.listAllExpandInfo(strMemberid); //查询并组装会员拓展资料信息
-			if(memberexpandinformationVOList==null||memberexpandinformationVOList.size()<=0) {
+			if(memberexpandinformationVOList==null) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
 			}
+			if(memberexpandinformationVOList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员拓展资料", null);
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("memberexpandinformationVOList", memberexpandinformationVOList);
 			return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
@@ -517,16 +526,18 @@ public class MemberController {
 			queryMap.put("pageSize", iPagesize);
 			queryMap.put("strSearchkey", strSearchkey);
 			List<MemberVO> memberList = memberService.listMember(queryMap);
-			if(ValidateTool.isNull(memberList)||memberList.size()<=0) {
+			if(ValidateTool.isNull(memberList)) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员", null);
-			} else {
+			}
+			if(memberList.size()<=0)
+				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无会员", null);
 				int totalrecord = memberService.getMemberTotalCount(queryMap); //查询会员总数量
 				Map<String,Object> resultMap = new HashMap<String, Object>();
 				resultMap.put("memberList", memberList);
 				resultMap.put("iTotalRecord", totalrecord);
 				resultMap.put("iTotalPage", totalrecord%iPagesize == 0 ? totalrecord/iPagesize : totalrecord/iPagesize+1);
 				return DataTool.constructResponse(ResultCode.OK, "查询成功", resultMap);
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
@@ -705,7 +716,7 @@ public class MemberController {
 		// 判断必须是数字＋小数点
 		for(int iLoop = strRechargeAmount.length(); --iLoop>=0;) {
             int chr=strRechargeAmount.charAt(iLoop);  
-            System.out.println(chr);  
+          //  System.out.println(chr);  
             if(chr<48 || chr>57) {  
               if(chr != 46)  
               {
