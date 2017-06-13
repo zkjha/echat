@@ -20,9 +20,21 @@ public class SignIntegrationRuleSetService {
 	
 	//插入连续签到积分规则
 	public int insertSignIntegrationRule(SignIntegrationRuleEntity signIntegrationRuleEntity) throws Exception
-	{
-		int rcdNum=signIntegrationRuleSetMapper.insertSignIntegrationRule(signIntegrationRuleEntity);		
+	{	
+		String strSignId="";
+		int rcdNum=0;
+		//检查数据库中是否已经存在数据，如果存在则执行更新，不存在则写入
+		strSignId=signIntegrationRuleSetMapper.findTheRecord();
+		if(strSignId.isEmpty())
+			rcdNum=signIntegrationRuleSetMapper.insertSignIntegrationRule(signIntegrationRuleEntity);
+		else
+		{
+			//更新
+			signIntegrationRuleEntity.setStrSignId(strSignId);
+			rcdNum=signIntegrationRuleSetMapper.updateSignIntegrationRule(signIntegrationRuleEntity);
+		}
 		return rcdNum;
+		
 	}
 	//插入非连续签到积分规则
 	public int insertSignIntegrationRules(SignIntegrationRuleEntity signIntegrationRuleEntity) throws Exception

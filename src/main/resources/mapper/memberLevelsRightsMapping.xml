@@ -19,7 +19,7 @@ select count(*) from tb_member_levelsRights_mapping
 <!-- 分页查询会员等级及其权益信息 -->
 <select id="selectAllMemberLevelsRightsMappingInfo" parameterType="map" resultType="com.ecard.entity.MemberLevelsRightsMappingEntity">
  select strLevelsRightsMappingId,strLevelsId,strLevelsName,strRightsId,strRightsName,iRightsStatus,dDiscount,iPreferentialTimes,strEmployeeId,strEmployeeName,strEmployeeRealName,
-strCreationTime,strLastAccessedTime from tb_member_levelsRights_mapping order by strLastAccessedTime desc limit #{iPageFrom},#{iPageSize}
+strCreationTime,strLastAccessedTime from tb_member_levelsRights_mapping order by strLastAccessedTime DESC limit #{iPageFrom},#{iPageSize}
 </select>
 
 <!-- 更新 等 级权益信息表 -->

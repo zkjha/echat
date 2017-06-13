@@ -129,6 +129,7 @@ requirejs(
                     var rs =result.data;
                     var code =rs.code;
                     var data=rs.data;
+                    console.info(result)
                     if(code==1){
                         $scope.strRealname=data.strRealname;
                         var strMerchantname= data.strMerchantname;
@@ -136,7 +137,7 @@ requirejs(
                             strMerchantname="4s名称"
                         }
                         $scope.strMerchantname=strMerchantname;
-
+                        //$scope.strMerchantname="扶手科技";
                         if( !data.strMerchantlogo){
                             $scope.had4sImage=false;
                         }else{

@@ -2,6 +2,7 @@ package com.ecard.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.MerchantEntity;
 import com.ecard.service.MerchantService;
+import com.ecard.util.Session;
 import com.ecard.util.WebSessionUtil;
 /**
  * 商家资料控制层
@@ -49,7 +51,7 @@ public class MerchantController {
 		
 		try {
 			EmployeeEntity employeeEntity = (EmployeeEntity) webSessionUtil.getWebSession(
-					request, response).getAttribute("employeeEntity");
+				request, response).getAttribute("employeeEntity");
 			MerchantEntity merchantEntity = merchantService.getMerchantById(employeeEntity.getStrMerchantid());
 			if(ValidateTool.isNull(merchantEntity)) {
 				return DataTool.constructResponse(ResultCode.NO_DATA, "暂无商家信息", null);
