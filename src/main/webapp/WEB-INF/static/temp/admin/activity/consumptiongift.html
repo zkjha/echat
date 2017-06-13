@@ -92,7 +92,7 @@
         <div class="-lpy-big-alert-window-title">
             <div  ng-switch="isAddNewExpand">
                 <div class="fl" ng-switch-default>新增自定义赠送</div>
-                <div class="fl" ng-switch-when="false">新增自定义赠送</div>
+                <div class="fl" ng-switch-when="false">修改自定义赠送</div>
             </div>
             <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
         </div>
@@ -150,11 +150,12 @@
 
                             <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
                                 <div class="clearfix" ng-repeat="listConsumePresentsIntegrationEntity in listConsumePresentsIntegrationEntity">
+                                    <input type="text" ng-hide="true" ng-value="listConsumePresentsIntegrationEntity.strIntegrationId"/>
                                     <div class="fl mt20 zjl_xcInputk">
                                         <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsIntegrationEntity.dConsumeCashAmount"  ng-model="listConsumePresentsIntegrationEntity.dConsumeCashAmount" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsIntegrationEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsIntegrationEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
                                     </div>
                                     <div class="fl f20 oranger-color ml50 mt20">
-                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsIntegrationEntity.strIntegrationId)">-</div>
+                                        <div class="fl -lpy-list-control-title" ng-click="z_deleteJf(listConsumePresentsIntegrationEntity.strIntegrationId,$index)">-</div>
                                         <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoJf()">+</div>
                                     </div>
                                 </div>
@@ -178,10 +179,10 @@
                             <div class="w500 ml50 clearfix zjl_recharge_bdbm pb10 pl10">
                                 <div class="clearfix" ng-repeat="listConsumePresentsStoredValueEntity in listConsumePresentsStoredValueEntity">
                                     <div class="fl mt20 zjl_xcInputk">
-                                        <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsStoredValueEntity.dConsumeCashAmount"  ng-model="listConsumePresentsStoredValueEntity.strSignDays" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
+                                        <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsStoredValueEntity.dConsumeCashAmount"  ng-model="listConsumePresentsStoredValueEntity.dConsumeCashAmount" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsStoredValueEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
                                     </div>
                                     <div class="fl f20 oranger-color ml50 mt20">
-                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsStoredValueEntity.strIntegrationId)">-</div>
+                                        <div class="fl -lpy-list-control-title" ng-click="z_deleteCz(listConsumePresentsStoredValueEntity.strStoredTicketId,$index)">-</div>
                                         <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoCz()">+</div>
                                     </div>
                                 </div>
@@ -209,7 +210,7 @@
                                         <div class=""><span class="red-require">*</span>消费满<input class="ml5 mr5 z_jf_line f12 w50 tc z_day_if_flx" ng-value="listConsumePresentsVoucherEntity.dConsumeCashAmount"  ng-model="listConsumePresentsVoucherEntity.dConsumeCashAmount" ngTrim="true" ng-maxlength="8" required></span>元，赠送<input class="ml5 mr5 z_jf_line f12 w50 tc z_jf_if_flx" ng-value="listConsumePresentsVoucherEntity.iPresentsIntegrationAmount" ng-model="listConsumePresentsVoucherEntity.iPresentsIntegrationAmount" ngTrim="true" ng-maxlength="8" required></span>积分</div>
                                     </div>
                                     <div class="fl f20 oranger-color ml50 mt20">
-                                        <div class="fl -lpy-list-control-title" ng-click="z_delete(listConsumePresentsVoucherEntity.strIntegrationId)">-</div>
+                                        <div class="fl -lpy-list-control-title" ng-click="z_deleteDyq(listConsumePresentsVoucherEntity.strConsumePresentsVoucherId,$index)">-</div>
                                         <div class="fl ml10 -lpy-list-control-title" ng-click="newExpandinginfoDyq()">+</div>
                                     </div>
                                     <div class="fl mt10 w200">

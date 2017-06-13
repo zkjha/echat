@@ -270,7 +270,7 @@ define(
                         var rs = result.data;
                         var code = rs.code;
                         var data = rs.data;
-
+                        console.info(result)
                         if (code == 1) {
                             // 图片跟路径
                             var strImgrootpath = data.strImgrootpath;
