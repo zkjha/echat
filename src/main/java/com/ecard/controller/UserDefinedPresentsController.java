@@ -34,7 +34,7 @@ import com.ecard.service.UserDefinedPresentsService;
 import com.ecard.util.WebSessionUtil;
 
 @Controller
-@RequestMapping("/admin/UserDefinedPresentsSetting")
+@RequestMapping("/admin/biz/UserDefinedPresentsSetting")
 public class UserDefinedPresentsController
 {
 	@Autowired
@@ -49,7 +49,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("insertUserDefinedPresentsActivityInfo")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
 	public String insertUserDefinedPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=DataTool.getUUID();
@@ -130,7 +130,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("updateUserDefinedPresentsActivityInfo")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsActivityInfo?strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&strActivityName=this is a test&strLevelsId=1&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsActivityInfo?strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&strActivityName=this is a test&strLevelsId=1&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
 	public String updateUserDefinedPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=request.getParameter("strActivityId");
@@ -210,7 +210,7 @@ public class UserDefinedPresentsController
 
 	@ResponseBody
 	@RequestMapping("selectUserDefinedPresentActivityById")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectUserDefinedPresentActivityById?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/selectUserDefinedPresentActivityById?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
 	public String selectUserDefinedPresentActivityById(HttpServletResponse response,HttpServletRequest request)
 	{
 		
@@ -256,7 +256,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("insertUserDefinedPresentsIntegration")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsIntegration?strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&iPresentsIntegration=100&iEnabled=1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsIntegration?strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&iPresentsIntegration=100&iEnabled=1
 	public String insertUserDefinedPresentsIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		int iPresentsIntegration,iEnabled;
@@ -340,7 +340,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("updateUserDefinedPresentsIntegration")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsIntegration?strPresentsIntegrationId=704c9e7d0c074aacb016f8f8b6da023b&strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&iPresentsIntegration=1&iEnabled=1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsIntegration?strPresentsIntegrationId=704c9e7d0c074aacb016f8f8b6da023b&strActivityId=a2b1adf79dd0436f8d28ee6c043d712c&iPresentsIntegration=1&iEnabled=1
 	public String updateUserDefinedPresentsIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		int iPresentsIntegration,iEnabled;
@@ -425,7 +425,7 @@ public class UserDefinedPresentsController
 
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsIntegration")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
 	public String selectAllUserDefinedPresentsIntegration(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -469,7 +469,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("deleteUserDefinedPresentsIntegrationEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsIntegrationEntity?strPresentsIntegrationId=704c9e7d0c074aacb016f8f8b6da023b
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsIntegrationEntity?strPresentsIntegrationId=704c9e7d0c074aacb016f8f8b6da023b
 	public String deleteUserDefinedPresentsIntegrationEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 		//身份检测
@@ -505,7 +505,7 @@ public class UserDefinedPresentsController
 	//新增一条自定义活动赠送储值信息UserDefinedPresentsStoredValueEntity记录
 	@ResponseBody
 	@RequestMapping("insertUserDefinedPresentsStoredValueEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsStoredValueEntity?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9&dPresentsAmount=600&iEnabled=1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsStoredValueEntity?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9&dPresentsAmount=600&iEnabled=1
 	public String insertUserDefinedPresentsStoredValueEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 
@@ -590,7 +590,7 @@ public class UserDefinedPresentsController
 	//更新一条自定义赠送储值信息UserDefinedPresentsStoredValueEntity记录
 	@ResponseBody
 	@RequestMapping("updateUserDefinedPresentsStoredValueEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsStoredValueEntity?strPresentsStoredValueId=626603e102e141a8b2a3a6bc7cf688f1&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9&dPresentsAmount=400&iEnabled=1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsStoredValueEntity?strPresentsStoredValueId=626603e102e141a8b2a3a6bc7cf688f1&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9&dPresentsAmount=400&iEnabled=1
 	public String updateUserDefinedPresentsStoredValueEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 
@@ -679,7 +679,7 @@ public class UserDefinedPresentsController
 	//删除一条自定义活动赠送储值UserDefinedPresentsStoredValueEntity记录
 	@ResponseBody
 	@RequestMapping("deleteUserDefinedPresentsStoredValueEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsStoredValueEntity?strPresentsStoredValueId=626603e102e141a8b2a3a6bc7cf688f1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsStoredValueEntity?strPresentsStoredValueId=626603e102e141a8b2a3a6bc7cf688f1
 	public String deleteUserDefinedPresentsStoredValueEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 		//身份检测
@@ -720,7 +720,7 @@ public class UserDefinedPresentsController
 
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsStoredValueEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsStoredValueEntity?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsStoredValueEntity?strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9
 	public String selectAllUserDefinedPresentsStoredValueEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -758,7 +758,7 @@ public class UserDefinedPresentsController
 	//批量插入自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("batchInsertUserDefinedPresentsVoucherEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity?strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=100,50&iEnabled=1,1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity?strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=100,50&iEnabled=1,1
 	public String batchInsertUserDefinedPresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -884,7 +884,7 @@ public class UserDefinedPresentsController
 	//批量更新自定义活动赠送抵用券信息userDefinedPresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("batchUpdateUserDefinedPresentsVoucherEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163,303e51e59d53490491705fe3b2002146&strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=500,500&iEnabled=0,0
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163,303e51e59d53490491705fe3b2002146&strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=4e47aadafcbf4177a9d81a1c2e4006a9,9d139dbd9c364193b6cd1e5782e0770c&iTotalNum=500,500&iEnabled=0,0
 	public String batchUpdateUserDefinedPresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 		//声明数组
@@ -1014,7 +1014,7 @@ public class UserDefinedPresentsController
 	//查询自定义赠送抵用券信息UserDefinedPresentsVoucherEntity列表
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsVoucherEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity
 	public String selectAllUserDefinedPresentsVoucherEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=request.getParameter("strActivityId");
@@ -1056,7 +1056,7 @@ public class UserDefinedPresentsController
 	//删除一条自定义赠送抵用券信息userDefinedPresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("deleteUserDefinedPresentsVoucherEntity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity?strPresentsVoucherId=1f13429431264fd38ed743325f669163
 	public String deleteUserDefinedPresentsVoucherEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 	String strPresentsVoucherId=request.getParameter("strPresentsVoucherId");
@@ -1097,7 +1097,7 @@ public class UserDefinedPresentsController
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllUserDefinedPresentsActivity")
-	//http://localhost:8083/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1
+	//http://localhost:8083/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity?iPageNum=1&iPageSize=1
  	public String selectAllUserDefinedPresentsActivity(HttpServletRequest request,HttpServletResponse response)
 	
 	{
@@ -1203,7 +1203,7 @@ public class UserDefinedPresentsController
 		//查询一条自定义赠送活动信息rechargePresentsActivityEntity
 		@ResponseBody
 		@RequestMapping("selectUserDefinedPresentsActivityEntity")
-		//localhost:8083/admin/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity
+		//localhost:8083/admin/biz/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity
 		public String selectUserDefinedPresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 		{
 
@@ -1240,7 +1240,7 @@ public class UserDefinedPresentsController
 	//删除除活动，及活动所关联的积分，储值信息
 	@ResponseBody
 	@RequestMapping("deleteUserDefinedActivityInfo")
-	//localhost:8083/admin/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo?strActivityId=tyurhh445556
+	//localhost:8083/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo?strActivityId=tyurhh445556
 	public String deleteUserDefinedActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		/*
