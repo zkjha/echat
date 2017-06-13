@@ -8,7 +8,7 @@
 
 <!-- 查出iImgOrder字段中值最大的记录 -->
 <select id="findRecordBeforeInsertion" resultType="int">
-	select iImgOrder from tb_img_advertisement order by iImgOrder desc limit 0,1
+	select iImgOrder from tb_img_advertisement order by iImgOrder DESC limit 0,1
 </select>
 
 <!-- 新增图片广告记录 -->
@@ -29,17 +29,17 @@
 
 <!-- 查询所有记录 -->
 <select id="findAllImaggeAdvertisement" resultType="com.ecard.entity.ImgAdvertisementEntity">
- select * from tb_img_advertisement order by iImgOrder asc
+ select * from tb_img_advertisement order by iImgOrder ASC
 </select>
 
 <!-- 检查图片是否可以上移 -->
 <select id="upwardImageAdvertisement" parameterType="int" resultType="com.ecard.entity.ImgAdvertisementEntity">
- select * from tb_img_advertisement where iImgOrder &lt;#{iImgOrder} order by iImgOrder desc limit 0,1
+ select * from tb_img_advertisement where iImgOrder &lt;#{iImgOrder} order by iImgOrder DESC limit 0,1
 </select>
 
 <!-- 检查图片是否可以下移 -->
 <select id="downwardImageAdvertisement" parameterType="int" resultType="com.ecard.entity.ImgAdvertisementEntity">
- select * from tb_img_advertisement where iImgOrder &gt;#{iImgOrder} order by iImgOrder asc limit 0,1
+ select * from tb_img_advertisement where iImgOrder &gt;#{iImgOrder} order by iImgOrder ASC limit 0,1
 </select>
 
 </mapper>

@@ -518,7 +518,7 @@ public class GoodsInfoController {
 	@RequestMapping("getListGoodsInfoByPage")
 	public String getListGoodsInfo(HttpServletRequest request, HttpServletResponse response){
 		
-		System.out.println("getListGoodsInfo");  
+		//System.out.println("getListGoodsInfo");  
 
 	    String pagenum = request.getParameter("pagenum");
 	    String pagesize = request.getParameter("pagesize");

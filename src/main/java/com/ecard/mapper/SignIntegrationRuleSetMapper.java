@@ -23,4 +23,6 @@ public interface SignIntegrationRuleSetMapper {
 	public int deleteSignIntegrationRule(String strSignId) throws Exception;
 	//删除积分抵现规则
 	public int deleteIntegrationCashRule(String strId) throws Exception;
+	//查找数据库中有无连续性签到积分规则有则返回ID
+	public String findTheRecord() throws Exception;
 }

@@ -36,6 +36,7 @@ public class WebSessionUtil {
 			for (Cookie cookie : cookies) {
 				if(cookie.getName().equals(StaticValue.COOKIENAME)){
 					sessionid=cookie.getValue();
+					
 				};
 			}
 		}

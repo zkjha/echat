@@ -10,7 +10,7 @@
  (#{strSignId},#{strSignDays},#{strStatus},#{iIntegration},#{strEnabled},#{strCreationTime},#{strLastAccessedTime},#{strEmployeeId},#{strEmployeeName},#{strEmployeeRealName})
 </insert>
 
-<!-- 更新签到签到积分规则表 -->
+<!-- 更新签到积分规则表 -->
 <update id="updateSignIntegrationRule" parameterType="com.ecard.entity.SignIntegrationRuleEntity">
 	update tb_sign_integration_rule set strSignDays=#{strSignDays},strStatus=#{strStatus},iIntegration=#{iIntegration},strEnabled=#{strEnabled},
 	strLastAccessedTime=#{strLastAccessedTime},strEmployeeId=#{strEmployeeId},strEmployeeName=#{strEmployeeName},strEmployeeRealName=#{strEmployeeRealName}
@@ -34,17 +34,17 @@ where strId=#{strId}
 
 <!-- 显示全部非连续性签到积分规则 -->
 <select id="findAllSignIntegrationRules" resultType="com.ecard.entity.SignIntegrationRuleEntity">
- select * from tb_sign_integration_rule where strStatus='0' order by strCreationTime desc
+ select * from tb_sign_integration_rule where strStatus='0' order by strCreationTime DESC
 </select>
 
 <!-- 显示全部连续性签到积分规则 -->
 <select id="findAllSignIntegrationRule" resultType="com.ecard.entity.SignIntegrationRuleEntity">
- select * from tb_sign_integration_rule where strStatus='1' order by strCreationTime desc
+ select * from tb_sign_integration_rule where strStatus='1' order by strCreationTime DESC
 </select>
 
 <!-- 查询所有积分抵现规则 -->
 <select id="findAllIntegrationCashRule" resultType="com.ecard.entity.IntegrationCashRuleEntity">
- select * from tb_integration_cash_rule order by strCreationTime desc
+ select * from tb_integration_cash_rule order by strCreationTime DESC
 </select>
 
 <!-- 删除签到积分规则 -->
@@ -57,4 +57,8 @@ where strId=#{strId}
  delete from tb_integration_cash_rule where strId=#{strId}
 </delete>
 
+<!-- 查找数据库中有无连续性签到规则，有则返回ID -->
+<select id="findTheRecord" resultType="String">
+  select strSignId from tb_sign_integration_rule where strStatus='1'
+</select>
 </mapper>
