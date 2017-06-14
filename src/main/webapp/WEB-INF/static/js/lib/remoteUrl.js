@@ -231,113 +231,113 @@ define([],function(){
             //首次入会 -- 抵用券 -- 查询
             selectVoucherTicketPresentsInfo:"/admin/biz/presentsSetting/selectVoucherTicketPresentsInfo",
             //充值赠送 -- 分页查询
-            selectRechargePresentsActivityInfo:"/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo",
+            selectRechargePresentsActivityInfo:"/admin/biz/RechargePresentsSetting/selectRechargePresentsActivityInfo",
             //充值赠送 -- 删除
-            deleteRechargePresentsActivityInfo:"/admin/RechargePresentsSetting/deleteRechargePresentsActivityInfo",
+            deleteRechargePresentsActivityInfo:"/admin/biz/RechargePresentsSetting/deleteRechargePresentsActivityInfo",
             //充值赠送 -- 更新活动
-            updatePresentsActivityInfo:"/admin/RechargePresentsSetting/updatePresentsActivityInfo",
+            updatePresentsActivityInfo:"/admin/biz/RechargePresentsSetting/updatePresentsActivityInfo",
             //充值赠送 -- 活动信息 -- 新增
-            insertPresentsActivityInfo:"/admin/RechargePresentsSetting/insertPresentsActivityInfo",
+            insertPresentsActivityInfo:"/admin/biz/RechargePresentsSetting/insertPresentsActivityInfo",
             //充值赠送 -- 活动信息 -- 查询
-            selectAllRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity",
+            selectAllRechargePresentsActivityEntity:"/admin/biz/RechargePresentsSetting/selectAllRechargePresentsActivityEntity",
             //充值赠送 -- 赠送储值 -- 删除
-            deleteRechargePresentsStoredValue:"/admin/RechargePresentsSetting/deleteRechargePresentsStoredValue",
+            deleteRechargePresentsStoredValue:"/admin/biz/RechargePresentsSetting/deleteRechargePresentsStoredValue",
             //充值赠送 -- 赠送储值 -- 批量新增
-            batchInsertRechargePresentsStoredValue:"/admin/RechargePresentsSetting/batchInsertRechargePresentsStoredValue",
+            batchInsertRechargePresentsStoredValue:"/admin/biz/RechargePresentsSetting/batchInsertRechargePresentsStoredValue",
             //充值赠送 -- 赠送储值 -- 批量更新
-            batchUpdateRechargePresentsStoredValue:"/admin/RechargePresentsSetting/batchUpdateRechargePresentsStoredValue",
+            batchUpdateRechargePresentsStoredValue:"/admin/biz/RechargePresentsSetting/batchUpdateRechargePresentsStoredValue",
             //充值赠送 -- 赠送储值 -- 查询
-            selectAllRechargePresentsStoredValue:"/admin/RechargePresentsSetting/selectAllRechargePresentsStoredValue",
+            selectAllRechargePresentsStoredValue:"/admin/biz/RechargePresentsSetting/selectAllRechargePresentsStoredValue",
             //充值赠送 -- 赠送抵用券 -- 删除
-            deleteRechargePresentsVoucher:"/admin/RechargePresentsSetting/deleteRechargePresentsVoucher",
+            deleteRechargePresentsVoucher:"/admin/biz/RechargePresentsSetting/deleteRechargePresentsVoucher",
             //充值赠送 -- 赠送抵用券 -- 批量修改
-            updateRechargePresentsVoucher:"/admin/RechargePresentsSetting/updateRechargePresentsVoucher",
+            updateRechargePresentsVoucher:"/admin/biz/RechargePresentsSetting/updateRechargePresentsVoucher",
             //充值赠送 -- 赠送抵用券 -- 查询
-            selectAllRechargePresentsVoucher:"/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher",
+            selectAllRechargePresentsVoucher:"/admin/biz/RechargePresentsSetting/selectAllRechargePresentsVoucher",
             //充值赠送 -- 赠送积分 -- 新增
-            insertRechargePresentsIntegration:"/admin/RechargePresentsSetting/insertRechargePresentsIntegration",
+            insertRechargePresentsIntegration:"/admin/biz/RechargePresentsSetting/insertRechargePresentsIntegration",
             //充值赠送 -- 赠送积分 -- 更新
-            updateRechargePresentsIntegration:"/admin/RechargePresentsSetting/updateRechargePresentsIntegration",
+            updateRechargePresentsIntegration:"/admin/biz/RechargePresentsSetting/updateRechargePresentsIntegration",
             //充值赠送 -- 赠送积分 -- 查询
-            selectAllRechargePresentsIntegration:"/admin/RechargePresentsSetting/selectAllRechargePresentsIntegration",
+            selectAllRechargePresentsIntegration:"/admin/biz/RechargePresentsSetting/selectAllRechargePresentsIntegration",
             //充值赠送 --抵用券赠送 -- 批量新增
-            batchInsertRechargePresentsVoucher:"/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
+            batchInsertRechargePresentsVoucher:"/admin/biz/RechargePresentsSetting/batchInsertRechargePresentsVoucher",
             //充值赠送 -- 赠送活动 -- 刚新建活动信息查询 单条
-            selectRechargePresentsActivityEntity:"/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity",
+            selectRechargePresentsActivityEntity:"/admin/biz/RechargePresentsSetting/selectRechargePresentsActivityEntity",
             //    充值赠送 -- 赠送活动 -- 抵用券查询刚新建的 单条
-            selectRechargePresentsStoredValueEntity:"/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity",
+            selectRechargePresentsStoredValueEntity:"/admin/biz/RechargePresentsSetting/selectRechargePresentsStoredValueEntity",
          //   自定义赠送 --活动信息-- 分页查询
-        selectAllUserDefinedPresentsActivity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity",
+        selectAllUserDefinedPresentsActivity:"/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsActivity",
         //   自定义赠送 -- 分页显示 --删除
-        deleteUserDefinedActivityInfo:"/admin/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo",
+        deleteUserDefinedActivityInfo:"/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedActivityInfo",
         //   自定义赠送 -- 活动信息 -- 新增
-        insertUserDefinedPresentsActivityInfo:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo",
+        insertUserDefinedPresentsActivityInfo:"/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsActivityInfo",
         //   自定义赠送 -- 活动信息 -- 新建记录查询单条
-        selectUserDefinedPresentsActivityEntity:"/admin/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity",
+        selectUserDefinedPresentsActivityEntity:"/admin/biz/UserDefinedPresentsSetting/selectUserDefinedPresentsActivityEntity",
         //   自定义赠送 -- 活动信息 -- 更新
-        updateUserDefinedPresentsActivityInfo:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsActivityInfo",
+        updateUserDefinedPresentsActivityInfo:"/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsActivityInfo",
         //   自定义赠送 -- 活动信息 -- 查询单条
-        selectUserDefinedPresentActivityById:"/admin/UserDefinedPresentsSetting/selectUserDefinedPresentActivityById",
+        selectUserDefinedPresentActivityById:"/admin/biz/UserDefinedPresentsSetting/selectUserDefinedPresentActivityById",
         //   自定义赠送 -- 赠送储值 -- 修改
-        updateUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsStoredValueEntity",
+        updateUserDefinedPresentsStoredValueEntity:"/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsStoredValueEntity",
         //   自定义赠送 -- 赠送储值 -- 删除
-        deleteUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsStoredValueEntity",
+        deleteUserDefinedPresentsStoredValueEntity:"/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsStoredValueEntity",
         //   自定义赠送 -- 赠送储值 -- 新增
-        insertUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsStoredValueEntity",
+        insertUserDefinedPresentsStoredValueEntity:"/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsStoredValueEntity",
         //   自定义赠送 -- 赠送储值 -- 查询 单条
-        selectAllUserDefinedPresentsStoredValueEntity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsStoredValueEntity",
+        selectAllUserDefinedPresentsStoredValueEntity:"/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsStoredValueEntity",
         //   自定义赠送 -- 赠送抵用券 -- 删除
-        deleteUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity",
+        deleteUserDefinedPresentsVoucherEntity:"/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsVoucherEntity",
         //   自定义赠送 -- 赠送抵用券 -- 批量修改
-        batchUpdateUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity",
+        batchUpdateUserDefinedPresentsVoucherEntity:"/admin/biz/UserDefinedPresentsSetting/batchUpdateUserDefinedPresentsVoucherEntity",
         //   自定义赠送 -- 赠送抵用券 -- 批量新增
-        batchInsertUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity",
+        batchInsertUserDefinedPresentsVoucherEntity:"/admin/biz/UserDefinedPresentsSetting/batchInsertUserDefinedPresentsVoucherEntity",
         //   自定义赠送 -- 赠送积分 -- 修改
-        updateUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/updateUserDefinedPresentsIntegration",
+        updateUserDefinedPresentsIntegration:"/admin/biz/UserDefinedPresentsSetting/updateUserDefinedPresentsIntegration",
         //   自定义赠送 -- 赠送积分 -- 删除
-        deleteUserDefinedPresentsIntegrationEntity:"/admin/UserDefinedPresentsSetting/deleteUserDefinedPresentsIntegrationEntity",
+        deleteUserDefinedPresentsIntegrationEntity:"/admin/biz/UserDefinedPresentsSetting/deleteUserDefinedPresentsIntegrationEntity",
         // 自定义赠送 -- 赠送积分 -- 新增
-        insertUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/insertUserDefinedPresentsIntegration",
+        insertUserDefinedPresentsIntegration:"/admin/biz/UserDefinedPresentsSetting/insertUserDefinedPresentsIntegration",
         // 自定义赠送 -- 赠送积分 -- 查询单条
-        selectAllUserDefinedPresentsIntegration:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration",
+        selectAllUserDefinedPresentsIntegration:"/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsIntegration",
         // 自定义赠送 --赠送抵用券 --查询
-        selectAllUserDefinedPresentsVoucherEntity:"/admin/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity",
+        selectAllUserDefinedPresentsVoucherEntity:"/admin/biz/UserDefinedPresentsSetting/selectAllUserDefinedPresentsVoucherEntity",
         //消费赠送 -- 分页浏览 -- 删除
-        deleteConsumePresentsActivityInfo:"/admin/consumePresentsSetting/deleteConsumePresentsActivityInfo",
+        deleteConsumePresentsActivityInfo:"/admin/biz/consumePresentsSetting/deleteConsumePresentsActivityInfo",
          //消费赠送 -- 活动 -- 分页查询
-        selectAllConsumePresentsActivity:"/admin/consumePresentsSetting/selectAllConsumePresentsActivity",
+        selectAllConsumePresentsActivity:"/admin/biz/consumePresentsSetting/selectAllConsumePresentsActivity",
         //消费赠送 -- 活动信息 -- 新增
-        insertConsumePresentsActivityEntity:"/admin/consumePresentsSetting/insertConsumePresentsActivityEntity",
+        insertConsumePresentsActivityEntity:"/admin/biz/consumePresentsSetting/insertConsumePresentsActivityEntity",
         //消费赠送 -- 活动信息 -- 更新
-        updateConsumePresentsActivityEntity:"/admin/consumePresentsSetting/updateConsumePresentsActivityEntity",
+        updateConsumePresentsActivityEntity:"/admin/biz/consumePresentsSetting/updateConsumePresentsActivityEntity",
         //消费赠送 -- 活动信息 -- 查询 单条 刚新建的活动信息
-        selectConsumePresentsActivityInfo:"/admin/consumePresentsSetting/selectConsumePresentsActivityInfo",
+        selectConsumePresentsActivityInfo:"/admin/biz/consumePresentsSetting/selectConsumePresentsActivityInfo",
         //消费赠送 -- 活动信息 -- 查询单条
-        selectConsumePresentsActivityEntity:"/admin/consumePresentsSetting/selectConsumePresentsActivityEntity",
+        selectConsumePresentsActivityEntity:"/admin/biz/consumePresentsSetting/selectConsumePresentsActivityEntity",
         //消费赠送 -- 赠送储值 -- 删除
-        deleteConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/deleteConsumePresentsStoredValueEntity",
+        deleteConsumePresentsStoredValueEntity:"/admin/biz/consumePresentsSetting/deleteConsumePresentsStoredValueEntity",
         //消费赠送 -- 赠送储值 -- 批量新增
-        batchInsertConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsStoredValueEntity",
+        batchInsertConsumePresentsStoredValueEntity:"/admin/biz/consumePresentsSetting/batchInsertConsumePresentsStoredValueEntity",
         //消费赠送 -- 赠送储值 -- 批量更新
-        batchUpdateConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsStoredValueEntity",
+        batchUpdateConsumePresentsStoredValueEntity:"/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsStoredValueEntity",
         //消费赠送 -- 赠送储值 -- 查询列表
-        selectAllConsumePresentsStoredValueEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsStoredValueEntity",
+        selectAllConsumePresentsStoredValueEntity:"/admin/biz/consumePresentsSetting/selectAllConsumePresentsStoredValueEntity",
         //消费赠送 -- 赠送抵用券 -- 删除
-        deleteConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/deleteConsumePresentsVoucherEntity",
+        deleteConsumePresentsVoucherEntity:"/admin/biz/consumePresentsSetting/deleteConsumePresentsVoucherEntity",
         //消费赠送 -- 赠送抵用券 -- 批量新增
-        batchInsertConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsVoucherEntity",
+        batchInsertConsumePresentsVoucherEntity:"/admin/biz/consumePresentsSetting/batchInsertConsumePresentsVoucherEntity",
          //消费赠送 -- 赠送抵用券 -- 批量更新
-        batchUpdateConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsVoucherEntity",
+        batchUpdateConsumePresentsVoucherEntity:"/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsVoucherEntity",
         //消费赠送 -- 赠送抵用券 -- 查询列表
-        selectAllConsumePresentsVoucherEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsVoucherEntity",
+        selectAllConsumePresentsVoucherEntity:"/admin/biz/consumePresentsSetting/selectAllConsumePresentsVoucherEntity",
         //消费赠送 -- 赠送积分 -- 删除
-        deleteConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/deleteConsumePresentsIntegrationEntity",
+        deleteConsumePresentsIntegrationEntity:"/admin/biz/consumePresentsSetting/deleteConsumePresentsIntegrationEntity",
         //消费赠送 -- 赠送积分 -- 批量修改
-        batchUpdateConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/batchUpdateConsumePresentsIntegrationEntity",
+        batchUpdateConsumePresentsIntegrationEntity:"/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsIntegrationEntity",
         //消费赠送 -- 赠送积分 -- 批量新增
-        batchInsertConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/batchInsertConsumePresentsIntegrationEntity",
+        batchInsertConsumePresentsIntegrationEntity:"/admin/biz/consumePresentsSetting/batchInsertConsumePresentsIntegrationEntity",
         //消费赠送 -- 赠送积分 -- 查询 列表
-        selectAllConsumePresentsIntegrationEntity:"/admin/consumePresentsSetting/selectAllConsumePresentsIntegrationEntity",
+        selectAllConsumePresentsIntegrationEntity:"/admin/biz/consumePresentsSetting/selectAllConsumePresentsIntegrationEntity",
 
 
 

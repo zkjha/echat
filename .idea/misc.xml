@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ClientPropertiesManager">
     <properties class="javax.swing.AbstractButton">
       <property name="hideActionText" class="java.lang.Boolean" />
@@ -42,4 +43,7 @@
   <component name="SvnConfiguration">
     <configuration>$USER_HOME$/.subversion</configuration>
   </component>
+=======
+  <component name="ProjectRootManager" version="2" />
+>>>>>>> branch 'master' of git@linux.fushoukeji.com:/opt/gitdata/ecard.git
 </project>

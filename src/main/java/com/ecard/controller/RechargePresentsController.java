@@ -32,7 +32,7 @@ import com.ecard.service.RechargePresentsService;
 import com.ecard.util.WebSessionUtil;
 
 @Controller
-@RequestMapping("/admin/RechargePresentsSetting")
+@RequestMapping("/admin/biz/RechargePresentsSetting")
 public class RechargePresentsController {
 	@Autowired
 	private RechargePresentsService rechargePresentsService;
@@ -41,7 +41,7 @@ public class RechargePresentsController {
 	//批量新增 充值赠送抵用券信息
 	@ResponseBody
 	@RequestMapping("batchInsertRechargePresentsVoucher")
-	//localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strBasePresentsVoucherTicketId=抵用券名1&strMorePresentsVoucherTicketId=抵用券名2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
+	//localhost:8083/admin/biz/RechargePresentsSetting/batchInsertRechargePresentsVoucher?strBasePresentsVoucherTicketId=抵用券名1&strMorePresentsVoucherTicketId=抵用券名2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
 	public String batchInsertRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		//以下取得的字符串格式都为：字符串1,字符串2
@@ -232,7 +232,7 @@ public class RechargePresentsController {
 	//批量更新 充值赠送抵用券信息
 	@ResponseBody
 	@RequestMapping("updateRechargePresentsVoucher")
-	//localhost:8083/admin/RechargePresentsSetting/updateRechargePresentsVoucher?strRechargePresentsVoucherId=2b5a7a7b8198451484434c4114aca45f&strBasePresentsVoucherTicketId=categor1&strMorePresentsVoucherTicketId=bbn2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
+	//localhost:8083/admin/biz/RechargePresentsSetting/updateRechargePresentsVoucher?strRechargePresentsVoucherId=2b5a7a7b8198451484434c4114aca45f&strBasePresentsVoucherTicketId=categor1&strMorePresentsVoucherTicketId=bbn2&strActivityId=a42c801d8a7b4daa86653bacf88273a5&dMinimumRechargeAmount=100&iMinimumPresentsVoucherNumber=1&dMoreRechargeAmount=50&iMorePresentsVoucherNumber=1&iEnabled=1
 	public String updateRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		//以下取得的字符串格式都为：字符串1,字符串2
@@ -422,7 +422,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=a42c801d8a7b4daa86653bacf88273a5
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectAllRechargePresentsVoucher?strActivityId=a42c801d8a7b4daa86653bacf88273a5
 	public String selectAllRechargePresentsVoucher(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -467,7 +467,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("deleteRechargePresentsVoucher")
-	//http://localhost:8083/admin/RechargePresentsSetting/deleteRechargePresentsVoucher?strRechargePresentsVoucherId=8f19a79750ce4ca4ba9a78d25a622fe4
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/deleteRechargePresentsVoucher?strRechargePresentsVoucherId=8f19a79750ce4ca4ba9a78d25a622fe4
 	public String deleteRechargePresentsVoucher(HttpServletRequest request,HttpServletResponse response)
 	{
 		/*
@@ -503,7 +503,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("batchInsertRechargePresentsStoredValue")
-	//http://localhost:8083/admin/RechargePresentsSetting/batchInsertRechargePresentsStoredValue?&strActivityId=002,003&dRechargeAmount=150,150&dPresentsAmount=89,89&strValidateBeginTime=207/1/1,2017/2/2&strValidateEndTime=2010/12/12,2017/5/5&iEnabled=1,0
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/batchInsertRechargePresentsStoredValue?&strActivityId=002,003&dRechargeAmount=150,150&dPresentsAmount=89,89&strValidateBeginTime=207/1/1,2017/2/2&strValidateEndTime=2010/12/12,2017/5/5&iEnabled=1,0
 	public String batchInsertRechargePresentsStoredValue(HttpServletResponse response,HttpServletRequest request)
 	{
 		//参数格式：参数名=参数值1，参数值2
@@ -651,7 +651,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("batchUpdateRechargePresentsStoredValue")
-	//http://localhost:8083/admin/RechargePresentsSetting/batchUpdateRechargePresentsStoredValue?strPresentsStoredValueId=b44f19abf0cd4d198b50a11114961b59,e821b72bf2a6401980bbacb7c29ebf11&strActivityId=005,005&dRechargeAmount=155,155&dPresentsAmount=85,85&strValidateBeginTime=207/1/5,2017/2/5&strValidateEndTime=2010/12/5,2017/5/5&iEnabled=1,1
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/batchUpdateRechargePresentsStoredValue?strPresentsStoredValueId=b44f19abf0cd4d198b50a11114961b59,e821b72bf2a6401980bbacb7c29ebf11&strActivityId=005,005&dRechargeAmount=155,155&dPresentsAmount=85,85&strValidateBeginTime=207/1/5,2017/2/5&strValidateEndTime=2010/12/5,2017/5/5&iEnabled=1,1
 	public String batchUpdateRechargePresentsStoredValue(HttpServletResponse response,HttpServletRequest request)
 	{
 		//参数格式：参数名=参数值1，参数值2
@@ -804,7 +804,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("deleteRechargePresentsStoredValue")
-	//http://localhost:8083/admin/RechargePresentsSetting/deleteRechargePresentsStoredValue?strPresentsStoredValueId=e821b72bf2a6401980bbacb7c29ebf11
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/deleteRechargePresentsStoredValue?strPresentsStoredValueId=e821b72bf2a6401980bbacb7c29ebf11
     public String deleteRechargePresentsStoredValue(HttpServletResponse response,HttpServletRequest request)
     {
 		/*
@@ -841,7 +841,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsStoredValue")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsStoredValue?strActivityId=005
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectAllRechargePresentsStoredValue?strActivityId=005
 	public String selectAllRechargePresentsStoredValue(HttpServletRequest request,HttpServletResponse response)
 	{
 		/*
@@ -886,7 +886,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("insertRechargePresentsIntegration")
-	//http://localhost:8083/admin/RechargePresentsSetting/insertRechargePresentsIntegration?strActivityId=1&dPerTimeRechargeAmount=100&dLeastRechargeAmount=100&iEnabled=1
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/insertRechargePresentsIntegration?strActivityId=1&dPerTimeRechargeAmount=100&dLeastRechargeAmount=100&iEnabled=1
 	public String insertRechargePresentsIntegration(HttpServletResponse response,HttpServletRequest request)
 	{
 		BigDecimal dPerTimeRechargeAmount,dLeastRechargeAmount;
@@ -974,7 +974,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("updateRechargePresentsIntegration")
-	//http://localhost:8083/admin/RechargePresentsSetting/updateRechargePresentsIntegration?strPresentsIntegrationId=a96bf856b7144d3db6bc4fd5b593f5f6&strActivityId=1&dPerTimeRechargeAmount=10000&dLeastRechargeAmount=10000&iEnabled=1
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/updateRechargePresentsIntegration?strPresentsIntegrationId=a96bf856b7144d3db6bc4fd5b593f5f6&strActivityId=1&dPerTimeRechargeAmount=10000&dLeastRechargeAmount=10000&iEnabled=1
 	public String updateRechargePresentsIntegration(HttpServletResponse response,HttpServletRequest request)
 	{
 		BigDecimal dPerTimeRechargeAmount,dLeastRechargeAmount;
@@ -1063,7 +1063,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsIntegration")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsIntegration?strActivityId=1
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectAllRechargePresentsIntegration?strActivityId=1
 	public String selectAllRechargePresentsIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		/*
@@ -1108,7 +1108,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("insertPresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/inserPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/inserPresentsActivityInfo?strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
 	public String insertPresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=DataTool.getUUID();
@@ -1189,7 +1189,7 @@ public class RechargePresentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("updatePresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/updatePresentsActivityInfo?strActivityId=3f3a8fcdba014bfa9058622a09c8aa64&strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/updatePresentsActivityInfo?strActivityId=3f3a8fcdba014bfa9058622a09c8aa64&strActivityName=十周年店庆&strLevelsId=10000&strActivityBeginTime=2017/5/27&strActivityEndTime=2017/5/27
 	public String updatePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=request.getParameter("strActivityId");
@@ -1266,7 +1266,7 @@ public class RechargePresentsController {
 
 	@ResponseBody
 	@RequestMapping("selectRechargePresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityInfo?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectRechargePresentsActivityInfo?iPageNum=1&iPageSize=1&strSearchMemberLevel=1&strSearchEnabledStatus=ALL
 	public String selectRechargePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段
@@ -1389,7 +1389,7 @@ public class RechargePresentsController {
 
 	@ResponseBody
 	@RequestMapping("deleteRechargePresentsActivityInfo")
-	//http://localhost:8083/admin/RechargePresentsSetting/deleteRechargePresentsActivityInfo?strActivityId=ed723c91ad9045b1b712a1b7af62cfa9
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/deleteRechargePresentsActivityInfo?strActivityId=ed723c91ad9045b1b712a1b7af62cfa9
 	public String deleterRechargePresentsActivityInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -1425,7 +1425,7 @@ public class RechargePresentsController {
 
 	@ResponseBody
 	@RequestMapping("selectAllRechargePresentsActivityEntity")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectAllRechargePresentsActivityEntity?strActivityId=a42c801d8a7b4daa86653bacf88273a5
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectAllRechargePresentsActivityEntity?strActivityId=a42c801d8a7b4daa86653bacf88273a5
 	public String selectAllRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 		/*
@@ -1466,7 +1466,7 @@ public class RechargePresentsController {
 	//查询一条充值赠送活动信息rechargePresentsActivityEntity
 	@ResponseBody
 	@RequestMapping("selectRechargePresentsActivityEntity")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsActivityEntity
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectRechargePresentsActivityEntity
 	public String selectRechargePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -1504,7 +1504,7 @@ public class RechargePresentsController {
 	//查询一条刚新建的充值赠送储值规则信息rechargePresentsStoredValueEntity
 	@ResponseBody
 	@RequestMapping("selectRechargePresentsStoredValueEntity")
-	//http://localhost:8083/admin/RechargePresentsSetting/selectRechargePresentsStoredValueEntity
+	//http://localhost:8083/admin/biz/RechargePresentsSetting/selectRechargePresentsStoredValueEntity
 	public String selectRechargePresentsStoredValueEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 

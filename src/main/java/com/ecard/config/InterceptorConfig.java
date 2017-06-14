@@ -44,9 +44,9 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
 		// addPathPatterns 用于添加拦截规则
 		// excludePathPatterns 用户排除拦截
 		registry.addInterceptor(getLoginInterceptor()).addPathPatterns("/admin/biz/**").addPathPatterns("/admin/page/**");
-		registry.addInterceptor(getWeixinLoginInterceptor()).addPathPatterns("/weixin/biz/**");
-		/*registry.addInterceptor(getPrivilegeInterceptor()).addPathPatterns("/admin/biz/**");
-		registry.addInterceptor(getSystemInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin/systemoutdate");*/
+		//registry.addInterceptor(getWeixinLoginInterceptor()).addPathPatterns("/weixin/biz/**");
+		//registry.addInterceptor(getPrivilegeInterceptor()).addPathPatterns("/admin/biz/**");
+		//registry.addInterceptor(getSystemInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin/systemoutdate");
 		super.addInterceptors(registry);
 	}
 }

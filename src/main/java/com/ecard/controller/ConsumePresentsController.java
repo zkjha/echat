@@ -1,3 +1,4 @@
+
 package com.ecard.controller;
 
 import java.math.BigDecimal;
@@ -33,7 +34,7 @@ import com.ecard.util.WebSessionUtil;
 
 @Controller
 
-@RequestMapping("/admin/consumePresentsSetting")
+@RequestMapping("/admin/biz/consumePresentsSetting")
 public class ConsumePresentsController
 {
 	@Autowired
@@ -43,7 +44,7 @@ public class ConsumePresentsController
 	//新增一条consumePresentsActivityEntity记录
 	@ResponseBody
 	@RequestMapping("insertConsumePresentsActivityEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/insertConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
+	//http://localhost:8083/admin/biz/consumePresentsSetting/insertConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
 	public String insertConsumePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -144,7 +145,7 @@ public class ConsumePresentsController
 	
 	@ResponseBody
 	@RequestMapping("updateConsumePresentsActivityEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/updateConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
+	//http://localhost:8083/admin/biz/consumePresentsSetting/updateConsumePresentsActivityEntity?strActivityName=十周年店庆&strLevelsId=1&strActivityBeginTime=2017-4-30&strActivityEndTime=2018-4-30&iActivityKinds=1&strIsCumulation=1
 	public String updateConsumePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -244,7 +245,7 @@ public class ConsumePresentsController
 	//查询一条消费赠送活动规则信息consumePresentsActivityEntity
 	@ResponseBody
 	@RequestMapping("selectConsumePresentsActivityEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/selectConsumePresentsActivityEntity?strActivityId=3b3139856a4743e48e711cd416336aab
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectConsumePresentsActivityEntity?strActivityId=3b3139856a4743e48e711cd416336aab
 	public String selectConsumePresentsActivityEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -283,7 +284,7 @@ public class ConsumePresentsController
 	//查询一条刚新建的消费赠送活动规则信息consumePresentsActivityEntity	
 	@ResponseBody
 	@RequestMapping("selectConsumePresentsActivityInfo")
-	//http://localhost:8083/admin/consumePresentsSetting/selectConsumePresentsActivityInfo
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectConsumePresentsActivityInfo
 	public String selectConsumePresentsActivityInfo(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -320,7 +321,7 @@ public class ConsumePresentsController
 	//批量插入消费赠送积分规则信息consumePresentsIntegrationEntity记录
 	@ResponseBody
 	@RequestMapping("batchInsertConsumePresentsIntegrationEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchInsertConsumePresentsIntegrationEntity?strActivityId=1,1&dConsumeCashAmount=200,400&iPresentsIntegrationAmount=50,150&iEnabled=1,1
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchInsertConsumePresentsIntegrationEntity?strActivityId=1,1&dConsumeCashAmount=200,400&iPresentsIntegrationAmount=50,150&iEnabled=1,1
 	public String batchInsertConsumePresentsIntegrationEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 	//声明数组
@@ -445,7 +446,7 @@ public class ConsumePresentsController
 	//批量更新消费赠送积分信息
 	@ResponseBody
 	@RequestMapping("batchUpdateConsumePresentsIntegrationEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchUpdateConsumePresentsIntegrationEntity?strIntegrationId=394273d8d8c84ca4bfdbd73214a3609d,6a85bec3b28f4e46b2bcb25249a8b882&strActivityId=3b3139856a4743e48e711cd416336aab,606d2822dcf24024bfa850f58948bbc3&dConsumeCashAmount=500,500&iPresentsIntegrationAmount=10,10&iEnabled=0,0
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsIntegrationEntity?strIntegrationId=394273d8d8c84ca4bfdbd73214a3609d,6a85bec3b28f4e46b2bcb25249a8b882&strActivityId=3b3139856a4743e48e711cd416336aab,606d2822dcf24024bfa850f58948bbc3&dConsumeCashAmount=500,500&iPresentsIntegrationAmount=10,10&iEnabled=0,0
 	public String batchUpdateConsumePresentsIntegrationEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 	//声明数组
@@ -574,7 +575,7 @@ public class ConsumePresentsController
 	//删除一条消费赠送积分规则信息consumePresentsIntegrationEntity记录
 	@ResponseBody
 	@RequestMapping("deleteConsumePresentsIntegrationEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/deleteConsumePresentsIntegrationEntity?strIntegrationId=394273d8d8c84ca4bfdbd73214a3609d
+	//http://localhost:8083/admin/biz/consumePresentsSetting/deleteConsumePresentsIntegrationEntity?strIntegrationId=394273d8d8c84ca4bfdbd73214a3609d
 	public String deleteConsumePresentsIntegrationEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 	String strIntegrationId=request.getParameter("strIntegrationId");
@@ -609,7 +610,7 @@ public class ConsumePresentsController
 	//查询多条消费赠送积分规则信息consumePresentsIntegrationEntity
 	@ResponseBody
 	@RequestMapping("selectAllConsumePresentsIntegrationEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/selectAllConsumePresentsIntegrationEntity?strActivityId=1606d2822dcf24024bfa850f58948bbc3
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectAllConsumePresentsIntegrationEntity?strActivityId=1606d2822dcf24024bfa850f58948bbc3
 	public String selectAllConsumePresentsIntegrationEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -650,7 +651,7 @@ public class ConsumePresentsController
 	//批量插入消费赠送储值规则信息consumePresentsStoredValueEntity记录
 	@ResponseBody
 	@RequestMapping("batchInsertConsumePresentsStoredValueEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchInsertConsumePresentsStoredValueEntity?strActivityId=606d2822dcf24024bfa850f58948bbc3,3b3139856a4743e48e711cd416336aab&dConsumeCashAmount=300,500&iPresentsIntegrationAmount=10,10&iEnabled=1,1
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchInsertConsumePresentsStoredValueEntity?strActivityId=606d2822dcf24024bfa850f58948bbc3,3b3139856a4743e48e711cd416336aab&dConsumeCashAmount=300,500&iPresentsIntegrationAmount=10,10&iEnabled=1,1
 	public String batchInsertConsumePresentsStoredValueEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 		//声明数组
@@ -773,7 +774,7 @@ public class ConsumePresentsController
 	//批量更新 消费增送储值
 	@ResponseBody
 	@RequestMapping("batchUpdateConsumePresentsStoredValueEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchUpdateConsumePresentsStoredValueEntity
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsStoredValueEntity
 	public String batchUpdateConsumePresentsStoredValueEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 		//声明数组
@@ -900,7 +901,7 @@ public class ConsumePresentsController
 	//删除一条消费赠送储值规则信息consumePresentsStoredValueEntity记录
 	@ResponseBody
 	@RequestMapping("deleteConsumePresentsStoredValueEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/deleteConsumePresentsStoredValueEntity?strStoredTicketId=
+	//http://localhost:8083/admin/biz/consumePresentsSetting/deleteConsumePresentsStoredValueEntity?strStoredTicketId=
 	public String deleteConsumePresentsStoredValueEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 	String strStoredTicketId=request.getParameter("strStoredTicketId");
@@ -934,7 +935,7 @@ public class ConsumePresentsController
 	//查询消费赠送储值规则信息ConsumePresentsStoredValueEntity列表
 	@ResponseBody
 	@RequestMapping("selectAllConsumePresentsStoredValueEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/selectAllConsumePresentsStoredValueEntity?strActivityId=3b3139856a4743e48e711cd416336aab
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectAllConsumePresentsStoredValueEntity?strActivityId=3b3139856a4743e48e711cd416336aab
 	public String selectAllConsumePresentsStoredValueEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 	String strActivityId=request.getParameter("strActivityId");
@@ -975,7 +976,7 @@ public class ConsumePresentsController
 	//批量插入消费赠送抵用券规则信息consumePresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("batchInsertConsumePresentsVoucherEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchInsertConsumePresentsVoucherEntity?strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=3b3139856a4743e48e711cd416336aab,606d2822dcf24024bfa850f58948bbc3&dConsumeCashAmount=500,400&iPresentsIntegrationAmount=50,40&iEnabled=1,1
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchInsertConsumePresentsVoucherEntity?strVoucherTicketId=27064b6a0ccc4c12baa28472be0e75d1,51507b9d157d45deb83cbeef07e2647f&strActivityId=3b3139856a4743e48e711cd416336aab,606d2822dcf24024bfa850f58948bbc3&dConsumeCashAmount=500,400&iPresentsIntegrationAmount=50,40&iEnabled=1,1
 	public String batchInsertConsumePresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -1112,7 +1113,7 @@ public class ConsumePresentsController
 	//批量更新消费赠送抵用券规则信息consumePresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("batchUpdateConsumePresentsVoucherEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/batchUpdateConsumePresentsVoucherEntity?strConsumePresentsVoucherId=3c7c4f2c9f1b490a8b3c93176930df09,b124f688429941d884ff3121e40ca4ac&strVoucherTicketId=51507b9d157d45deb83cbeef07e2647f,27064b6a0ccc4c12baa28472be0e75d1&strActivityId=606d2822dcf24024bfa850f58948bbc3,3b3139856a4743e48e711cd416336aab&dConsumeCashAmount=600,700&iPresentsIntegrationAmount=6,7&iEnabled=1,0
+	//http://localhost:8083/admin/biz/consumePresentsSetting/batchUpdateConsumePresentsVoucherEntity?strConsumePresentsVoucherId=3c7c4f2c9f1b490a8b3c93176930df09,b124f688429941d884ff3121e40ca4ac&strVoucherTicketId=51507b9d157d45deb83cbeef07e2647f,27064b6a0ccc4c12baa28472be0e75d1&strActivityId=606d2822dcf24024bfa850f58948bbc3,3b3139856a4743e48e711cd416336aab&dConsumeCashAmount=600,700&iPresentsIntegrationAmount=6,7&iEnabled=1,0
 	public String batchUpdateConsumePresentsVoucherEntity(HttpServletResponse response,HttpServletRequest request)
 	{
 
@@ -1248,7 +1249,7 @@ public class ConsumePresentsController
 	//删除一条消费赠送抵用券规则信息consumePresentsVoucherEntity记录
 	@ResponseBody
 	@RequestMapping("deleteConsumePresentsVoucherEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/deleteConsumePresentsVoucherEntity?strConsumePresentsVoucherId=3c7c4f2c9f1b490a8b3c93176930df09
+	//http://localhost:8083/admin/biz/consumePresentsSetting/deleteConsumePresentsVoucherEntity?strConsumePresentsVoucherId=3c7c4f2c9f1b490a8b3c93176930df09
 	public String deleteConsumePresentsVoucherEntity(HttpServletRequest request, HttpServletResponse response)
 	{
 	String strConsumePresentsVoucherId=request.getParameter("strConsumePresentsVoucherId");
@@ -1281,7 +1282,7 @@ public class ConsumePresentsController
 	//查询消费赠送抵用券规则信息ConsumePresentsVoucherEntity列表
 	@ResponseBody
 	@RequestMapping("selectAllConsumePresentsVoucherEntity")
-	//http://localhost:8083/admin/consumePresentsSetting/selectAllConsumePresentsVoucherEntity?strActivityId=3b3139856a4743e48e711cd416336aab
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectAllConsumePresentsVoucherEntity?strActivityId=3b3139856a4743e48e711cd416336aab
 	public String selectAllConsumePresentsVoucherEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 	
@@ -1324,7 +1325,7 @@ public class ConsumePresentsController
 	//分页浏览---删除接口 删除 关联的积分，储值，抵用券规则信息
 	@ResponseBody
 	@RequestMapping("deleteConsumePresentsActivityInfo")
-	//http://localhost:8083/admin/consumePresentsSetting/deleteConsumePresentsActivityInfo?strActivityId=3b3139856a4743e48e711cd416336aab
+	//http://localhost:8083/admin/biz/consumePresentsSetting/deleteConsumePresentsActivityInfo?strActivityId=3b3139856a4743e48e711cd416336aab
 	public String deleteConsumePresentsActivityInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strActivityId=request.getParameter("strActivityId");
@@ -1345,7 +1346,7 @@ public class ConsumePresentsController
 	//分页查询消费赠送活动信息
 	@ResponseBody
 	@RequestMapping("selectAllConsumePresentsActivity")
-	//http://localhost:8083/admin/consumePresentsSetting/selectAllConsumePresentsActivity
+	//http://localhost:8083/admin/biz/consumePresentsSetting/selectAllConsumePresentsActivity
  	public String selectAllConsumePresentsActivity(HttpServletRequest request,HttpServletResponse response)
 	{
 		//取得搜索字段

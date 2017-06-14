@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/ecard.iml" filepath="$PROJECT_DIR$/ecard.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/ecard.iml" filepath="$PROJECT_DIR$/.idea/ecard.iml" />
+>>>>>>> branch 'master' of git@linux.fushoukeji.com:/opt/gitdata/ecard.git
     </modules>
   </component>
 </project>

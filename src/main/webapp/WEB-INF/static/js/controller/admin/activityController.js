@@ -1277,7 +1277,7 @@ define(
                 ////    添加抵用券
                 $scope.adddiyongquantianjianumber =1;
                 $scope.adddiyongquan = function(){
-                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai){//总体新增执行的操作
+                    if($scope.panduanshixinzenghaishiqitaxiaoxiugai){//总体新增  执行的操作
                         if($scope.panduandiaoyungdiyongquanjiekou){
                             $scope.panduandiaoyungdiyongquanjiekou = false;//判断调用了储值券接口没
                             $scope.adddiyongquantianjianumber = $scope.listUserDefinedPresentsVoucherEntity.length;

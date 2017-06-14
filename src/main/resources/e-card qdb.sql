@@ -747,7 +747,7 @@ create table tb_member_levelsRights_mapping
  strRightsId				varchar(50)			not null,			-- 会员相应级别对应的权益ID
  strRightsName				varchar(100)		not null,			-- 会员相应级别对应的权益名称
  iRightsStatus				int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
- dDiscount					decimal(5,2),							-- 折扣率
+ dDiscount					decimal(5,2),		default 0.00		-- 折扣率
  iPreferentialTimes			int(5)				default 0,			-- 优惠次数
  strEmployeeId				varchar(50)			not null,			-- 登录员工ID
  strEmployeeName			varchar(50)			not null,			-- 登录员工帐号
@@ -1006,4 +1006,3 @@ strCreationTime 					VARCHAR(50) 	NOT NULL,		-- 记录创建时间
 strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
 primary key(strConsumePresentsVoucherId)
 ) engine=innodb default charset=utf8;
-
