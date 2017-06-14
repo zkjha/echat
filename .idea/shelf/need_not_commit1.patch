@@ -1,0 +1,19 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 88659224e6bbe64cd32e4cfceafa20506b4843a3)
++++ .idea/misc.xml	(revision )
+@@ -38,9 +38,7 @@
+       <property name="caretWidth" class="java.lang.Integer" />
+     </properties>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/classes" />
+-  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="1.7" project-jdk-type="JavaSDK" />
+   <component name="SvnConfiguration">
+     <configuration>$USER_HOME$/.subversion</configuration>
+   </component>
+\ No newline at end of file

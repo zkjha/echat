@@ -47,7 +47,7 @@ public class WebSessionUtil {
 			sessionid=this.creatSessionId();
 			Cookie cookie=new Cookie(StaticValue.COOKIENAME,sessionid);
 			cookie.setPath("/");
-			cookie.setDomain(StaticValue.DOMAIN);
+			//cookie.setDomain(StaticValue.DOMAIN);
 			response.addCookie(cookie);
 			return creatSession(sessionid);			
 		}
@@ -93,7 +93,7 @@ public class WebSessionUtil {
 			sessionid=this.creatSessionId();
 			Cookie cookie=new Cookie(StaticValue.WX_COOKIENAME,sessionid);
 			cookie.setPath("/");
-			cookie.setDomain(StaticValue.DOMAIN);
+			//cookie.setDomain(StaticValue.DOMAIN);
 			response.addCookie(cookie);
 			return creatSession(sessionid);			
 		}
