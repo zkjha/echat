@@ -4,7 +4,7 @@
 
         //String webUrl="http://test.ppseeker.com/";
         //String webUrl="http://linux.fushoukeji.com/";
-         String webUrl="http://local.fushoukeji.com:8083/";
+         String webUrl="/";
         String static_baseUrl=webUrl+"static/";
         
        
