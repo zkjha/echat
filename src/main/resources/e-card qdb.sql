@@ -744,8 +744,8 @@ create table tb_member_levelsRights_mapping
  strLevelsRightsMappingId	varchar(50)			not null,			-- 关键字
  strLevelsId				varchar(50)			not null,			-- 会员级别ID
  strLevelsName				varchar(50)			not null,			-- 会员级别名称
- strRightsId				varchar(50)			not null,			-- 会员相应级别对应的权益ID
- strRightsName				varchar(100)		not null,			-- 会员相应级别对应的权益名称
+ strRightsId				varchar(50)			not null,			-- 会员相应级别对应的权益(购买商品或购买服务的)ID
+ strRightsName				varchar(100)		not null,			-- 会员相应级别对应的权益名称(购买商品或购买服务的)名称
  iRightsStatus				int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
  dDiscount					decimal(5,2),		default 0.00		-- 折扣率
  iPreferentialTimes			int(5)				default 0,			-- 优惠次数
@@ -1006,3 +1006,38 @@ strCreationTime 					VARCHAR(50) 	NOT NULL,		-- 记录创建时间
 strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
 primary key(strConsumePresentsVoucherId)
 ) engine=innodb default charset=utf8;
+-- ==============================================================
+-- Table: tb_memberPurchase_order                            【收银台｜会员订单表】                          
+-- ==============================================================
+DROP TABLE IF EXISTS tb_memberPurchase_order;
+CREATE TABLE tb_memberPurchase_order
+(
+  strOrderId                VARCHAR(50) NOT NULL,       -- 主键订单号
+  strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID
+  strMemberCardNumber		varchar(50) not null,		-- 会员卡编号
+  strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名
+  strLevelsId				VARCHAR(50) NOT NULL,       -- 会员级别ID
+  strProductServiceId       VARCHAR(50) NOT NULL,       -- 商品或服务ID
+  strProductServiceName     VARCHAR(50) NOT NULL,       -- 商品或服务名称
+  iPurchaseType				int default 0,				-- 购买的类型：0商品 1服务
+  iPurchaseAmount           int DEFAULT 0,              -- 购买商品或服务数量
+  strUnitName               VARCHAR(50) NOT NULL,       -- 商品或服务计量单位名称
+  dPrice                    DECIMAL(11,2) DEFAULT 0.00, -- 商品或服务单价(原价）
+  dPurchaseCashTotalAmount  DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额（原价计算得来)
+  dPreferentialPrice		DECIMAL(11,2) DEFAULT 0.00, -- 商品或服务的会员优惠价
+  dPreferentialCashTotalAmount	DECIMAL(11,2) DEFAULT 0.00, -- 优惠后的商品或服务总价
+  iStatus                 	int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
+  iPayStandard				int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
+  strPayTime                VARCHAR(50) DEFAULT '',     -- 支付时间
+  iPayType                	int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付
+  strThirdPartyTradeFlow    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
+  strExpressNumber          VARCHAR(50) DEFAULT '',     -- 快递单号
+  strExpressCompany         VARCHAR(50) DEFAULT '',     -- 快递公司
+  strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
+  strEmployeeName 		    VARCHAR(50) 	NOT NULL,		-- 管理员账号
+  strEmployeeRealName 	    VARCHAR(50) 	NOT NULL,		-- 管理员姓名
+  strCreationTime 			VARCHAR(50) 	NOT NULL,		-- 记录创建时间
+  strLastAccessedTime 		VARCHAR(50) 	NOT NULL,		-- 记录修改时间
+  PRIMARY KEY (strOrderId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxMemberOrderIdOnMemberOrder on tb_memberPurchase_order(strOrderId);
