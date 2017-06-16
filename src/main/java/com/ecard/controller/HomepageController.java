@@ -112,6 +112,23 @@ public class HomepageController {
 		
 	}
 	
+	
+
+	/**
+	 * 收银台--付款
+	 * @return
+	 */
+	@RequestMapping("/page/cashierDesk")
+	public ModelAndView cashierDesk(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/cashierDesk");
+		
+		return mv;
+		
+	}
+	
 	/**
 	 * 得到后端登录用户信息
 	 * @return

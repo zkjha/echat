@@ -1033,6 +1033,7 @@ CREATE TABLE tb_memberPurchase_order
   strThirdPartyTradeFlow    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
   strExpressNumber          VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         VARCHAR(50) DEFAULT '',     -- 快递公司
+  strComment				VARCHAR(200) DEFAULT '',     -- 备注字段
   strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
   strEmployeeName 		    VARCHAR(50) 	NOT NULL,		-- 管理员账号
   strEmployeeRealName 	    VARCHAR(50) 	NOT NULL,		-- 管理员姓名
