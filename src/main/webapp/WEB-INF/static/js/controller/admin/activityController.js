@@ -421,7 +421,13 @@ define(
                 for(let i in listConsumePresentsVoucherEntity){
                     dConsumeCashAmounts[i] = listConsumePresentsVoucherEntity[i].dConsumeCashAmount;
                     strConsumePresentsVoucherIds[i] = listConsumePresentsVoucherEntity[i].strConsumePresentsVoucherId;
-                    iEnableds[i] = listConsumePresentsVoucherEntity[0].strEnabledsssId || 0;
+                    iEnableds[i] = (function(listConsumePresentsVoucherEntity){//listConsumePresentsVoucherEntity[0].strEnabledsssId || 0;
+                        if(listConsumePresentsVoucherEntity[0].strEnabledsssId == undefined){
+                            return listConsumePresentsVoucherEntity[0].iEnabled;
+                        }else{
+                            return listConsumePresentsVoucherEntity[0].strEnabledsssId
+                        }
+                    })(listConsumePresentsVoucherEntity)
                     iPresentsIntegrationAmounts[i] = listConsumePresentsVoucherEntity[i].iPresentsIntegrationAmount;
                     strActivityIds[i] =$scope.yihouougaiyaoyongdehuodongId;
                     strVoucherTicketIds[i] = listConsumePresentsVoucherEntity[i].strVoucherTicketId
@@ -482,7 +488,13 @@ define(
                 var strStoredTicketIds = [];
                 for(let i in listConsumePresentsStoredValueEntity){
                     dConsumeCashAmounts[i] = listConsumePresentsStoredValueEntity[i].dConsumeCashAmount;
-                    iEnableds[i] = listConsumePresentsStoredValueEntity[0].strEnabledsssId ||0 ;
+                    iEnableds[i] = (function(listConsumePresentsStoredValueEntity){//listConsumePresentsVoucherEntity[0].strEnabledsssId || 0;
+                        if(listConsumePresentsStoredValueEntity[0].strEnabledsssId == undefined){
+                            return listConsumePresentsStoredValueEntity[0].iEnabled;
+                        }else{
+                            return listConsumePresentsStoredValueEntity[0].strEnabledsssId
+                        }
+                    })(listConsumePresentsStoredValueEntity)
                     iPresentsIntegrationAmounts[i] = listConsumePresentsStoredValueEntity[i].iPresentsIntegrationAmount;
                     strActivityIds[i] = $scope.yihouougaiyaoyongdehuodongId;
                     strStoredTicketIds[i] = listConsumePresentsStoredValueEntity[i].strStoredTicketId;
@@ -539,7 +551,13 @@ define(
                 var strIntegrationIds = [];
                 for(let i in listConsumePresentsIntegrationEntity){
                     dConsumeCashAmounts[i] = listConsumePresentsIntegrationEntity[i].dConsumeCashAmount;
-                    iEnableds[i] = listConsumePresentsIntegrationEntity[0].strEnabledsssId ||0 ;
+                    iEnableds[i] =  (function(listConsumePresentsIntegrationEntity){//listConsumePresentsVoucherEntity[0].strEnabledsssId || 0;
+                        if(listConsumePresentsIntegrationEntity[0].strEnabledsssId == undefined){
+                            return listConsumePresentsIntegrationEntity[0].iEnabled;
+                        }else{
+                            return listConsumePresentsIntegrationEntity[0].strEnabledsssId
+                        }
+                    })(listConsumePresentsIntegrationEntity)
                     iPresentsIntegrationAmounts[i] = listConsumePresentsIntegrationEntity[i].iPresentsIntegrationAmount;
                     strActivityIds[i] = $scope.yihouougaiyaoyongdehuodongId;
                     strIntegrationIds[i] =  listConsumePresentsIntegrationEntity[i].strIntegrationId;
