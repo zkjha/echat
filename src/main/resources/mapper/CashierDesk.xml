@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.CashierDeskMapper">
+<!-- 根据手机号或会员卡号、姓名搜索会员信息 -->
+<select id="selectMemberInfoFromSearch" resultType="com.ecard.vo.MemberVO" parameterType="string">
+select
+	tbM.STRMEMBERID AS strMemberid,
+ 	tbM.STRREALNAME AS strRealname, 
+    tbM.STRIDCARD AS strIdcard,
+    tbM.STRMOBILE AS strMobile,
+	tbM.INTAGE AS intAge, 
+	tbM.STRMEMBERCARDNUM AS strMembercardnum,
+	tbM.STRLEVELSID AS strLevelsid, 
+	tbM.INTSEX AS intSex,
+	tbM.INTSTATUS AS intStatus, 
+	tbM.INTINTEGRAL AS intIntegral,
+	tbM.DBALANCE AS dBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
+	tbML.STRLEVELSNAME as strLevelsname
+	FROM tb_member as tbM,tb_member_levels as tbML
+	<where>
+	  tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and
+	  <if test="_parameter != null and _parameter != ''">
+	  	(tbM.STRREALNAME=#{_parameter} or tbM.STRMOBILE=#{_parameter} or tbM.STRMEMBERCARDNUM=#{_parameter})
+	  </if>
+	</where> 
+	limit 0,1
+</select>
+
+
+<!-- 根据商品类别查询商品详情GoodsInfoEntity记录数量 -->
+<select id="getGoodsInfoEntityTotalRecordCount" parameterType="map" resultType="int">
+	select count(strGoodsId) from tb_goods where strGoodsTypeId=#{strGoodsTypeId} and iState=1
+</select>
+
+<!-- 根据商品类别传递的ID查具体的商品 -->
+<select id="selectAllGoodsInfoEntity" resultType="com.ecard.entity.GoodsInfoEntity" parameterType="map">
+ select 
+ 	strGoodsId,
+ 	strGoodsBarCode,
+ 	strUnitId,
+ 	strUnitName,
+ 	strGoodsName,
+ 	strGoodsTypeId,
+ 	strGoodsTypeName,
+ 	strSupplierName,
+ 	iRequiredIntegral,
+ 	dEnterPrice,
+ 	dSalePrice,
+ 	iStock,
+ 	iPreferentialType,
+ 	iState,
+ 	txtGoodsDesc,
+ 	txtGoodsDescDetail,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strInsertTime,
+ 	strUpdateTime
+ 	from tb_goods
+	where strGoodsTypeId=#{strGoodsTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+</select>
+
+
+<!-- 根所服务类别查询服务信息详情ServiceInfoEntity记录数量 -->
+<select id="getServiceInfoEntityTotalRecordCount" parameterType="map" resultType="int">
+	select count(strServiceInfoId) from tb_service_info where strServiceTypeId=#{strServiceTypeId} and iState=1
+</select>
+
+<!-- 根据服务类别表传递的ID查具体的服务项目 -->
+<select id="selectAllServiceInfoEntity" resultType="com.ecard.entity.ServiceInfoEntity" parameterType="map">
+ select 
+ 	strServiceInfoId,
+ 	strServiceInfoName,
+ 	strServiceTypeId,
+ 	strServiceTypeName,
+ 	dSalePrice,
+ 	strServiceBarCode,
+ 	strUnitId,
+ 	strUnitName,
+ 	strSupplierName,
+ 	iPreferentialType,
+ 	iState,
+ 	txtServiceDesc,
+ 	txtServiceDescDetail,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strInsertTime,
+ 	strUpdateTime,
+ 	strReserved
+ 	from tb_service_info
+	where strServiceTypeId=#{strServiceTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+</select>
+
+</mapper>
