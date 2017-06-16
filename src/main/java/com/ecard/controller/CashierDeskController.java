@@ -189,6 +189,16 @@ public class CashierDeskController
 	}
 	
 	
+	//生成购买订单表
+	@ResponseBody
+	@RequestMapping("generatePurchaseOrder")
+	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder
+/*
+	public String generatePurchaseOrder(HttpServletRequest request,HttpServletResponse response)
+	{
+		//前台传入的数据格式约定为:
+	}
+*/	
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{
