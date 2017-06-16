@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list id="0a20fd3c-0502-4dc6-991b-2fad11ff63b4" name="Default" comment="完成员工添加表单验证" />
+    <list default="true" id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="完成会员管理模块和增加搜索功能">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/shelf/need_not_commit.patch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/shelf/need_not_commit1.patch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/shelf/need_not_commit2.patch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/controller/ConsumePresentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/controller/ConsumePresentsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/controller/RechargePresentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/controller/RechargePresentsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/config/StaticValue.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/config/StaticValue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/controller/UserDefinedPresentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/controller/UserDefinedPresentsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/util/WebSessionUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/util/WebSessionUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/e-card qdb.sql" afterPath="$PROJECT_DIR$/src/main/resources/e-card qdb.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    </list>
+    <ignored path="ecard.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="ecard.iml" />
+    <ignored path=".settings/" />
+    <ignored path=".classpath" />
+    <ignored path=".idea/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="ecard" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="activityController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="95076">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="刘鹏彦" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/tipsDirctive.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/header.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/levelSet.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/login.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/global.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/duty.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/editfrontinfo.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/frontinfo.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/merchantinfo.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/wechat/wechatRight.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/homepage.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/angular-resize.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/wechat.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/wechantinteract.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/index.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/indexController.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/index.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/menbercentController.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/memberCentController.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/regulations.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/editRegulations.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/dd.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/fileUploadDirective.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/replaceExpandTypeFilter.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/comfirmTemplate.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/homepage.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/expandinfo.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/homepage.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/expendList.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ExpendListDirective.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/expandList.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ExpandListDirective.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/membercenter.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/bootstrap.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/membercenter.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/laydate/laydate.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/laydate.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate/skins/default/laydate.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/payTypeFilter.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/orderStatusFilter.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/membercenter.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/global.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/staffinfo.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/homepageController.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/memberSet.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/membercentController.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/layDateDirective.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/material-date-picker-master" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="options.lastSelected" value="vcs.Subversion" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript 1.5" value="false" />
+    <property name="LayoutCode.rearrangeEntriesJSP" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="editorconfig.notification" value="Applied .editorconfig settings" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\js\controller\admin" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/admin" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <changelist date="1488970267839">
+      <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/need_not_commit.patch" />
+      <option name="DESCRIPTION" value="need not commit" />
+    </changelist>
+    <changelist date="1488970394052">
+      <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/need_not_commit1.patch" />
+      <option name="DESCRIPTION" value="need not commit" />
+    </changelist>
+    <changelist date="1488970410066">
+      <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/need_not_commit2.patch" />
+      <option name="DESCRIPTION" value="need not commit" />
+    </changelist>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0a20fd3c-0502-4dc6-991b-2fad11ff63b4" name="Default" comment="" />
+      <changelist id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="" />
+      <created>1488941545885</created>
+      <option name="number" value="Default" />
+      <updated>1488941545885</updated>
+    </task>
+    <task id="LOCAL-00001" summary="修改pom仓库">
+      <created>1488956956626</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1488956956626</updated>
+    </task>
+    <task id="LOCAL-00002" summary="完成员工添加表单验证">
+      <created>1488969158752</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1488969158752</updated>
+    </task>
+    <task id="LOCAL-00003" summary="need not commit">
+      <created>1488970268659</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1488970268659</updated>
+    </task>
+    <task id="LOCAL-00004" summary="need not commit">
+      <created>1488970394591</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1488970394591</updated>
+    </task>
+    <task id="LOCAL-00005" summary="need not commit">
+      <created>1488970410337</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1488970410337</updated>
+    </task>
+    <task id="LOCAL-00006" summary="need not commit">
+      <created>1488970438895</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1488970438895</updated>
+    </task>
+    <task id="LOCAL-00007" summary="完成修改回显">
+      <created>1489026366413</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1489026366413</updated>
+    </task>
+    <task id="LOCAL-00008" summary="完成修改员工信息">
+      <created>1489028891421</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1489028891421</updated>
+    </task>
+    <task id="LOCAL-00009" summary="增加用户默认头像">
+      <created>1489028920572</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1489028920572</updated>
+    </task>
+    <task id="LOCAL-00010" summary="完成重置员工密码">
+      <created>1489029937584</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1489029937584</updated>
+    </task>
+    <task id="LOCAL-00011" summary="修改错误提示图标">
+      <created>1489036621722</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1489036621722</updated>
+    </task>
+    <task id="LOCAL-00012" summary="完善列表无数据情况">
+      <created>1489038143364</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1489038143364</updated>
+    </task>
+    <task id="LOCAL-00013" summary="初始化会员中心">
+      <created>1489038173526</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1489038173526</updated>
+    </task>
+    <task id="LOCAL-00014" summary="初始化会员中心-修正">
+      <created>1489038343346</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1489038343346</updated>
+    </task>
+    <task id="LOCAL-00015" summary="适应屏幕高度">
+      <created>1489039807649</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1489039807649</updated>
+    </task>
+    <task id="LOCAL-00016" summary="修复适应屏幕高度">
+      <created>1489040297516</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1489040297516</updated>
+    </task>
+    <task id="LOCAL-00017" summary="修正wechat控制器目录">
+      <created>1489040471370</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1489040471370</updated>
+    </task>
+    <task id="LOCAL-00018" summary="修正wechat css目录">
+      <created>1489040654406</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1489040654406</updated>
+    </task>
+    <task id="LOCAL-00019" summary="初始化前端">
+      <created>1489040787758</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1489040787758</updated>
+    </task>
+    <task id="LOCAL-00020" summary="完成会员章程设置">
+      <created>1489047349026</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1489047349026</updated>
+    </task>
+    <task id="LOCAL-00021" summary="完成会员章程设置补充提交">
+      <created>1489047433003</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1489047433003</updated>
+    </task>
+    <task id="LOCAL-00022" summary="完成会员章程设置补充提交">
+      <created>1489048012853</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1489048012853</updated>
+    </task>
+    <task id="LOCAL-00023" summary="完成会员章程设置补充提交">
+      <created>1489048127155</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1489048127155</updated>
+    </task>
+    <task id="LOCAL-00024" summary="完成会员拓展资料列表">
+      <created>1489109828580</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1489109828580</updated>
+    </task>
+    <task id="LOCAL-00025" summary="完成会员拓展资料相关功能">
+      <created>1489127614395</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1489127614395</updated>
+    </task>
+    <task id="LOCAL-00026" summary="完成会员列表查询和布局">
+      <created>1489198332310</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1489198332310</updated>
+    </task>
+    <task id="LOCAL-00027" summary="修改remoteURL">
+      <created>1489393880952</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1489393880952</updated>
+    </task>
+    <task id="LOCAL-00028" summary="增加指令">
+      <created>1489393927620</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1489393927620</updated>
+    </task>
+    <task id="LOCAL-00029" summary="修改remoteUrl.js">
+      <created>1489394318262</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1489394318262</updated>
+    </task>
+    <task id="LOCAL-00030" summary="完成会员激活 积分变更功能">
+      <created>1489565201008</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1489565201008</updated>
+    </task>
+    <task id="LOCAL-00031" summary="完成会员管理模块">
+      <created>1489745804756</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1489745804756</updated>
+    </task>
+    <task id="LOCAL-00032" summary="完成会员管理模块和增加搜索功能">
+      <created>1489746821622</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1489746821622</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.74437296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31832796" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26339287" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.107317075" sideWeight="0.50079745" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2749196" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16150081" sideWeight="0.49920255" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="编辑冲突" />
+    <MESSAGE value="完成修改员工信息" />
+    <MESSAGE value="增加用户默认头像" />
+    <MESSAGE value="完成重置员工密码" />
+    <MESSAGE value="修改错误提示图标" />
+    <MESSAGE value="完善列表无数据情况" />
+    <MESSAGE value="初始化会员中心" />
+    <MESSAGE value="初始化会员中心-修正" />
+    <MESSAGE value="适应屏幕高度" />
+    <MESSAGE value="修复适应屏幕高度" />
+    <MESSAGE value="修正wechat控制器目录" />
+    <MESSAGE value="修正wechat css目录" />
+    <MESSAGE value="初始化前端" />
+    <MESSAGE value="完成会员章程设置" />
+    <MESSAGE value="完成会员章程设置补充提交" />
+    <MESSAGE value="完成会员拓展资料列表" />
+    <MESSAGE value="完成会员拓展资料相关功能" />
+    <MESSAGE value="完成会员列表查询和布局" />
+    <MESSAGE value="修改remoteURL" />
+    <MESSAGE value="增加指令" />
+    <MESSAGE value="修改remoteUrl" />
+    <MESSAGE value="修改remoteUrl.js" />
+    <MESSAGE value="完成会员激活 积分变更功能" />
+    <MESSAGE value="完成会员管理模块" />
+    <MESSAGE value="完成会员管理模块和增加搜索功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成会员管理模块和增加搜索功能" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ecard" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ecard" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+    </PATH>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/wechat/wechat.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/wechat/wechatLook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/wechat/wechatRight.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.054744527" vertical-offset="0" max-vertical-offset="720">
+          <caret line="2" column="75" selection-start-line="2" selection-start-column="75" selection-end-line="2" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/angular-resize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/wechat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1665">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/wechantinteract.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75" vertical-offset="90" max-vertical-offset="1155">
+          <caret line="20" column="85" selection-start-line="20" selection-start-column="85" selection-end-line="20" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/indexController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.025641026" vertical-offset="0" max-vertical-offset="585">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/editfrontinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="420">
+          <caret line="22" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/frontinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16423358" vertical-offset="0" max-vertical-offset="548">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/editRegulations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37190083" vertical-offset="0" max-vertical-offset="390">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/levelSet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="120">
+          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/regulations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="345">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="223" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/comfirmTemplate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16483517" vertical-offset="0" max-vertical-offset="364">
+          <caret line="4" column="105" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8190">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/homepage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63882065" vertical-offset="610" max-vertical-offset="1245">
+          <caret line="58" column="14" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/replaceExpandTypeFilter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17751479" vertical-offset="0" max-vertical-offset="507">
+          <caret line="6" column="40" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/tipsDirctive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8766114" vertical-offset="214" max-vertical-offset="1245">
+          <caret line="46" column="34" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/homepage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="2400">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/leftmenu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="543">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/menuDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.034246575" vertical-offset="210" max-vertical-offset="1155">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31615925" vertical-offset="660" max-vertical-offset="1725">
+          <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/expandinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36217305" vertical-offset="0" max-vertical-offset="1710">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/expandList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63380283" vertical-offset="0" max-vertical-offset="497">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ExpandListDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6132879" vertical-offset="0" max-vertical-offset="587">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
+          <caret line="0" column="1" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/angular.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5877342" vertical-offset="195780" max-vertical-offset="497085">
+          <caret line="13075" column="38" selection-start-line="13075" selection-start-column="31" selection-end-line="13075" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/membercenter.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8752137" vertical-offset="1078" max-vertical-offset="1695">
+          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64444447" vertical-offset="1093" max-vertical-offset="1830">
+          <caret line="98" column="32" selection-start-line="98" selection-start-column="12" selection-end-line="98" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ng-pagination.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2280">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/membercenter.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.708333" vertical-offset="157" max-vertical-offset="1290">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/fileUploadDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07692308" vertical-offset="0" max-vertical-offset="585">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate/skins/dahong/icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate/skins/dahong/laydate.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="960">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate/skins/molv/icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/laydate/skins/default/laydate.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33207548" vertical-offset="79" max-vertical-offset="1110">
+          <caret line="17" column="66" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/replaceEmployeeFilter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.102564104" vertical-offset="0" max-vertical-offset="585">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/orderStatusFilter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15384616" vertical-offset="0" max-vertical-offset="585">
+          <caret line="6" column="75" selection-start-line="6" selection-start-column="75" selection-end-line="6" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/membercenter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43589744" vertical-offset="555" max-vertical-offset="2445">
+          <caret line="54" column="258" selection-start-line="54" selection-start-column="241" selection-end-line="54" selection-end-column="258" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/filter/payTypeFilter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.102564104" vertical-offset="0" max-vertical-offset="585">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="21" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/homepage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.9131175" vertical-offset="1123" max-vertical-offset="1710">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8211244" vertical-offset="5473" max-vertical-offset="6060">
+          <caret line="397" column="19" selection-start-line="397" selection-start-column="19" selection-end-line="397" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/homepage/staffinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="2130">
+          <caret line="15" column="14" selection-start-line="13" selection-start-column="7" selection-end-line="15" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/memberSet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="8670">
+          <caret line="14" column="105" selection-start-line="14" selection-start-column="89" selection-end-line="14" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/homepageController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.68989545" vertical-offset="11454" max-vertical-offset="17685">
+          <caret line="790" column="18" selection-start-line="790" selection-start-column="18" selection-end-line="790" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/laydate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.051282052" vertical-offset="0" max-vertical-offset="585">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/membercentController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="16884" max-vertical-offset="17760">
+          <caret line="1132" column="49" selection-start-line="1132" selection-start-column="49" selection-end-line="1132" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/layDateDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4088586" vertical-offset="585" max-vertical-offset="1245">
+          <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="95076">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

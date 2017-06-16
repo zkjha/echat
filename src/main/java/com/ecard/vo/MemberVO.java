@@ -25,6 +25,7 @@ public class MemberVO {
 	 * 会员级别
 	 */
 	private String strLevelsname;
+	private String strLevelsId;
 	/**
 	 * 会员卡状态0：禁用 1：激活
 	 */
@@ -78,6 +79,12 @@ public class MemberVO {
 	}
 	public void setStrLevelsname(String strLevelsname) {
 		this.strLevelsname = strLevelsname;
+	}
+	public String getStrLevelsId() {
+		return strLevelsId;
+	}
+	public void setStrLevelsId(String strLevelsId) {
+		this.strLevelsId = strLevelsId;
 	}
 	public int getIntStatus() {
 		return intStatus;

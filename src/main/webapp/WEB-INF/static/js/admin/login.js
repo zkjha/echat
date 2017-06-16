@@ -55,7 +55,7 @@ requirejs(
 								var code =data.code;
 								if(code==1){
 									var url =$scope.url;
-								
+
 									if(url==""){
 										window.location.href="/admin/page/homepage";
 									}else{
