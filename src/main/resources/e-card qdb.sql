@@ -747,7 +747,7 @@ create table tb_member_levelsRights_mapping
  strRightsId				varchar(50)			not null,			-- 会员相应级别对应的权益(购买商品或购买服务的)ID
  strRightsName				varchar(100)		not null,			-- 会员相应级别对应的权益名称(购买商品或购买服务的)名称
  iRightsStatus				int(2)				default 0,			-- 权益状态 0 表示购买商品 1表示购买服务
- dDiscount					decimal(5,2),		default 0.00		-- 折扣率
+ dDiscount					decimal(5,2)		default 1.00,		-- 折扣率
  iPreferentialTimes			int(5)				default 0,			-- 优惠次数
  strEmployeeId				varchar(50)			not null,			-- 登录员工ID
  strEmployeeName			varchar(50)			not null,			-- 登录员工帐号
@@ -1012,11 +1012,12 @@ primary key(strConsumePresentsVoucherId)
 DROP TABLE IF EXISTS tb_memberPurchase_order;
 CREATE TABLE tb_memberPurchase_order
 (
-  strOrderId                VARCHAR(50) NOT NULL,       -- 主键订单号
-  strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID
-  strMemberCardNumber		varchar(50) not null,		-- 会员卡编号
-  strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名
-  strLevelsId				VARCHAR(50) NOT NULL,       -- 会员级别ID
+  strOrderId                VARCHAR(50) NOT NULL,       -- 主键
+  strOrderNum				VARCHAR(50) NOT NULL,       -- 订单号
+  strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
+  strMemberCardNumber		varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
+  strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用
+  strLevelsId				VARCHAR(50) NOT NULL,       -- 会员级别ID	//查询特定会员特定级别下购买服务或商品要用到
   strProductServiceId       VARCHAR(50) NOT NULL,       -- 商品或服务ID
   strProductServiceName     VARCHAR(50) NOT NULL,       -- 商品或服务名称
   iPurchaseType				int default 0,				-- 购买的类型：0商品 1服务

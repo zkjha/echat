@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.ecard.entity.GoodsInfoEntity;
+import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberLevelsRightsMappingEntity;
+import com.ecard.entity.MemberPurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.vo.MemberVO;
 
@@ -23,5 +26,14 @@ public interface CashierDeskMapper
 	public int getGoodsInfoEntityTotalRecordCount(Map<String,Object> queryMap) throws Exception;
 	//查询商品信息详情GoodsInfoEntity列表
 	public List<GoodsInfoEntity> selectAllGoodsInfoEntity(Map<String,Object> queryMap) throws Exception;
+	//按会员ID搜索会员信息
+	public MemberEntity selectMemberInfo(String strMemberId) throws Exception;
+	//查找商品或服务的优惠信息
+	public MemberLevelsRightsMappingEntity getPreferentialInfo(Map<String,Object> queryMap) throws Exception;
+	//查询特定会员在特定级别下购买特定服务的历史记录
+	public List<MemberPurchaseOrderEntity> selectPurchaseOrderInfo(Map<String,Object> queryMap) throws Exception;
+	//写入订单信息
+	public int generatePurchaseOrder(MemberPurchaseOrderEntity insertOrderEntityList) throws Exception;
+	
 	
 }

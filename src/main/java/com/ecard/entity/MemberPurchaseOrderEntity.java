@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 
 public class MemberPurchaseOrderEntity
 {
-private String strOrderId;           //主键订单号
+private String strOrderId;           //主键
+private String strOrderNum;           //订单号
 private String strMemberId;           //会员ID
 private String strMemberCardNumber;           //会员卡编号
 private String strMemberName;           //用户姓名
@@ -41,6 +42,16 @@ public void setStrOrderId(String strOrderId)
 public String getStrOrderId()
 {
 	return strOrderId;
+}
+
+public void setStrOrderNum(String strOrderNum)
+{
+	this.strOrderNum=strOrderNum;
+}
+
+public String getStrOrderNum()
+{
+	return strOrderNum;
 }
 
 public void setStrMemberId(String strMemberId)

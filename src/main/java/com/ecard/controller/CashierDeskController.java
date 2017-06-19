@@ -1,5 +1,8 @@
 package com.ecard.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,14 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.commontools.data.DataTool;
+import com.commontools.date.DateStyle;
+import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberPurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.CashierDeskService;
+import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
 
 @Controller
@@ -31,6 +38,8 @@ public class CashierDeskController
 {
 	@Autowired
 	private CashierDeskService cashierDeskService;
+	@Autowired
+	private WebSessionUtil webSessionUtil;
 	
 	//根据手机号或会员卡号、姓名搜索会员信息
 	@ResponseBody
@@ -193,12 +202,115 @@ public class CashierDeskController
 	@ResponseBody
 	@RequestMapping("generatePurchaseOrder")
 	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder
-/*
 	public String generatePurchaseOrder(HttpServletRequest request,HttpServletResponse response)
 	{
-		//前台传入的数据格式约定为:
+		//前台传入的数据格式约定为:orderInfo=商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位|商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位
+		//会员ID:strMemberId
+		int orderRecordNum=0;
+		int iFlag=0;	//是否跳出循环标志	
+		String[] orderRecordArray;	//订单记录数组
+		String[] orderRecordFieldsArray;	//订单各字段数组
+		String strMemberId=request.getParameter("strMemberId");	//会员ID
+		String orderInfo=request.getParameter("orderInfo");	//订单详情
+		String strOrderNum=request.getParameter("strOrderNum");	//订单编号
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员ID不能为空",null);
+		if(ValidateTool.isEmptyStr(orderInfo))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单信息不能为空",null);
+		if(ValidateTool.isEmptyStr(strOrderNum))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单编号不能为空",null);
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if(employeeEntity==null){
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		 */
+		//取得登录员工信息
+		/*String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+		*/
+		//以下3个为测试用数据
+
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="test";
+		String strEmployeeRealName="david li";
+		
+		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		//取出每条订单记录信息以及订单记录条数
+		orderRecordArray=orderInfo.split("\\|");
+		if(orderRecordArray==null)
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单信息不能为空",null);
+		
+		orderRecordNum=orderRecordArray.length;
+		List<MemberPurchaseOrderEntity> listMemberPurchaseOrderEntity=new ArrayList<MemberPurchaseOrderEntity>();
+		for(int i=0;i<orderRecordNum;i++)
+		{
+			
+			MemberPurchaseOrderEntity memberPurchaseOrderEntity=new MemberPurchaseOrderEntity();
+			orderRecordFieldsArray=orderRecordArray[i].split(",");
+			if(orderRecordFieldsArray!=null)
+			{
+				int iFields=orderRecordFieldsArray.length;
+				if(iFields!=6)
+				{
+					iFlag=1;
+					break;
+				}
+			}
+			else
+			{
+				iFlag=1;
+				break;
+			}
+			
+			//检查数据有效性
+			if(!isNumber(orderRecordFieldsArray[1]))	//检查购买类型 0为购买商品 1为购买服务
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"商品服务类型格式错误",null);
+			
+			if(!isNumber(orderRecordFieldsArray[3]))	//检查购买数量
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"购买数量格式错误",null);
+			
+			if(!isNumber(orderRecordFieldsArray[4]))	//检查售价
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"售价格式错误",null);
+			memberPurchaseOrderEntity.setStrOrderId(DataTool.getUUID());
+			memberPurchaseOrderEntity.setStrMemberId(strMemberId);
+			memberPurchaseOrderEntity.setStrOrderNum(strOrderNum);
+			memberPurchaseOrderEntity.setStrProductServiceId(orderRecordFieldsArray[0]);
+			memberPurchaseOrderEntity.setiPurchaseType(Integer.parseInt(orderRecordFieldsArray[1]));
+			memberPurchaseOrderEntity.setStrProductServiceName(orderRecordFieldsArray[2]);
+			memberPurchaseOrderEntity.setiPurchaseAmount(Integer.parseInt(orderRecordFieldsArray[3]));
+			memberPurchaseOrderEntity.setdPrice(new BigDecimal(orderRecordFieldsArray[4]));
+			memberPurchaseOrderEntity.setiStatus(0);//订单状态 0 待支付
+			memberPurchaseOrderEntity.setStrUnitName(orderRecordFieldsArray[5]);
+			memberPurchaseOrderEntity.setStrEmployeeId(strEmployeeId);
+			memberPurchaseOrderEntity.setStrEmployeeName(strEmployeeName);
+			memberPurchaseOrderEntity.setStrEmployeeRealName(strEmployeeRealName);
+			memberPurchaseOrderEntity.setStrCreationTime(strCreationTime);
+			memberPurchaseOrderEntity.setStrLastAccessedTime(strLastAccessedTime);
+			
+			listMemberPurchaseOrderEntity.add(memberPurchaseOrderEntity);
+		}
+		if(iFlag==1)
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"订单信息格式有误",null);
+		
+		try{
+			return cashierDeskService.generatePurchaseOrder(listMemberPurchaseOrderEntity);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
 	}
-*/	
+
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

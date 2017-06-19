@@ -93,4 +93,133 @@ select
 	where strServiceTypeId=#{strServiceTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
 </select>
 
+<!-- 按会员ID搜索会员信息 -->
+<select id="selectMemberInfo" parameterType="String" resultType="com.ecard.entity.MemberEntity">
+	select STRMEMBERID AS strMemberid,
+ 			STRREALNAME AS strRealname, 
+ 			STRMEMBERCARDNUM AS strMembercardnum,
+			STRLEVELSID AS strLevelsid
+			from tb_member where STRMEMBERID=#{strMemberId}
+</select>
+
+<!-- 查找商品或服务的按会员等级优惠的优惠信息 -->
+<select id="getPreferentialInfo" parameterType="map" resultType="com.ecard.entity.MemberLevelsRightsMappingEntity">
+select 
+ 	strLevelsRightsMappingId,
+ 	strLevelsId,
+ 	strLevelsName,
+ 	strRightsId,
+ 	strRightsName,
+ 	iRightsStatus,
+ 	dDiscount,
+ 	iPreferentialTimes,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime
+ 	from tb_member_levelsRights_mapping
+	where strLevelsId=#{strLevelsId} and iRightsStatus=#{iPurchaseType} and strRightsId=#{strProductServiceId}
+</select>
+
+<!-- 查询特定会员在特定级别下购买特定服务的历史记录 -->
+<select id="selectPurchaseOrderInfo" resultType="com.ecard.entity.MemberPurchaseOrderEntity" parameterType="map">
+ select 
+ 	strOrderId,
+ 	strOrderNum,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId,
+ 	strProductServiceName,
+ 	iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_memberPurchase_order
+	where iPurchaseType=#{iPurchaseType} and strMemberId=#{strMemberId} and strProductServiceId=#{strProductServiceId} and strLevelsId=#{strLevelsId}
+</select>
+
+
+<!-- 新增_订单信息[tableName:tb_memberPurchase_order] -->
+<insert id="generatePurchaseOrder" parameterType="com.ecard.entity.MemberPurchaseOrderEntity">
+ insert into tb_memberPurchase_order
+	(
+	strOrderId,
+	strOrderNum,
+	strMemberId,
+	strMemberCardNumber,
+	strMemberName,
+	strLevelsId,
+	strProductServiceId,
+	strProductServiceName,
+	iPurchaseType,
+	iPurchaseAmount,
+	strUnitName,
+	dPrice,
+	dPurchaseCashTotalAmount,
+	dPreferentialPrice,
+	dPreferentialCashTotalAmount,
+	iStatus,
+	iPayStandard,
+	strPayTime,
+	iPayType,
+	strThirdPartyTradeFlow,
+	strExpressNumber,
+	strExpressCompany,
+	strComment,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strOrderId},
+	#{strOrderNum},
+	#{strMemberId},
+	#{strMemberCardNumber},
+	#{strMemberName},
+	#{strLevelsId},
+	#{strProductServiceId},
+	#{strProductServiceName},
+	#{iPurchaseType},
+	#{iPurchaseAmount},
+	#{strUnitName},
+	#{dPrice},
+	#{dPurchaseCashTotalAmount},
+	#{dPreferentialPrice},
+	#{dPreferentialCashTotalAmount},
+	#{iStatus},
+	#{iPayStandard},
+	#{strPayTime},
+	#{iPayType},
+	#{strThirdPartyTradeFlow},
+	#{strExpressNumber},
+	#{strExpressCompany},
+	#{strComment},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
 </mapper>

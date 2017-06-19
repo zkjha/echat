@@ -209,7 +209,7 @@ public class GoodsInfoController {
 	    		
 	    		// 解析单行
 	    		String [] arrOneLineStrings = arrGoodsPreferentialInfos[iLoop].split(",");
-	    		System.out.println(arrGoodsPreferentialInfos[iLoop]);
+	    	//	System.out.println(arrGoodsPreferentialInfos[iLoop]);
 	    		
 	    		if (arrOneLineStrings == null)
 	    		{
