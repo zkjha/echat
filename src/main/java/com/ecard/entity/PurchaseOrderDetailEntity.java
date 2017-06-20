@@ -2,7 +2,7 @@ package com.ecard.entity;
 
 import java.math.BigDecimal;
 
-public class MemberPurchaseOrderEntity
+public class PurchaseOrderDetailEntity
 {
 private String strOrderId;           //主键
 private String strOrderNum;           //订单号
@@ -14,6 +14,8 @@ private String strProductServiceId;           //商品或服务ID
 private String strProductServiceName;           //商品或服务名称
 private int iPurchaseType;           //购买的类型：0商品 1服务
 private int iPurchaseAmount;           //购买商品或服务数量
+private int iPurchaseIntegrationAmount;	//购买商品或服务所需总积分数量
+private int iIntegrationAmount;	//购单个商品或服务所需积分
 private String strUnitName;			//商品或服务的计量单位
 private BigDecimal dPrice;        //商品或服务单价(原价）
 private BigDecimal dPurchaseCashTotalAmount;        //订单总金额（原价计算得来)
@@ -132,6 +134,26 @@ public void setiPurchaseAmount(int iPurchaseAmount)
 public int getiPurchaseAmount()
 {
 	return iPurchaseAmount;
+}
+
+public void setiPurchaseIntegrationAmount(int iPurchaseIntegrationAmount)
+{
+	this.iPurchaseIntegrationAmount=iPurchaseIntegrationAmount;
+}
+
+public int getiPurchaseIntegrationAmount()
+{
+	return iPurchaseIntegrationAmount;
+}
+
+public void setiIntegrationAmount(int iIntegrationAmount)
+{
+	this.iIntegrationAmount=iIntegrationAmount;
+}
+
+public int getiIntegrationAmount()
+{
+	return iIntegrationAmount;
 }
 
 public void setStrUnitName(String strUnitName)

@@ -26,7 +26,7 @@ import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.MemberEntity;
-import com.ecard.entity.MemberPurchaseOrderEntity;
+import com.ecard.entity.PurchaseOrderDetailEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.CashierDeskService;
 import com.ecard.util.WebSessionUtil;
@@ -198,7 +198,7 @@ public class CashierDeskController
 	}
 	
 	
-	//生成购买订单表
+	//生成购买订单表,订单详情表
 	@ResponseBody
 	@RequestMapping("generatePurchaseOrder")
 	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder
@@ -250,11 +250,11 @@ public class CashierDeskController
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单信息不能为空",null);
 		
 		orderRecordNum=orderRecordArray.length;
-		List<MemberPurchaseOrderEntity> listMemberPurchaseOrderEntity=new ArrayList<MemberPurchaseOrderEntity>();
+		List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity=new ArrayList<PurchaseOrderDetailEntity>();
 		for(int i=0;i<orderRecordNum;i++)
 		{
 			
-			MemberPurchaseOrderEntity memberPurchaseOrderEntity=new MemberPurchaseOrderEntity();
+			PurchaseOrderDetailEntity purchaseOrderDetailEntity=new PurchaseOrderDetailEntity();
 			orderRecordFieldsArray=orderRecordArray[i].split(",");
 			if(orderRecordFieldsArray!=null)
 			{
@@ -280,29 +280,29 @@ public class CashierDeskController
 			
 			if(!isNumber(orderRecordFieldsArray[4]))	//检查售价
 				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"售价格式错误",null);
-			memberPurchaseOrderEntity.setStrOrderId(DataTool.getUUID());
-			memberPurchaseOrderEntity.setStrMemberId(strMemberId);
-			memberPurchaseOrderEntity.setStrOrderNum(strOrderNum);
-			memberPurchaseOrderEntity.setStrProductServiceId(orderRecordFieldsArray[0]);
-			memberPurchaseOrderEntity.setiPurchaseType(Integer.parseInt(orderRecordFieldsArray[1]));
-			memberPurchaseOrderEntity.setStrProductServiceName(orderRecordFieldsArray[2]);
-			memberPurchaseOrderEntity.setiPurchaseAmount(Integer.parseInt(orderRecordFieldsArray[3]));
-			memberPurchaseOrderEntity.setdPrice(new BigDecimal(orderRecordFieldsArray[4]));
-			memberPurchaseOrderEntity.setiStatus(0);//订单状态 0 待支付
-			memberPurchaseOrderEntity.setStrUnitName(orderRecordFieldsArray[5]);
-			memberPurchaseOrderEntity.setStrEmployeeId(strEmployeeId);
-			memberPurchaseOrderEntity.setStrEmployeeName(strEmployeeName);
-			memberPurchaseOrderEntity.setStrEmployeeRealName(strEmployeeRealName);
-			memberPurchaseOrderEntity.setStrCreationTime(strCreationTime);
-			memberPurchaseOrderEntity.setStrLastAccessedTime(strLastAccessedTime);
+			purchaseOrderDetailEntity.setStrOrderId(DataTool.getUUID());
+			purchaseOrderDetailEntity.setStrMemberId(strMemberId);
+			purchaseOrderDetailEntity.setStrOrderNum(strOrderNum);
+			purchaseOrderDetailEntity.setStrProductServiceId(orderRecordFieldsArray[0]);
+			purchaseOrderDetailEntity.setiPurchaseType(Integer.parseInt(orderRecordFieldsArray[1]));
+			purchaseOrderDetailEntity.setStrProductServiceName(orderRecordFieldsArray[2]);
+			purchaseOrderDetailEntity.setiPurchaseAmount(Integer.parseInt(orderRecordFieldsArray[3]));
+			purchaseOrderDetailEntity.setdPrice(new BigDecimal(orderRecordFieldsArray[4]));
+			purchaseOrderDetailEntity.setiStatus(0);//订单状态 0 待支付
+			purchaseOrderDetailEntity.setStrUnitName(orderRecordFieldsArray[5]);
+			purchaseOrderDetailEntity.setStrEmployeeId(strEmployeeId);
+			purchaseOrderDetailEntity.setStrEmployeeName(strEmployeeName);
+			purchaseOrderDetailEntity.setStrEmployeeRealName(strEmployeeRealName);
+			purchaseOrderDetailEntity.setStrCreationTime(strCreationTime);
+			purchaseOrderDetailEntity.setStrLastAccessedTime(strLastAccessedTime);
 			
-			listMemberPurchaseOrderEntity.add(memberPurchaseOrderEntity);
+			listPurchaseOrderDetailEntity.add(purchaseOrderDetailEntity);
 		}
 		if(iFlag==1)
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"订单信息格式有误",null);
 		
 		try{
-			return cashierDeskService.generatePurchaseOrder(listMemberPurchaseOrderEntity);
+			return cashierDeskService.generatePurchaseOrder(listPurchaseOrderDetailEntity);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -311,6 +311,92 @@ public class CashierDeskController
 		
 	}
 
+	
+	//积分支付商品或服务 积分查询
+//	@ResponseBody
+	//@RequestMapping("payWithIntegration")
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderNum=eight
+	/*
+	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderNum=request.getParameter("strOrderNum");
+		if(ValidateTool.isEmptyStr("strOrderNum"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		Map<String,Object> queryMap=new HashMap<String,Object>();
+		queryMap.put("strOrderNum",strOrderNum);
+		try{
+			return cashierDeskService.payWithIntegration(queryMap) ;
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
+	*/
+	
+	//支付完毕 修改订单状态
+	@ResponseBody
+	@RequestMapping("editOrderPaymentStatus")
+	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderNum=eight&iPayType=0&strThirdPartyTradeFlow=
+	public String editOrderPaymentStatus(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderNum=request.getParameter("strOrderNum");	//订单号
+		String strPayType=request.getParameter("iPayType");	//订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
+		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
+		int iPayType=0;
+		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		String strThirdPartyTradeFlow=request.getParameter("strThirdPartyTradeFlow").trim();
+		if(ValidateTool.isEmptyStr("strOrderNum"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		if(ValidateTool.isEmptyStr("strOrderPayType"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"支付方式不能为空",null);
+		if(isNumber(strPayType))
+			iPayType=Integer.parseInt(strPayType);
+		else
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"支付方式格式错误",null);
+		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
+		orderStatusMap.put("strOrderNum",strOrderNum);
+		orderStatusMap.put("iPayType",iPayType);
+		orderStatusMap.put("iPayStandard",iPayStandard);
+		orderStatusMap.put("strPayTime",strPayTime);
+		orderStatusMap.put("iStatus",1);
+		orderStatusMap.put("strThirdPartyTradeFlow",strThirdPartyTradeFlow);
+		orderStatusMap.put("strLastAccessedTime",strLastAccessedTime);
+		
+		try{
+			return cashierDeskService.editOrderPaymentStatus(orderStatusMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
+	}
+	
+	
+	//会员卡余额支付
+	@ResponseBody
+	@RequestMapping("payWithMemberCard")
+	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderNum=12345678952
+	/*
+	public String payWithMemberCard(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderNum=request.getParameter("strOrderNum");
+		if(ValidateTool.isEmptyStr("strOrderNum"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单号不能为空",null);
+		Map<String,Object> queryMap=new HashMap<String,Object>();
+		queryMap.put("strOrderNum",strOrderNum);
+		try{
+			return cashierDeskService.payWithMemberCard(queryMap) ;
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}
+	*/
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

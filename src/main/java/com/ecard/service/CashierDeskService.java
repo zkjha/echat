@@ -15,7 +15,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberLevelsRightsMappingEntity;
-import com.ecard.entity.MemberPurchaseOrderEntity;
+import com.ecard.entity.PurchaseOrderDetailEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.mapper.CashierDeskMapper;
 import com.ecard.vo.MemberVO;
@@ -63,29 +63,33 @@ public class CashierDeskService
 	
 	//生成购买订单
 	@Transactional
-	public String generatePurchaseOrder(List<MemberPurchaseOrderEntity> listMemberPurchaseOrderEntity) throws Exception
+	public String generatePurchaseOrder(List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity) throws Exception
 	{
 		int iLoopTimes=0;
-		if(listMemberPurchaseOrderEntity==null)
+		if(listPurchaseOrderDetailEntity==null)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单信息不能为空",null);
 		
-		iLoopTimes=listMemberPurchaseOrderEntity.size();
+		iLoopTimes=listPurchaseOrderDetailEntity.size();
 		if(iLoopTimes==0)
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单信息不能为空",null);
 		//查询会员级别信息写入订单
-		String strMemberId=listMemberPurchaseOrderEntity.get(0).getStrMemberId();
+		String strMemberId=listPurchaseOrderDetailEntity.get(0).getStrMemberId();
 		for(int i=0;i<iLoopTimes;i++)
 		{
 			MemberEntity memberEntity=cashierDeskMapper.selectMemberInfo(strMemberId);
 			String strMemberCardNumber=memberEntity.getStrMembercardnum();
 			String strMemberName=memberEntity.getStrRealname();
 			String strLevelsId=memberEntity.getStrLevelsid();
-			listMemberPurchaseOrderEntity.get(i).setStrMemberCardNumber(strMemberCardNumber);
-			listMemberPurchaseOrderEntity.get(i).setStrMemberName(strMemberName);
-			listMemberPurchaseOrderEntity.get(i).setStrLevelsId(strLevelsId);
+			listPurchaseOrderDetailEntity.get(i).setStrMemberCardNumber(strMemberCardNumber);
+			listPurchaseOrderDetailEntity.get(i).setStrMemberName(strMemberName);
+			listPurchaseOrderDetailEntity.get(i).setStrLevelsId(strLevelsId);
 		}
 		//调用方法，查找购买服务或商品的折扣价。并返回处理后的最终订单对象
-		List<MemberPurchaseOrderEntity> insertOrderEntityList=selectPreferentialInfo(listMemberPurchaseOrderEntity);
+		List<PurchaseOrderDetailEntity> insertOrderEntityList=selectPreferentialInfo(listPurchaseOrderDetailEntity);
+		//调用方法，查找商品或服务是否有积分优惠，有则更改订单积分优惠信息，无 不处理。
+		String orderStatus=payWithIntegration(insertOrderEntityList);
+		if("ERROR".equals(orderStatus))
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"请将有积分优惠的商品服务与无积分优惠的商品服务分开下单",null);
 		try{
 			int iAffectNum=0;
 			int iFlag=0;
@@ -110,7 +114,7 @@ public class CashierDeskService
 	
 	//查询购买商品或服务的优惠信息
 	@Transactional
-	public List<MemberPurchaseOrderEntity> selectPreferentialInfo(List<MemberPurchaseOrderEntity> listMemberPurchaseOrderEntity) throws Exception
+	public List<PurchaseOrderDetailEntity> selectPreferentialInfo(List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity) throws Exception
 	{
 		int iPreferentialTimes=0;	//优惠次数
 		int iPurchaseType;		//购买的类型：0商品 1服务
@@ -127,18 +131,18 @@ public class CashierDeskService
 		String strMemberId;	//会员ID
 		String strIndex="";//记录下订单对订单对象中购买次数超过一次既享有免费一定次数和打折一定次数的记录的LIST索引
 		//listAddServiceOrder需要添加的服务订单信息:将下单后的服务信息分解为免费信息和打折信息
-		List<MemberPurchaseOrderEntity> listAddServiceOrder=new ArrayList<MemberPurchaseOrderEntity>();
+		List<PurchaseOrderDetailEntity> listAddServiceOrder=new ArrayList<PurchaseOrderDetailEntity>();
 		Map<String,Object> queryMap=new HashMap<String,Object>();
-		iOrderRecordNum=listMemberPurchaseOrderEntity.size();
+		iOrderRecordNum=listPurchaseOrderDetailEntity.size();
 		for(int i=0;i<iOrderRecordNum;i++)
 		{
-			MemberPurchaseOrderEntity memberPurchaseOrderEntity=listMemberPurchaseOrderEntity.get(i);//取出订单记录对象
-			iPurchaseType=memberPurchaseOrderEntity.getiPurchaseType();	//取得购买类型：0商品 1服务
-			strProductServiceId=memberPurchaseOrderEntity.getStrProductServiceId();//取得购买的商品或服务ID
-			strLevelsId=memberPurchaseOrderEntity.getStrLevelsId();	//取得会员级别ID
-			strMemberId=memberPurchaseOrderEntity.getStrMemberId();//取得会员ID
-			bgBasePrice=memberPurchaseOrderEntity.getdPrice(); //商品或服务原价
-			iPurchaseAmount=memberPurchaseOrderEntity.getiPurchaseAmount();	//购买商品或服务数量
+			PurchaseOrderDetailEntity purchaseOrderDetailEntity=listPurchaseOrderDetailEntity.get(i);//取出订单记录对象
+			iPurchaseType=purchaseOrderDetailEntity.getiPurchaseType();	//取得购买类型：0商品 1服务
+			strProductServiceId=purchaseOrderDetailEntity.getStrProductServiceId();//取得购买的商品或服务ID
+			strLevelsId=purchaseOrderDetailEntity.getStrLevelsId();	//取得会员级别ID
+			strMemberId=purchaseOrderDetailEntity.getStrMemberId();//取得会员ID
+			bgBasePrice=purchaseOrderDetailEntity.getdPrice(); //商品或服务原价
+			iPurchaseAmount=purchaseOrderDetailEntity.getiPurchaseAmount();	//购买商品或服务数量
 			queryMap.put("iPurchaseType",iPurchaseType);
 			queryMap.put("strProductServiceId",strProductServiceId);
 			queryMap.put("strLevelsId",strLevelsId);
@@ -158,15 +162,15 @@ public class CashierDeskService
 						bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iPurchaseAmount));	//购买（总金额）原价
 						bgPreferentialPrice=bgBasePrice.multiply(bgDiscount);//优惠价=原价*折扣
 						bgPreferentialTotalAmount=bgPreferentialPrice.multiply(new BigDecimal(iPurchaseAmount));//购买（总金额）优惠价
-						memberPurchaseOrderEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-						memberPurchaseOrderEntity.setdPreferentialPrice(bgPreferentialPrice);
-						memberPurchaseOrderEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
-						memberPurchaseOrderEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次打折服务");
+						purchaseOrderDetailEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
+						purchaseOrderDetailEntity.setdPreferentialPrice(bgPreferentialPrice);
+						purchaseOrderDetailEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
+						purchaseOrderDetailEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次打折服务");
 						break;
 				
 					case 1:
 						//查该会员的购买历史
-						List<MemberPurchaseOrderEntity> listMemberPurchaseHistory=cashierDeskMapper.selectPurchaseOrderInfo(queryMap);
+						List<PurchaseOrderDetailEntity> listMemberPurchaseHistory=cashierDeskMapper.selectPurchaseOrderInfo(queryMap);
 						//如果listMemberPurchaseHistory不为空，即该会员有购买该服务的历史记录
 						if(listMemberPurchaseHistory!=null&&listMemberPurchaseHistory.size()!=0)
 						{
@@ -179,7 +183,7 @@ public class CashierDeskService
 							//统计购买该会员在该级别下购买该服务的次数
 							for(int j=0;j<iLoopTimes;j++)
 							{
-								MemberPurchaseOrderEntity historyOrderObj=listMemberPurchaseHistory.get(j);
+								PurchaseOrderDetailEntity historyOrderObj=listMemberPurchaseHistory.get(j);
 								iPurchaseTimes+=historyOrderObj.getiPurchaseAmount();
 							}
 							
@@ -192,10 +196,10 @@ public class CashierDeskService
 								bgPreferentialTotalAmount=new BigDecimal("0");
 								
 								bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iPurchaseAmount));	//购买（总金额）原价
-								memberPurchaseOrderEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-								memberPurchaseOrderEntity.setdPreferentialPrice(bgPreferentialPrice);
-								memberPurchaseOrderEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
-								memberPurchaseOrderEntity.setStrComment("该客户在本次消费中免单<在优惠次数内>");
+								purchaseOrderDetailEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
+								purchaseOrderDetailEntity.setdPreferentialPrice(bgPreferentialPrice);
+								purchaseOrderDetailEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
+								purchaseOrderDetailEntity.setStrComment("该客户在本次消费中免单<在优惠次数内>");
 							}
 							else
 							{
@@ -223,9 +227,9 @@ public class CashierDeskService
 									else
 										strIndex+=","+String.valueOf(i);
 									//存下服务订单信息
-									MemberPurchaseOrderEntity purchaseServiceEntity=new MemberPurchaseOrderEntity();
+									PurchaseOrderDetailEntity purchaseServiceEntity=new PurchaseOrderDetailEntity();
 									//存免费信息
-									purchaseServiceEntity=memberPurchaseOrderEntity;
+									purchaseServiceEntity=purchaseOrderDetailEntity;
 									bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iFreeTimes));//原价计算 的订单总金额
 									purchaseServiceEntity.setStrOrderId(DataTool.getUUID());
 									purchaseServiceEntity.setdPreferentialPrice(new BigDecimal("0"));
@@ -236,39 +240,39 @@ public class CashierDeskService
 									listAddServiceOrder.add(0,purchaseServiceEntity);
 
 									//存下打折信息
-									MemberPurchaseOrderEntity ServiceEntity=new MemberPurchaseOrderEntity();
+									PurchaseOrderDetailEntity ServiceEntity=new PurchaseOrderDetailEntity();
 									bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iDiscountTimes));//原价计算 的订单总金额
 									ServiceEntity.setStrOrderId(DataTool.getUUID());
-									ServiceEntity.setStrOrderNum(memberPurchaseOrderEntity.getStrOrderNum());
-									ServiceEntity.setStrMemberId(memberPurchaseOrderEntity.getStrMemberId());
-									ServiceEntity.setStrMemberCardNumber(memberPurchaseOrderEntity.getStrMemberCardNumber());
-									ServiceEntity.setStrMemberName(memberPurchaseOrderEntity.getStrMemberName());
-									ServiceEntity.setStrLevelsId(memberPurchaseOrderEntity.getStrLevelsId());
-									ServiceEntity.setStrProductServiceId(memberPurchaseOrderEntity.getStrProductServiceId());
-									ServiceEntity.setStrProductServiceName(memberPurchaseOrderEntity.getStrProductServiceName());
+									ServiceEntity.setStrOrderNum(purchaseOrderDetailEntity.getStrOrderNum());
+									ServiceEntity.setStrMemberId(purchaseOrderDetailEntity.getStrMemberId());
+									ServiceEntity.setStrMemberCardNumber(purchaseOrderDetailEntity.getStrMemberCardNumber());
+									ServiceEntity.setStrMemberName(purchaseOrderDetailEntity.getStrMemberName());
+									ServiceEntity.setStrLevelsId(purchaseOrderDetailEntity.getStrLevelsId());
+									ServiceEntity.setStrProductServiceId(purchaseOrderDetailEntity.getStrProductServiceId());
+									ServiceEntity.setStrProductServiceName(purchaseOrderDetailEntity.getStrProductServiceName());
 									ServiceEntity.setiPurchaseType(1);
-									ServiceEntity.setStrUnitName(memberPurchaseOrderEntity.getStrUnitName());
+									ServiceEntity.setStrUnitName(purchaseOrderDetailEntity.getStrUnitName());
 									ServiceEntity.setiStatus(0);
 									ServiceEntity.setdPreferentialPrice(bgPreferentialPrice);
 									ServiceEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
 									ServiceEntity.setdPrice(bgBasePrice);
 									ServiceEntity.setiPurchaseAmount(iDiscountTimes);
 									ServiceEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-									ServiceEntity.setStrEmployeeId(memberPurchaseOrderEntity.getStrEmployeeId());
-									ServiceEntity.setStrEmployeeName(memberPurchaseOrderEntity.getStrEmployeeName());
-									ServiceEntity.setStrEmployeeRealName(memberPurchaseOrderEntity.getStrEmployeeRealName());
-									ServiceEntity.setStrCreationTime(memberPurchaseOrderEntity.getStrCreationTime());
-									ServiceEntity.setStrLastAccessedTime(memberPurchaseOrderEntity.getStrLastAccessedTime());
+									ServiceEntity.setStrEmployeeId(purchaseOrderDetailEntity.getStrEmployeeId());
+									ServiceEntity.setStrEmployeeName(purchaseOrderDetailEntity.getStrEmployeeName());
+									ServiceEntity.setStrEmployeeRealName(purchaseOrderDetailEntity.getStrEmployeeRealName());
+									ServiceEntity.setStrCreationTime(purchaseOrderDetailEntity.getStrCreationTime());
+									ServiceEntity.setStrLastAccessedTime(purchaseOrderDetailEntity.getStrLastAccessedTime());
 									ServiceEntity.setStrComment("该客户在本次消费中享有"+iDiscountTimes+"次打折服务");
 									listAddServiceOrder.add(1,ServiceEntity);
 								}
 								else
 								{
 									bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iPurchaseAmount));	//购买（总金额）原价
-									memberPurchaseOrderEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-									memberPurchaseOrderEntity.setdPreferentialPrice(bgPreferentialPrice);
-									memberPurchaseOrderEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
-									memberPurchaseOrderEntity.setStrComment("该客户在本次消费中享有"+iDiscountTimes+"次打折服务");
+									purchaseOrderDetailEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
+									purchaseOrderDetailEntity.setdPreferentialPrice(bgPreferentialPrice);
+									purchaseOrderDetailEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
+									purchaseOrderDetailEntity.setStrComment("该客户在本次消费中享有"+iDiscountTimes+"次打折服务");
 									
 								}
 									
@@ -293,13 +297,13 @@ public class CashierDeskService
 								bgPreferentialTotalAmount=new BigDecimal("0");
 							}
 							bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iPurchaseAmount));//购买（总金额）原价
-							memberPurchaseOrderEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-							memberPurchaseOrderEntity.setdPreferentialPrice(bgPreferentialPrice);
-							memberPurchaseOrderEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
+							purchaseOrderDetailEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
+							purchaseOrderDetailEntity.setdPreferentialPrice(bgPreferentialPrice);
+							purchaseOrderDetailEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
 							if(iFlag==1)
-								memberPurchaseOrderEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次打折服务");
+								purchaseOrderDetailEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次打折服务");
 							else
-								memberPurchaseOrderEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次免单服务");
+								purchaseOrderDetailEntity.setStrComment("该客户在本次消费中享有"+iPurchaseAmount+"次免单服务");
 								
 						}
 						break;
@@ -312,20 +316,20 @@ public class CashierDeskService
 			bgPurchaseTotalAmount=bgBasePrice.multiply(new BigDecimal(iPurchaseAmount));//购买（总金额）原价
 			bgPreferentialTotalAmount=bgPreferentialPrice.multiply(new BigDecimal(iPurchaseAmount));
 			
-			memberPurchaseOrderEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
-			memberPurchaseOrderEntity.setdPreferentialPrice(bgPreferentialPrice);
-			memberPurchaseOrderEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
-			memberPurchaseOrderEntity.setStrComment("未找到相关优惠信息");
+			purchaseOrderDetailEntity.setdPurchaseCashTotalAmount(bgPurchaseTotalAmount);
+			purchaseOrderDetailEntity.setdPreferentialPrice(bgPreferentialPrice);
+			purchaseOrderDetailEntity.setdPreferentialCashTotalAmount(bgPreferentialTotalAmount);
+			purchaseOrderDetailEntity.setStrComment("未找到相关优惠信息");
 			}
 			
 		}
 		//订单优惠信息检查完毕（for完)
 		//对订单信息进行整理后，将最终结果存入listInsertOrderInfoEntity对象
-		List<MemberPurchaseOrderEntity> listInsertOrderInfoEntity=new ArrayList<MemberPurchaseOrderEntity>();
+		List<PurchaseOrderDetailEntity> listInsertOrderInfoEntity=new ArrayList<PurchaseOrderDetailEntity>();
 		String[] removeIndexArray=strIndex.split(",");
 		if(removeIndexArray!=null&&!(removeIndexArray[0].trim().isEmpty()))
 		{
-			for(int i=0;i<listMemberPurchaseOrderEntity.size();i++)
+			for(int i=0;i<listPurchaseOrderDetailEntity.size();i++)
 			{	
 				int iFlag=0;	//为0 将订单信息放入listInsertOrderInfoEntity，1 不放入
 				for(int j=0;j<removeIndexArray.length;j++)
@@ -339,16 +343,16 @@ public class CashierDeskService
 				
 				if(iFlag==0)
 				{
-					MemberPurchaseOrderEntity orderObj=listMemberPurchaseOrderEntity.get(i);
+					PurchaseOrderDetailEntity orderObj=listPurchaseOrderDetailEntity.get(i);
 					listInsertOrderInfoEntity.add(orderObj);
 				}
 			}
 		}
 		else
 		{
-			for(int i=0;i<listMemberPurchaseOrderEntity.size();i++)
+			for(int i=0;i<listPurchaseOrderDetailEntity.size();i++)
 			{	
-				MemberPurchaseOrderEntity orderObj=listMemberPurchaseOrderEntity.get(i);
+				PurchaseOrderDetailEntity orderObj=listPurchaseOrderDetailEntity.get(i);
 				listInsertOrderInfoEntity.add(orderObj);
 			}
 			
@@ -358,7 +362,7 @@ public class CashierDeskService
 		{
 			for(int i=0;i<listAddServiceOrder.size();i++)
 			{
-				MemberPurchaseOrderEntity orderObj=listAddServiceOrder.get(i);
+				PurchaseOrderDetailEntity orderObj=listAddServiceOrder.get(i);
 				listInsertOrderInfoEntity.add(orderObj);
 			}
 		}
@@ -367,4 +371,153 @@ public class CashierDeskService
 	}
 	
 	
+	
+	//积分支付商品或服务 
+	@Transactional
+	public String payWithIntegration(List<PurchaseOrderDetailEntity> insertOrderEntityList) throws Exception
+	{
+		String strProductServiceId;	//购买商品或服务的ID
+		int iPurchaseType;//购买的类别　0商品  1 服务
+		int integrationAmount=0;	//况换此批订单所需积分数量
+		BigDecimal baseTotalCashAmount=new BigDecimal("0");	//按原价计算此批订单总额
+		BigDecimal preferentialTotalCashAmount=new BigDecimal("0");	//按会员优惠价计算此批订单总金额
+		Map<String,Object> queryMap=new HashMap<String,Object>();
+		queryMap.put("strLevelsId",insertOrderEntityList.get(0).getStrLevelsId());
+		boolean booBreak=false;	//是否退出程序执行  false 不退出  true 退出
+		int iFlag=0;
+		int haveIntegrationPreferential=0;	//是否有积分优惠，默认为无
+		for(PurchaseOrderDetailEntity orderDetailObj:insertOrderEntityList)
+		{	
+			int iPreferentialType=0;//优惠状态 0 不优惠 1 按会员等级优惠
+			int iPurchaseAmount=orderDetailObj.getiPurchaseAmount();//购买商品或服务的数量
+			int iItemIntegrationAmount=0;	//多个商品或服务所需积分数量
+			int iUseIntegrationAmount=0;//	 单个商品或服务所需积分数量
+			strProductServiceId=orderDetailObj.getStrProductServiceId();
+			iPurchaseType=orderDetailObj.getiPurchaseType();
+			queryMap.put("strProductServiceId",strProductServiceId);
+			
+			//按类别进行相应的处理 0商品 1服务  有优惠就计算兑换商品或服务积分
+			switch (iPurchaseType)
+			{
+				case 0:
+					//查商品表tb_goods，看是否有优惠
+					iPreferentialType=cashierDeskMapper.selectGoodsPreferentialType(strProductServiceId);
+					if(iFlag==0)
+					{
+						iFlag=1;
+						haveIntegrationPreferential=iPreferentialType;
+					}
+					else
+					{
+						if(iPreferentialType!=haveIntegrationPreferential)
+						{
+							booBreak=true;
+							break;
+						}
+					}
+					
+					//计算商品所需积分
+					if(iPreferentialType!=0)
+					{
+							//有优惠,按会员级别查商品优惠表，计算积分,无优惠不处理
+							iUseIntegrationAmount=cashierDeskMapper.selectGoodsIntegration(queryMap);
+							//判断商品积分优惠表中是否找到相应积分信息。若商品表中有 积分，但商品优惠表中未找到相关记录，则报错
+							if(iUseIntegrationAmount==0)
+							{
+								booBreak=true;
+								break;			//两表不一致报错
+							}
+							else
+							{
+								iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
+								integrationAmount+=iItemIntegrationAmount;
+							}
+								
+					}
+					else
+						integrationAmount=0;
+					break;
+				case 1:
+					//如果是服务
+					iPreferentialType=cashierDeskMapper.selectServicePreferentialType(strProductServiceId);
+					if(iFlag==0)
+					{
+						iFlag=1;
+						haveIntegrationPreferential=iPreferentialType;
+					}
+					else
+					{
+						if(iPreferentialType!=haveIntegrationPreferential)
+						{
+							booBreak=true;
+							break;
+						}
+					}
+					
+					if(iPreferentialType!=0)
+					{	//有优惠执行如下处理，无优惠不处理
+						iUseIntegrationAmount=cashierDeskMapper.selectServiceIntegration(queryMap);
+						if(iUseIntegrationAmount==0)
+						{
+							booBreak=true;
+							break;			//两表不致报错
+						}
+						else
+							{
+							iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
+							integrationAmount+=iItemIntegrationAmount;
+							}
+					}
+					else
+						integrationAmount=0;
+						
+					break;
+			}
+			
+			if(booBreak==true)
+				return "ERROR";
+			orderDetailObj.setiPurchaseIntegrationAmount(iItemIntegrationAmount);
+			orderDetailObj.setiIntegrationAmount(iUseIntegrationAmount);
+			//计算订单原价总金额:baseTotalCashAmount和优惠价总金额:PreferentialTotalCashAmount
+			baseTotalCashAmount=baseTotalCashAmount.add(orderDetailObj.getdPurchaseCashTotalAmount());
+			preferentialTotalCashAmount=preferentialTotalCashAmount.add(orderDetailObj.getdPreferentialCashTotalAmount());
+			//订单对象检查完毕 for 完
+		}
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("baseTotalCashAmount",baseTotalCashAmount);
+		resultMap.put("preferentialTotalCashAmount",preferentialTotalCashAmount);
+		resultMap.put("integrationAmount",integrationAmount);
+		return "OK";
+		
+	//方法完	
+	}
+	
+	
+	//会员卡余额支付
+	//@Transactional
+	/*
+	public String payWithMemberCard(Map<String,Object> queryMap) throws Exception
+	{
+		//查订单信息
+		BigDecimal baseTotalCashAmount=new BigDecimal("0");	//按原价计算此批订单总额
+		BigDecimal preferentialTotalCashAmount=new BigDecimal("0");	//按会员优惠价计算此批订单总金额
+		
+		
+		
+	}
+	
+	*/
+	//支付完毕 修改订单状态
+	@Transactional
+	public String editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception
+	{
+		int iAffectNum=0;
+		iAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);
+		if(iAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"该笔订单已完成支付",null);
+
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
+
+	}
 }

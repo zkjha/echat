@@ -122,7 +122,7 @@ select
 </select>
 
 <!-- 查询特定会员在特定级别下购买特定服务的历史记录 -->
-<select id="selectPurchaseOrderInfo" resultType="com.ecard.entity.MemberPurchaseOrderEntity" parameterType="map">
+<select id="selectPurchaseOrderInfo" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="map">
  select 
  	strOrderId,
  	strOrderNum,
@@ -152,14 +152,14 @@ select
  	strEmployeeRealName,
  	strCreationTime,
  	strLastAccessedTime
- 	from tb_memberPurchase_order
+ 	from tb_orderDetail_info
 	where iPurchaseType=#{iPurchaseType} and strMemberId=#{strMemberId} and strProductServiceId=#{strProductServiceId} and strLevelsId=#{strLevelsId}
 </select>
 
 
-<!-- 新增_订单信息[tableName:tb_memberPurchase_order] -->
-<insert id="generatePurchaseOrder" parameterType="com.ecard.entity.MemberPurchaseOrderEntity">
- insert into tb_memberPurchase_order
+<!-- 新增_订单信息[tableName:tb_orderDetail_info] -->
+<insert id="generatePurchaseOrder" parameterType="com.ecard.entity.PurchaseOrderDetailEntity">
+ insert into tb_orderDetail_info
 	(
 	strOrderId,
 	strOrderNum,
@@ -176,6 +176,8 @@ select
 	dPurchaseCashTotalAmount,
 	dPreferentialPrice,
 	dPreferentialCashTotalAmount,
+	iPurchaseIntegrationAmount,
+	iIntegrationAmount,
 	iStatus,
 	iPayStandard,
 	strPayTime,
@@ -207,6 +209,8 @@ select
 	#{dPurchaseCashTotalAmount},
 	#{dPreferentialPrice},
 	#{dPreferentialCashTotalAmount},
+	#{iPurchaseIntegrationAmount},
+	#{iIntegrationAmount},
 	#{iStatus},
 	#{iPayStandard},
 	#{strPayTime},
@@ -222,4 +226,78 @@ select
 	#{strLastAccessedTime}
 	)
 </insert>
+
+
+<!-- 根据订单 号查询_订单信息[tableName:tb_orderDetail_info] -->
+<select id="selectPurchaseOrderByOrderNum" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="map">
+ select 
+ 	strOrderId,
+ 	strOrderNum,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId,
+ 	strProductServiceName,
+ 	iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strOrderNum=#{strOrderNum}
+</select>
+
+<!-- 根据商品ID查询_商品是否优惠[tableName:tb_goods] -->
+<select id="selectGoodsPreferentialType" resultType="int" parameterType="String">
+ 	select iPreferentialType from tb_goods where strGoodsId=#{strGoodsId}
+</select>
+
+<!-- 根据级别ID和商品ID查商品优惠信息表 -->
+<select id="selectGoodsIntegration" resultType="int" parameterType="map">
+	select (case when count(strPreferentialId)>0 then iRequiredIntegral else 0 end) from tb_goodspreferential_mapping where strGoodsId=#{strProductServiceId} and strLevelsId=#{strLevelsId}
+</select>
+
+
+<!-- 根据服务ID查服务信息表，看是否优惠 -->
+<select id="selectServicePreferentialType" resultType="int" parameterType="String">
+	select iPreferentialType from tb_service_info where strServiceInfoId=#{strServiceInfoId}
+</select>
+
+<!-- 根据级别ID和服务ID查服务优惠信息表 -->
+<select id="selectServiceIntegration" resultType="int" parameterType="map">
+	select (case when count(strPreferentialId)>0 then iRequiredIntegral else 0 end) from tb_servicepreferential_mapping where strServiceInfoId=#{strProductServiceId} and strLevelsId=#{strLevelsId}
+</select>
+
+<!-- 付款完毕，修改订单状态 -->
+<update id="editOrderPaymentStatus" parameterType="map">
+  update tb_orderDetail_info set 
+	iStatus=#{iStatus},
+	iPayStandard=#{iPayStandard},
+	strPayTime=#{strPayTime},
+	iPayType=#{iPayType},
+	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
+		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
+	</if>
+	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderNum}
+</update>
+
+<!--  -->
 </mapper>

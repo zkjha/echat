@@ -344,21 +344,17 @@ CREATE TABLE tb_goods
   strUnitId                 VARCHAR(50) NOT NULL,       -- 商品单位ID
   strUnitName               VARCHAR(50) NOT NULL,       -- 商品计量单位名称
   strGoodsName              VARCHAR(50) NOT NULL,       -- 商品名称
-  
   strGoodsTypeId            VARCHAR(50) NOT NULL,       -- 商品类型ID
   strGoodsTypeName          VARCHAR(50) NOT NULL,       -- 计量单位名称
   strSupplierName           VARCHAR(50) NOT NULL,       -- 供应商名称  
   iRequiredIntegral         int DEFAULT 0,              -- 兑换商品所需积分  
   dEnterPrice               DECIMAL(11,2) DEFAULT 0.00, -- 商品进价
-  
   dSalePrice                DECIMAL(11,2) DEFAULT 0.00, -- 商品销售价格
   iStock                    int DEFAULT 0,              -- 商品库存
   iPreferentialType         int DEFAULT 0,              -- 商品优惠类型 0 不优惠 1 按照会员等级优惠
   iState                    int DEFAULT 0,              -- 商品状态 0 不使用 1 使用
-  
   txtGoodsDesc              text null,                  -- 富文本描述信息
   txtGoodsDescDetail        text null,                  -- 富文本详情描述信息
- 
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
@@ -1007,13 +1003,13 @@ strLastAccessedTime 				VARCHAR(50) 	NOT NULL,		-- 记录修改时间
 primary key(strConsumePresentsVoucherId)
 ) engine=innodb default charset=utf8;
 -- ==============================================================
--- Table: tb_memberPurchase_order                            【收银台｜会员订单表】                          
+-- Table: tb_orderDetail_info                           【收银台｜订单详情表】                          
 -- ==============================================================
-DROP TABLE IF EXISTS tb_memberPurchase_order;
-CREATE TABLE tb_memberPurchase_order
+DROP TABLE IF EXISTS tb_orderDetail_info;
+CREATE TABLE tb_orderDetail_info
 (
   strOrderId                VARCHAR(50) NOT NULL,       -- 主键
-  strOrderNum				VARCHAR(50) NOT NULL,       -- 订单号
+  strOrderNum				VARCHAR(50) NOT NULL,       -- 订单号  关联tb_memberPurchase_order strOrderId
   strMemberId               VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
   strMemberCardNumber		varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
   strMemberName             VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用
@@ -1027,10 +1023,12 @@ CREATE TABLE tb_memberPurchase_order
   dPurchaseCashTotalAmount  DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额（原价计算得来)
   dPreferentialPrice		DECIMAL(11,2) DEFAULT 0.00, -- 商品或服务的会员优惠价
   dPreferentialCashTotalAmount	DECIMAL(11,2) DEFAULT 0.00, -- 优惠后的商品或服务总价
+  iIntegrationAmount		int default 0,				-- 单个商品或服务所需积分数量
+  iPurchaseIntegrationAmount	int		default 0,			-- 订单所需积分总数量 :0表示 未设积分兑换
   iStatus                 	int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
   iPayStandard				int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
   strPayTime                VARCHAR(50) DEFAULT '',     -- 支付时间
-  iPayType                	int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付
+  iPayType                	int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
   strThirdPartyTradeFlow    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
   strExpressNumber          VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         VARCHAR(50) DEFAULT '',     -- 快递公司
@@ -1042,4 +1040,35 @@ CREATE TABLE tb_memberPurchase_order
   strLastAccessedTime 		VARCHAR(50) 	NOT NULL,		-- 记录修改时间
   PRIMARY KEY (strOrderId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-create index indxMemberOrderIdOnMemberOrder on tb_memberPurchase_order(strOrderId);
+create index indxMemberOrderDetailIdOnMemberOrder on tb_orderDetail_info(strOrderId);
+-- ==================================================================================
+-- Table: tb_memberPurchase_order                            【收银台｜会员订单表】                          
+-- ==============================================================================
+DROP TABLE IF EXISTS tb_purchase_order;
+CREATE TABLE tb_purchase_order
+(
+  strOrderId                	VARCHAR(50) NOT NULL,       -- 主键
+  strOrderNum					VARCHAR(50) NOT NULL,       -- 订单号
+  strMemberId               	VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
+  strMemberCardNumber			varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
+  strMemberName             	VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用
+  strLevelsId					VARCHAR(50) NOT NULL,       -- 会员级别ID	//查询特定会员特定级别下购买服务或商品要用到
+  dPurchaseCashTotalAmount  	DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额（原价计算得来)
+  dPreferentialCashTotalAmount	DECIMAL(11,2) DEFAULT 0.00, -- 优惠后的商品或服务总价
+  iPurchaseIntegrationAmount	int		default 0,			-- 订单所需积分数量 0表示 未设积分兑换
+  iStatus                 		int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
+  iPayStandard					int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
+  strPayTime               	 	VARCHAR(50) DEFAULT '',     -- 支付时间
+  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+  strThirdPartyTradeFlow    	VARCHAR(50) DEFAULT '',     -- 三方支付流水号
+  strExpressNumber         		VARCHAR(50) DEFAULT '',     -- 快递单号
+  strExpressCompany         	VARCHAR(50) DEFAULT '',     -- 快递公司
+  strComment					VARCHAR(200) DEFAULT '',     -- 备注字段
+  strEmployeeId 		    	VARCHAR(50) NOT NULL,		-- 管理员ID
+  strEmployeeName 		   		VARCHAR(50) NOT NULL,		-- 管理员账号
+  strEmployeeRealName 	    	VARCHAR(50) NOT NULL,		-- 管理员姓名
+  strCreationTime 				VARCHAR(50) NOT NULL,		-- 记录创建时间
+  strLastAccessedTime 			VARCHAR(50) NOT NULL,		-- 记录修改时间
+  PRIMARY KEY (strOrderId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create index indxMemberOrderIdOnMemberOrder on tb_purchase_order(strOrderId);
