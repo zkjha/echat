@@ -83,13 +83,20 @@ public class CashierDeskController
 	//查询商品信息详情GoodsInfoEntity列表
 	@ResponseBody
 	@RequestMapping("selectAllGoodsInfoEntity")
-	//localhost:8083/admin/biz/CashierDesk/selectAllGoodsInfoEntity?strGoodsTypeId=99d9b574c8f340d0ad8102ad8f46a6ce&ipageNum=1&ipageSize=1
+	//localhost:8083/admin/biz/CashierDesk/selectAllGoodsInfoEntity?strGoodsTypeId=99d9b574c8f340d0ad8102ad8f46a6ce&ipageNum=1&ipageSize=1&iPreferentialType=0
 	public String selectAllGoodsInfoEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 		int iPageNum,iPageSize,iPageFrom,iTotalRecord=0,iTotalPage=0;
+		int iPreferentialType=2;	//0 查无优惠 1 查有优惠 2查全部
 		String strPageNum=request.getParameter("ipageNum");
 		String strPageSize=request.getParameter("ipageSize");
 		String strGoodsTypeId=request.getParameter("strGoodsTypeId");
+		String strPreferentialType=request.getParameter("iPreferentialType");
+		if(!ValidateTool.isEmptyStr(strPreferentialType))
+			iPreferentialType=Integer.parseInt(strPreferentialType);
+		else
+			iPreferentialType=2;
+	
 		if(ValidateTool.isEmptyStr(strGoodsTypeId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"商品类别ID不能为空",null);
 		
@@ -116,6 +123,7 @@ public class CashierDeskController
 		queryMap.put("iPageFrom",iPageFrom);
 		queryMap.put("iPageSize",iPageSize);
 		queryMap.put("strGoodsTypeId",strGoodsTypeId);
+		queryMap.put("iPreferentialType",iPreferentialType);
 		try{
 			List<GoodsInfoEntity> listGoodsInfoEntity=cashierDeskService.selectAllGoodsInfoEntity(queryMap);
 			if(ValidateTool.isNull(listGoodsInfoEntity))
@@ -142,14 +150,20 @@ public class CashierDeskController
 	//根据服务类别查询所有服务项目信息详情ServiceInfoEntity列表
 	@ResponseBody
 	@RequestMapping("selectAllServiceInfoEntity")
-	//localhost:8083/admin/biz/CashierDesk/selectAllServiceInfoEntity?ipageNum=1&ipageSize=1&strServiceTypeId=1a86d3a79c15437698255b72e4a0fde4
+	//localhost:8083/admin/biz/CashierDesk/selectAllServiceInfoEntity?ipageNum=1&ipageSize=1&strServiceTypeId=1a86d3a79c15437698255b72e4a0fde4&&iPreferentialType=0
 	public String selectAllServiceInfoEntity(HttpServletRequest request,HttpServletResponse response)
 	{
+		int iPreferentialType=2;	//0 查无优惠 1 查有优惠 2查全部
 		int iPageNum,iPageSize,iPageFrom,iTotalRecord=0,iTotalPage=0;
 		String strPageNum=request.getParameter("ipageNum");
 		String strPageSize=request.getParameter("ipageSize");
 		
 		String strServiceTypeId=request.getParameter("strServiceTypeId");
+		String strPreferentialType=request.getParameter("iPreferentialType");
+		if(!ValidateTool.isEmptyStr(strPreferentialType))
+			iPreferentialType=Integer.parseInt(strPreferentialType);
+		else
+			iPreferentialType=2;
 		if(ValidateTool.isEmptyStr(strServiceTypeId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"服务类别ID不能为空",null);
 		
@@ -177,6 +191,7 @@ public class CashierDeskController
 		queryMap.put("iPageFrom",iPageFrom);
 		queryMap.put("iPageSize",iPageSize);
 		queryMap.put("strServiceTypeId",strServiceTypeId);
+		queryMap.put("iPreferentialType",iPreferentialType);
 		try{
 			List<ServiceInfoEntity> listServiceInfoEntity=cashierDeskService.selectAllServiceInfoEntity(queryMap);
 			if(ValidateTool.isNull(listServiceInfoEntity))

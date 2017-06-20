@@ -30,7 +30,13 @@ select
 
 <!-- 根据商品类别查询商品详情GoodsInfoEntity记录数量 -->
 <select id="getGoodsInfoEntityTotalRecordCount" parameterType="map" resultType="int">
-	select count(strGoodsId) from tb_goods where strGoodsTypeId=#{strGoodsTypeId} and iState=1
+	select count(strGoodsId) from tb_goods 
+<where>
+<if test="iPreferentialType!=2">
+			iPreferentialType=#{iPreferentialType} and 
+		</if>
+strGoodsTypeId=#{strGoodsTypeId} and iState=1
+</where>
 </select>
 
 <!-- 根据商品类别传递的ID查具体的商品 -->
@@ -58,13 +64,24 @@ select
  	strInsertTime,
  	strUpdateTime
  	from tb_goods
-	where strGoodsTypeId=#{strGoodsTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+	<where>
+		<if test="iPreferentialType!=2">
+			iPreferentialType=#{iPreferentialType} and 
+		</if>
+	 strGoodsTypeId=#{strGoodsTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+	 </where>
 </select>
 
 
 <!-- 根所服务类别查询服务信息详情ServiceInfoEntity记录数量 -->
 <select id="getServiceInfoEntityTotalRecordCount" parameterType="map" resultType="int">
-	select count(strServiceInfoId) from tb_service_info where strServiceTypeId=#{strServiceTypeId} and iState=1
+	select count(strServiceInfoId) from tb_service_info 
+	<where>
+	<if test="iPreferentialType!=2">
+			iPreferentialType=#{iPreferentialType} and 
+		</if>
+		strServiceTypeId=#{strServiceTypeId} and iState=1
+	</where> 
 </select>
 
 <!-- 根据服务类别表传递的ID查具体的服务项目 -->
@@ -90,7 +107,12 @@ select
  	strUpdateTime,
  	strReserved
  	from tb_service_info
-	where strServiceTypeId=#{strServiceTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+ 	<where>
+ 	<if test="iPreferentialType!=2">
+			iPreferentialType=#{iPreferentialType} and 
+		</if>
+	strServiceTypeId=#{strServiceTypeId} and iState=1 limit #{iPageFrom},#{iPageSize}
+	</where>
 </select>
 
 <!-- 按会员ID搜索会员信息 -->
