@@ -209,7 +209,7 @@ CREATE TABLE tb_member
   STRLEVELSID               VARCHAR(50) NOT NULL,      -- 会员级别ID
   INTSEX                    INT DEFAULT 0,             -- 性别0：男 1：女
   INTSTATUS                 INT DEFAULT 1,             -- 会员卡状态0：禁用 1：激活
-  INTINTEGRAL               INT DEFAULT 0,             -- 会员卡积分
+  INTINTEGRAL               INT DEFAULT 0,             -- 会员卡余额
   DBALANCE                  DECIMAL(11,2) DEFAULT 0.00,-- 会员卡余额
   DAFTERSTOREDBALANCE       DECIMAL(11,2) DEFAULT 0.00,-- 会员卡售后储值余额
   STRINSERTTIME             VARCHAR(50) NOT NULL,      -- 录入时间
