@@ -1,0 +1,42 @@
+
+<div class="zjl_shopDetail mb20 pr">
+    <table>
+        <tr class="zjl_shopDetail_tittle">
+            <td>序号</td>
+            <td>商品名称</td>
+            <td>购买数量</td>
+            <td>价格</td>
+            <td>删除</td>
+        </tr>
+        <tr ng-repeat="shopStoress in shopStoress">
+            <td>{{$index+1}}</td>
+            <td><p>{{shopStoress.strGoodsName}}</p></td>
+            <td>
+                <number-store numbers="shopStoress.numbers"></number-store>
+            </td>
+            <td><p><span>{{shopStoress.dSalePrice}}</span><span>￥</span></p></td>
+            <td>
+                <p><span class="zjl_goshop" ng-click="shopDelete($index)">删除</span></p>
+            </td>
+        </tr>
+        <tr class="zjl_shopDetail_tittle">
+            <td>序号</td>
+            <td>服务名称</td>
+            <td>购买数量</td>
+            <td>价格</td>
+            <td>删除</td>
+        </tr>
+        <tr ng-repeat="serivcrStoress in serivcrStoress">
+            <td>{{$index+1}}</td>
+            <td><p>{{serivcrStoress.strServiceInfoName}}</p></td>
+            <td>
+                <number-store numbers="serivcrStoress.numbers"></number-store>
+            </td>
+            <td><p><span>{{serivcrStoress.dSalePrice}}</span><span>￥</span></p></td>
+            <td>
+                <p><span class="zjl_goshop" ng-click="serviceDelete($index)">删除</span></p>
+            </td>
+        </tr>
+    </table>
+    <div class="pa zjl_goshop w80" ng-click="seaveNews()">生成订单</div>
+</div>

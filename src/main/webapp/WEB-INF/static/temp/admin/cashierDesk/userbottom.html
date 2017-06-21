@@ -1,0 +1,70 @@
+<div>
+    <div class="clearfix zjl_charge_saixuan">
+        <!--商品-->
+        <div class="fl">
+            <div class="fl mt5">
+                商品
+            </div>
+            <div class="fl ml5">
+                <select name="" ng-change="shopSelectsIdSure()" ng-model="shopSelectsId" ng-options="o.strGoodsTypeId as o.strGoodsTypeName for o in goodsTypeList">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+        </div>
+        <!--ng-options="listServiceType.strServiceTypeId as listServiceType.strServiceTypeName for listServiceType in listServiceType"-->
+        <!--服务-->
+        <div class="fl ml30">
+            <div class="fl mt5">
+                服务
+            </div>
+            <div class="fl ml5">
+                <select name="" ng-change="serviceSelectsIdSure()" ng-model="serviceSelectsId" ng-options="o.strServiceTypeId as o.strServiceTypeName for o in listServiceType">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+        </div>
+        <div class="fl ml30">
+            <div class="fl mt5">
+                是否优惠
+            </div>
+            <div class="fl ml5">
+                <select name="" ng-change="clearStore()" ng-model="ifslowmoneySure" ng-options="o.id as o.name for o in ifslowmoney"></select>
+            </div>
+            <div class="fl mt5">
+                <span style="color: red">请优先选择，默认不优惠！添加到购物车时，有优惠跟没有优惠是区分开的！</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="zjl_shopDetail mb20 pr">
+    <table>
+        <tr class="zjl_shopDetail_tittle">
+            <td>序号</td>
+            <td>名称</td>
+            <td>价格</td>
+            <td>是否购买</td>
+        </tr>
+        <tr ng-repeat="listGoodsInfoEntity in listGoodsInfoEntity" ng-if="listGoodsInfoEntity">
+            <td>{{$index+1}}</td>
+            <td><p>{{listGoodsInfoEntity.strGoodsName}}</p></td>
+            <td><p><span>{{listGoodsInfoEntity.dSalePrice}}</span><span>￥</span></p></td>
+            <td>
+                <select name="" ng-change="ifBuyselectShop(listGoodsInfoEntity,ifBuyShopSure)" ng-model="ifBuyShopSure" ng-options="o.id as o.name for o in ifslowmoney"></select>
+            </td>
+        </tr>
+        <tr ng-repeat="listServiceInfoEntity in listServiceInfoEntity" ng-if="listServiceInfoEntity">
+            <td>{{$index+1}}</td>
+            <td><p>{{listServiceInfoEntity.strServiceInfoName}}</p></td>
+            <td><p><span>{{listServiceInfoEntity.dSalePrice}}</span><span>￥</span></p></td>
+            <td>
+                <select name="" ng-change="ifBuyselectService(listServiceInfoEntity,ifBuyShopSure)" ng-model="ifBuyShopSure" ng-options="o.id as o.name for o in ifslowmoney"></select>
+            </td>
+        </tr>
+
+        <tr ng-if="Selectifpanduan">
+            <td colspan="4"><p class="h50 f24 lh200">暂无数据</p></td>
+        </tr>
+    </table>
+    <div class="pa zjl_goshop" ng-click="saveCookie()">下一步</div>
+</div>

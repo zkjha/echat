@@ -22,6 +22,9 @@ require.config({
         'metaumeditor/src/meta.umeditor':{
             deps:['lib/angular','lib/jquery']
         },
+        'lib/angular-cookie':{
+            deps:['lib/angular']
+        },
         'lib/laydate':{
             exports: 'lib/laydate'
         }
@@ -29,7 +32,7 @@ require.config({
 });
 requirejs(
     [ 'lib/angular',
-        'controller/admin/cashierController',
+        'controller/admin/activityDeskController',
         'lib/remoteUrl',
         'dirctive/layDateDirective',
         'dirctive/tipsDirctive',
@@ -45,70 +48,39 @@ requirejs(
         'filter/orderStatusFilter',
         'dirctive/ng-pagination',
         'dirctive/ExpandListDirective',
+        'dirctive/admin/activityInterDirective',//朱-指令
         'lib/jquery',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor',
         'metaumeditor/lib/umeditor/dist/utf8-php/umeditor.config',
-        'metaumeditor/src/meta.umeditor'
+        'metaumeditor/src/meta.umeditor',
+        'lib/angular-cookie'
     ],
-    function(angular,cashierController,remoteUrl) {
-        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList','defLaydate','payTypeFilter','orderStatusFilter']);
+    function(angular,activityDeskController,remoteUrl) {
+        var app = angular.module("menbercent", ['ngRoute','tips','httphelper','menu','fileuploadModel','fileReaderModel','ng-pagination','meta.umeditor','rt.resize','ExpandingType','EmployeeFilter','expandList','defLaydate','payTypeFilter','orderStatusFilter','integralrulesDirective']);
 
         //路由配置
         app.config(["$routeProvider", function($routeProvider) {
-            $routeProvider.when("/goodsType", {
-                templateUrl: "/static/temp/admin/cashier/goodsType.html",
-                controller:cashierController.goodsTypeController
+            $routeProvider.when("/userbottom", {
+                templateUrl: "/static/temp/admin/cashierDesk/userbottom.html",
+                controller:activityDeskController.userbottom
 
-            }).when("/goodsAdministration", {
-                templateUrl: "/static/temp/admin/cashier/goodsAdministration.html",
-                controller:cashierController.goodsAdministrationController
-                
-            }).when("/goodsMeasurement", {
-                templateUrl: "/static/temp/admin/cashier/goodsMeasurement.html",
-                controller:cashierController.goodsMeasurement
-                
-            }).when("/serversType", {
-                templateUrl: "/static/temp/admin/cashier/serversType.html",
-                controller:cashierController.serversTypeController
-            }).when("/serversMeasurement", {
-                templateUrl: "/static/temp/admin/cashier/serversMeasurement.html",
-                controller:cashierController.goodsMeasurement
-                
-            }).when("/serviceAdministration", {
-                templateUrl: "/static/temp/admin/cashier/serviceAdministration.html",
-                controller:cashierController.serviceAdministrationController
-                
+            }).when("/goShopStore", {
+                templateUrl: "/static/temp/admin/cashierDesk/goShopStore.html",
+                controller:activityDeskController.goShopStore
+
             }).otherwise({
-                redirectTo: "/goodsType"
+                redirectTo: "/userbottom"
             });
             
-
+        //goShopStore
         }]);
 
 
         app.controller('cashierCtrl',['$scope','$http','$window','resize',function($scope,$http,$window,resize){
-        	
-        	
+
+        	////////////////////////////刘哥写的代码///////////////////////
             $scope.config = {};
             //初始化菜单数据
-            $scope.menuData=[
-	                 {id:'',link: '###', name: "商品",hasnext:true,
-	                 	next:[{id:'goodsType',link: '#!/goodsType', name: "商品分类",hasnext:false}
-	                	      ,{id:'goodsAdministration',link: '#!/goodsAdministration', name: "商品管理",hasnext:false}
-	                	      ,{id:'111',link: '#!/111', name: "库存管理",hasnext:false}
-	                	      ,{id:'goodsMeasurement',link: '#!/goodsMeasurement', name: "计量单位",hasnext:false}
-	                 	]
-	                 },
-	                 {id:'1',link: '###', name: "服务",hasnext:true,
-	                	 next:[ {id:'serversType',link: '#!/serversType', name: "服务分类",hasnext:false}
-	                	      ,{id:'serviceAdministration',link: '#!/serviceAdministration', name: "服务管理",hasnext:false}
-	                	      ,{id:'serversMeasurement',link: '#!/serversMeasurement', name: "其他设置",hasnext:false}
-	                	      ]
-	                 },
-	                 {id:'1',link: '/admin/page/cashierDesk', name: "收银台",hasnext:false}
-	               ];
-
-
             $scope.lpyMainCotentStyle={
 
                 "min-height":  $window.innerHeight-210
@@ -170,6 +142,70 @@ requirejs(
 
             );
         }]);
+        ///////////////////////////朱写的代码/////////////////////////////
+
+
+        app.controller('searchTellphone',['$scope','$http',function($scope,$http){
+            $scope.searchChargeconsol = null;//输入框的值
+            $scope.ifshowuserdetail = false;//保证用户详细信息是否显示
+
+
+            $scope.selectMemberInfoFromSearch =  function($scope,$http,searchText){
+                var data = {
+                    //searchText:searchText
+                    searchText:searchText
+                }
+                $http.post(remoteUrl.selectMemberInfoFromSearch,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result);
+                        if (code == 1) {
+                            $scope.ifshowuserdetail = true;
+                            $scope.listMemberVO = data.data.listMemberVO[0]
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.showAlert(rs.msg)
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            };
+            $scope.vipUserSearch = function(){//点击放大镜
+                console.info($scope.searchChargeconsol);
+                var searchText =$scope.searchChargeconsol;//输入的内容
+                $scope.selectMemberInfoFromSearch($scope,$http,searchText)//输入手机号等调用的查询接口
+            }
+
+        //    跳转到会员中心页面
+            $scope.runrecharge = function(){
+                window.location.pathname = '/admin/page/membercenter';
+                console.info()
+            }
+        }])
 
         angular.bootstrap(document, ["menbercent"]);
     });

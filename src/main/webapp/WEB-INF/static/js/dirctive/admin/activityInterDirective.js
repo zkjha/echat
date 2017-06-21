@@ -63,4 +63,39 @@ define(['lib/angular'],function(angular){
         };
 
     }])
+        .directive("numberStore",[function(){
+            return {
+                restrict: "E", //default: EA
+                replace: true,
+                scope:{
+                    numbers:"="
+                },
+                templateUrl: "/static/temp/admin/cashierDesk/numberStore.html",
+                controller:function($scope, $element, $attrs){
+                    $scope.numbers = 1;
+                    $scope.addShop = function(){
+                        if(typeof  $scope.numbers != Number){
+                            $scope.numbers = parseInt($scope.numbers)+ 1;
+                        }else{
+                            $scope.numbers +=  1;
+                        }
+
+                    }
+                    $scope.numb = function () {
+                        if($scope.numbers == 0){
+                            $scope.numbers = 1;
+                        }
+                    }
+                    $scope.slowdown = function(){
+                        if($scope.numbers == 1){
+                            return
+                        }else{
+                            $scope.numbers -=1;
+                        }
+
+                    }
+                }
+            };
+
+        }])
 });

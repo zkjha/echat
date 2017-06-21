@@ -1,0 +1,89 @@
+.cd_search{
+    width: 163px;
+    border: 1px solid #d3d3d3;
+    margin-top: 20px;
+
+}
+.dj_searchs{
+    height: 17px;
+    background-color: #d3d3d3;
+    width: 22px;
+    cursor: pointer;
+    text-align: center;
+    background-image: url("/static/images/search.png");
+    background-size: 17px 17px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.dj_searchs img{
+    height: 17px;
+    width: 17px;
+}
+.zjl_Vipinfor{
+    width: 1188px;
+    border: 1px solid #d3d3d3;
+
+}
+.zjl_Vipinfor table tr p {
+    line-height:35px;
+}
+.zjl_charge{
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #d3d3d3;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.zjl_charge_saixuan select{
+    border-radius: 5px;
+    margin-top: 3px;
+}
+.zjl_charge_saixuan{
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ffa038;
+}
+.zjl_shopDetail table{
+    width: 100%;
+    text-align: center;
+    color: #333333;
+}
+.zjl_shopDetail table tr td:first-child{
+    width: 80px;
+}
+/*border-bottom: 1px solid #B4B4B4;*/
+.zjl_shopDetail table tr{
+    border-bottom: 1px solid #B4B4B4;
+    height: 35px;
+
+}
+.zjl_shopDetail_tittle{
+    background-color: #B4B4B4 ;
+}
+.zjl_shopDetail{
+    margin-top: 5px;
+    min-height: 480px;
+    background-color:#F6F6F7 ;
+}
+.zjl_goshop{
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: #ffa038;
+    text-align: center;
+    color: #ffffff;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+}
+.zjl_shopnumber{
+    display: inline-block;
+}
+.zjl_shopnumber_click{
+    cursor: pointer;
+    margin: 0 5px;
+    color: #ffa038;
+}
