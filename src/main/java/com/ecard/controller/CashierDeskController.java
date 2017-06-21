@@ -427,6 +427,58 @@ public class CashierDeskController
 		
 	}
 	
+	
+	
+	
+	
+	//查询订单详情列表purchaseOrderDetailEntity
+	@ResponseBody
+	@RequestMapping("selectPurchaseOrderDetailEntity")
+	//localhost:8083/admin/biz/CashierDesk/selectPurchaseOrderDetailEntity?strOrderId=xorderI456788
+	public String selectPurchaseOrderDetailEntity(HttpServletRequest request,HttpServletResponse response)
+	{
+
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr("strOrderId"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数strOrderId不能为空",null);
+		try{
+			List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity=cashierDeskService.selectPurchaseOrderDetailEntityInfo(strOrderId);
+			if(listPurchaseOrderDetailEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listPurchaseOrderDetailEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listPurchaseOrderDetailEntity",listPurchaseOrderDetailEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+			{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}
+	
+	
+	
+	
+	//删除一条订单详情purchaseOrderDetailEntity记录
+	@ResponseBody
+	@RequestMapping("deletePurchaseOrderEntity")
+	//localhost:8083/admin/biz/CashierDesk/deletePurchaseOrderEntity?strOrderId=xorderI456788
+	public String deletePurchaseOrderEntity(HttpServletRequest request, HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数不能为空",null);
+		try{
+			return cashierDeskService.deletePurchaseOrderEntity(strOrderId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"删除失败", null);
+		}
+	}
+
+	
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

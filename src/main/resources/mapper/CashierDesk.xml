@@ -395,4 +395,50 @@ select
 	strLastAccessedTime=#{strLastAccessedTime}
 	where strOrderId=#{strOrderId}
 </update>
+
+<!-- 查询订单详情_[tableName:tb_orderDetail_info] -->
+<select id="selectPurchaseOrderDetailEntity" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strOrderNum,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId,
+ 	strProductServiceName,
+ 	iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info where strOrderNum=#{strOrderId} order by strCreationTime DESC
+</select>
+
+<!-- 删除订单详情_[tableName:tb_orderDetail_info] -->
+<delete id="deletePurchaseOrderDetailEntity" parameterType="String">
+ delete from tb_orderDetail_info where strOrderNum=#{strOrderId}
+</delete>
+
+<!-- 删除订单总表_[tableName:tb_purchase_order] -->
+<delete id="deletePurchaseOrderEntity" parameterType="String">
+ delete from tb_purchase_order where strOrderId=#{strOrderId}
+</delete>
 </mapper>

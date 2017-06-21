@@ -695,4 +695,25 @@ public class CashierDeskService
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
 
 	}
+	
+	
+	//查询订单详情列表purchaseOrderDetailEntity
+	public List<PurchaseOrderDetailEntity> selectPurchaseOrderDetailEntityInfo(String strOrderId) throws Exception
+	{
+		return cashierDeskMapper.selectPurchaseOrderDetailEntity(strOrderId);
+	}
+	
+	
+	//删除一条订单详情purchaseOrderDetailEntity记录
+	@Transactional(rollbackFor=Exception.class)
+	public String deletePurchaseOrderEntity(String strOrderId) throws Exception
+	{
+		int iDetilAffectNum=cashierDeskMapper.deletePurchaseOrderDetailEntity(strOrderId);
+		int iAffectNum=cashierDeskMapper.deletePurchaseOrderEntity(strOrderId);
+		if(iDetilAffectNum!=0&&iAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"删除成功",null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "删除失败",null);
+	}
+	
 }

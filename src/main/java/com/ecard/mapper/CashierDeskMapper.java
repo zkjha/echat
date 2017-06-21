@@ -55,6 +55,13 @@ public interface CashierDeskMapper
 	public PurchaseOrderEntity selectPurchaseOrder(String strOrderId) throws Exception;
 	//根据会员ID查会员表和级别名称表
 	public MemberVO selectMemberInfoById(String strMemberId) throws Exception;
+	//根据订单号查询订单详情
+	public List<PurchaseOrderDetailEntity>selectPurchaseOrderDetailEntity(String strOrderId) throws Exception;
+	//删除订单详情
+	public int deletePurchaseOrderDetailEntity(String strOrderId) throws Exception;
+	//删除订单总表
+	public int deletePurchaseOrderEntity(String strOrderId) throws Exception;
+	
 
 	
 }
