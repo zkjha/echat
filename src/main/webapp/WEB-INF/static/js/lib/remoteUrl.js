@@ -156,8 +156,23 @@ define([],function(){
 			insertUnit:"/admin/biz/Cashier/insertUnit",
 			//计量单位－查询详情
 			selUnitDetail:"/admin/biz/Cashier/selUnitDetail",
-			
-		////////////会员收银管理结束/////////////////////////////	
+
+
+
+
+		//	////////////李哥写的代码////////////////////////////
+        //收银台 -- 按姓名 手机号 卡号 查询会员信息
+        selectMemberInfoFromSearch:"/admin/biz/CashierDesk/selectMemberInfoFromSearch",
+        //收银台 -- 按商品类别查询所有商品详情 -- 查询列表
+        selectAllGoodsInfoEntity:"/admin/biz/CashierDesk/selectAllGoodsInfoEntity",
+        //收银台 -- 按服务类别查询所有商品详情 -- 查询列表
+        selectAllServiceInfoEntity:"/admin/biz/CashierDesk/selectAllServiceInfoEntity",
+
+
+
+
+
+		////////////会员收银管理结束/////////////////////////////
 		
 		////////////会员活动管理开始/////////////////////////////	
 		

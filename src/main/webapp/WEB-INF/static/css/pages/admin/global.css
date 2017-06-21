@@ -399,3 +399,24 @@ margin: 10px;
     background: red;
     cursor: pointer;
 }
+/*
+收银台付款
+
+*/
+.-Zjl-homepage-header-container{
+    height: 80px;
+    width:100%;
+    background-color: #ffa038;
+}
+.-Zjl-homepage-header-right{
+    width:240px;
+    height: 80px;
+
+}
+.-Zjl-homepage-header-right ul li{
+    float: left;
+    cursor: pointer;
+}
+.Zjl_input_bod_hidden{
+    border: 0px solid transparent;
+}
