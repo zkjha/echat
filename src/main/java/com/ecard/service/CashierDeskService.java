@@ -618,7 +618,50 @@ public class CashierDeskService
 		return DataTool.constructResponse(ResultCode.OK,"查询订单积分支付信息成功",resultMap);
 	}
 	
-
+	
+	
+	//会员卡余额支付
+	@Transactional
+	public String payWithMemberCard(String strOrderId) throws Exception
+	{
+		String strMemberId="";
+		PurchaseOrderEntity purchaseOrderEntity=cashierDeskMapper.selectPurchaseOrder(strOrderId);
+		if(purchaseOrderEntity!=null&&!"".equals(purchaseOrderEntity.getStrOrderId()))
+			strMemberId=purchaseOrderEntity.getStrMemberId();
+		else
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单数据",null);
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单的会员信息",null);
+		//根据会员ID 查会员信息
+		MemberVO MemberVO=cashierDeskMapper.selectMemberInfoById(strMemberId);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("MemberVO",MemberVO);
+		resultMap.put("purchaseOrderEntity",purchaseOrderEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询订单会员卡支付信息成功",resultMap);
+	}
+	
+	
+	//现金支付
+	@Transactional
+	public String payWithCash(String strOrderId) throws Exception
+	{
+		String strMemberId="";
+		PurchaseOrderEntity purchaseOrderEntity=cashierDeskMapper.selectPurchaseOrder(strOrderId);
+		if(purchaseOrderEntity!=null&&!"".equals(purchaseOrderEntity.getStrOrderId()))
+			strMemberId=purchaseOrderEntity.getStrMemberId();
+		else
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单数据",null);
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单的会员信息",null);
+		//根据会员ID 查会员信息
+		MemberVO MemberVO=cashierDeskMapper.selectMemberInfoById(strMemberId);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("MemberVO",MemberVO);
+		resultMap.put("purchaseOrderEntity",purchaseOrderEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询订单现金支付信息成功",resultMap);
+	}
+	
+	
 	//支付完毕 修改订单状态
 	@Transactional
 	public String editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception

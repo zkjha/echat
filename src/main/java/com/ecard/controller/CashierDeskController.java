@@ -327,7 +327,7 @@ public class CashierDeskController
 	}
 
 	
-	//积分支付商品或服务 积分查询
+	//积分支付商品或服务 
 	@ResponseBody
 	@RequestMapping("payWithIntegration")
 	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=xorderI456788
@@ -391,24 +391,42 @@ public class CashierDeskController
 	//会员卡余额支付
 	@ResponseBody
 	@RequestMapping("payWithMemberCard")
-	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderNum=12345678952
-	/*
+	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderId=xorderI456788
 	public String payWithMemberCard(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");
-		if(ValidateTool.isEmptyStr("strOrderNum"))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单号不能为空",null);
-		Map<String,Object> queryMap=new HashMap<String,Object>();
-		queryMap.put("strOrderNum",strOrderNum);
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
 		try{
-			return cashierDeskService.payWithMemberCard(queryMap) ;
+			return cashierDeskService.payWithMemberCard(strOrderId) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
 				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 			}
+		
 	}
-	*/
+	
+
+	//现金支付
+	@ResponseBody
+	@RequestMapping("payWithCash")
+	//localhost:8083/admin/biz/CashierDesk/payWithCash?strOrderId=xorderI456788
+	public String payWithCash(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		try{
+			return cashierDeskService.payWithCash(strOrderId) ;
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
+	
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{
