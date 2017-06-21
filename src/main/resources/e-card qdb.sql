@@ -1042,13 +1042,12 @@ CREATE TABLE tb_orderDetail_info
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxMemberOrderDetailIdOnMemberOrder on tb_orderDetail_info(strOrderId);
 -- ==================================================================================
--- Table: tb_memberPurchase_order                            【收银台｜会员订单表】                          
+-- Table: tb_purchase_order                            【收银台｜会员订单表】                          
 -- ==============================================================================
 DROP TABLE IF EXISTS tb_purchase_order;
 CREATE TABLE tb_purchase_order
 (
-  strOrderId                	VARCHAR(50) NOT NULL,       -- 主键
-  strOrderNum					VARCHAR(50) NOT NULL,       -- 订单号
+  strOrderId                	VARCHAR(50) NOT NULL,       -- 主键  订单 号
   strMemberId               	VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
   strMemberCardNumber			varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
   strMemberName             	VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用

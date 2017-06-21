@@ -328,19 +328,16 @@ public class CashierDeskController
 
 	
 	//积分支付商品或服务 积分查询
-//	@ResponseBody
-	//@RequestMapping("payWithIntegration")
-	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderNum=eight
-	/*
+	@ResponseBody
+	@RequestMapping("payWithIntegration")
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=xorderI456788
 	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");
-		if(ValidateTool.isEmptyStr("strOrderNum"))
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
-		Map<String,Object> queryMap=new HashMap<String,Object>();
-		queryMap.put("strOrderNum",strOrderNum);
 		try{
-			return cashierDeskService.payWithIntegration(queryMap) ;
+			return cashierDeskService.payWithIntegration(strOrderId) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -348,7 +345,7 @@ public class CashierDeskController
 			}
 		
 	}
-	*/
+
 	
 	//支付完毕 修改订单状态
 	@ResponseBody
