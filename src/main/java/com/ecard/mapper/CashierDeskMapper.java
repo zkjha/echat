@@ -7,6 +7,7 @@ import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberLevelsRightsMappingEntity;
 import com.ecard.entity.PurchaseOrderDetailEntity;
+import com.ecard.entity.PurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.vo.MemberVO;
 
@@ -32,10 +33,9 @@ public interface CashierDeskMapper
 	public MemberLevelsRightsMappingEntity getPreferentialInfo(Map<String,Object> queryMap) throws Exception;
 	//查询特定会员在特定级别下购买特定服务的历史记录
 	public List<PurchaseOrderDetailEntity> selectPurchaseOrderInfo(Map<String,Object> queryMap) throws Exception;
-	//写入订单信息
+	//写入订单详情信息
 	public int generatePurchaseOrder(PurchaseOrderDetailEntity insertOrderEntityList) throws Exception;
-	//根据订单 号查询订单 
-	public List<PurchaseOrderDetailEntity> selectPurchaseOrderByOrderNum(Map<String,Object> queryMap) throws Exception;
+
 	//根据商品ID 查询商品中否有优惠
 	public int selectGoodsPreferentialType(String strGoodsId) throws Exception;
 	//取出兑换商品所需积分
@@ -44,8 +44,24 @@ public interface CashierDeskMapper
 	public int selectServicePreferentialType(String strServiceInfoId) throws Exception;
 	//根据服务 ID 查服务优惠表中的所需积分
 	public int selectServiceIntegration(Map<String,Object> queryMap) throws Exception;
-	//支付完毕 修改订单状态
+	//支付完毕 修改订单状态--详情表
+	public int editOrderDetailPaymentStatus(Map<String,Object> orderStatusMap) throws Exception;
+	//支付完毕 修改订单状态--总表
 	public int editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception;
+	//插入订单信息汇总信息
+	public int insertOrderInfo(PurchaseOrderEntity PurchaseOrderEntity) throws Exception;
+	
+	//查询订单(总表)信息
+	public PurchaseOrderEntity selectPurchaseOrder(String strOrderId) throws Exception;
+	//根据会员ID查会员表和级别名称表
+	public MemberVO selectMemberInfoById(String strMemberId) throws Exception;
+	//根据订单号查询订单详情
+	public List<PurchaseOrderDetailEntity>selectPurchaseOrderDetailEntity(String strOrderId) throws Exception;
+	//删除订单详情
+	public int deletePurchaseOrderDetailEntity(String strOrderId) throws Exception;
+	//删除订单总表
+	public int deletePurchaseOrderEntity(String strOrderId) throws Exception;
+	
 
 	
 }

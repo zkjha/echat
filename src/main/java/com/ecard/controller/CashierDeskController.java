@@ -327,20 +327,17 @@ public class CashierDeskController
 	}
 
 	
-	//积分支付商品或服务 积分查询
-//	@ResponseBody
-	//@RequestMapping("payWithIntegration")
-	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderNum=eight
-	/*
+	//积分支付商品或服务 
+	@ResponseBody
+	@RequestMapping("payWithIntegration")
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=xorderI456788
 	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");
-		if(ValidateTool.isEmptyStr("strOrderNum"))
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
-		Map<String,Object> queryMap=new HashMap<String,Object>();
-		queryMap.put("strOrderNum",strOrderNum);
 		try{
-			return cashierDeskService.payWithIntegration(queryMap) ;
+			return cashierDeskService.payWithIntegration(strOrderId) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -348,31 +345,31 @@ public class CashierDeskController
 			}
 		
 	}
-	*/
+
 	
 	//支付完毕 修改订单状态
 	@ResponseBody
 	@RequestMapping("editOrderPaymentStatus")
-	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderNum=eight&iPayType=0&strThirdPartyTradeFlow=
+	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderId=xorderI456788&iPayType=0&strThirdPartyTradeFlow=
 	public String editOrderPaymentStatus(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");	//订单号
+		String strOrderId=request.getParameter("strOrderId");	//订单号
 		String strPayType=request.getParameter("iPayType");	//订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
 		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
 		int iPayType=0;
 		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strThirdPartyTradeFlow=request.getParameter("strThirdPartyTradeFlow").trim();
-		if(ValidateTool.isEmptyStr("strOrderNum"))
+		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
-		if(ValidateTool.isEmptyStr("strOrderPayType"))
+		if(ValidateTool.isEmptyStr(strPayType))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"支付方式不能为空",null);
 		if(isNumber(strPayType))
 			iPayType=Integer.parseInt(strPayType);
 		else
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"支付方式格式错误",null);
 		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
-		orderStatusMap.put("strOrderNum",strOrderNum);
+		orderStatusMap.put("strOrderId",strOrderId);
 		orderStatusMap.put("iPayType",iPayType);
 		orderStatusMap.put("iPayStandard",iPayStandard);
 		orderStatusMap.put("strPayTime",strPayTime);
@@ -394,24 +391,94 @@ public class CashierDeskController
 	//会员卡余额支付
 	@ResponseBody
 	@RequestMapping("payWithMemberCard")
-	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderNum=12345678952
-	/*
+	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderId=xorderI456788
 	public String payWithMemberCard(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");
-		if(ValidateTool.isEmptyStr("strOrderNum"))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单号不能为空",null);
-		Map<String,Object> queryMap=new HashMap<String,Object>();
-		queryMap.put("strOrderNum",strOrderNum);
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
 		try{
-			return cashierDeskService.payWithMemberCard(queryMap) ;
+			return cashierDeskService.payWithMemberCard(strOrderId) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
 				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 			}
+		
 	}
-	*/
+	
+
+	//现金支付
+	@ResponseBody
+	@RequestMapping("payWithCash")
+	//localhost:8083/admin/biz/CashierDesk/payWithCash?strOrderId=xorderI456788
+	public String payWithCash(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		try{
+			return cashierDeskService.payWithCash(strOrderId) ;
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
+	
+	
+	
+	
+	
+	//查询订单详情列表purchaseOrderDetailEntity
+	@ResponseBody
+	@RequestMapping("selectPurchaseOrderDetailEntity")
+	//localhost:8083/admin/biz/CashierDesk/selectPurchaseOrderDetailEntity?strOrderId=xorderI456788
+	public String selectPurchaseOrderDetailEntity(HttpServletRequest request,HttpServletResponse response)
+	{
+
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr("strOrderId"))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数strOrderId不能为空",null);
+		try{
+			List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity=cashierDeskService.selectPurchaseOrderDetailEntityInfo(strOrderId);
+			if(listPurchaseOrderDetailEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listPurchaseOrderDetailEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listPurchaseOrderDetailEntity",listPurchaseOrderDetailEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+			{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}
+	
+	
+	
+	
+	//删除一条订单详情purchaseOrderDetailEntity记录
+	@ResponseBody
+	@RequestMapping("deletePurchaseOrderEntity")
+	//localhost:8083/admin/biz/CashierDesk/deletePurchaseOrderEntity?strOrderId=xorderI456788
+	public String deletePurchaseOrderEntity(HttpServletRequest request, HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "参数不能为空",null);
+		try{
+			return cashierDeskService.deletePurchaseOrderEntity(strOrderId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"删除失败", null);
+		}
+	}
+
+	
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

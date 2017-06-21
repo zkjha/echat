@@ -19,7 +19,7 @@ select
 	tbML.STRLEVELSNAME as strLevelsname
 	FROM tb_member as tbM,tb_member_levels as tbML
 	<where>
-	  tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and
+	  tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and tbML.intStatus=1
 	  <if test="_parameter != null and _parameter != ''">
 	  	(tbM.STRREALNAME=#{_parameter} or tbM.STRMOBILE=#{_parameter} or tbM.STRMEMBERCARDNUM=#{_parameter})
 	  </if>
@@ -179,7 +179,7 @@ select
 </select>
 
 
-<!-- 新增_订单信息[tableName:tb_orderDetail_info] -->
+<!-- 新增_订单信息详情表[tableName:tb_orderDetail_info] -->
 <insert id="generatePurchaseOrder" parameterType="com.ecard.entity.PurchaseOrderDetailEntity">
  insert into tb_orderDetail_info
 	(
@@ -198,8 +198,8 @@ select
 	dPurchaseCashTotalAmount,
 	dPreferentialPrice,
 	dPreferentialCashTotalAmount,
-	iPurchaseIntegrationAmount,
 	iIntegrationAmount,
+	iPurchaseIntegrationAmount,
 	iStatus,
 	iPayStandard,
 	strPayTime,
@@ -231,8 +231,8 @@ select
 	#{dPurchaseCashTotalAmount},
 	#{dPreferentialPrice},
 	#{dPreferentialCashTotalAmount},
-	#{iPurchaseIntegrationAmount},
 	#{iIntegrationAmount},
+	#{iPurchaseIntegrationAmount},
 	#{iStatus},
 	#{iPayStandard},
 	#{strPayTime},
@@ -248,44 +248,6 @@ select
 	#{strLastAccessedTime}
 	)
 </insert>
-
-
-<!-- 根据订单 号查询_订单信息[tableName:tb_orderDetail_info] -->
-<select id="selectPurchaseOrderByOrderNum" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="map">
- select 
- 	strOrderId,
- 	strOrderNum,
- 	strMemberId,
- 	strMemberCardNumber,
- 	strMemberName,
- 	strLevelsId,
- 	strProductServiceId,
- 	strProductServiceName,
- 	iPurchaseType,
- 	iPurchaseAmount,
- 	strUnitName,
- 	dPrice,
- 	dPurchaseCashTotalAmount,
- 	dPreferentialPrice,
- 	dPreferentialCashTotalAmount,
- 	iPurchaseIntegrationAmount,
- 	iIntegrationAmount,
- 	iStatus,
- 	iPayStandard,
- 	strPayTime,
- 	iPayType,
- 	strThirdPartyTradeFlow,
- 	strExpressNumber,
- 	strExpressCompany,
- 	strComment,
- 	strEmployeeId,
- 	strEmployeeName,
- 	strEmployeeRealName,
- 	strCreationTime,
- 	strLastAccessedTime
- 	from tb_orderDetail_info
-	where strOrderNum=#{strOrderNum}
-</select>
 
 <!-- 根据商品ID查询_商品是否优惠[tableName:tb_goods] -->
 <select id="selectGoodsPreferentialType" resultType="int" parameterType="String">
@@ -308,8 +270,59 @@ select
 	select (case when count(strPreferentialId)>0 then iRequiredIntegral else 0 end) from tb_servicepreferential_mapping where strServiceInfoId=#{strProductServiceId} and strLevelsId=#{strLevelsId}
 </select>
 
+<!-- 新增消费订单表_总表[tableName:tb_purchase_order] -->
+<insert id="insertOrderInfo" parameterType="com.ecard.entity.PurchaseOrderEntity">
+ insert into tb_purchase_order
+	(
+	strOrderId,
+	strMemberId,
+	strMemberCardNumber,
+	strMemberName,
+	strLevelsId,
+	dPurchaseCashTotalAmount,
+	dPreferentialCashTotalAmount,
+	iPurchaseIntegrationAmount,
+	iStatus,
+	iPayStandard,
+	strPayTime,
+	iPayType,
+	strThirdPartyTradeFlow,
+	strExpressNumber,
+	strExpressCompany,
+	strComment,
+	strEmployeeId,
+	strEmployeeName,
+	strEmployeeRealName,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strOrderId},
+	#{strMemberId},
+	#{strMemberCardNumber},
+	#{strMemberName},
+	#{strLevelsId},
+	#{dPurchaseCashTotalAmount},
+	#{dPreferentialCashTotalAmount},
+	#{iPurchaseIntegrationAmount},
+	#{iStatus},
+	#{iPayStandard},
+	#{strPayTime},
+	#{iPayType},
+	#{strThirdPartyTradeFlow},
+	#{strExpressNumber},
+	#{strExpressCompany},
+	#{strComment},
+	#{strEmployeeId},
+	#{strEmployeeName},
+	#{strEmployeeRealName},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
 <!-- 付款完毕，修改订单状态 -->
-<update id="editOrderPaymentStatus" parameterType="map">
+<update id="editOrderDetailPaymentStatus" parameterType="map">
   update tb_orderDetail_info set 
 	iStatus=#{iStatus},
 	iPayStandard=#{iPayStandard},
@@ -318,8 +331,114 @@ select
 	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
 		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
 	</if>
-	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderNum}
+	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderId}
 </update>
 
-<!--  -->
+<!-- 查询_[tableName:tb_purchase_order] -->
+<select id="selectPurchaseOrder" resultType="com.ecard.entity.PurchaseOrderEntity" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialCashTotalAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_purchase_order
+	where strOrderId=#{strOrderId}
+</select>
+
+
+<!-- 根据会员ID查会员信息 -->
+<select id="selectMemberInfoById" resultType="com.ecard.vo.MemberVO" parameterType="string">
+select
+	tbM.STRMEMBERID AS strMemberid,
+ 	tbM.STRREALNAME AS strRealname, 
+    tbM.STRIDCARD AS strIdcard,
+    tbM.STRMOBILE AS strMobile,
+	tbM.INTAGE AS intAge, 
+	tbM.STRMEMBERCARDNUM AS strMembercardnum,
+	tbM.STRLEVELSID AS strLevelsid, 
+	tbM.INTSEX AS intSex,
+	tbM.INTSTATUS AS intStatus, 
+	tbM.INTINTEGRAL AS intIntegral,
+	tbM.DBALANCE AS dBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
+	tbML.STRLEVELSNAME as strLevelsname
+	FROM tb_member as tbM,tb_member_levels as tbML where tbM.STRMEMBERID=#{strMemberId} and tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and tbML.intStatus=1
+</select>
+
+<!-- 更新_订单总表[tableName:tb_purchase_order] -->
+<update id="editOrderPaymentStatus" parameterType="map">
+ update tb_purchase_order set 
+	iStatus=#{iStatus},
+	iPayStandard=#{iPayStandard},
+	strPayTime=#{strPayTime},
+	iPayType=#{iPayType},
+	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
+		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
+	</if>
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strOrderId=#{strOrderId}
+</update>
+
+<!-- 查询订单详情_[tableName:tb_orderDetail_info] -->
+<select id="selectPurchaseOrderDetailEntity" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strOrderNum,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId,
+ 	strProductServiceName,
+ 	iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info where strOrderNum=#{strOrderId} order by strCreationTime DESC
+</select>
+
+<!-- 删除订单详情_[tableName:tb_orderDetail_info] -->
+<delete id="deletePurchaseOrderDetailEntity" parameterType="String">
+ delete from tb_orderDetail_info where strOrderNum=#{strOrderId}
+</delete>
+
+<!-- 删除订单总表_[tableName:tb_purchase_order] -->
+<delete id="deletePurchaseOrderEntity" parameterType="String">
+ delete from tb_purchase_order where strOrderId=#{strOrderId}
+</delete>
 </mapper>

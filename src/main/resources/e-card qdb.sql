@@ -209,7 +209,7 @@ CREATE TABLE tb_member
   STRLEVELSID               VARCHAR(50) NOT NULL,      -- 会员级别ID
   INTSEX                    INT DEFAULT 0,             -- 性别0：男 1：女
   INTSTATUS                 INT DEFAULT 1,             -- 会员卡状态0：禁用 1：激活
-  INTINTEGRAL               INT DEFAULT 0,             -- 会员卡积分
+  INTINTEGRAL               INT DEFAULT 0,             -- 会员卡余额
   DBALANCE                  DECIMAL(11,2) DEFAULT 0.00,-- 会员卡余额
   DAFTERSTOREDBALANCE       DECIMAL(11,2) DEFAULT 0.00,-- 会员卡售后储值余额
   STRINSERTTIME             VARCHAR(50) NOT NULL,      -- 录入时间
@@ -1042,13 +1042,12 @@ CREATE TABLE tb_orderDetail_info
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxMemberOrderDetailIdOnMemberOrder on tb_orderDetail_info(strOrderId);
 -- ==================================================================================
--- Table: tb_memberPurchase_order                            【收银台｜会员订单表】                          
+-- Table: tb_purchase_order                            【收银台｜会员订单表】                          
 -- ==============================================================================
 DROP TABLE IF EXISTS tb_purchase_order;
 CREATE TABLE tb_purchase_order
 (
-  strOrderId                	VARCHAR(50) NOT NULL,       -- 主键
-  strOrderNum					VARCHAR(50) NOT NULL,       -- 订单号
+  strOrderId                	VARCHAR(50) NOT NULL,       -- 主键  订单 号
   strMemberId               	VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
   strMemberCardNumber			varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
   strMemberName             	VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用
