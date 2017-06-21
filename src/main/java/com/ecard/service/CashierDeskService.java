@@ -623,11 +623,31 @@ public class CashierDeskService
 	@Transactional
 	public String editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception
 	{
-		int iAffectNum=0;
-		iAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);
-		if(iAffectNum!=0)
-			return DataTool.constructResponse(ResultCode.OK,"该笔订单已完成支付",null);
-
+		int iOrderDetailAffectNum=0;	//订单详情表记录影响条数
+		int iOrderAffectNum=0;	//订单总表记录影响条数
+		String strMsg="";
+		int iPayType=0;//支付方式/订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
+		iPayType=(Integer)orderStatusMap.get("iPayType");
+		switch(iPayType)
+		{
+			case 0:
+				strMsg="积分";
+				break;
+			case 1:
+				strMsg="微信";
+				break;
+			case 2:
+				strMsg="支付宝";
+				break;
+			case 3:
+				strMsg="现金";
+				break;
+		}
+			
+		iOrderDetailAffectNum=cashierDeskMapper.editOrderDetailPaymentStatus(orderStatusMap);//修改详情表
+		iOrderAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);//修改总表
+		if(iOrderDetailAffectNum!=0&&iOrderAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"该笔订单已用"+strMsg+"完成支付",null);
 		else
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
 

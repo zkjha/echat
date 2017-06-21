@@ -350,26 +350,26 @@ public class CashierDeskController
 	//支付完毕 修改订单状态
 	@ResponseBody
 	@RequestMapping("editOrderPaymentStatus")
-	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderNum=eight&iPayType=0&strThirdPartyTradeFlow=
+	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderId=xorderI456788&iPayType=0&strThirdPartyTradeFlow=
 	public String editOrderPaymentStatus(HttpServletRequest request,HttpServletResponse response)
 	{
-		String strOrderNum=request.getParameter("strOrderNum");	//订单号
+		String strOrderId=request.getParameter("strOrderId");	//订单号
 		String strPayType=request.getParameter("iPayType");	//订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
 		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
 		int iPayType=0;
 		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strThirdPartyTradeFlow=request.getParameter("strThirdPartyTradeFlow").trim();
-		if(ValidateTool.isEmptyStr("strOrderNum"))
+		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
-		if(ValidateTool.isEmptyStr("strOrderPayType"))
+		if(ValidateTool.isEmptyStr(strPayType))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"支付方式不能为空",null);
 		if(isNumber(strPayType))
 			iPayType=Integer.parseInt(strPayType);
 		else
 			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"支付方式格式错误",null);
 		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
-		orderStatusMap.put("strOrderNum",strOrderNum);
+		orderStatusMap.put("strOrderId",strOrderId);
 		orderStatusMap.put("iPayType",iPayType);
 		orderStatusMap.put("iPayStandard",iPayStandard);
 		orderStatusMap.put("strPayTime",strPayTime);

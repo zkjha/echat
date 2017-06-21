@@ -44,7 +44,9 @@ public interface CashierDeskMapper
 	public int selectServicePreferentialType(String strServiceInfoId) throws Exception;
 	//根据服务 ID 查服务优惠表中的所需积分
 	public int selectServiceIntegration(Map<String,Object> queryMap) throws Exception;
-	//支付完毕 修改订单状态
+	//支付完毕 修改订单状态--详情表
+	public int editOrderDetailPaymentStatus(Map<String,Object> orderStatusMap) throws Exception;
+	//支付完毕 修改订单状态--总表
 	public int editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception;
 	//插入订单信息汇总信息
 	public int insertOrderInfo(PurchaseOrderEntity PurchaseOrderEntity) throws Exception;

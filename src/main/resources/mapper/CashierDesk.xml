@@ -322,7 +322,7 @@ select
 	)
 </insert>
 <!-- 付款完毕，修改订单状态 -->
-<update id="editOrderPaymentStatus" parameterType="map">
+<update id="editOrderDetailPaymentStatus" parameterType="map">
   update tb_orderDetail_info set 
 	iStatus=#{iStatus},
 	iPayStandard=#{iPayStandard},
@@ -331,7 +331,7 @@ select
 	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
 		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
 	</if>
-	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderNum}
+	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderId}
 </update>
 
 <!-- 查询_[tableName:tb_purchase_order] -->
@@ -381,4 +381,18 @@ select
 	tbML.STRLEVELSNAME as strLevelsname
 	FROM tb_member as tbM,tb_member_levels as tbML where tbM.STRMEMBERID=#{strMemberId} and tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and tbML.intStatus=1
 </select>
+
+<!-- 更新_订单总表[tableName:tb_purchase_order] -->
+<update id="editOrderPaymentStatus" parameterType="map">
+ update tb_purchase_order set 
+	iStatus=#{iStatus},
+	iPayStandard=#{iPayStandard},
+	strPayTime=#{strPayTime},
+	iPayType=#{iPayType},
+	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
+		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
+	</if>
+	strLastAccessedTime=#{strLastAccessedTime}
+	where strOrderId=#{strOrderId}
+</update>
 </mapper>
