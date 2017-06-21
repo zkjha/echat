@@ -698,9 +698,9 @@ public class CashierDeskService
 	
 	
 	//查询订单详情列表purchaseOrderDetailEntity
-	public List<PurchaseOrderDetailEntity> selectPurchaseOrderDetailEntityInfo(String strOrderId) throws Exception
+	public List<PurchaseOrderDetailEntity> selectPurchaseOrderDetailEntityInfo(String strMemberId) throws Exception
 	{
-		return cashierDeskMapper.selectPurchaseOrderDetailEntity(strOrderId);
+		return cashierDeskMapper.selectPurchaseOrderDetailEntity(strMemberId);
 	}
 	
 	

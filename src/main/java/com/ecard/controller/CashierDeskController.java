@@ -434,15 +434,15 @@ public class CashierDeskController
 	//查询订单详情列表purchaseOrderDetailEntity
 	@ResponseBody
 	@RequestMapping("selectPurchaseOrderDetailEntity")
-	//localhost:8083/admin/biz/CashierDesk/selectPurchaseOrderDetailEntity?strOrderId=xorderI456788
+	//localhost:8083/admin/biz/CashierDesk/selectPurchaseOrderDetailEntity?strMemberId=e8b9c2cabd364e15ade4cce6480c7b7d
 	public String selectPurchaseOrderDetailEntity(HttpServletRequest request,HttpServletResponse response)
 	{
 
-		String strOrderId=request.getParameter("strOrderId");
-		if(ValidateTool.isEmptyStr("strOrderId"))
+		String strMemberId=request.getParameter("strMemberId");
+		if(ValidateTool.isEmptyStr("strMemberId"))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"参数strOrderId不能为空",null);
 		try{
-			List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity=cashierDeskService.selectPurchaseOrderDetailEntityInfo(strOrderId);
+			List<PurchaseOrderDetailEntity> listPurchaseOrderDetailEntity=cashierDeskService.selectPurchaseOrderDetailEntityInfo(strMemberId);
 			if(listPurchaseOrderDetailEntity==null)
 				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 			if(listPurchaseOrderDetailEntity.size()==0)

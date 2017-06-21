@@ -429,7 +429,7 @@ select
  	strEmployeeRealName,
  	strCreationTime,
  	strLastAccessedTime
- 	from tb_orderDetail_info where strOrderNum=#{strOrderId} order by strCreationTime DESC
+ 	from tb_orderDetail_info where strMemberId=#{strMemberId} and iStatus=0 order by strOrderNum DESC
 </select>
 
 <!-- 删除订单详情_[tableName:tb_orderDetail_info] -->
