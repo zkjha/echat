@@ -330,7 +330,7 @@ public class CashierDeskController
 	//积分支付商品或服务 
 	@ResponseBody
 	@RequestMapping("payWithIntegration")
-	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=xorderI456788
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=50000
 	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");

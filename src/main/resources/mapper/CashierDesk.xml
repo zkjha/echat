@@ -441,4 +441,57 @@ select
 <delete id="deletePurchaseOrderEntity" parameterType="String">
  delete from tb_purchase_order where strOrderId=#{strOrderId}
 </delete>
+
+<!-- 根据订单号查询订单详情_[tableName:tb_orderDetail_info] -->
+<select id="selectOrderDetailEntity" resultType="com.ecard.entity.PurchaseOrderDetailEntity" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strOrderNum,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId,
+ 	strProductServiceName,
+ 	iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strOrderNum=#{strOrderId}
+</select>
+
+<!-- 更新订单详情_[tableName:tb_orderDetail_info] -->
+<update id="updateOrderDetailInfo" parameterType="com.ecard.entity.PurchaseOrderDetailEntity">
+ update tb_orderDetail_info set 
+	iIntegrationAmount=#{iIntegrationAmount},
+	iPurchaseIntegrationAmount=#{iPurchaseIntegrationAmount}
+	where strOrderId=#{strOrderId}
+</update>
+
+<!-- 更新订单总表_[tableName:tb_purchase_order] -->
+<update id="updateOrderInfo" parameterType="map">
+ update tb_purchase_order set 
+	iPurchaseIntegrationAmount=#{iTotalIntegrationAmount}
+	where strOrderId=#{strOrderId}
+</update>
+
 </mapper>

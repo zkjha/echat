@@ -62,6 +62,13 @@ public interface CashierDeskMapper
 	//删除订单总表
 	public int deletePurchaseOrderEntity(String strOrderId) throws Exception;
 	
+	//根据订单号 查询订单详情
+	public List<PurchaseOrderDetailEntity> selectOrderDetailEntity(String strOrderId) throws Exception;
+	//更新订单详情表 积分优惠信息
+	public int updateOrderDetailInfo(PurchaseOrderDetailEntity OrderDetailEntity) throws Exception;
+	//更新订单表积分优惠信息
+	public int updateOrderInfo(Map<String,Object> updateMap) throws Exception;
+	
 
 	
 }
