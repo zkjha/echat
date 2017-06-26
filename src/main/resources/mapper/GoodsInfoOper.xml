@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.ecard.mapper.GoodsInfoMapper">
-
-
 <insert id="insertGoodsInfo" parameterType="com.ecard.entity.GoodsInfoEntity">
 insert into tb_goods(strGoodsId,strGoodsBarCode,strUnitId,strUnitName,strGoodsName,strGoodsTypeId,strGoodsTypeName,strSupplierName,iRequiredIntegral,dEnterPrice,dSalePrice,iStock,iPreferentialType,iState,txtGoodsDesc,txtGoodsDescDetail,strEmployeeId,strEmployeeName,strEmployeeLoginName,strInsertTime,strUpdateTime)
  values(#{strGoodsId},#{strGoodsBarCode},#{strUnitId},#{strUnitName},#{strGoodsName},#{strGoodsTypeId},#{strGoodsTypeName},#{strSupplierName},#{iRequiredIntegral},#{dEnterPrice},#{dSalePrice},#{iStock},#{iPreferentialType},#{iState},#{txtGoodsDesc},#{txtGoodsDescDetail},#{strEmployeeId},#{strEmployeeName},#{strEmployeeLoginName},#{strInsertTime},#{strUpdateTime})

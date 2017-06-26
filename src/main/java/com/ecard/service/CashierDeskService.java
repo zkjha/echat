@@ -826,4 +826,29 @@ public class CashierDeskService
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "删除失败",null);
 	}
 	
+	//支付宝支付
+	public Map<String,Object> payWithAliPayment(String strOrderId) throws Exception
+	{
+		
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		String strMemberId="";
+		PurchaseOrderEntity purchaseOrderEntity=cashierDeskMapper.selectPurchaseOrder(strOrderId);
+		if(purchaseOrderEntity!=null&&!"".equals(purchaseOrderEntity.getStrOrderId()))
+			strMemberId=purchaseOrderEntity.getStrMemberId();
+		else
+			return resultMap;
+		
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return resultMap;
+		//根据会员ID 查会员信息
+		MemberVO MemberVO=cashierDeskMapper.selectMemberInfoById(strMemberId);
+		resultMap.put("MemberVO",MemberVO);
+		resultMap.put("purchaseOrderEntity",purchaseOrderEntity);
+		return resultMap;
+	}
+	
+	
+	
+    
+	
 }
