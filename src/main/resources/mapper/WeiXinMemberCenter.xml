@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.WeiXinMemberCenterMapper">
+<!-- 查登录会员的会员信息 -->
+<select id="selectMemberInfo" resultType="com.ecard.vo.MemberVO" parameterType="string">
+select
+	tbM.STRMEMBERID AS strMemberid,
+ 	tbM.STRREALNAME AS strRealname, 
+    tbM.STRIDCARD AS strIdcard,
+    tbM.STRMOBILE AS strMobile,
+	tbM.INTAGE AS intAge, 
+	tbM.STRMEMBERCARDNUM AS strMembercardnum,
+	tbM.STRLEVELSID AS strLevelsid, 
+	tbM.INTSEX AS intSex,
+	tbM.INTSTATUS AS intStatus, 
+	tbM.INTINTEGRAL AS intIntegral,
+	tbM.DBALANCE AS dBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
+	tbML.STRLEVELSNAME as strLevelsname
+	FROM tb_member as tbM,tb_member_levels as tbML
+	where tbM.STRLEVELSID=tbML.strLevelsId and tbM.INTSTATUS=1 and tbML.intStatus=1 and tbM.STRMEMBERID=#{strMemberId}
+</select>
+
+<!-- 查特定会员的已领用但还未使用的抵用券张数 -->
+<select id="selectUnUsedTicketAmount" parameterType="String" resultType="int">
+	select count(strVoucherUseInfoId) from tb_voucherticket_useinfo where strMemberId=#{strMemberId} and iIsValid=1 and iStat=1 and strValidEndTime&gt;=now()
+</select>
+
+<!-- 查特定会员的已使用还可继续使用的抵用券张数 -->
+<select id="selectUsedTicketAmount" parameterType="String" resultType="int">
+	select count(strVoucherUseInfoId) from tb_voucherticket_useinfo where strMemberId=#{strMemberId} and iIsValid=1 and iStat=2 and (iUsedCount&lt;iCanUseCount) and strValidEndTime&gt;=now()
+</select>
+
+<!-- 查询是否已经存在会员签到记录 -->
+<select id="findCountByIdAndTime" parameterType="com.ecard.entity.WeiXinMemberSignEntity" resultType="int">
+	select count(strSignId) from tb_member_sign where strMemberId=#{strMemberId} and (strSignTime&gt;=#date_format(now(),'%Y-%m-%d') and strSignTime&lt;now())
+</select>
+
+<!-- 查询最近一条会员签到信息_[tableName:tb_member_sign] -->
+<select id="selectMemberSignEntityById" resultType="com.ecard.entity.WeiXinMemberSignEntity" parameterType="com.ecard.entity.WeiXinMemberSignEntity">
+ select 
+ 	strSignId,
+ 	strMemberId,
+ 	strSignTime,
+ 	iSignCount,
+ 	iTotalSignCount
+ 	from tb_member_sign
+	where strMemberId=#{strMemberId} order by strSignTime DESC limit 0,1
+</select>
+
+<!-- 新增会员签到表_[tableName:tb_member_sign] -->
+<insert id="insertMemberSignInfo" parameterType="com.ecard.entity.WeiXinMemberSignEntity">
+ insert into tb_member_sign
+	(
+	strSignId,
+	strMemberId,
+	strSignTime,
+	iSignCount,
+	iTotalSignCount
+	)
+	values
+	(
+	#{strSignId},
+	#{strMemberId},
+	#{strSignTime},
+	#{iSignCount},
+	#{iTotalSignCount}
+	)
+</insert>
+
+
+<!-- 查询非连续签到规则信息_[tableName:tb_sign_integration_rule] -->
+<select id="selectIntegrationRuleInfo" resultType="com.ecard.entity.SignIntegrationRuleEntity" parameterType="map">
+ select 
+ 	strSignId,
+ 	strSignDays,
+ 	strStatus,
+ 	iIntegration,
+ 	strEnabled,
+ 	strCreationTime,
+ 	strLastAccessedTime,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName
+ 	from tb_sign_integration_rule
+	where strStatus=#{strStatus} and strEnabled=#{strEnabled}
+</select>
+
+<!-- 新增积分变更信息_[tableName:tb_integral_change_record] -->
+<insert id="insertIntegrationChangedInfo" parameterType="com.ecard.entity.IntegralModRecord">
+ insert into tb_integral_change_record
+	(
+	STRRECORDID,
+	STRMEMBERID,
+	STRMEMBERCARDNUM,
+	STRMEMBERNAME,
+	INTINTEGRAL,
+	STRDESC,
+	STRINSERTTIME
+	)
+	values
+	(
+	#{strRecordId},
+	#{strMemberId},
+	#{strMemberCardNum},
+	#{strMemberName},
+	#{iIntegralNum},
+	#{strDesc},
+	#{strInsertTime}
+	)
+</insert>
+
+
+<!-- 通过ID查询会员信息_[tableName:tb_member] -->
+<select id="selectMemberEntity" resultType="com.ecard.entity.MemberEntity" parameterType="String">
+ select 
+ 	tbM.STRMEMBERID AS strMemberid,
+ 	tbM.STRREALNAME AS strRealname, 
+    tbM.STRIDCARD AS strIdcard,
+    tbM.STRMOBILE AS strMobile,
+	tbM.INTAGE AS intAge, 
+	tbM.STRMEMBERCARDNUM AS strMembercardnum,
+	tbM.STRLEVELSID AS strLevelsid, 
+	tbM.INTSEX AS intSex,
+	tbM.INTSTATUS AS intStatus, 
+	tbM.INTINTEGRAL AS intIntegral,
+	tbM.DBALANCE AS dBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
+ 	from tb_member as tbM
+	where STRMEMBERID=#{strMemberId}
+</select>
+
+<!-- 更新会员信息表_[tableName:tb_member] -->
+<update id="updateMemberInfo" parameterType="com.ecard.entity.WeiXinMemberSignEntity">
+ update tb_member set 
+	STRREALNAME=#{strRealname},
+	STRIDCARD=#{strIdcard},
+	STRMOBILE=#{strMobile},
+	INTAGE=#{intAge},
+	STRMEMBERCARDNUM=#{strMembercardnum},
+	STRLEVELSID=#{strLevelsid},
+	INTSEX=#{intSex},
+	INTSTATUS=#{intStatus},
+	INTINTEGRAL=#{intIntegral},
+	DBALANCE=#{dBalance},
+	DAFTERSTOREDBALANCE=#{dAfterStoredBalance},
+	STRINSERTTIME=#{strInserttime},
+	STRUPDATETIME=#{strUpdatetime}
+	where STRMEMBERID=#{strMemberid}
+</update>
+</mapper>

@@ -277,9 +277,9 @@ CREATE TABLE tb_integral_change_record
   STRMEMBERNAME             VARCHAR(50) NOT NULL,      -- 会员姓名
   INTINTEGRAL               INT DEFAULT 0,             -- 变更积分值
   STRDESC                   VARCHAR(50) DEFAULT '',    -- 变更描述
-  STREMPLOYEEID             VARCHAR(50) NOT NULL,      -- 操作员工ID
-  STREMPLOYEEREALNAME       VARCHAR(50) NOT NULL,      -- 操作员工姓名
-  STREMPLOYEELOGINNAME      VARCHAR(50) NOT NULL,      -- 操作员工登录账号
+  STREMPLOYEEID             VARCHAR(50),      -- 操作员工ID
+  STREMPLOYEEREALNAME       VARCHAR(50),      -- 操作员工姓名
+  STREMPLOYEELOGINNAME      VARCHAR(50),      -- 操作员工登录账号
   STRINSERTTIME             VARCHAR(50) NOT NULL,      -- 录入时间
   PRIMARY KEY (STRRECORDID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -844,7 +844,7 @@ strActivityId						varchar(50)		not null,		-- 活动ID 关联 tb_activity id
 dMinimumRechargeAmount				decimal(11,2)	not null,		-- 充值多少钱可以领一张抵用券
 iMinimumPresentsVoucherNumber		int				not null,		-- 赠送张数
 dMoreRechargeAmount					decimal(11,2)	default 0,		-- 每多充值多少钱
-iMorePresentsVoucherNumber			int				default 0,		-- 多赠送多少钱
+iMorePresentsVoucherNumber			int				default 0,		-- 多赠送多少张
 iEnabled							int(2)			default 0,		-- 启用状态：1启用，0禁用
 strEmployeeId 		   				VARCHAR(50) 	NOT NULL,		-- 管理员ID
 strEmployeeName 					VARCHAR(50) 	NOT NULL,		-- 管理员账号
@@ -1071,3 +1071,16 @@ CREATE TABLE tb_purchase_order
   PRIMARY KEY (strOrderId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create index indxMemberOrderIdOnMemberOrder on tb_purchase_order(strOrderId);
+-- ---------------------------------------------------------------------------------------------------
+-- tableName:tb_member_sign												【微信|积分签到表】
+-- --------------------------------------------------------------------------------------------------
+drop table if exists tb_member_sign;
+create table tb_member_sign
+(
+strSignId				varchar(50) not null,		-- 主键
+strMemberId				varchar(50) not null,		-- 会员 ID
+strSignTime				varchar(50) not null,		-- 签到时间  格式YYYY_MM_DD_HH_MM_SS
+iSignCount				int default 1,				-- 连续签到的次数 满足积分条件后，iSignCount重置为0
+iTotalSignCount			int default 1,				-- 累计连续签到次数
+primary key(strSignId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -74,6 +74,7 @@ public class CashierDeskController
 	        /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
 	         *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
 	         */
+		 
 	        Configs.init("zfbinfo.properties");
 
 	        /** 使用Configs提供的默认参数
@@ -542,11 +543,12 @@ public class CashierDeskController
 		Map<String,Object> orderMsgMap=new HashMap<String,Object>();
 		try{
 			orderMsgMap=cashierDeskService.payWithAliPayment(strOrderId) ;
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
-			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+			
 		//取出订单信息
 		PurchaseOrderEntity purchaseOrderEntity=(PurchaseOrderEntity)orderMsgMap.get("purchaseOrderEntity");
 		BigDecimal preferentialCashTotalAmount=purchaseOrderEntity.getdPreferentialCashTotalAmount();	//订单总金额
@@ -642,6 +644,7 @@ public class CashierDeskController
         }		
         
         return DataTool.constructResponse(ResultCode.OK,"查询成功",orderMsgMap);
+		
     }		
 
 	
