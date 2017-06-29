@@ -1,5 +1,5 @@
 package com.ecard.controller;
-
+/*
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.TradeFundBill;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
@@ -26,14 +26,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
+*/
 
 /**
  * Created by liuyangkly on 15/8/9.
  * 简单main函数，用于测试当面付api
  * sdk和demo的意见和问题反馈请联系：liuyang.kly@alipay.com
  */
+
 public class Main {
-    private static Log                  log = LogFactory.getLog(Main.class);
+	/*  private static Log                  log = LogFactory.getLog(Main.class);
 
     // 支付宝当面付2.0服务
     private static AlipayTradeService   tradeService;
@@ -45,26 +47,28 @@ public class Main {
     private static AlipayMonitorService monitorService;
 
     static {
+    */
         /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
          *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
          */
-        Configs.init("zfbinfo.properties");
+      //  Configs.init("zfbinfo.properties");
 
         /** 使用Configs提供的默认参数
          *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new
          */
-        tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
+       // tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
 
         // 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-        tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
+     //   tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
 
         /** 如果需要在程序中覆盖Configs提供的默认参数, 可以使用ClientBuilder类的setXXX方法修改默认参数 否则使用代码中的默认设置 */
-        monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
-            .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
-            .setFormat("json").build();
-    }
+    //    monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
+   //         .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
+   //         .setFormat("json").build();
+  //  }
 
     // 简单打印应答
+/*
     private void dumpResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
@@ -451,4 +455,5 @@ public class Main {
                 break;
         }
     }
+    */
 }
