@@ -51,7 +51,7 @@
         <div class="z-sign-calender-mouth"  >
             <div class="z-sign-calender-day-p" ng-repeat="y in preViewDay">{{y}}</div>
             <div class="z-sign-calender-day-d" ng-repeat="x in nowAllDay">
-                <span><img class="pa z-sign-calender_imgs" ng-if="x == Alldays[$index]" src="/static/images/weixin/memberSign/gougou.png" /></span>
+                <span><img class="pa z-sign-calender_imgs" ng-if="(x == Alldays[$index]) && (nowMouth == Nowmouths)" src="/static/images/weixin/memberSign/gougou.png" /></span>
                 <span ng-if="(Nowdays==x) && (nowMouth == Nowmouths)" class="z-memberSign_yellow">{{x}}</span>
                 <span ng-if="Nowdays!=x || nowMouth != Nowmouths" >{{x}}</span>
             </div>

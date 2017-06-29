@@ -71,7 +71,10 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
 
         //会员中心 -- 签到信息（按月) -- 查询
         function selectSignDaysByMonth(strSearchDate){
-            $http.post(remoteUrl.selectSignDaysByMonth,strSearchDate).then(function(result) {
+            data = {
+                strSearchDate:strSearchDate
+            }
+            $http.post(remoteUrl.selectSignDaysByMonth,data).then(function(result) {
                 var rs = result.data;
                 var code = rs.code;
                 var data = rs.data;
@@ -152,22 +155,7 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
                 }
             })
         }
-       //$scope.gougouShow = (function(){
-       //     var nowAllDay = $scope.nowAllDay;
-       //     var Alldays =  $scope.Alldays;
-       //     var Trues = []
-       //     for(var i in nowAllDay){
-       //         for(var k in Alldays){
-       //             if(nowAllDay[i] = Alldays[k]){
-       //                 Trues[i] = Alldays[k];
-       //             }else{
-       //                 Trues[i] = -1;
-       //             }
-       //         }
-       //     }
-       //     return Trues
-       // })()
-       // console.info($scope.Alldays)
+
         //////////////////////////////////////日期控制显示//////////////////////////////
         var date = new Date();
         date.setDate(1);
@@ -278,9 +266,6 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
 
 
 
-
-
-
     function mouthday(mouths,years){
         var thirtyOne = [];
         for(var i = 0;i <= 30;i++){
@@ -298,7 +283,7 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
         for(var b= 0;b <= 27;b++){
             twentyeight[b] = b+1;
         }
-//判断每月的几天
+        //判断每月几天
         if(mouths == 1 ||mouths == 3 ||mouths == 5 ||mouths == 7 ||mouths == 8 ||mouths == 10 ||mouths == 12){
             return thirtyOne;
         }else if(mouths == 4 ||mouths == 6 ||mouths == 9 ||mouths == 11){

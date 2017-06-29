@@ -149,11 +149,11 @@ body{
     border-radius: 100%;
     background-color: #F77F43;
     display: inline-block;
-    line-height: .4rem;
+    line-height: .45rem;
     color: #ffffff;
 }
 .z-sign-calender_imgs{
     bottom: 2px;
-    width: .35rem;
+    width: .45rem;
     /*left: .05rem;*/
 }
