@@ -33,7 +33,7 @@ select
 
 <!-- 查询是否已经存在会员签到记录 -->
 <select id="findCountByIdAndTime" parameterType="com.ecard.entity.WeiXinMemberSignEntity" resultType="int">
-	select count(strSignId) from tb_member_sign where strMemberId=#{strMemberId} and (strSignTime&gt;=#date_format(now(),'%Y-%m-%d') and strSignTime&lt;now())
+	select count(strSignId) from tb_member_sign where strMemberId=#{strMemberId} and (STR_TO_DATE(strSignTime,'%Y-%c-%d %h:%i:%s') between date_format(now(),'%Y%m%d') and date_format(now(),'%Y%m%d%H%i%s'));
 </select>
 
 <!-- 查询最近一条会员签到信息_[tableName:tb_member_sign] -->
@@ -125,13 +125,14 @@ select
 	tbM.INTSTATUS AS intStatus, 
 	tbM.INTINTEGRAL AS intIntegral,
 	tbM.DBALANCE AS dBalance,
-	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterstoredbalance,
+	tbM.STRINSERTTIME as strInserttime
  	from tb_member as tbM
-	where STRMEMBERID=#{strMemberId}
+	where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </select>
 
 <!-- 更新会员信息表_[tableName:tb_member] -->
-<update id="updateMemberInfo" parameterType="com.ecard.entity.WeiXinMemberSignEntity">
+<update id="updateMemberInfo" parameterType="com.ecard.entity.MemberEntity">
  update tb_member set 
 	STRREALNAME=#{strRealname},
 	STRIDCARD=#{strIdcard},
@@ -143,9 +144,55 @@ select
 	INTSTATUS=#{intStatus},
 	INTINTEGRAL=#{intIntegral},
 	DBALANCE=#{dBalance},
-	DAFTERSTOREDBALANCE=#{dAfterStoredBalance},
 	STRINSERTTIME=#{strInserttime},
-	STRUPDATETIME=#{strUpdatetime}
+	STRUPDATETIME=#{strUpdatetime},
+	DAFTERSTOREDBALANCE=#{dAfterstoredbalance}
 	where STRMEMBERID=#{strMemberid}
 </update>
+
+<!-- 查询连续性签到积分规则 -->
+<select id="selectRuleInfo" resultType="com.ecard.entity.SignIntegrationRuleEntity" parameterType="map">
+ select 
+ 	strSignId,
+ 	strSignDays,
+ 	strStatus,
+ 	iIntegration,
+ 	strEnabled,
+ 	strCreationTime,
+ 	strLastAccessedTime,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName
+ 	from tb_sign_integration_rule
+	where strStatus=#{strStatus} and strEnabled=#{strEnabled}
+</select>
+
+<!-- 根据会员ID 查出历史签到总次数 -->
+<select id="getSignDaysByMemberId" parameterType="String" resultType="int">
+	select count(strSignId) from tb_member_sign where strMemberId=#{strMemberId}
+</select>
+
+
+<!-- 查询最近一次签到情况_[tableName:tb_member_sign] -->
+<select id="selectSignDays" resultType="com.ecard.entity.WeiXinMemberSignEntity" parameterType="String">
+ select 
+ 	strSignId,
+ 	strMemberId,
+ 	strSignTime,
+ 	iSignCount,
+ 	iTotalSignCount
+ 	from tb_member_sign
+	where strMemberId=#{strMemberId} order by strSignTime DESC limit 0,1
+</select>
+
+<!-- 按月查询指定会员的签到情况_[tableName:tb_member_sign] -->
+<select id="selectSignDaysByMonth" resultType="com.ecard.entity.WeiXinMemberSignEntity" parameterType="map">
+ select 
+ 	strSignId,
+ 	strMemberId,
+ 	strSignTime,
+ 	iSignCount,
+ 	iTotalSignCount
+ 	from tb_member_sign where strMemberId=#{strMemberId} and strSignTime&gt;=#{strStartTime} and strSignTime&lt;#{strEndTime}
+</select>
 </mapper>

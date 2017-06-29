@@ -31,5 +31,13 @@ public interface WeiXinMemberCenterMapper
 	public MemberEntity selectMemberEntity(String strMemberId) throws Exception;
 	//修改会员表信息
 	public int updateMemberInfo(MemberEntity memberEntity) throws Exception;
+	//查询连续签到积分规则
+	public SignIntegrationRuleEntity selectRuleInfo(Map<String,Object> queryMap) throws Exception;
+	//根据会员ID查出会员的历史签到总次数
+	public int getSignDaysByMemberId(String strMemberId) throws Exception;
+	//查询最近一次签到记录-单条（签到天数)
+	public WeiXinMemberSignEntity selectSignDays(String strMemberId) throws Exception;
+	//按月查询指定会员的签到记录
+	public List<WeiXinMemberSignEntity> selectSignDaysByMonth(Map<String,Object> queryMap) throws Exception;
 	
 }

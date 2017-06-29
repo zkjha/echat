@@ -63,6 +63,21 @@ public class WechatHomepageController {
 	}
 	
 	/**
+	 * 微信签到
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/memberSign")
+	public ModelAndView memberSign(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/memberSign");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 查询会员基本信息
 	 * @return
 	 */
