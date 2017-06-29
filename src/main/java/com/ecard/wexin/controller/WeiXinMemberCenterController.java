@@ -39,12 +39,10 @@ public class WeiXinMemberCenterController
 	{
 		try {
 			// 当前登录的用户信息
-			/*
-			String strMemberId = (String) webSessionUtil.getWeixinSession(
-					request, response).getAttribute("memberid");
-			*/
+			String strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+		
 			//以下会员ID为测试数据
-			String strMemberId="377f37a5871f4874a2879dd77758e075";
+			//String strMemberId="377f37a5871f4874a2879dd77758e075";
 			if(ValidateTool.isEmptyStr(strMemberId))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 
@@ -63,12 +61,17 @@ public class WeiXinMemberCenterController
 	public String insertMemberSignInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
-		/*
-		String strMemberId = (String) webSessionUtil.getWeixinSession(
-				request, response).getAttribute("memberid");
-		*/	
+		String strMemberId="";
+		try{
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	
 		//以下会员ID为测试数据
-		String strMemberId="377f37a5871f4874a2879dd77758e075";
+		//String strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 		String strSignId=DataTool.getUUID();
@@ -93,11 +96,17 @@ public class WeiXinMemberCenterController
 	public String selectSignDays(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
-		/*
-		String strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
-		*/	
+		String strMemberId="";
+		try{
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
 		//以下会员ID为测试数据
-		String strMemberId="377f37a5871f4874a2879dd77758e075";
+		//String strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 		WeiXinMemberSignEntity weiXinMemberSignEntity=null;
@@ -123,11 +132,17 @@ public class WeiXinMemberCenterController
 	public String selectSignDaysByMonth(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
-		/*
-		String strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
-		*/	
+		String strMemberId="";
+		try{
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
 		//以下会员ID为测试数据
-		String strMemberId="377f37a5871f4874a2879dd77758e075";
+		//String strMemberId="377f37a5871f4874a2879dd77758e075";
 		String strStartTime="";
 		String strEndTime="";
 		//strSearchDate="YYYY-MM-dd"
