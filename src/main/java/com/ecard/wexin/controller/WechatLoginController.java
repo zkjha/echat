@@ -50,7 +50,7 @@ public class WechatLoginController {
 		return mv;
 	}
 	
-	/**
+	/**151
 	 * 发送验证码
 	 * @param strMobile
 	 * @return

@@ -10,7 +10,7 @@ define(
 
 
         ////////////////////////////添加购物车/////////////////////
-            goShopStore:function($scope,$http){
+            goShopStore:function($scope,$http,$rootScope){
                 //$scope.shopStoreShow = localStorage.getItem("store");
                 var localvalue =JSON.parse(localStorage.getItem("store")) ;
                 var sjopStore = [];
@@ -25,12 +25,25 @@ define(
                 $scope.shopStoress = sjopStore;
                 $scope.serivcrStoress = serivcrStore;
 
-
+                //生成订单
                 $scope.seaveNews = function(){
                     console.info(123)
                     console.info($scope.shopStoress);
-                    console.info($scope.serivcrStoress);
-
+                    //商品类型
+                    var shopStoress = [];
+                    for(var i =0 ;i <$scope.shopStoress.length;i++){
+                        shopStoress[i]=$scope.shopStoress[i].strGoodsId +","+0+","+$scope.shopStoress[i].strGoodsName +","+$scope.shopStoress[i].numbers+","+$scope.shopStoress[i].dSalePrice+","+$scope.shopStoress[i].strUnitName;
+                    }
+                    console.info(shopStoress);
+                    //服务类型
+                    var serviceStoress = [];
+                    for(var i =0 ;i <$scope.serivcrStoress.length;i++){
+                        serviceStoress[i]=$scope.serivcrStoress[i].strServiceInfoId +","+ 1+","+$scope.serivcrStoress[i].strServiceInfoName +","+$scope.serivcrStoress[i].numbers+","+$scope.serivcrStoress[i].dSalePrice+","+$scope.serivcrStoress[i].strUnitName;
+                    }
+                    console.info(serviceStoress);
+                    var sumCharge = shopStoress.concat(serviceStoress).join("|")
+                    console.info(sumCharge);
+                    activityCtrl.getOrderNum($scope,$http,$rootScope,sumCharge)//生成订单号
                 }
                 //商品部分删除
                 $scope.shopDelete= function(id){
@@ -41,7 +54,99 @@ define(
                     $scope.serivcrStoress.splice(id,1);
                 }
             },
+            //生成订单号，并且调用生成订单的接口，直接生成订单
+            getOrderNum:function($scope,$http,$rootScope,news){
+                var data = {}
+                $http.post(remoteUrl.getOrderNum,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result);
+                        if (code == 1) {
+                            $scope.strOrderNum = data.data.strOrderNum;
+                            //console.info($scope.strOrderNum)
+                            console.info($rootScope.userIdhouminayaoyongdaode)
+                            activityCtrl.generatePurchaseOrder($scope,$http,news,$rootScope.userIdhouminayaoyongdaode,$scope.strOrderNum)
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.showAlert(rs.msg)
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
 
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //生成订单
+            generatePurchaseOrder:function($scope,$http,news,UserId,strOrderNum){
+                var data = {
+                    orderInfo:news,
+                    strMemberId:UserId,
+                    strOrderNum:strOrderNum
+                }
+                $http.post(remoteUrl.generatePurchaseOrder,data).then(
+                    function(result){
+                        var rs = result.data;
+                        var data = result.data;
+                        var code = data.code;
+                        console.info(result);
+                        if (code == 1) {
+                            console.info("订单生成成功")
+                            localStorage.removeItem("store")//移除local里面的数据；
+                            $scope.showAlert(rs.msg,function(){
+                                window.location.hash = "#!/userbottom";//目前这样
+                            })
+                        } else if (code == -1) {
+                            window.location.href = "/admin/login?url="
+                            + window.location.pathname
+                            + window.location.search
+                            + window.location.hash;
+                            //未登录
+                        } else if (code <= -2 && code >= -7) {
+                            //必填字段未填写
+                            $scope.showAlert(rs.msg);
+                        } else if (code == -8) {
+                            //暂无数据
+                            $scope.showAlert(rs.msg)
+                            $scope.isNoData=true;
+                            $scope.pageCount = 0;
+                        }
+
+                    }, function (result) {
+
+
+                        var status = result.status;
+                        if (status == -1) {
+                            $scope.showAlert("服务器错误")
+                        } else if (status >= 404 && status < 500) {
+                            $scope.showAlert("请求路径错误")
+                        } else if (status >= 500) {
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
             /////////////////////添加购物车结束////////////////////
 
             ///////////////////消费赠送-开始////////////////////////
@@ -142,7 +247,12 @@ define(
                 }
                 //操作cookie
                 $scope.saveCookie = function() {
-                    window.location.hash = "#!/goShopStore";
+                    if(!localStorage.store){
+                        $scope.showAlert("请选择要购买的内容")
+                        return
+                    }else{
+                        window.location.hash = "#!/goShopStore";
+                    }
                 };
                 //$scope.removeCookie = function() {
                 //    $cookieStore.remove("a1");

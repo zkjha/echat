@@ -1,11 +1,11 @@
 <div class="mobile_content">
     <div class="z-sign-top">
         <div class="z-sign-top-img">
-            <img src="img/积分商城/UI1_03.png"/>
+            <img src="/static/images/weixin/memberSign/UI1_03.png"/>
         </div>
         <div class="z-sign-top-score">
             <p>我的积分</p>
-            <p class="z-sign-top-score-num">3002</p>
+            <p class="z-sign-top-score-num">{{intIntegration}}</p>
         </div>
         <div class="z-sign-top-go">
             <p><a href="">去兑换</a></p>
@@ -16,11 +16,11 @@
         <p class="z-sign-Statistics-top">签到统计</p>
         <div class="z-sign-Statistics-body">
             <div class="z-sign-Statistics-body-one">
-                <p  class="z-sign-Statistics-body-color"><span>5</span>天</p>
+                <p  class="z-sign-Statistics-body-color"><span>{{weiXinMemberSignEntity.iSignCount || 0}}</span>天</p>
                 <p class="z-sign-Statistics-body-times">连续签到天数</p>
             </div>
             <div class="z-sign-Statistics-body-one">
-                <p  class="z-sign-Statistics-body-color"><span>58</span>次</p>
+                <p  class="z-sign-Statistics-body-color"><span>{{weiXinMemberSignEntity.iTotalSignCount || 0}}</span>次</p>
                 <p class="z-sign-Statistics-body-times">连续签到次数</p>
             </div>
         </div>
@@ -50,13 +50,17 @@
         </div>
         <div class="z-sign-calender-mouth"  >
             <div class="z-sign-calender-day-p" ng-repeat="y in preViewDay">{{y}}</div>
-            <div class="z-sign-calender-day-d" ng-repeat="x in nowAllDay">{{x}}</div>
+            <div class="z-sign-calender-day-d" ng-repeat="x in nowAllDay">
+                <span><img class="pa z-sign-calender_imgs" ng-if="x == Alldays[$index]" src="/static/images/weixin/memberSign/gougou.png" /></span>
+                <span ng-if="(Nowdays==x) && (nowMouth == Nowmouths)" class="z-memberSign_yellow">{{x}}</span>
+                <span ng-if="Nowdays!=x || nowMouth != Nowmouths" >{{x}}</span>
+            </div>
             <div class="z-sign-calender-day-p" ng-repeat="z in nextViewDay">{{z}}</div>
         </div>
         <div style="clear: both;"></div>
     </div>
 
-    <div class="z-sign-qiandao">
+    <div class="z-sign-qiandao" ng-click="newQiandaoNews()">
         签&nbsp;到
     </div>
 </div>

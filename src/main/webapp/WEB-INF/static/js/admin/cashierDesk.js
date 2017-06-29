@@ -76,7 +76,7 @@ requirejs(
         }]);
 
 
-        app.controller('cashierCtrl',['$scope','$http','$window','resize',function($scope,$http,$window,resize){
+        app.controller('cashierCtrl',['$scope','$http','$window','resize','$rootScope',function($scope,$http,$window,resize,$rootScope){
 
         	////////////////////////////刘哥写的代码///////////////////////
             $scope.config = {};
@@ -145,7 +145,7 @@ requirejs(
         ///////////////////////////朱写的代码/////////////////////////////
 
 
-        app.controller('searchTellphone',['$scope','$http',function($scope,$http){
+        app.controller('searchTellphone',['$scope','$http',"$rootScope",function($scope,$http,$rootScope){
             $scope.searchChargeconsol = null;//输入框的值
             $scope.ifshowuserdetail = false;//保证用户详细信息是否显示
 
@@ -164,6 +164,7 @@ requirejs(
                         if (code == 1) {
                             $scope.ifshowuserdetail = true;
                             $scope.listMemberVO = data.data.listMemberVO[0]
+                            $rootScope.userIdhouminayaoyongdaode = data.data.listMemberVO[0].strMemberid
                         } else if (code == -1) {
                             window.location.href = "/admin/login?url="
                             + window.location.pathname

@@ -167,8 +167,10 @@ define([],function(){
         selectAllGoodsInfoEntity:"/admin/biz/CashierDesk/selectAllGoodsInfoEntity",
         //收银台 -- 按服务类别查询所有商品详情 -- 查询列表
         selectAllServiceInfoEntity:"/admin/biz/CashierDesk/selectAllServiceInfoEntity",
-
-
+        //收银台 -- 生成订单号
+        getOrderNum:"/admin/biz/CashierDesk/getOrderNum",
+        //收银台 -- 生成订单
+        generatePurchaseOrder:"/admin/biz/CashierDesk/generatePurchaseOrder",
 
 
 
@@ -369,6 +371,23 @@ define([],function(){
         /**
          * 微信前端部分
          */
+        ////////////会员中心/////////////////////////////
+        //会员中心 -- 签到信息(最近一次签到信息) -- 查询
+        selectSignDays:"/weixin/biz/selectSignDays",
+        //会员中心 -- 签到信息（按月) -- 查询
+        selectSignDaysByMonth:"/weixin/biz/selectSignDaysByMonth",
+        //会员签到 -- 签到信息 -- 新增
+        insertMemberSignInfo:"/weixin/biz/insertMemberSignInfo",
+        //会员签到 -- 签到信息 -- 新增
+        selectMemberInfo:"/weixin/biz/selectMemberInfo",
+
+
+
+
+
+
+        ////////////会员中心/////////////////////////////
+
 		////////////登陆认证/////////////////////////////
 			
 			//发送验证码
@@ -377,6 +396,10 @@ define([],function(){
 			weixinloginCertification:"/weixin/loginCertification",
 			//得到登陆的用户信息
 			 weixingetLoginUserInfo:" /weixin/biz/getLoginUserInfo"
+        ////////////登陆认证/////////////////////////////
+
+
+
     };
 	return remoteUrl;
 	

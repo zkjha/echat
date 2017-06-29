@@ -1,0 +1,159 @@
+body{
+	background-color: #D8D8D8;
+}
+.z-sign-top{
+	height: .8rem;
+	padding: .1rem;
+	background-color: white;
+	display: -webkit-box;
+}
+.z-sign-top-img{
+	padding-top: .1rem;
+	margin-left:.3rem;
+	-webkit-box-flex: 1;
+}
+.z-sign-top-img img{
+	height: .7rem;
+}
+.z-sign-top-score{
+	-webkit-box-flex: 8;
+	font-size: .25rem;
+}
+.z-sign-top-score-num{
+	margin-top: .05rem;
+	font-size: .4rem;
+	color: #F77F43;
+}
+.z-sign-top-go{
+	-webkit-box-flex: 1;
+}
+.z-sign-top-go p{
+	margin-top: .4rem;
+}
+.z-sign-top-go p a{
+	padding: .05rem .1rem;
+	background-color: #F77F43;
+	color: white;
+	font-size: .2rem;
+	border-radius: 50px;
+	/*margin-top: .4rem;*/
+}
+/*头部完*/
+
+.z-sign-Statistics{
+	padding: .05rem .2rem;
+	margin: .2rem 0px;
+	background-color: white;
+}
+.z-sign-Statistics-top{
+	border-left: .05rem solid #F77F43;
+	font-size: .24rem;
+	padding-left: .1rem;
+}
+.z-sign-Statistics-body{
+	display: -webkit-box;
+}
+.z-sign-Statistics-body-one{
+	-webkit-box-flex: 1;
+	padding: .2rem .5rem ;
+	text-align: center;
+}
+.z-sign-Statistics-body-times{
+	margin-top: .2rem;
+	color: #999999;
+	font-size: .2rem;
+}
+.z-sign-Statistics-body-color{
+	border-bottom: 1px solid #D8D8D8;
+	color: #000000;
+	font-size:.18rem ;
+	margin-top: .2rem;
+}
+.z-sign-Statistics-body-color span{
+	color: #F77F43;
+	font-size: .6rem;
+}
+/*日历*/
+.z-sign-calender{
+	background-color: white;
+	padding: .2rem .25rem;
+}
+.z-sign-calender-data{
+	display: -webkit-box;
+	padding: .2rem .2rem;
+	color: #000000;
+	font-size: .2rem;
+}
+.z-sign-calender-data-left{
+	text-align: left;
+	-webkit-box-flex:1 ;
+}
+.z-sign-calender-data-one{
+	text-align: center;
+	-webkit-box-flex:1 ;
+}
+.z-sign-calender-data-right{
+	text-align: right;
+	-webkit-box-flex:1 ;
+}
+.z-sign-calender-day{
+	display: -webkit-box;
+	margin-top: .2rem;
+}
+.z-sign-calender-day-s{
+	text-align: center;
+	-webkit-box-flex:1 ;
+	font-size: .3rem;
+	color: #000000;
+}
+.z-sign-calender-mouth{
+	margin-top: .2rem;
+}
+.z-sign-calender-day-d{
+	float: left;
+	width: 1rem;
+	text-align: center;
+	font-size: .3rem;
+	color: #000000;
+	border-bottom: 1px solid #D8D8D8;
+	line-height: .6rem;
+    position: relative;
+}
+.z-sign-calender-day-p{
+	float: left;
+	width: 1rem;
+	text-align: center;
+	font-size: .3rem;
+	color: #999999;
+	border-bottom: 1px solid #D8D8D8;
+	line-height: .6rem;
+}
+/*签到*/
+.z-sign-qiandao{
+	margin: .3rem auto;
+	width: 3.5rem;
+	height: .6rem;
+	color: white;
+	font-size: .3rem;
+	line-height: .6rem;
+	background-color: #F77F43;
+	text-align: center;
+	border-radius: .1rem;
+}
+/*
+日历中日期背后的黄色背景
+*/
+.z-memberSign_yellow{
+    width: .45rem;
+    height: .45rem;
+    border-radius: 100%;
+    background-color: #F77F43;
+    display: inline-block;
+    line-height: .4rem;
+    color: #ffffff;
+}
+.z-sign-calender_imgs{
+    bottom: 2px;
+    width: .35rem;
+    /*left: .05rem;*/
+}
