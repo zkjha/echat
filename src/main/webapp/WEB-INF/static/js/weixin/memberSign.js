@@ -98,7 +98,7 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
                             if(nowAllDay[j] == Alldays[k]){
                                 Trues[j] = Alldays[k];
                             }else{
-                                Trues[j] = -1;
+                                //Trues[j] = -1;
                             }
                         }
                     }
