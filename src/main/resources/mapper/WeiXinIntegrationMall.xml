@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.WeiXinIntegrationMallMapper">
+<!-- 根据会员ID查询会员级别ID -->
+<select id="selectMemberLevelsId" parameterType="String" resultType="String">
+	select STRLEVELSID from tb_member where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+</select>
+
+<!-- 查商品总条数 -->
+<select id="selectGoodsAmount" parameterType="map" resultType="int">
+	select count(strGoodsId) from tb_goods
+	<where>
+		iState=1 
+		<if test="strSearchGoodsTypeId!=null and strSearchGoodsTypeId!=''">
+			and strGoodsTypeId=#{strSearchGoodsTypeId}
+		</if>
+		
+		<if test="iSearchGoodsState==0">
+			and iIsHotGoods=1
+		</if>
+		
+		<if test="iSearchGoodsState==1">
+			and iIsNewGoods=1
+		</if>
+		
+	</where>
+</select>
+
+<!-- 分页查询商品属性 -->
+<select id="selectGoordsInfo" parameterType="map" resultType="com.ecard.vo.GoodsVO">
+select 
+ 	strGoodsId,
+ 	strGoodsBarCode,
+ 	strUnitId,
+ 	strUnitName,
+ 	strGoodsName,
+ 	strGoodsTypeId,
+ 	strGoodsTypeName,
+ 	strSupplierName,
+ 	iRequiredIntegral,
+ 	dEnterPrice,
+ 	dSalePrice,
+ 	iStock,
+ 	iPreferentialType,
+ 	iState,
+ 	iIsNewGoods,
+ 	iIsHotGoods,
+ 	txtGoodsDesc,
+ 	txtGoodsDescDetail,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strInsertTime,
+ 	strUpdateTime
+ 	from tb_goods
+	<where>
+		iState=1 
+		<if test="strSearchGoodsTypeId!=null and strSearchGoodsTypeId!=''">
+			and strGoodsTypeId=#{strSearchGoodsTypeId}
+		</if>
+		
+		<if test="iSearchGoodsState==0">
+			and iIsHotGoods=1
+		</if>
+		
+		<if test="iSearchGoodsState==1">
+			and iIsNewGoods=1
+		</if>
+	</where>
+	order by strInsertTime DESC limit #{iPageFrom},#{iPageSize}
+</select>
+
+<!-- 查等级权益表 -->
+<select id="findDiscountInfo" resultType="double" parameterType="map">
+ select (case when count(strLevelsRightsMappingId)=1 then dDiscount else 1 end) from tb_member_levelsRights_mapping where iRightsStatus=0 and strRightsId=#{strGoodsId} and strLevelsId=#{strLevelsId}
+</select>
+
+<!-- 查询商品优惠表 -->
+<select id="findLevelsIntegrationInfo" resultType="int" parameterType="map">
+	select (case when count(strPreferentialId)=1 then iRequiredIntegral else 0 end) from tb_goodspreferential_mapping where strLevelsId=#{strLevelsId} and strGoodsId=#{strGoodsId}
+</select>
+
+</mapper>

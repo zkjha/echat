@@ -353,6 +353,8 @@ CREATE TABLE tb_goods
   iStock                    int DEFAULT 0,              -- 商品库存
   iPreferentialType         int DEFAULT 0,              -- 商品优惠类型 0 不优惠 1 按照会员等级优惠
   iState                    int DEFAULT 0,              -- 商品状态 0 不使用 1 使用
+  iIsNewGoods				int default 0,				-- 是否是新产品 0 不是  1 是
+  iIsHotGoods				int default 0,				-- 是否是热门商品0 不是 1 是
   txtGoodsDesc              text null,                  -- 富文本描述信息
   txtGoodsDescDetail        text null,                  -- 富文本详情描述信息
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID

@@ -29,7 +29,8 @@ public class WeiXinMemberCenterController
 	@Autowired
 	private WeiXinMemberCenterService weiXinMemberCenterService;
 	
-	@Autowired WebSessionUtil webSessionUtil;
+	@Autowired 
+	private WebSessionUtil webSessionUtil;
 	
 	//查询登陆会员信息
 	@ResponseBody
@@ -128,7 +129,7 @@ public class WeiXinMemberCenterController
 	//按月份查询某人的 签到信息
 	@ResponseBody
 	@RequestMapping("selectSignDaysByMonth")
-	//localhost:8083/weixin/biz/selectSignDaysByMonth?strSearchDate=2017-06-01
+	//localhost:8083/weixin/biz/selectSignDaysByMonth?strSearchDate=2017-05-01
 	public String selectSignDaysByMonth(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
@@ -140,6 +141,7 @@ public class WeiXinMemberCenterController
 				e.printStackTrace();
 				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 			}
+			
 		
 		//以下会员ID为测试数据
 		//String strMemberId="377f37a5871f4874a2879dd77758e075";
