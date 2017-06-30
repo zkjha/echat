@@ -36,7 +36,9 @@ public class GoodsInfoEntity {
 	private String strEmployeeLoginName="";
 	private String strInsertTime="";
 	private String strUpdateTime="";
-	
+	private String strGoodsImg="";//商品图片地址
+	private int iIsNewGoods=0;	//商品是否属于本周新品 0 不是 1  是
+	private int iIsHotGoods=0;	//商品是否属于热销商品  0 不是 1 是
 	private List<GoodsPreferentialEntity> listGoodsPreferentialEntity = null;
 	
 	
@@ -396,6 +398,34 @@ public class GoodsInfoEntity {
 		this.strUpdateTime = strUpdateTime;
 	}
 
+	public void setStrGoodsImg(String strGoodsImg)
+	{
+		this.strGoodsImg=strGoodsImg;
+	}
 	
+	public String getStrGoodsImg()
+	{
+		return strGoodsImg;
+	}
+	
+	public void iIsNewGoods(int iIsNewGoods)
+	{
+		this.iIsNewGoods=iIsNewGoods;
+	}
+	
+	public int getiIsNewGoods()
+	{
+		return iIsNewGoods;
+	}
+
+	public void setiIsHotGoods(int iIsHotGoods)
+	{
+		this.iIsHotGoods=iIsHotGoods;
+	}
+	
+	public int getiIsHotGoods()
+	{
+		return iIsHotGoods;
+	}
 
 }

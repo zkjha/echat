@@ -21,6 +21,7 @@ public class GoodsVO
 	private int iState=0;					//商品状态 0 不使用 1 使用
 	private String txtGoodsDesc="";			//富文本描述信息
 	private String txtGoodsDescDetail="";	//富文本描述信息
+	private String strGoodsImg="";	//商品图片地址
 	private String strEmployeeId="";
 	private String strEmployeeName="";
 	private String strEmployeeLoginName="";
@@ -28,7 +29,8 @@ public class GoodsVO
 	private String strUpdateTime="";
 	private BigDecimal dPreferentialPrice;	//按等级计算后的商品价钱
 	private int iLevelIntegration=0;	//按等级计算后的商品兑换积分
-	
+	private int iIsNewGoods=0;	//商品是否属于本周新品 0 不是 1  是
+	private int iIsHotGoods=0;	//商品是否属于热销商品  0 不是 1 是
 	
 	/**
 	 * create time:2017年3月30日
@@ -384,5 +386,35 @@ public class GoodsVO
 	public int getiLevelIntegration()
 	{
 		return iLevelIntegration;
+	}
+	
+	public void setStrGoodsImg(String strGoodsImg)
+	{
+		this.strGoodsImg=strGoodsImg;
+	}
+	
+	public String getStrGoodsImg()
+	{
+		return strGoodsImg;
+	}
+	
+	public void iIsNewGoods(int iIsNewGoods)
+	{
+		this.iIsNewGoods=iIsNewGoods;
+	}
+	
+	public int getiIsNewGoods()
+	{
+		return iIsNewGoods;
+	}
+
+	public void setiIsHotGoods(int iIsHotGoods)
+	{
+		this.iIsHotGoods=iIsHotGoods;
+	}
+	
+	public int getiIsHotGoods()
+	{
+		return iIsHotGoods;
 	}
 }

@@ -115,7 +115,7 @@ public class WeiXinIntegrationMallController
 	@ResponseBody
 	@RequestMapping("selectGoodsDetailInfo")
 	//localhost:8083/weixin/biz/integrationMall/selectGoodsDetailInfo?strGoodsId=xxx
-	/*
+
 	public String selectGoodsDetailInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strMemberId="";
@@ -147,7 +147,7 @@ public class WeiXinIntegrationMallController
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
 	}
-	*/
+
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{
