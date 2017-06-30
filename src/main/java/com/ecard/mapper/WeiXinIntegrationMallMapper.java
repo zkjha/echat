@@ -17,4 +17,6 @@ public interface WeiXinIntegrationMallMapper
 	public double findDiscountInfo(Map<String,Object> queryMap) throws Exception;
 	//查找商品按等级优惠的积分信息
 	public int findLevelsIntegrationInfo(Map<String,Object> queryMap) throws Exception;
+	//根据商品ID 查询商品信息
+	public GoodsVO selectGoordsInfoById(Map<String,Object> queryMap) throws Exception;
 }

@@ -78,6 +78,20 @@ public class WechatHomepageController {
 	}
 	
 	/**
+	 * 积分商城
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/integrationMall")
+	public ModelAndView integrationMall(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/integrationMall");
+		
+		return mv;
+		
+	}
+	/**
 	 * 查询会员基本信息
 	 * @return
 	 */

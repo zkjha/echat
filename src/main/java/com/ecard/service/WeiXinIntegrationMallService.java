@@ -82,4 +82,19 @@ public class WeiXinIntegrationMallService
 		resultMap.put("iTotalPage",iTotalPage);
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 	}
+	
+	
+	//查询单条商品信息
+	/*
+	public String selectGoodsDetailInfo(Map<String,Object> queryMap) throws Exception
+	{
+		//查商品信息
+		GoodsVO goodsVOEntity=weiXinIntegrationMallMapper.selectGoordsInfoById(queryMap);
+		if(goodsVOEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+
+		
+	}
+	*/
 }
