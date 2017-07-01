@@ -267,7 +267,7 @@ public class CashierDeskController
 	//生成购买订单表,订单详情表
 	@ResponseBody
 	@RequestMapping("generatePurchaseOrder")
-	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder
+	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder?strMemberId=377f37a5871f4874a2879dd77758e075&strOrderNum=oeojgjg&orderInfo
 	public String generatePurchaseOrder(HttpServletRequest request,HttpServletResponse response)
 	{
 		//前台传入的数据格式约定为:orderInfo=商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位|商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位

@@ -114,7 +114,7 @@ public class WeiXinIntegrationMallController
 	//查单条商品详情
 	@ResponseBody
 	@RequestMapping("selectGoodsDetailInfo")
-	//localhost:8083/weixin/biz/integrationMall/selectGoodsDetailInfo?strGoodsId=xxx
+	//localhost:8083/weixin/biz/integrationMall/selectGoodsDetailInfo?strGoodsId=84848johoghgh
 
 	public String selectGoodsDetailInfo(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -125,9 +125,9 @@ public class WeiXinIntegrationMallController
 		
 		try {
 			// 当前登录的用户信息
-			//strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
 			//以下会员ID为测试数据
-			strMemberId="377f37a5871f4874a2879dd77758e075";
+			//strMemberId="377f37a5871f4874a2879dd77758e075";
 			if(ValidateTool.isEmptyStr(strMemberId))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 		} catch (Exception e)

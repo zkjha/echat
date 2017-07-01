@@ -357,7 +357,7 @@ CREATE TABLE tb_goods
   iIsHotGoods				int default 0,				-- 是否是热门商品0 不是 1 是
   txtGoodsDesc              text null,                  -- 富文本描述信息
   txtGoodsDescDetail        text null,                  -- 富文本详情描述信息
-  strGoodsImg				varchar(50) not null,		-- 商品图片地址
+  strGoodsImg				varchar(50)	default '',		-- 商品图片地址
   strEmployeeId             VARCHAR(50) NOT NULL,       -- 操作员工ID
   strEmployeeName           VARCHAR(50) NOT NULL,       -- 操作员工姓名
   strEmployeeLoginName      VARCHAR(50) NOT NULL,       -- 操作员工登录账号

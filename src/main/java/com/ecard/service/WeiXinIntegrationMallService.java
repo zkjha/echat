@@ -85,16 +85,55 @@ public class WeiXinIntegrationMallService
 	
 	
 	//查询单条商品信息
-	/*
+	@Transactional
 	public String selectGoodsDetailInfo(Map<String,Object> queryMap) throws Exception
 	{
 		//查商品信息
+		String strLevelsId="";
+		BigDecimal dDiscount;//打折
+		BigDecimal dBasePrice;	//商品原价 
+		BigDecimal dPreferentialPrice;//会员按级别优惠价
+		int iPreferentialType;//是否有积分优惠 0无优惠 1 有优惠
+		int iLevelIntegration=0;//等 级优惠积分
+		int iBaseIntegration;	//商品积分
 		GoodsVO goodsVOEntity=weiXinIntegrationMallMapper.selectGoordsInfoById(queryMap);
 		if(goodsVOEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(goodsVOEntity.getStrGoodsId().isEmpty())
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		//查询会员级别 ID
+		strLevelsId=weiXinIntegrationMallMapper.selectMemberLevelsId((String)queryMap.get("strMemberId"));
+		if(ValidateTool.isEmptyStr(strLevelsId))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"无会员级别信息",null);
+		queryMap.put("strLevelsId", strLevelsId);
+		//查等级权益优惠信息
+		iBaseIntegration=goodsVOEntity.getiRequiredIntegral();
+		iPreferentialType=goodsVOEntity.getiPreferentialType();
+		dBasePrice=goodsVOEntity.getdSalePrice();
+		dDiscount=new BigDecimal(String.valueOf(weiXinIntegrationMallMapper.findDiscountInfo(queryMap)));
+		dPreferentialPrice=dBasePrice.multiply(dDiscount);
+		//查商品优惠表 取得优惠积分
+		switch(iPreferentialType)
+		{
+			case 0:
+				//不优惠的情况
+				iLevelIntegration=iBaseIntegration;
+				break;
+			case 1:
+				//有积分优惠的情况：
+				iLevelIntegration=weiXinIntegrationMallMapper.findLevelsIntegrationInfo(queryMap);
+				if(iLevelIntegration==0)
+					iLevelIntegration=iBaseIntegration;
+				break;
+		}
 		
-
+		goodsVOEntity.setdPreferentialPrice(dPreferentialPrice);
+		goodsVOEntity.setiLevelIntegration(iLevelIntegration);
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("goodsVOEntity",goodsVOEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 		
 	}
-	*/
+
 }

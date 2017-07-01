@@ -485,8 +485,6 @@ public class CashierDeskService
 		Map<String,Object> queryMap=new HashMap<String,Object>();
 		queryMap.put("strLevelsId",insertOrderEntityList.get(0).getStrLevelsId());
 		boolean booBreak=false;	//是否退出程序执行  false 不退出  true 退出
-		int iFlag=0;
-		int haveIntegrationPreferential=0;	//是否有积分优惠，默认为无
 		int iTotalIntegrationAmount=0;//	订单所需积分总数量
 		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
 		for(PurchaseOrderDetailEntity orderDetailObj:insertOrderEntityList)
@@ -495,6 +493,7 @@ public class CashierDeskService
 			int iPurchaseAmount=orderDetailObj.getiPurchaseAmount();//购买商品或服务的数量
 			int iItemIntegrationAmount=0;	//多个商品或服务所需积分数量
 			int iUseIntegrationAmount=0;//	 单个商品或服务所需积分数量
+			int iRequiredIntegrationAmount=0;	//无等级优惠情况下，兑换商品或服务所需积分数量
 			strProductServiceId=orderDetailObj.getStrProductServiceId();
 			iPurchaseType=orderDetailObj.getiPurchaseType();
 			queryMap.put("strProductServiceId",strProductServiceId);
@@ -506,103 +505,82 @@ public class CashierDeskService
 			{
 				case 0:
 					//查商品表tb_goods，看是否有优惠
-					iPreferentialType=cashierDeskMapper.selectGoodsPreferentialType(strProductServiceId);
-					if(iFlag==0)
+					GoodsInfoEntity goodsInfoEntity=cashierDeskMapper.selectGoodsPreferentialType(strProductServiceId);
+					iPreferentialType=goodsInfoEntity.getiPreferentialType();
+					iRequiredIntegrationAmount=goodsInfoEntity.getiRequiredIntegral();
+					if(iPreferentialType==0&&iRequiredIntegrationAmount==0)
 					{
-						iFlag=1;
-						haveIntegrationPreferential=iPreferentialType;
-						if(haveIntegrationPreferential==0)
-						{
-							iErrorCode=0;
-							strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
-							orderStatusMap.put("iErrorCode", iErrorCode);
-							orderStatusMap.put("strErrorObj", strErrorObj);
-							booBreak=true;
-							break;
-						}
-					}
-					else
-					{
-						if(iPreferentialType!=haveIntegrationPreferential)
-						{
-							iErrorCode=1;
-							strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
-							orderStatusMap.put("iErrorCode", iErrorCode);
-							orderStatusMap.put("strErrorObj", strErrorObj);
-							booBreak=true;
-							break;
-						}
+						//如果 商品表里无积分信息并且商品优惠表里也无积分信息 则退出积分结算
+						iErrorCode=0;
+						strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
+						orderStatusMap.put("iErrorCode", iErrorCode);
+						orderStatusMap.put("strErrorObj", strErrorObj);
+						booBreak=true;
+						break;
 					}
 					
 					//计算商品所需积分
 					if(iPreferentialType!=0)
 					{
-							//有优惠,按会员级别查商品优惠表，计算积分,无优惠不处理
-							iUseIntegrationAmount=cashierDeskMapper.selectGoodsIntegration(queryMap);
-							//判断商品积分优惠表中是否找到相应积分信息。若商品表中有 积分，但商品优惠表中未找到相关记录，则报错
-							if(iUseIntegrationAmount==0)
-							{
-								iErrorCode=2;
-								strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
-								orderStatusMap.put("iErrorCode", iErrorCode);
-								orderStatusMap.put("strErrorObj", strErrorObj);
-								booBreak=true;
-								break;			//两表不一致报错
-							}
-							else
-								{
-								iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
-								iTotalIntegrationAmount+=iItemIntegrationAmount;
-								}
-					}
-					break;
-				case 1:
-					//如果是服务
-					iPreferentialType=cashierDeskMapper.selectServicePreferentialType(strProductServiceId);
-					if(iFlag==0)
-					{
-						iFlag=1;
-						haveIntegrationPreferential=iPreferentialType;
-						if(haveIntegrationPreferential==0)
-						{
-							iErrorCode=0;
-							strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
-							orderStatusMap.put("iErrorCode", iErrorCode);
-							orderStatusMap.put("strErrorObj", strErrorObj);
-							booBreak=true;
-							break;
-						}
-					}
-					else
-					{
-						if(iPreferentialType!=haveIntegrationPreferential)
+						//有等级优惠的情况下:
+						iUseIntegrationAmount=cashierDeskMapper.selectGoodsIntegration(queryMap);
+						//判断商品积分优惠表中是否找到相应积分信息。若商品表中有 积分，但商品优惠表中未找到相关记录，则报错
+						if(iUseIntegrationAmount==0)
 						{
 							iErrorCode=1;
 							strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
 							orderStatusMap.put("iErrorCode", iErrorCode);
 							orderStatusMap.put("strErrorObj", strErrorObj);
 							booBreak=true;
-							break;
+							break;			//两表不一致报错
 						}
+						else
+						{
+							iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
+							iTotalIntegrationAmount+=iItemIntegrationAmount;
+						}
+					}
+					else
+					{
+						//无等级优惠的情况下：
+						iItemIntegrationAmount=iRequiredIntegrationAmount*iPurchaseAmount;
+						iTotalIntegrationAmount+=iItemIntegrationAmount;
+						
+					}
+					break;
+				case 1:
+					//如果是服务
+					ServiceInfoEntity serviceInfoEntity=cashierDeskMapper.selectServicePreferentialType(strProductServiceId);
+					iPreferentialType=serviceInfoEntity.getiPreferentialType();
+					
+					if(iPreferentialType==0)
+					{
+						iErrorCode=0;
+						strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
+						orderStatusMap.put("iErrorCode", iErrorCode);
+						orderStatusMap.put("strErrorObj", strErrorObj);
+						booBreak=true;
+						break;
 					}
 					
 					if(iPreferentialType!=0)
-					{	//有优惠执行如下处理，无优惠不处理
+					{	
+						//有优惠的情况:
 						iUseIntegrationAmount=cashierDeskMapper.selectServiceIntegration(queryMap);
 						if(iUseIntegrationAmount==0)
 						{
 							booBreak=true;
-							iErrorCode=2;
+							iErrorCode=1;
 							strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
 							orderStatusMap.put("iErrorCode", iErrorCode);
 							orderStatusMap.put("strErrorObj", strErrorObj);
 							break;			//两表不致报错
 						}
 						else
-							{
+						{
 							iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
 							iTotalIntegrationAmount+=iItemIntegrationAmount;
-							}
+						}
 					}
 					break;
 			}
@@ -631,13 +609,13 @@ public class CashierDeskService
 		if(iOrderNum==0||iLoopTime!=insertOrderEntityList.size())
 		{
 			//更新积分信息失败
-			orderStatusMap.put("iErrorCode",3);
+			orderStatusMap.put("iErrorCode",2);
 			orderStatusMap.put("strErrorObj","");
 			return orderStatusMap;
 		}
 		else
 		{//更新积分信息成功
-			orderStatusMap.put("iErrorCode",4);
+			orderStatusMap.put("iErrorCode",3);
 			orderStatusMap.put("strErrorObj","");
 			return orderStatusMap;
 			
@@ -692,7 +670,7 @@ public class CashierDeskService
 	public String payWithIntegration(String strOrderId) throws Exception
 	{
 		String strMemberId="";
-		//调用方法，查找商品或服务是积分优惠信息，更改订单积分信息
+		//调用方法，查找商品或服务的积分优惠信息，更改订单积分信息
 		List<PurchaseOrderDetailEntity> insertOrderDetailEntityList=cashierDeskMapper.selectOrderDetailEntity(strOrderId);
 		Map<String,Object> orderStatusMap=addIntegrationInfo(insertOrderDetailEntityList);
 		int iErrorCode=(Integer)orderStatusMap.get("iErrorCode");
@@ -700,15 +678,11 @@ public class CashierDeskService
 		switch(iErrorCode)
 		{
 		case 0:
-			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单中有无积分优惠的商品或服务,不能用积分结算。你可以先配置: "+strErrorObj+" 的积分按等级优惠信息或采用其它方式结算",null);
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"无可用积分配置信息,请先配置: "+strErrorObj+" 的积分信息或采用其它方式结算",null);
 		
 		case 1:
-			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"请将有积分优惠的商品服务与无积分优惠的商品服务分开下单   或  请先配置: "+strErrorObj+" 的积分优惠信息或采用其它方式结算",null);
-
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"无等级积分兑换信息, 请先配置: "+strErrorObj+" 的积分等级兑换信息或采用其它方式结算",null);
 		case 2:
-			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"请配置: "+strErrorObj+" 的积分按等级优惠信息",null);
-	
-		case 3:
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"积分优惠信息更新失败!",null);
 		}
 		
@@ -718,7 +692,7 @@ public class CashierDeskService
 		else
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单数据",null);
 		if(ValidateTool.isEmptyStr(strMemberId))
-			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单的会员信息",null);
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
 	
 		//根据会员ID 查会员信息
 		MemberVO MemberVO=cashierDeskMapper.selectMemberInfoById(strMemberId);

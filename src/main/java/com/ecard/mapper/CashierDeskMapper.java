@@ -37,11 +37,11 @@ public interface CashierDeskMapper
 	public int generatePurchaseOrder(PurchaseOrderDetailEntity insertOrderEntityList) throws Exception;
 
 	//根据商品ID 查询商品中否有优惠
-	public int selectGoodsPreferentialType(String strGoodsId) throws Exception;
+	public GoodsInfoEntity selectGoodsPreferentialType(String strGoodsId) throws Exception;
 	//取出兑换商品所需积分
 	public int selectGoodsIntegration(Map<String,Object> queryMap) throws Exception;
 	//根据服务 ID查询商品是否有优惠
-	public int selectServicePreferentialType(String strServiceInfoId) throws Exception;
+	public ServiceInfoEntity selectServicePreferentialType(String strServiceInfoId) throws Exception;
 	//根据服务 ID 查服务优惠表中的所需积分
 	public int selectServiceIntegration(Map<String,Object> queryMap) throws Exception;
 	//支付完毕 修改订单状态--详情表

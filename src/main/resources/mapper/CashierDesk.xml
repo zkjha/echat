@@ -250,8 +250,8 @@ select
 </insert>
 
 <!-- 根据商品ID查询_商品是否优惠[tableName:tb_goods] -->
-<select id="selectGoodsPreferentialType" resultType="int" parameterType="String">
- 	select iPreferentialType from tb_goods where strGoodsId=#{strGoodsId}
+<select id="selectGoodsPreferentialType" resultType="com.ecard.entity.GoodsInfoEntity" parameterType="String">
+ 	select iPreferentialType,iRequiredIntegral from tb_goods where strGoodsId=#{strGoodsId}
 </select>
 
 <!-- 根据级别ID和商品ID查商品优惠信息表 -->
@@ -261,7 +261,7 @@ select
 
 
 <!-- 根据服务ID查服务信息表，看是否优惠 -->
-<select id="selectServicePreferentialType" resultType="int" parameterType="String">
+<select id="selectServicePreferentialType" resultType="com.ecard.entity.ServiceInfoEntity" parameterType="String">
 	select iPreferentialType from tb_service_info where strServiceInfoId=#{strServiceInfoId}
 </select>
 
