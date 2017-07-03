@@ -91,6 +91,22 @@ public class WechatHomepageController {
 		return mv;
 		
 	}
+	
+	/**
+	 * 商品详情
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/goodsDetailInfo")
+	public ModelAndView goodsDetailInfo(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/goodsDetailInfo");
+		
+		return mv;
+		
+	}
+	
 	/**
 	 * 查询会员基本信息
 	 * @return
