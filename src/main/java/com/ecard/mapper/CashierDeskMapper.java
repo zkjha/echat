@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ecard.entity.GoodsInfoEntity;
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberLevelsRightsMappingEntity;
 import com.ecard.entity.PurchaseOrderDetailEntity;
@@ -68,7 +69,11 @@ public interface CashierDeskMapper
 	public int updateOrderDetailInfo(PurchaseOrderDetailEntity OrderDetailEntity) throws Exception;
 	//更新订单表积分优惠信息
 	public int updateOrderInfo(Map<String,Object> updateMap) throws Exception;
-	
-
+	//修改会员表积分信息
+	public int modifyMemberIntegrationInfo(Map<String,Object> orderStatusMap) throws Exception;
+	//修改积分流水
+	public int modifyIntegrationChangeFlow(IntegralModRecord integrationChangeEntity) throws Exception;
+	//修改改会员表的现金余额属性
+	public int modifyMemberDbalanceInfo(Map<String,Object> orderStatusMap) throws Exception;
 	
 }

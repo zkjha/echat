@@ -494,4 +494,48 @@ select
 	where strOrderId=#{strOrderId}
 </update>
 
+<!-- 修改会员表积分信息 -->
+<update id="modifyMemberIntegrationInfo" parameterType="map">
+	update tb_member
+	set INTINTEGRAL=#{iRestIntegration},
+	STRUPDATETIME=#{strLastAccessedTime}
+	where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+</update>
+
+<!-- 修改积分流水表 -->
+<insert id="modifyIntegrationChangeFlow" parameterType="com.ecard.entity.IntegralModRecord">
+ insert into tb_integral_change_record
+	(
+	STRRECORDID,
+	STRMEMBERID,
+	STRMEMBERCARDNUM,
+	STRMEMBERNAME,
+	INTINTEGRAL,
+	STRDESC,
+	STREMPLOYEEID,
+	STREMPLOYEEREALNAME,
+	STREMPLOYEELOGINNAME,
+	STRINSERTTIME
+	)
+	values
+	(
+	#{strRecordId},
+	#{strMemberId},
+	#{strMemberCardNum},
+	#{strMemberName},
+	#{iIntegralNum},
+	#{strDesc},
+	#{strEmployId},
+	#{strEmployName},
+	#{strEmployLoginName},
+	#{strInsertTime}
+	)
+</insert>
+
+<!-- 修改会员现金储值属性 -->
+<update id="modifyMemberDbalanceInfo" parameterType="map">
+	update tb_member
+	set DBALANCE=#{bgRestAmount}
+	where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+</update>
 </mapper>

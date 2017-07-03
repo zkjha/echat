@@ -44,6 +44,7 @@ import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.GoodsInfoEntity;
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.PurchaseOrderDetailEntity;
 import com.ecard.entity.PurchaseOrderEntity;
@@ -267,7 +268,7 @@ public class CashierDeskController
 	//生成购买订单表,订单详情表
 	@ResponseBody
 	@RequestMapping("generatePurchaseOrder")
-	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder?strMemberId=377f37a5871f4874a2879dd77758e075&strOrderNum=oeojgjg&orderInfo
+	//localhost:8083/admin/biz/CashierDesk/generatePurchaseOrder?strMemberId=377f37a5871f4874a2879dd77758e075&strOrderNum=oeojgjg&orderInfo=ehiwhvoidieoi2395959,0,车载香蕉,2,8.5,个
 	public String generatePurchaseOrder(HttpServletRequest request,HttpServletResponse response)
 	{
 		//前台传入的数据格式约定为:orderInfo=商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位|商品服务ID,购买类别：0商品1服务,商品服务名称,购买数量,购买单价,计量单位
@@ -378,10 +379,10 @@ public class CashierDeskController
 	}
 
 	
-	//积分支付商品或服务 
+	//积分支付--查询 
 	@ResponseBody
 	@RequestMapping("payWithIntegration")
-	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=50000
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=10000
 	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");
@@ -398,38 +399,97 @@ public class CashierDeskController
 	}
 
 	
-	//支付完毕 修改订单状态
+	//积分支付完毕--- 修改订单状态,会员信息，积分流水
 	@ResponseBody
-	@RequestMapping("editOrderPaymentStatus")
-	//localhost:8083/admin/biz/CashierDesk/editOrderPaymentStatus?strOrderId=xorderI456788&iPayType=0&strThirdPartyTradeFlow=
-	public String editOrderPaymentStatus(HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping("integrationPayOverEditStatus")
+	//localhost:8083/admin/biz/CashierDesk/integrationPayOverEditStatus?strOrderId=10000&iPurchaseIntegrationAmount=4400&strMemberId=651c5888e17c4fe08bd27551d7852fed&iMemberIntegration=10000&strMemberCardNum=65638664&strMemberName=Tom&iMemberIntegration=0
+	public String integrationPayOverEditStatus(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");	//订单号
-		String strPayType=request.getParameter("iPayType");	//订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
 		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
-		int iPayType=0;
+		int iPayType=0; //订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
+		int iPurchaseIntegrationAmount=0;	//购买商品或服务所需积分数量
+		int iMemberIntegration=0;	//会员卡积分余额
+		String strMemberIntegration=request.getParameter("iMemberIntegration");
+		String strMemberId=request.getParameter("strMemberId");
+		String strPurchaseIntegrationAmount=request.getParameter("iPurchaseIntegrationAmount");
+		String strMemberCardNum=request.getParameter("strMemberCardNum");
+		String strMemberName=request.getParameter("strMemberName");
+
 		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
-		String strThirdPartyTradeFlow=request.getParameter("strThirdPartyTradeFlow").trim();
+		if(ValidateTool.isEmptyStr(strMemberCardNum))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员卡纺号不能为空",null);
+		if(ValidateTool.isEmptyStr(strMemberName))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员姓名不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMemberIntegration))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员卡积分余额不能为空",null);
+		if(isNumber(strMemberIntegration))
+			iMemberIntegration=Integer.parseInt(strMemberIntegration);
+		
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员编号不能为空",null);
+		
 		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
-		if(ValidateTool.isEmptyStr(strPayType))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"支付方式不能为空",null);
-		if(isNumber(strPayType))
-			iPayType=Integer.parseInt(strPayType);
+		
+		if(ValidateTool.isEmptyStr(strPurchaseIntegrationAmount))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"所需积分数量不能为空",null);
+		
+		if(isNumber(strPurchaseIntegrationAmount))
+			iPurchaseIntegrationAmount=Integer.parseInt(strPurchaseIntegrationAmount);
 		else
-			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"支付方式格式错误",null);
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"所需积分数量格式错误",null);
+		/*
+		EmployeeEntity employeeEntity = null;
+		try {
+			employeeEntity=(EmployeeEntity)webSessionUtil.getWebSession(request, response).getAttribute("employeeEntity");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
+		}
+		if(employeeEntity==null){
+			return DataTool.constructResponse(ResultCode.NO_DATA, "操作员不存在", null);
+		}
+		 */
+		//取得登录员工信息
+		/*String strEmployeeId=employeeEntity.getStrEmployeeid();
+		String strEmployeeName=employeeEntity.getStrLoginname();
+		String strEmployeeRealName=employeeEntity.getStrRealname();
+		*/
+		//以下3个为测试用数据
+
+		String strEmployeeId=DataTool.getUUID();
+		String strEmployeeName="test";
+		String strEmployeeRealName="david li";
 		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
+		orderStatusMap.put("strMemberId",strMemberId);
+		orderStatusMap.put("strMemberCardNum",strMemberCardNum);
+		orderStatusMap.put("strMemberName",strMemberName);
 		orderStatusMap.put("strOrderId",strOrderId);
 		orderStatusMap.put("iPayType",iPayType);
 		orderStatusMap.put("iPayStandard",iPayStandard);
 		orderStatusMap.put("strPayTime",strPayTime);
 		orderStatusMap.put("iStatus",1);
-		orderStatusMap.put("strThirdPartyTradeFlow",strThirdPartyTradeFlow);
 		orderStatusMap.put("strLastAccessedTime",strLastAccessedTime);
+		orderStatusMap.put("iPurchaseIntegrationAmount",iPurchaseIntegrationAmount);
+		orderStatusMap.put("iMemberIntegration",iMemberIntegration);
+
+		IntegralModRecord integrationChangeEntity=new IntegralModRecord();
+		integrationChangeEntity.setStrRecordId(DataTool.getUUID());
+		integrationChangeEntity.setStrMemberId(strMemberId);
+		integrationChangeEntity.setStrMemberCardNum(strMemberCardNum);
+		integrationChangeEntity.setStrMemberName(strMemberName);
+		integrationChangeEntity.setiIntegralNum(-iPurchaseIntegrationAmount);
+		integrationChangeEntity.setStrEmployId(strEmployeeId);
+		integrationChangeEntity.setStrEmployLoginName(strEmployeeName);
+		integrationChangeEntity.setStrEmployName(strEmployeeRealName);
+		integrationChangeEntity.setStrInsertTime(strLastAccessedTime);
+		integrationChangeEntity.setStrDesc("会员积分支付订单(单号:"+strOrderId+")");
 		
 		try{
-			return cashierDeskService.editOrderPaymentStatus(orderStatusMap);
+			return cashierDeskService.integrationPayOverEditStatus(orderStatusMap,integrationChangeEntity);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -439,17 +499,17 @@ public class CashierDeskController
 	}
 	
 	
-	//会员卡余额支付
+	//会员卡余额支付---查询
 	@ResponseBody
-	@RequestMapping("payWithMemberCard")
-	//localhost:8083/admin/biz/CashierDesk/payWithMemberCard?strOrderId=xorderI456788
-	public String payWithMemberCard(HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping("payWithMemberCardCash")
+	//localhost:8083/admin/biz/CashierDesk/payWithMemberCardCash?strOrderId=30000
+	public String payWithMemberCardCash(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");
 		if(ValidateTool.isEmptyStr(strOrderId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
 		try{
-			return cashierDeskService.payWithMemberCard(strOrderId) ;
+			return cashierDeskService.payWithMemberCardCash(strOrderId) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -458,8 +518,60 @@ public class CashierDeskController
 		
 	}
 	
+	//会员卡余额支付完毕,修改订单状态及会员信息
+	@ResponseBody
+	@RequestMapping("cardCashPayOverEditStatus")
+	//localhost:8083/admin/biz/CashierDesk/cardCashPayOverEditStatus?strOrderId=30000&dbalance=20000&dTotalCashAmount=157.16&strMemberId=651c5888e17c4fe08bd27551d7852fed
+	public String cardCashPayOverEditStatus(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");	//订单号
+		String strMemberId=request.getParameter("strMemberId");
+		String strBalance=request.getParameter("dbalance");	//会员卡余额
+		String strTotalCashAmount=request.getParameter("dTotalCashAmount");//订单总金额
+		
+		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
+		int iPayType=4; //订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付,4会员卡余额支付
+		
+		BigDecimal bgRestAmount;//
 
-	//现金支付
+		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员ID不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strBalance))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"会员卡余额不能为空",null);
+		
+		if(ValidateTool.isEmptyStr(strTotalCashAmount))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 金额不能为空",null);
+		bgRestAmount=new BigDecimal(strBalance).subtract(new BigDecimal(strTotalCashAmount));
+		if(bgRestAmount.compareTo(new BigDecimal("0"))==-1)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"储值余额不足，请充值或采用其它方式付款",null);
+		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
+		orderStatusMap.put("iStatus",1);
+		orderStatusMap.put("iPayStandard",iPayStandard);
+		orderStatusMap.put("strPayTime",strPayTime);
+		orderStatusMap.put("iPayType",iPayType);
+		orderStatusMap.put("strLastAccessedTime",strLastAccessedTime);
+		orderStatusMap.put("strOrderId",strOrderId);
+		
+		orderStatusMap.put("strMemberId",strMemberId);
+		orderStatusMap.put("bgRestAmount",bgRestAmount);
+		try{
+			return cashierDeskService.cardCashPayOverEditStatus(orderStatusMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+
+	//现金支付--查询
 	@ResponseBody
 	@RequestMapping("payWithCash")
 	//localhost:8083/admin/biz/CashierDesk/payWithCash?strOrderId=xorderI456788
@@ -478,6 +590,38 @@ public class CashierDeskController
 		
 	}
 	
+	//现金支付完毕，修改订单状态 
+	@ResponseBody
+	@RequestMapping("cashPayOverEditStatus")
+	//localhost:8083/admin/biz/CashierDesk/cashPayOverEditStatus?strOrderId=20000
+	public String cashPayOverEditStatus(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strOrderId=request.getParameter("strOrderId");	//订单号
+		int iPayStandard=0;	//支付标准备 0 会员价支付  1 原价支付  以后可能会修改
+		int iPayType=3; //订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
+
+		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		String strLastAccessedTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单 号不能为空",null);
+		
+		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
+		orderStatusMap.put("iStatus",1);
+		orderStatusMap.put("iPayStandard",iPayStandard);
+		orderStatusMap.put("strPayTime",strPayTime);
+		orderStatusMap.put("iPayType",iPayType);
+		orderStatusMap.put("strLastAccessedTime",strLastAccessedTime);
+		orderStatusMap.put("strOrderId",strOrderId);
+		try{
+				return cashierDeskService.cashPayOverEditStatus(orderStatusMap);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
 	
 	
 	

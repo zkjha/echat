@@ -13,6 +13,7 @@ import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.GoodsInfoEntity;
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.MemberLevelsRightsMappingEntity;
 import com.ecard.entity.PurchaseOrderDetailEntity;
@@ -706,7 +707,7 @@ public class CashierDeskService
 	
 	//会员卡余额支付
 	@Transactional
-	public String payWithMemberCard(String strOrderId) throws Exception
+	public String payWithMemberCardCash(String strOrderId) throws Exception
 	{
 		String strMemberId="";
 		PurchaseOrderEntity purchaseOrderEntity=cashierDeskMapper.selectPurchaseOrder(strOrderId);
@@ -724,6 +725,22 @@ public class CashierDeskService
 		return DataTool.constructResponse(ResultCode.OK,"查询订单会员卡支付信息成功",resultMap);
 	}
 	
+	
+	//会员卡余额支付完毕，修改订单信息及会员信息
+	@Transactional
+	public String cardCashPayOverEditStatus(Map<String,Object> orderStatusMap) throws Exception
+	{
+		int iOrderDetailAffectNum=0;	//订单详情表记录影响条数
+		int iOrderAffectNum=0;	//订单总表记录影响条数
+		cashierDeskMapper.modifyMemberDbalanceInfo(orderStatusMap);
+		iOrderDetailAffectNum=cashierDeskMapper.editOrderDetailPaymentStatus(orderStatusMap);//修改订单详情表
+		iOrderAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);//修改订单总表
+		if(iOrderDetailAffectNum!=0&&iOrderAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"该笔订单已用会员卡余额完成支付",null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
+		
+	}
 	
 	//现金支付
 	@Transactional
@@ -747,6 +764,7 @@ public class CashierDeskService
 	
 	
 	//支付完毕 修改订单状态
+	/*
 	@Transactional
 	public String editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception
 	{
@@ -779,7 +797,45 @@ public class CashierDeskService
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
 
 	}
+	*/
 	
+	//积分支付完毕，修改订单状态，积分流水变更，会员积分信息
+	@Transactional
+	public String integrationPayOverEditStatus(Map<String,Object> orderStatusMap,IntegralModRecord integrationChangeEntity) throws Exception
+	{
+		int iOrderDetailAffectNum=0;	//订单详情表记录影响条数
+		int iOrderAffectNum=0;	//订单总表记录影响条数
+		int iRestIntegration=0;	//会员积分余额
+		
+		//修改会员表信息，修改积分流水
+		iRestIntegration=(Integer)orderStatusMap.get("iMemberIntegration")-(Integer)orderStatusMap.get("iPurchaseIntegrationAmount");
+		if(iRestIntegration<0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"会员积分余额不足，请采用其它方式付款",null);
+		orderStatusMap.put("iRestIntegration",iRestIntegration);
+		cashierDeskMapper.modifyMemberIntegrationInfo(orderStatusMap);
+		cashierDeskMapper.modifyIntegrationChangeFlow(integrationChangeEntity);
+		iOrderDetailAffectNum=cashierDeskMapper.editOrderDetailPaymentStatus(orderStatusMap);//修改订单详情表
+		iOrderAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);//修改订单总表
+		if(iOrderDetailAffectNum!=0&&iOrderAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"该笔订单已用积分完成支付",null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
+
+	}
+	
+	//现金支付完毕修改订单状态
+	@Transactional
+	public String cashPayOverEditStatus(Map<String,Object> orderStatusMap) throws Exception
+	{
+		int iOrderDetailAffectNum=0;	//订单详情表记录影响条数
+		int iOrderAffectNum=0;	//订单总表记录影响条数
+		iOrderDetailAffectNum=cashierDeskMapper.editOrderDetailPaymentStatus(orderStatusMap);//修改订单详情表
+		iOrderAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);//修改订单总表
+		if(iOrderDetailAffectNum!=0&&iOrderAffectNum!=0)
+			return DataTool.constructResponse(ResultCode.OK,"该笔订单已用现金完成支付",null);
+		else
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
+	}
 	
 	//查询订单详情列表purchaseOrderDetailEntity
 	public List<PurchaseOrderDetailEntity> selectPurchaseOrderDetailEntityInfo(String strMemberId) throws Exception
