@@ -1,0 +1,68 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.WeiXinPaymentMapper">
+<select id="selectMemberInfo" resultType="com.ecard.entity.MemberEntity" parameterType="String">
+ select 
+ 	STRMEMBERID as strMemberid,
+ 	STRREALNAME as strRealname,
+ 	STRMEMBERCARDNUM as strMembercardnum,
+ 	STRLEVELSID as strLevelsid
+ 	from tb_member
+	where STRMEMBERID=#{strMemberId}
+</select>
+
+<!-- 查商品原价 -->
+<select id="selectSalePrice" parameterType="String" resultType="double">
+	select (case when count(strGoodsId)>0 then dSalePrice else 0 end) from tb_goods where strGoodsId=#{strGoodsId} and iState=1
+</select>
+<!-- 生成订单 -->
+<insert id="generateWeiXinOrder" parameterType="com.ecard.entity.WeiXinGoodsOrderEntity">
+ insert into tb_weiXinGoods_order
+	(
+	strOrderId,
+	strMemberId,
+	strMemberCardNumber,
+	strMemberName,
+	strLevelsId,
+	strGoodsId,
+	strGoodsName,
+	iPurchaseAmount,
+	dPrice,
+	strUnitName,
+	dPurchaseCashTotalAmount,
+	dPreferentialPrice,
+	dPreferentialCashTotalAmount,
+	iIntegrationAmount,
+	iPurchaseIntegrationAmount,
+	iStatus,
+	iPayStandard,
+	iPayType,
+	iReceiveType,
+	strCreationTime,
+	strLastAccessedTime
+	)
+	values
+	(
+	#{strOrderId},
+	#{strMemberId},
+	#{strMemberCardNumber},
+	#{strMemberName},
+	#{strLevelsId},
+	#{strGoodsId},
+	#{strGoodsName},
+	#{iPurchaseAmount},
+	#{dPrice},
+	#{strUnitName},
+	#{dPurchaseCashTotalAmount},
+	#{dPreferentialPrice},
+	#{dPreferentialCashTotalAmount},
+	#{iIntegrationAmount},
+	#{iPurchaseIntegrationAmount},
+	#{iStatus},
+	#{iPayStandard},
+	#{iPayType},
+	#{iReceiveType},
+	#{strCreationTime},
+	#{strLastAccessedTime}
+	)
+</insert>
+</mapper>
