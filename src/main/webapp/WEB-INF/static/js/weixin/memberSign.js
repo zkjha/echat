@@ -71,6 +71,7 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
 
         //会员中心 -- 签到信息（按月) -- 查询
         function selectSignDaysByMonth(strSearchDate){
+            $scope.Alldays = [];
             data = {
                 strSearchDate:strSearchDate
             }
@@ -83,6 +84,8 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
                     var days = data.listWeiXinMemberSignEntity;
                     var Alldays = [];
                     for(let i in days){
+                        var everymouths = strSearchDate.split("-")[1];
+                        console.info(everymouths)
                         var everyday = new Date(days[i].strSignTime).toString().split(" ")[2];
                         //var everyday = "05"
                         if(everyday.split("")[0] == "0"){
