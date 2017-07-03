@@ -1,0 +1,34 @@
+
+		<div class="mobile_content">
+			<div class="z-CommodityDetails-img">
+				<img src="/static/images/weixin/exchange/meinvgirl.jpg"/>
+			</div>
+			<div class="z-CommodityDetails-name">
+				{{goodsVOEntity.strGoodsName}}
+			</div>
+			<div class="z-CommodityDetails-details">
+                {{goodsVOEntity.txtGoodsDesc}}
+			</div>
+			<div class="z-CommodityDetails-price">
+				<span>img</span>
+ 				<span>{{goodsVOEntity.iLevelIntegration}}</span>积分
+ 				<span class="z-CommodityDetails-Commodity-or">或</span>
+ 				<span>{{goodsVOEntity.dPreferentialPrice}}</span>元
+			</div>
+			<div class="z-CommodityDetails-indetails">
+				<p>商品名称：{{goodsVOEntity.strGoodsName}}</p>
+				<p>上架时间：{{goodsVOEntity.strInsertTime | limitTo:10}}</p>
+				<p>商品类别：{{goodsVOEntity.strGoodsTypeName}}</p>
+				<p>商品介绍：{{goodsVOEntity.txtGoodsDescDetail}}</p>
+			</div>
+			<div style="height: .7rem;"></div>
+			<div class="z-CommodityDetails-fixed">
+				<div class="z-CommodityDetails-fixed-num">
+					<span  class="z-CommodityDetails-fixed-num-number">{{goodsVOEntity.iLevelIntegration}}</span>积分
+					<span class="z-CommodityDetails-fixed-num-or">或</span>
+					<span class="z-CommodityDetails-fixed-num-number">{{goodsVOEntity.dPreferentialPrice}}</span>元
+				</div>
+				<div class="z-CommodityDetails-fixed-exchange"><a href="">立即兑换</a></div>
+			</div>
+		</div>
+

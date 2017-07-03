@@ -52,16 +52,6 @@ require(['lib/angular','controller/weixin/integrationMallcontroller', 'lib/remot
                         scope.$apply(attr.whenScrolled);
                     }
                 });
-                //console.info(elm)
-                //attr.whenScrolled
-                //var raw = elm[0];
-                //window.scroll
-                //elm.bind('menbercent', function() {
-                //    if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                //        scope.$apply(attr.whenScrolled);
-                //    }
-                //
-                //});
             };
         });
 
@@ -86,6 +76,75 @@ require(['lib/angular','controller/weixin/integrationMallcontroller', 'lib/remot
                 $rootScope.jiazaihenaho();
                 //$scope.loadMore();
             }
+
+
+        //  .////////////////////////////登录会员信息 -- 查询
+            $http.post(remoteUrl.selectMemberInfo).then(
+                function(result){
+
+                    var rs =result.data;
+                    var code =rs.code;
+                    var data=rs.data;
+                    console.info(result)
+                    if(code==1){
+                        $scope.intIntegration = data.intIntegration
+                    }else if(code ==-1){
+                        //得到登录路径
+                        window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;
+                        //未登录
+                    }else if(code<=-2&&code>=-7){
+                        //必填字段未填写
+                        $scope.showAlert(data.msg);
+                    }else if(code ==-8){
+                        //暂无数据
+                    }
+
+                },
+                function(result){
+                    var status=result.status;
+                    if(status==-1){
+                        $scope.showAlert("服务器错误")
+                    }else if(status>=404&&status<500){
+                        $scope.showAlert("请求路径错误")
+                    }else if(status>=500){
+                        $scope.showAlert("服务器错误")
+                    }
+                }
+            )
+                ////////////////////////////登会员中心 -- 签到信息(最近一次签到信息) -- 查询
+                $http.post(remoteUrl.selectSignDays).then(
+                function(result){
+
+                    var rs =result.data;
+                    var code =rs.code;
+                    var data=rs.data;
+                    console.info(result)
+                    if(code==1){
+                        $scope.iSignCount = data.weiXinMemberSignEntity.iSignCount
+                    }else if(code ==-1){
+                        //得到登录路径
+                        window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;
+                        //未登录
+                    }else if(code<=-2&&code>=-7){
+                        //必填字段未填写
+                        $scope.showAlert(data.msg);
+                    }else if(code ==-8){
+                        //暂无数据
+                    }
+
+                },
+                function(result){
+                    var status=result.status;
+                    if(status==-1){
+                        $scope.showAlert("服务器错误")
+                    }else if(status>=404&&status<500){
+                        $scope.showAlert("请求路径错误")
+                    }else if(status>=500){
+                        $scope.showAlert("服务器错误")
+                    }
+                }
+            )
+
 
         }]);
 

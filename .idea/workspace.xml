@@ -2,24 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="0a20fd3c-0502-4dc6-991b-2fad11ff63b4" name="Default" comment="完成员工添加表单验证" />
-    <list default="true" id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="前端积分签到部分完成-解决bug一个！---签到勾勾打的不对！">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/235.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/Loading1.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/UI123.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/UI1_03.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/change.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/changeShop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/changeTwo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/hot.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/images/weixin/exchange/meinvgirl.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMallcontroller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/ionic.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html" />
+    <list default="true" id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="前端积分完成部分">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/goodsDetailinfo.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/goodsDetailinfo.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/goodsDetailinfo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/goodsDetailInfo.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/goodsDetailInfo.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ecard.iws" />
@@ -48,93 +40,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="integrationMall.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp">
+      <file leaf-file-name="goodsDetailInfo.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/goodsDetailInfo.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2857144" vertical-offset="1048" max-vertical-offset="1425">
-              <caret line="60" column="14" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+            <state vertical-scroll-proportion="-14.321428" vertical-offset="226" max-vertical-offset="1007">
+              <caret line="33" column="44" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="integrationMallcontroller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMallcontroller.js">
+      <file leaf-file-name="goodsDetailinfo.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/goodsDetailinfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.6" vertical-offset="87" max-vertical-offset="2071">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listHotRechargeShop.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.285715" vertical-offset="0" max-vertical-offset="741">
-              <caret line="24" column="89" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="89" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="388" max-vertical-offset="1235">
+              <caret line="31" column="40" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hotRechargeShop.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html">
+      <file leaf-file-name="goodsDetailinfo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/goodsDetailinfo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="779">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cashier.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/cashier.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3018" max-vertical-offset="3439">
-              <caret line="168" column="17" selection-start-line="124" selection-start-column="11" selection-end-line="168" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="remoteUrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7225" max-vertical-offset="8018">
-              <caret line="391" column="72" selection-start-line="391" selection-start-column="72" selection-end-line="391" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="exchange.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3273196" vertical-offset="2001" max-vertical-offset="6232">
-              <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="integrationMall.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1286" max-vertical-offset="1881">
-              <caret line="67" column="70" selection-start-line="67" selection-start-column="70" selection-end-line="67" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="memberSign.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberSign.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4047" max-vertical-offset="5833">
-              <caret line="1" column="27" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.5" vertical-offset="361" max-vertical-offset="760">
+              <caret line="28" column="106" selection-start-line="28" selection-start-column="106" selection-end-line="28" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -155,9 +85,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/expendList.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ExpendListDirective.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/expandList.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/dirctive/ExpandListDirective.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/membercenter.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/libs/bootstrap.css" />
@@ -191,21 +118,24 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/memberSign.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/memberSign.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberSign.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/hotRechargeShop.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/login.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/remoteUrl.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/newRechargeShop.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listNewRechargeShop.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMall.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMallcontroller.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/goodsDetailInfo.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/login.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/goodsDetailinfo.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/goodsDetailinfo.html" />
       </list>
     </option>
   </component>
@@ -609,10 +539,6 @@
               <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weixin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -648,7 +574,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
+              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -679,128 +605,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weixin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weixin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -853,36 +657,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ecard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -907,11 +681,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\css\pages\weixin" />
+      <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\temp\weixin" />
       <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\temp\weixin\integrationMall" />
       <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\images\weixin" />
       <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\js\lib" />
-      <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\css\pages\weixin" />
-      <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\images\weixin\exchange" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator.USER-20151119VD\git\ecard\src\main\webapp\WEB-INF\static\temp\weixin\integrationMall" />
@@ -1227,7 +1001,13 @@
       <option name="project" value="LOCAL" />
       <updated>1499045471885</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="前端积分完成部分">
+      <created>1499069710553</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1499069710553</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -1255,8 +1035,8 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28456593" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3387978" sideWeight="0.49925596" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2813505" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3376206" sideWeight="0.49925596" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6254019" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1977492" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23214285" sideWeight="0.5010661" order="2" side_tool="true" content_ui="tabs" />
@@ -1265,7 +1045,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24776785" sideWeight="0.4989339" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37425596" sideWeight="0.4989339" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1313,7 +1093,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="初始化会员中心" />
     <MESSAGE value="初始化会员中心-修正" />
     <MESSAGE value="适应屏幕高度" />
     <MESSAGE value="修复适应屏幕高度" />
@@ -1338,7 +1117,8 @@
     <MESSAGE value="前端积分签到部分完成" />
     <MESSAGE value="前端积分签到部分完成-解决bug一个！" />
     <MESSAGE value="前端积分签到部分完成-解决bug一个！---签到勾勾打的不对！" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端积分签到部分完成-解决bug一个！---签到勾勾打的不对！" />
+    <MESSAGE value="前端积分完成部分" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端积分完成部分" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1357,20 +1137,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/cashierHeader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3995327" vertical-offset="0" max-vertical-offset="475">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/admin/global.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7686" max-vertical-offset="8113">
-          <caret line="420" column="34" selection-start-line="420" selection-start-column="34" selection-end-line="420" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2127659" vertical-offset="0" max-vertical-offset="684">
@@ -1448,13 +1214,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="11.535714" vertical-offset="912" max-vertical-offset="1482">
-          <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ecard/wexin/controller/WechatLoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.0511363" vertical-offset="1710" max-vertical-offset="2755">
@@ -1473,13 +1232,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="2242">
           <caret line="68" column="43" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/userBarCode.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1157556" vertical-offset="658" max-vertical-offset="1140">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1541,26 +1293,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.428571" vertical-offset="855" max-vertical-offset="1368">
-          <caret line="53" column="43" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/homepage.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24802111" vertical-offset="628" max-vertical-offset="1007">
           <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/memberSign.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.7044855" vertical-offset="0" max-vertical-offset="1007">
-          <caret line="34" column="38" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1586,14 +1322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6751269" vertical-offset="0" max-vertical-offset="3097">
-          <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/indexController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="407">
@@ -1608,22 +1336,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.0380712" vertical-offset="1368" max-vertical-offset="33459">
           <caret line="9" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="1755" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4822335" vertical-offset="57" max-vertical-offset="1064">
-          <caret line="13" column="89" selection-start-line="13" selection-start-column="89" selection-end-line="13" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1928934" vertical-offset="0" max-vertical-offset="95418">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -1644,22 +1356,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="407">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/cashier.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3018" max-vertical-offset="3439">
-          <caret line="168" column="17" selection-start-line="124" selection-start-column="11" selection-end-line="168" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberSign.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4047" max-vertical-offset="5833">
@@ -1676,26 +1372,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1286" max-vertical-offset="1881">
-          <caret line="67" column="70" selection-start-line="67" selection-start-column="70" selection-end-line="67" selection-end-column="70" />
+        <state vertical-scroll-proportion="-4.233333" vertical-offset="2001" max-vertical-offset="6232">
+          <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/userBarCode.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.7295774" vertical-offset="614" max-vertical-offset="1140">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/memberSign.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4444444" vertical-offset="684" max-vertical-offset="1368">
+          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5727136" vertical-offset="758" max-vertical-offset="1425">
+          <caret line="60" column="14" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6551724" vertical-offset="171" max-vertical-offset="1482">
+          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/goodsDetailinfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1482">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/admin/activityController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323741" vertical-offset="32297" max-vertical-offset="95418">
+          <caret line="1712" column="20" selection-start-line="1712" selection-start-column="20" selection-end-line="1712" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="779">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.25937033" vertical-offset="112" max-vertical-offset="779">
+          <caret line="15" column="70" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMallcontroller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6" vertical-offset="87" max-vertical-offset="2071">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.6857143" vertical-offset="1406" max-vertical-offset="2071">
+          <caret line="98" column="13" selection-start-line="62" selection-start-column="16" selection-end-line="98" selection-end-column="13" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -1704,24 +1448,80 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listHotRechargeShop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.285715" vertical-offset="0" max-vertical-offset="741">
-          <caret line="24" column="89" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="89" />
+        <state vertical-scroll-proportion="0.65817094" vertical-offset="74" max-vertical-offset="741">
+          <caret line="27" column="94" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="94" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/integrationMall.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2857144" vertical-offset="1048" max-vertical-offset="1425">
-          <caret line="60" column="14" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.25953078" vertical-offset="2141" max-vertical-offset="3002">
+          <caret line="122" column="82" selection-start-line="122" selection-start-column="82" selection-end-line="122" selection-end-column="82" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/memberSign.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3273196" vertical-offset="2001" max-vertical-offset="6232">
-          <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.5727136" vertical-offset="340" max-vertical-offset="1007">
+          <caret line="38" column="66" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="407">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6719425" vertical-offset="1661" max-vertical-offset="3097">
+          <caret line="112" column="14" selection-start-line="67" selection-start-column="12" selection-end-line="112" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/goodsDetailInfo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.321428" vertical-offset="226" max-vertical-offset="1007">
+          <caret line="33" column="44" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.05467626" vertical-offset="285" max-vertical-offset="1064">
+          <caret line="13" column="89" selection-start-line="13" selection-start-column="89" selection-end-line="13" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/admin/cashier.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6935484" vertical-offset="2700" max-vertical-offset="3439">
+          <caret line="167" column="21" selection-start-line="147" selection-start-column="21" selection-end-line="167" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/goodsDetailinfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="388" max-vertical-offset="1235">
+          <caret line="31" column="40" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/goodsDetailinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5" vertical-offset="361" max-vertical-offset="760">
+          <caret line="28" column="106" selection-start-line="28" selection-start-column="106" selection-end-line="28" selection-end-column="106" />
           <folding />
         </state>
       </provider>

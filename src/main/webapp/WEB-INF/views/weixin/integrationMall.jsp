@@ -41,12 +41,12 @@
         <div class="mobile_content">
         <div class="z-exchange-top">
         <div class="z-exchange-top-left">
-        <p class="z-exchange-top-left-number"><span>3000</span>积分</p>
-        <p class="z-exchange-top-left-day">已连续签到1天</p>
+        <p class="z-exchange-top-left-number"><span>{{intIntegration}}</span>积分</p>
+        <p class="z-exchange-top-left-day">已连续签到{{iSignCount}}天</p>
         </div>
         <div class="z-exchange-top-right">
         <div class="z-exchange-top-right-exchange">
-        <a href=""><div class="z-exchange-top-right-gray z-exchange-top-right-exchange-white">签到+3积分</div></a>
+        <a href="/weixin/biz/memberSign"><div class="z-exchange-top-right-gray z-exchange-top-right-exchange-white">签到+3积分</div></a>
         <div class="z-exchange-top-right-gray"></div>
         </div>
         </div>

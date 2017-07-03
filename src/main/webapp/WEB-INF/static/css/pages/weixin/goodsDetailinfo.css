@@ -1,0 +1,72 @@
+.z-CommodityDetails-img{
+	height: 7.5rem;
+	width: 7.5rem;
+}
+.z-CommodityDetails-img img{
+	height: 100%;
+	width: 100%;
+}
+.z-CommodityDetails-name{
+	height: .67rem;
+	background-color:#FEC629 ;
+	padding-left: .2rem;
+	color: #000000;
+	line-height: .67rem;
+	font-size: .3rem;
+}
+.z-CommodityDetails-details{
+	height: .8rem;
+	padding-left: .2rem;
+	color: #C66060;
+	line-height: .6rem;
+	font-size: .3rem;
+}
+.z-CommodityDetails-price{
+	height: .9rem;
+	background-color: #D6D6D6;
+	line-height: .9rem;
+	padding-left: .2rem;
+	font-size: .34rem;
+	color: #000000;
+}
+.z-CommodityDetails-Commodity-or{
+	font-size: .2rem;
+}
+.z-CommodityDetails-indetails{
+	padding:.2rem;
+	color: #000000;
+	font-size: .25rem;
+}
+/*立即兑换*/
+.z-CommodityDetails-fixed{
+	position: fixed;
+	height: .7rem;
+	border: 1px solid #D9D9D9;
+	bottom: 0px;
+	left: 0px;
+	width: 7.48rem;
+	display: -webkit-box;
+}
+.z-CommodityDetails-fixed-num{
+	background-color: white;
+	-webkit-box-flex: 2;
+	text-align: center;
+	font-size: .30rem;
+	line-height: .7rem;
+	color: #000000;
+}
+.z-CommodityDetails-fixed-num-number{
+	color:#EFCC2D ;
+	font-size: .35rem;
+}
+.z-CommodityDetails-fixed-num-or{
+	font-size: .20rem;
+}
+.z-CommodityDetails-fixed-exchange{
+	width: 1.0rem;
+	line-height: .7rem;
+	background-color: #FEC629;
+	-webkit-box-flex: 1;
+	text-align: center;
+	font-size: .35rem;
+}
