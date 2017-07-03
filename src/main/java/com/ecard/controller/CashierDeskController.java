@@ -45,9 +45,7 @@ import com.ecard.config.StaticValue;
 import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.IntegralModRecord;
-import com.ecard.entity.MemberEntity;
 import com.ecard.entity.PurchaseOrderDetailEntity;
-import com.ecard.entity.PurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.CashierDeskService;
 import com.ecard.util.WebSessionUtil;
@@ -402,7 +400,7 @@ public class CashierDeskController
 	//积分支付完毕--- 修改订单状态,会员信息，积分流水
 	@ResponseBody
 	@RequestMapping("integrationPayOverEditStatus")
-	//localhost:8083/admin/biz/CashierDesk/integrationPayOverEditStatus?strOrderId=10000&iPurchaseIntegrationAmount=4400&strMemberId=651c5888e17c4fe08bd27551d7852fed&iMemberIntegration=10000&strMemberCardNum=65638664&strMemberName=Tom&iMemberIntegration=0
+	//localhost:8083/admin/biz/CashierDesk/integrationPayOverEditStatus?strOrderId=10000&iPurchaseIntegrationAmount=4400&strMemberId=651c5888e17c4fe08bd27551d7852fed&iMemberIntegration=10000&strMemberCardNum=65638664&strMemberName=Tom
 	public String integrationPayOverEditStatus(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");	//订单号
