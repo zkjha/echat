@@ -381,12 +381,23 @@ define([],function(){
         //会员签到 -- 签到信息 -- 新增
         selectMemberInfo:"/weixin/biz/selectMemberInfo",
 
-
-
-
-
-
         ////////////会员中心/////////////////////////////
+
+        ////////////\积分商城/////////////////////////////
+        //商品信息 -- 单条商品 -- 查询
+        selectGoodsDetailInfo:"/weixin/biz/integrationMall/selectGoodsDetailInfo",
+        //商品信息 -- 本周新品 -- 查询
+        selectGoordsInfo:"/weixin/biz/integrationMall/selectGoordsInfo",
+        //商品信息 -- 热门商品 -- 查询
+        selectGoordsInfo:"/weixin/biz/integrationMall/selectGoordsInfo",
+        //商品信息-- 按类别 查询
+        selectGoordsInfo:"/weixin/biz/integrationMall/selectGoordsInfo",
+
+
+        ////////////\积分商城/////////////////////////////
+
+
+
 
 		////////////登陆认证/////////////////////////////
 			

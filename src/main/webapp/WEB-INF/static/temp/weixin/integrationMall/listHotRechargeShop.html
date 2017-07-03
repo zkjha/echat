@@ -1,0 +1,34 @@
+<div id="fixed" when-scrolled="loadMore()">
+<div class="z-exchange-screen">
+    <a href=""><div  class="z-exchangeTwo-screen-select">筛&nbsp;选</div></a>
+    <a href="#!/hotRechargeShop"><div  class="z-exchangeTwo-screen-img"><img src="/static/images/weixin/exchange/changeTwo.png"/></div></a>
+</div>
+<div class="z-exchangeTwo-CommodityContent">
+
+    <div class="z-exchangeTwo-Commodity" ng-repeat="listGoodsVO in listGoodsVO">
+        <div class="z-exchangeTwo-Commodity-img">
+            <img src="/static/images/weixin/exchange/meinvgirl.jpg" alt="" />
+        </div>
+        <div class="z-exchangeTwo-Commodity-text">
+            <p class="z-exchangeTwo-Commodity-name">{{listGoodsVO.strGoodsName}}</p>
+            <div class="z-exchangeTwo-Commodity-artical">
+                <p class="z-exchangeTwo-Commodity-exchangeTwo">
+                    <span><img src="/static/images/weixin/exchange/hot.png"/></span>
+                    <span>{{listGoodsVO.iRequiredIntegral}}</span>积分
+                    <span class="z-exchangeTwo-Commodity-or">或</span>
+                    <span>18</span>元
+
+                </p>
+                <p  class="z-exchangeTwo-Commodity-sure">
+                <div class="z-exchangeTwo-Commodity-view">
+                    <a href=""><img src="/static/images/weixin/exchange/changeShop.png"/></a>
+                    <a href=""><img src="/static/images/weixin/exchange/changeShop.png"/></a>
+                    <a href=""><img src="/static/images/weixin/exchange/changeShop.png"/></a>
+                </div>
+                <a href=""><div  class="z-exchangeTwo-Commodity-makesure">现在兑换</div></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

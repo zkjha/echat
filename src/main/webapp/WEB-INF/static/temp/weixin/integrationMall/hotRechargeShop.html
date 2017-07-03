@@ -1,0 +1,36 @@
+<div id="fixed" when-scrolled="loadMore()">
+    <!--<ul>-->
+        <!--<li ng-repeat="i in items">{{i}}</li>-->
+    <!--</ul>-->
+
+<div class="z-exchange-screen">
+    <a href=""><div class="z-exchange-screen-select">筛&nbsp;选</div></a>
+    <a href="#!/listHotRechargeShop"><div class="z-exchange-screen-img"><img src="/static/images/weixin/exchange/change.png"/></div></a>
+</div>
+
+
+<div class="z-exchange-CommodityContent">
+    <div class="z-exchange-CommodityContent-all clearfix">
+        <div class="z-exchange-Commodity" ng-repeat="listGoodsVO in listGoodsVO">
+            <div class="z-exchange-Commodity-img">
+                <img src="/static/images/weixin/exchange/meinvgirl.jpg"/>
+            </div>
+            <p class="z-exchange-Commodity-name">{{listGoodsVO.strGoodsName}}</p>
+            <div class="z-exchange-Commodity-artical">
+                <p class="z-exchange-Commodity-exchange">
+                    <span><img src="/static/images/weixin/exchange/hot.png"/></span>
+                    <span>{{listGoodsVO.iLevelIntegration}}</span>积分
+                    <br/>
+                    <span class="z-exchange-Commodity-or">或</span>
+                    <span>{{listGoodsVO.dPreferentialPrice}}</span>元
+
+                </p>
+                <p class="z-exchange-Commodity-sure">
+                    <span>现在兑换</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+    </div>
