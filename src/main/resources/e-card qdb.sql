@@ -1087,3 +1087,54 @@ iSignCount				int default 1,				-- 连续签到的次数 满足积分条件后�
 iTotalSignCount			int default 1,				-- 累计连续签到次数
 primary key(strSignId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ---------------------------------------------------------------------------------------------------
+-- tb_receiveGoodsAddress									[收货地址]
+-- ----------------------------------------------------------------------------------------------
+drop table if exists tb_receiveGoodsAddress;
+create table tb_receiveGoodsAddress
+(
+strRecordId				varchar(50) not null,		-- 主键
+strReceiveName			varchar(50) not null,		-- 收货人
+strPhone				varchar(50) not null,		-- 电话
+strPostalCode			varchar(50)	default '',		-- 邮编
+strReceiveAddress		varchar(200) not null,		-- 收货地址
+strMemberId				varchar(50) not null,		-- 会员 ID
+strOrderId				varchar(50) not null,		-- 订单号
+strInsertTime			varchar(50) not null,		-- 录记时间
+primary key(strRecordId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ---------------------------------------------------------------------------------------------------------------
+-- Table: tb_weiXinGoods_order                            【微信商品订单表】                          
+-- ------------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS tb_weiXinGoods_order;
+CREATE TABLE tb_weiXinGoods_order
+(
+  strOrderId               		VARCHAR(50) NOT NULL,       -- 主键
+  strMemberId              		VARCHAR(50) NOT NULL,       -- 会员ID	//按会员ID搜索订单要用
+  strMemberCardNumber			varchar(50) not null,		-- 会员卡编号	//按会员卡号搜索订单要用
+  strMemberName             	VARCHAR(50) NOT NULL,       -- 用户姓名	//按会员姓名搜索订单要用
+  strLevelsId					VARCHAR(50) NOT NULL,       -- 会员级别ID	//查询特定会员特定级别下购买服务或商品要用到
+  strGoodsId       				VARCHAR(50) NOT NULL,       -- 商品ID
+  strGoodsName     				VARCHAR(50) NOT NULL,       -- 商品名称
+  iPurchaseAmount           	int DEFAULT 0,              -- 购买商品数量
+  dPrice                    	DECIMAL(11,2) DEFAULT 0.00, -- 商品单价(原价）
+  strUnitName               	VARCHAR(50) NOT NULL,       -- 商品单位名称
+  dPurchaseCashTotalAmount  	DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额（原价计算得来)
+  dPreferentialPrice			DECIMAL(11,2) DEFAULT 0.00, -- 商品优惠价
+  dPreferentialCashTotalAmount	DECIMAL(11,2) DEFAULT 0.00, -- 优惠后的商品总价
+  iIntegrationAmount			int default 0,				-- 单个商品所需积分数量
+  iPurchaseIntegrationAmount	int		default 0,			-- 订单所需积分总数量 :0表示 未设积分兑换
+  iStatus                 		int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
+  iPayStandard					int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
+  strPayTime                	VARCHAR(50) DEFAULT '',     -- 支付时间
+  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+  strThirdPartyTradeFlow    	VARCHAR(50) DEFAULT '',     -- 三方支付流水号
+  strExpressNumber          	VARCHAR(50) DEFAULT '',     -- 快递单号
+  strExpressCompany         	VARCHAR(50) DEFAULT '',     -- 快递公司
+  strComment					VARCHAR(200) DEFAULT '',     -- 备注字段
+  iReceiveType					int default 0,				 -- 收货方式  0 快递 1 到店取货
+  strReceiveTime				varchar(50)	default '',		 -- 到店取货时间
+  strCreationTime 				VARCHAR(50) 	NOT NULL,		-- 记录创建时间
+  strLastAccessedTime 			VARCHAR(50) 	NOT NULL,		-- 记录修改时间
+  primary key(strOrderId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

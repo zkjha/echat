@@ -35,7 +35,6 @@ private String strEmployeeRealName;           //管理员姓名
 private String strCreationTime;           //记录创建时间
 private String strLastAccessedTime;           //记录修改时间
 
-
 public void setStrOrderId(String strOrderId)
 {
 	this.strOrderId=strOrderId;

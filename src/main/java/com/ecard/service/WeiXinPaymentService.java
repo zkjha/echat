@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
+import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 import com.ecard.mapper.WeiXinPaymentMapper;
 
 @Service
@@ -17,7 +19,8 @@ public class WeiXinPaymentService
 	@Autowired
 	private WeiXinPaymentMapper weiXinPaymentMapper;
 	//生成订单
-	public String generateWeiXinOrder(WeiXinGoodsOrderEntity weiXinGoodsOrderEntity) throws Exception
+	@Transactional
+	public String generateWeiXinOrder(WeiXinGoodsOrderEntity weiXinGoodsOrderEntity,WeiXinReceiveGoodsAddressEntity weiXinReceiveGoodsAddressEntity) throws Exception
 	{
 		BigDecimal dSalePrice;
 		BigDecimal dPurchaseCashTotalAmount;
@@ -37,6 +40,9 @@ public class WeiXinPaymentService
 		weiXinGoodsOrderEntity.setStrMemberCardNumber(memberEntity.getStrMembercardnum());
 		weiXinGoodsOrderEntity.setdPrice(dSalePrice);
 		weiXinGoodsOrderEntity.setdPurchaseCashTotalAmount(dPurchaseCashTotalAmount);
+		//写入收货人信息
+		if(weiXinReceiveGoodsAddressEntity!=null)
+			weiXinPaymentMapper.insertWeiXinReceiveGoodsAddressEntity(weiXinReceiveGoodsAddressEntity);
 		iAffectNum=weiXinPaymentMapper.generateWeiXinOrder(weiXinGoodsOrderEntity);
 		if(iAffectNum!=0)
 			return DataTool.constructResponse(ResultCode.OK,"写入订单成功",null);

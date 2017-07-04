@@ -65,4 +65,30 @@
 	#{strLastAccessedTime}
 	)
 </insert>
+
+<!-- 新增收件人信息_[tableName:tb_receiveGoodsAddress] -->
+<insert id="insertWeiXinReceiveGoodsAddressEntity" parameterType="com.ecard.entity.WeiXinReceiveGoodsAddressEntity">
+ insert into tb_receiveGoodsAddress
+	(
+	strRecordId,
+	strReceiveName,
+	strPhone,
+	strPostalCode,
+	strReceiveAddress,
+	strMemberId,
+	strOrderId,
+	strInsertTime
+	)
+	values
+	(
+	#{strRecordId},
+	#{strReceiveName},
+	#{strPhone},
+	#{strPostalCode},
+	#{strReceiveAddress},
+	#{strMemberId},
+	#{strOrderId},
+	#{strInsertTime}
+	)
+</insert>
 </mapper>

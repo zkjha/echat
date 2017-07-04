@@ -2,6 +2,7 @@ package com.ecard.mapper;
 
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
+import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 
 public interface WeiXinPaymentMapper
 {
@@ -11,5 +12,7 @@ public interface WeiXinPaymentMapper
 	public double selectSalePrice(String strGoodsId) throws Exception;
 	//生成订单 
 	public int generateWeiXinOrder(WeiXinGoodsOrderEntity weiXinGoodsOrderEntity) throws Exception;
+	//新增 收件人信息
+	public int insertWeiXinReceiveGoodsAddressEntity(WeiXinReceiveGoodsAddressEntity weiXinReceiveGoodsAddressEntity) throws Exception;
 
 }

@@ -17,6 +17,7 @@ import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
+import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 import com.ecard.service.WeiXinPaymentService;
 import com.ecard.util.WebSessionUtil;
 
@@ -33,6 +34,8 @@ public class WeiXinPaymentController
 	@RequestMapping("generateWeiXinOrder")
 	@ResponseBody
 	//localhost:8083/weixin/biz/generateWeiXinOrder?strGoodsId=84848johoghgh&dPreferentialPrice=390.33&iPurchaseAmount=2&strGoodsName=汽车空调&iReceiveType=0&strReceiveTime=&iPayType=0&strUnitName=套&iPurchaseIntegrationAmount=20000&iIntegrationAmount=10000
+	//如果是快递收货方式则增加以下参数
+	//&strReceiveName=test&strPhone=15123876442&strPostalCode=38475002&strReceiveAddress=重庆市渝北区茨竹镇
 	public String generateWeiXinOrder(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
@@ -113,8 +116,40 @@ public class WeiXinPaymentController
 		String strPayTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		
 		dPreferentialCashTotalAmount=dPreferentialPrice.multiply(new BigDecimal(iPurchaseAmount));
+		WeiXinReceiveGoodsAddressEntity weiXinReceiveGoodsAddressEntity=null;
 		if(iReceiveType==0)//快递收货方式
-			strReceiveTime="";
+		{
+			//取得收件人的详情
+			//获取参数
+			String strRecordId=DataTool.getUUID();
+			String strReceiveName=request.getParameter("strReceiveName");
+			String strPhone=request.getParameter("strPhone");
+			String strPostalCode=request.getParameter("strPostalCode");
+			String strReceiveAddress=request.getParameter("strReceiveAddress");
+			String strInsertTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+			//检测字符串有效性
+			if(ValidateTool.isEmptyStr(strReceiveName))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "收件人姓名不能为空", null);
+			if(ValidateTool.isEmptyStr(strPhone))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "收件人电话不能为空", null);
+			if(ValidateTool.isTelephoneOrMobile(strPhone)==false)
+				return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "电话号码格式错误!", null);
+			if(ValidateTool.isEmptyStr(strReceiveAddress))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "收件人地址不能为空", null);
+			if(!ValidateTool.isEmptyStr(strPostalCode))
+				if(ValidateTool.isPostCode(strPostalCode)==false)
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR, "邮编格式错误", null);
+			weiXinReceiveGoodsAddressEntity=new WeiXinReceiveGoodsAddressEntity();
+			weiXinReceiveGoodsAddressEntity.setStrRecordId(strRecordId);
+			weiXinReceiveGoodsAddressEntity.setStrReceiveName(strReceiveName);
+			weiXinReceiveGoodsAddressEntity.setStrPhone(strPhone);
+			weiXinReceiveGoodsAddressEntity.setStrPostalCode(strPostalCode);
+			weiXinReceiveGoodsAddressEntity.setStrReceiveAddress(strReceiveAddress);
+			weiXinReceiveGoodsAddressEntity.setStrMemberId(strMemberId);
+			weiXinReceiveGoodsAddressEntity.setStrOrderId(strOrderId);
+			weiXinReceiveGoodsAddressEntity.setStrInsertTime(strInsertTime);
+			
+		}
 		//属性组装进对象
 		WeiXinGoodsOrderEntity weiXinGoodsOrderEntity=new WeiXinGoodsOrderEntity();
 		weiXinGoodsOrderEntity.setStrOrderId(strOrderId);
@@ -137,7 +172,7 @@ public class WeiXinPaymentController
 		weiXinGoodsOrderEntity.setStrLastAccessedTime(strLastAccessedTime);
 	
 		try{
-			return weiXinPaymentService.generateWeiXinOrder(weiXinGoodsOrderEntity);
+			return weiXinPaymentService.generateWeiXinOrder(weiXinGoodsOrderEntity,weiXinReceiveGoodsAddressEntity);
 		}
 		catch(Exception e)
 		{	e.printStackTrace();
@@ -145,6 +180,5 @@ public class WeiXinPaymentController
 		}
 	}
 		
-	
 	
 }
