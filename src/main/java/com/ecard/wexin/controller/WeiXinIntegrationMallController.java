@@ -1,6 +1,7 @@
 package com.ecard.wexin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +18,7 @@ import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.service.WeiXinIntegrationMallService;
 import com.ecard.util.WebSessionUtil;
 
@@ -148,6 +150,29 @@ public class WeiXinIntegrationMallController
 		}
 	}
 
+	
+	//查询商品类别列表goodsTypeConfigEntity
+	@ResponseBody
+	@RequestMapping("selectGoodsTypeConfigEntityInfo")
+	//localhost:8083/weixin/biz/integrationMall/selectGoodsTypeConfigEntityInfo
+	public String selectGoodsTypeConfigEntityInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		GoodsTypeConfigEntity goodsTypeConfigEntity=null;
+	try{
+		List<GoodsTypeConfigEntity> listGoodsTypeConfigEntity=weiXinIntegrationMallService.selectGoodsTypeConfigEntityInfo();
+		if(listGoodsTypeConfigEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listGoodsTypeConfigEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listGoodsTypeConfigEntity",listGoodsTypeConfigEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}catch(Exception e)
+		{
+		e.printStackTrace();
+		return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+	}
+	}
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{
