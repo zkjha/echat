@@ -34,20 +34,20 @@ import java.util.*;
  * sdk和demo的意见和问题反馈请联系：liuyang.kly@alipay.com
  */
 
-public class Main {
-	/*  private static Log                  log = LogFactory.getLog(Main.class);
+//public class Main {
+	//  private static Log                  log = LogFactory.getLog(Main.class);
 
     // 支付宝当面付2.0服务
-    private static AlipayTradeService   tradeService;
+   // private static AlipayTradeService   tradeService;
 
     // 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-    private static AlipayTradeService   tradeWithHBService;
+   // private static AlipayTradeService   tradeWithHBService;
 
     // 支付宝交易保障接口服务，供测试接口api使用，请先阅读readme.txt
-    private static AlipayMonitorService monitorService;
+   // private static AlipayMonitorService monitorService;
 
-    static {
-    */
+ //   static {
+  
         /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
          *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
          */
@@ -56,15 +56,15 @@ public class Main {
         /** 使用Configs提供的默认参数
          *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new
          */
-       // tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
+      // tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
 
         // 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-     //   tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
+      //  tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
 
         /** 如果需要在程序中覆盖Configs提供的默认参数, 可以使用ClientBuilder类的setXXX方法修改默认参数 否则使用代码中的默认设置 */
-    //    monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
-   //         .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
-   //         .setFormat("json").build();
+      //  monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
+      //      .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
+       //     .setFormat("json").build();
   //  }
 
     // 简单打印应答
@@ -79,27 +79,28 @@ public class Main {
             log.info("body:" + response.getBody());
         }
     }
-
+*/
+    /*
     public static void main(String[] args) {
         Main main = new Main();
 
         // 系统商商测试交易保障接口api
-        //        main.test_monitor_sys();
+                main.test_monitor_sys();
 
         // POS厂商测试交易保障接口api
-        //        main.test_monitor_pos();
+                main.test_monitor_pos();
 
         // 测试交易保障接口调度
-        //        main.test_monitor_schedule_logic();
+                main.test_monitor_schedule_logic();
 
         // 测试当面付2.0支付（使用未集成交易保障接口的当面付2.0服务）
-        //        main.test_trade_pay(tradeService);
+                main.test_trade_pay(tradeService);
 
         // 测试查询当面付2.0交易
-        //        main.test_trade_query();
+                main.test_trade_query();
 
         // 测试当面付2.0退货
-        //        main.test_trade_refund();
+                main.test_trade_refund();
 
         // 测试当面付2.0生成支付二维码
         main.test_trade_precreate();
@@ -456,4 +457,4 @@ public class Main {
         }
     }
     */
-}
+//}

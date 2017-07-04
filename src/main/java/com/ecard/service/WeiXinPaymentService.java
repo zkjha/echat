@@ -1,6 +1,7 @@
 package com.ecard.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.commontools.data.DataTool;
+import com.commontools.date.DateStyle;
+import com.commontools.date.DateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
 import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
@@ -107,5 +111,84 @@ public class WeiXinPaymentService
 		else
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"写入订单失败",null);
 		
+	}
+	
+	
+	//积分支付
+	@Transactional
+	public String payGoodsOrderWithIntegration(Map<String,Object> queryMap) throws Exception
+	{
+		
+		int iOrderIntegration=0;	//订单所需积分
+		int iMemberIntegration=0;	//会员积分余额
+		int iRestIntegration=0;
+		int iAffectNum=0;
+		int iOk=1;
+		String strLastAccessTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		String strPayTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
+		//查订单积分
+		iOrderIntegration=weiXinPaymentMapper.selectOrderIntegration(queryMap);
+		if(iOrderIntegration==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"该笔订单不能用积分支付",null);
+		
+		//查会员信息,积分余额
+		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberIntegration(queryMap);
+		
+		if(memberEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
+		
+		if(memberEntity.getStrMemberid()==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
+	
+		iMemberIntegration=memberEntity.getIntIntegral();
+		if(iMemberIntegration==0)
+			return DataTool.constructResponse(ResultCode.OK,"会员卡积分余额为0,不能用积分支付",null);
+		
+		iRestIntegration=iMemberIntegration-iOrderIntegration;
+		if(iRestIntegration<0)
+			return DataTool.constructResponse(ResultCode.OK,"会员卡积分余额不足,不能用积分支付",null);
+		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		System.out.println("--++++++++++++++++++++++++++++++++++++++++++--");
+		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		//修改改订单状态
+		Map<String,Object> updateMap=new HashMap<String,Object>();
+		updateMap.put("strLastAccessTime", strLastAccessTime);
+		updateMap.put("strPayTime",strPayTime);
+		updateMap.put("iPayType",0);
+		updateMap.put("strOrderId",queryMap.get("strOrderId"));
+		iAffectNum=weiXinPaymentMapper.updateOrderInfo(updateMap);
+		if(iAffectNum==0)
+			iOk=0;
+		
+		//插入积分变更信息
+		IntegralModRecord integralModRecord=new IntegralModRecord();
+		integralModRecord.setStrRecordId(DataTool.getUUID());
+		integralModRecord.setStrMemberId((String)queryMap.get("strMemberId"));
+		integralModRecord.setStrMemberCardNum(memberEntity.getStrMembercardnum());
+		integralModRecord.setStrMemberName(memberEntity.getStrRealname());
+		integralModRecord.setiIntegralNum(-iRestIntegration);
+		integralModRecord.setStrDesc("微信积分支付订单:(单号:"+(String)queryMap.get("strOrderId")+")");
+		integralModRecord.setStrInsertTime(DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM));
+		iAffectNum=weiXinPaymentMapper.insertIntegrationChangedRecord(integralModRecord);
+		if(iAffectNum==0)
+			iOk=0;
+		//变更会员积分信息
+		queryMap.put("iRestIntegration",iRestIntegration);
+		iAffectNum=weiXinPaymentMapper.updateMemberIntegrationInfo(queryMap);
+		if(iAffectNum==0)
+			iOk=0;
+		if(iOk==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"积分支付失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"积分支付成功",null);
+		
+	}
+	
+	//根据会员ID查询订单信息
+	@Transactional(rollbackFor=Exception.class)
+	public WeiXinGoodsOrderEntity selectWeiXinGoodsOrderEntity(String strOrderId) throws Exception
+	{
+	
+		return weiXinPaymentMapper.selectWeiXinGoodsOrderEntity(strOrderId);
 	}
 }

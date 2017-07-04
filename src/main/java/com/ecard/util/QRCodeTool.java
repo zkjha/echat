@@ -28,7 +28,7 @@ public class QRCodeTool {
         BitMatrix bitMatrix;
 		try {
 			bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height,hints);
-			   File outputFile = new File("new.png");   
+			   
 		         ByteArrayOutputStream outstream = new ByteArrayOutputStream(); 
 
 		         MatrixToImageWriter.writeToStream(bitMatrix, format, outstream);
@@ -37,8 +37,11 @@ public class QRCodeTool {
 		         byte[] data = null;
 		         data = new byte[in.available()];
 		         in.read(data);
-		         in.close();
-		         return new String(Base64.encodeBase64(data));
+		         in.close(); 
+		         
+		         String rs="data:image/png;base64,"+new String(Base64.encodeBase64(data));
+		         
+		         return rs;
 		        
 		} catch (WriterException e) {
 			// TODO Auto-generated catch block
