@@ -10,10 +10,6 @@
 	where STRMEMBERID=#{strMemberId}
 </select>
 
-<!-- 查商品原价 -->
-<select id="selectSalePrice" parameterType="String" resultType="double">
-	select (case when count(strGoodsId)>0 then dSalePrice else 0 end) from tb_goods where strGoodsId=#{strGoodsId} and iState=1
-</select>
 <!-- 生成订单 -->
 <insert id="generateWeiXinOrder" parameterType="com.ecard.entity.WeiXinGoodsOrderEntity">
  insert into tb_weiXinGoods_order
@@ -37,6 +33,7 @@
 	iPayStandard,
 	iPayType,
 	iReceiveType,
+	strReceiveTime,
 	strCreationTime,
 	strLastAccessedTime
 	)
@@ -61,6 +58,7 @@
 	#{iPayStandard},
 	#{iPayType},
 	#{iReceiveType},
+	#{strReceiveTime},
 	#{strCreationTime},
 	#{strLastAccessedTime}
 	)
@@ -91,4 +89,44 @@
 	#{strInsertTime}
 	)
 </insert>
+
+
+<select id="selectGoordsInfoById" parameterType="String" resultType="com.ecard.vo.GoodsVO">
+select 
+ 	strGoodsId,
+ 	strGoodsBarCode,
+ 	strUnitId,
+ 	strUnitName,
+ 	strGoodsName,
+ 	strGoodsTypeId,
+ 	strGoodsTypeName,
+ 	strSupplierName,
+ 	iRequiredIntegral,
+ 	dEnterPrice,
+ 	dSalePrice,
+ 	iStock,
+ 	iPreferentialType,
+ 	iState,
+ 	iIsNewGoods,
+ 	iIsHotGoods,
+ 	txtGoodsDesc,
+ 	txtGoodsDescDetail,
+ 	strGoodsImg,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strInsertTime,
+ 	strUpdateTime
+ 	from tb_goods where strGoodsId=#{strGoodsId} and iState=1
+</select>
+
+<!-- 查等级权益表 -->
+<select id="findDiscountInfo" resultType="double" parameterType="map">
+ select (case when count(strLevelsRightsMappingId)=1 then dDiscount else 1 end) from tb_member_levelsRights_mapping where iRightsStatus=0 and strRightsId=#{strGoodsId} and strLevelsId=#{strLevelsId}
+</select>
+
+<!-- 查询商品优惠表 -->
+<select id="findLevelsIntegrationInfo" resultType="int" parameterType="map">
+	select (case when count(strPreferentialId)=1 then iRequiredIntegral else 0 end) from tb_goodspreferential_mapping where strLevelsId=#{strLevelsId} and strGoodsId=#{strGoodsId}
+</select>
 </mapper>

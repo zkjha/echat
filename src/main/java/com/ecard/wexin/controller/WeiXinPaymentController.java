@@ -33,22 +33,21 @@ public class WeiXinPaymentController
 	
 	@RequestMapping("generateWeiXinOrder")
 	@ResponseBody
-	//localhost:8083/weixin/biz/generateWeiXinOrder?strGoodsId=84848johoghgh&dPreferentialPrice=390.33&iPurchaseAmount=2&strGoodsName=汽车空调&iReceiveType=0&strReceiveTime=&iPayType=0&strUnitName=套&iPurchaseIntegrationAmount=20000&iIntegrationAmount=10000
-	//如果是快递收货方式则增加以下参数
-	//&strReceiveName=test&strPhone=15123876442&strPostalCode=38475002&strReceiveAddress=重庆市渝北区茨竹镇
+	//快递收货方式
+	//localhost:8083/weixin/biz/generateWeiXinOrder?strGoodsId=84848johoghgh&iPurchaseAmount=2&iReceiveType=0&strReceiveTime=&iPayType=0&strReceiveName=test&strPhone=15123876442&strPostalCode=401132&strReceiveAddress=重庆市渝北区茨竹镇
+
+	//到店领货
+	//localhost:8083/weixin/biz/generateWeiXinOrder?strGoodsId=84848johoghgh&iPurchaseAmount=2&iReceiveType=1&strReceiveTime=2017-08-08&iPayType=1
 	public String generateWeiXinOrder(HttpServletRequest request,HttpServletResponse response)
 	{
 		// 当前登录的用户信息
 		String strMemberId="";
 		int iPurchaseAmount;
-		int iIntegrationAmount=0;
-		int iPurchaseIntegrationAmount;
 		int iStatus=0;//待支付状态
 		int iPayStandard=0;//支付标准：0 会员价（优惠价)支付,1原价支付
 		int iPayType;
 		int iReceiveType;
-		BigDecimal dPreferentialPrice;
-		BigDecimal dPreferentialCashTotalAmount;
+	
 		/*
 		try{
 			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
@@ -63,35 +62,19 @@ public class WeiXinPaymentController
 		strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+		//接收参数 
+		String strGoodsId=request.getParameter("strGoodsId");
+		String strPurchaseAmount=request.getParameter("iPurchaseAmount");
+		String strReceiveType=request.getParameter("iReceiveType");
+		String strPayType=request.getParameter("iPayType");
+		String strReceiveTime=request.getParameter("strReceiveTime");
 		
 		String strOrderId=DataTool.getUUID();
-		String strGoodsId=request.getParameter("strGoodsId");
-		String strPreferentialPrice=request.getParameter("dPreferentialPrice");
-		String strPurchaseAmount=request.getParameter("iPurchaseAmount");
-		String strGoodsName=request.getParameter("strGoodsName");
-		String strReceiveType=request.getParameter("iReceiveType");
-		String strReceiveTime=request.getParameter("strReceiveTime");
-		String strPayType=request.getParameter("iPayType");
-		String strUnitName=request.getParameter("strUnitName");
-		String strPurchaseIntegrationAmount=request.getParameter("iPurchaseIntegrationAmount");
-		String strIntegrationAmount=request.getParameter("iIntegrationAmount");
-		if(ValidateTool.isEmptyStr(strIntegrationAmount))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"兑换商品的积分不能为空",null);
-		else
-			iIntegrationAmount=Integer.parseInt(strIntegrationAmount);	
-		
-		if(ValidateTool.isEmptyStr(strPurchaseIntegrationAmount))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"兑换商品的总积分不能为空",null);
-		else
-			iPurchaseIntegrationAmount=Integer.parseInt(strPurchaseIntegrationAmount);	
 		
 		if(ValidateTool.isEmptyStr(strGoodsId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"商品ID不能为空",null);
 		
-		if(ValidateTool.isEmptyStr(strPreferentialPrice))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"商品会员价不能为空",null);
-		else
-			dPreferentialPrice=new BigDecimal(strPreferentialPrice);
+		
 		
 		if(ValidateTool.isEmptyStr(strPurchaseAmount))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"购买数量不能为空",null);
@@ -108,14 +91,10 @@ public class WeiXinPaymentController
 		else
 			iPayType=Integer.parseInt(strPayType);
 		
-		if(ValidateTool.isEmptyStr(strUnitName))
-			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"计量单位不能为空",null);
-		
 		String strCreationTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		String strPayTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		
-		dPreferentialCashTotalAmount=dPreferentialPrice.multiply(new BigDecimal(iPurchaseAmount));
 		WeiXinReceiveGoodsAddressEntity weiXinReceiveGoodsAddressEntity=null;
 		if(iReceiveType==0)//快递收货方式
 		{
@@ -150,18 +129,19 @@ public class WeiXinPaymentController
 			weiXinReceiveGoodsAddressEntity.setStrInsertTime(strInsertTime);
 			
 		}
+		else
+			{
+			if(ValidateTool.isEmptyStr(strReceiveTime))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "取货时间不能为空", null);
+			
+			}
+
 		//属性组装进对象
 		WeiXinGoodsOrderEntity weiXinGoodsOrderEntity=new WeiXinGoodsOrderEntity();
 		weiXinGoodsOrderEntity.setStrOrderId(strOrderId);
 		weiXinGoodsOrderEntity.setStrMemberId(strMemberId);
 		weiXinGoodsOrderEntity.setStrGoodsId(strGoodsId);
-		weiXinGoodsOrderEntity.setStrGoodsName(strGoodsName);
 		weiXinGoodsOrderEntity.setiPurchaseAmount(iPurchaseAmount);
-		weiXinGoodsOrderEntity.setStrUnitName(strUnitName);
-		weiXinGoodsOrderEntity.setdPreferentialPrice(dPreferentialPrice);
-		weiXinGoodsOrderEntity.setdPreferentialCashTotalAmount(dPreferentialCashTotalAmount);
-		weiXinGoodsOrderEntity.setiIntegrationAmount(iIntegrationAmount);
-		weiXinGoodsOrderEntity.setiPurchaseIntegrationAmount(iPurchaseIntegrationAmount);
 		weiXinGoodsOrderEntity.setiStatus(iStatus);
 		weiXinGoodsOrderEntity.setiPayStandard(iPayStandard);
 		weiXinGoodsOrderEntity.setStrPayTime(strPayTime);
@@ -170,6 +150,7 @@ public class WeiXinPaymentController
 		weiXinGoodsOrderEntity.setStrReceiveTime(strReceiveTime);
 		weiXinGoodsOrderEntity.setStrCreationTime(strCreationTime);
 		weiXinGoodsOrderEntity.setStrLastAccessedTime(strLastAccessedTime);
+		weiXinGoodsOrderEntity.setStrReceiveTime(strReceiveTime);
 	
 		try{
 			return weiXinPaymentService.generateWeiXinOrder(weiXinGoodsOrderEntity,weiXinReceiveGoodsAddressEntity);
