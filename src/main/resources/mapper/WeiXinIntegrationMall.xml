@@ -112,4 +112,17 @@ select
 	where iState=1 and strGoodsId=#{strGoodsId}
 </select>
 
+
+<!-- 查询商品类别_[tableName:tb_goods_type] -->
+<select id="selectGoodsTypeConfigEntityInfo" resultType="com.ecard.entity.GoodsTypeConfigEntity">
+ select 
+ 	strGoodsTypeId,
+ 	strGoodsTypeName,
+ 	strGoodsTypeDesc,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strReserved
+ 	from tb_goods_type 
+</select>
 </mapper>

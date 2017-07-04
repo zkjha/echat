@@ -3,6 +3,7 @@ package com.ecard.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.vo.GoodsVO;
 
 public interface WeiXinIntegrationMallMapper
@@ -19,4 +20,6 @@ public interface WeiXinIntegrationMallMapper
 	public int findLevelsIntegrationInfo(Map<String,Object> queryMap) throws Exception;
 	//根据商品ID 查询商品信息
 	public GoodsVO selectGoordsInfoById(Map<String,Object> queryMap) throws Exception;
+	//查询商品类别列表goodsTypeConfigEntity
+	public List<GoodsTypeConfigEntity> selectGoodsTypeConfigEntityInfo() throws Exception;
 }

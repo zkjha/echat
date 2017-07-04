@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.commontools.data.DataTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.GoodsTypeConfigEntity;
 import com.ecard.mapper.WeiXinIntegrationMallMapper;
 import com.ecard.vo.GoodsVO;
 
@@ -68,6 +69,8 @@ public class WeiXinIntegrationMallService
 					//有积分优惠的情况：
 					iLevelIntegration=weiXinIntegrationMallMapper.findLevelsIntegrationInfo(queryMap);
 					if(iLevelIntegration==0)
+						iLevelIntegration=iBaseIntegration;
+					if(iLevelIntegration>iBaseIntegration)	//如果等级积会>原积分，则默认按原积分执行
 						iLevelIntegration=iBaseIntegration;
 					break;
 			}
@@ -136,4 +139,12 @@ public class WeiXinIntegrationMallService
 		
 	}
 
+	
+	//查询商品类别列表goodsTypeConfigEntity
+	public List<GoodsTypeConfigEntity> selectGoodsTypeConfigEntityInfo() throws Exception
+	{
+	
+		return weiXinIntegrationMallMapper.selectGoodsTypeConfigEntityInfo();
+	}
+	
 }
