@@ -37,6 +37,8 @@
         <alert></alert>
         <comfirm></comfirm>
         <toast></toast>
+        <%--<div ng-include="'/static/temp/weixin/integrationMall/rechangeRight.html'"></div>--%>
+        <rechange-right></rechange-right>
 
         <div class="mobile_content">
         <div class="z-exchange-top">
