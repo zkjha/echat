@@ -63,6 +63,9 @@ public class MemberEntity implements Serializable {
 	 * 会员卡售后储值余额
 	 */
 	private BigDecimal dAfterstoredbalance;
+	
+	//会员卡售后储值 有效期 
+	private String strValidEndTime;
 	/**
 	 * 录入时间
 	 */
@@ -143,6 +146,15 @@ public class MemberEntity implements Serializable {
 	public void setdAfterstoredbalance(BigDecimal dAfterstoredbalance) {
 		this.dAfterstoredbalance = dAfterstoredbalance;
 	}
+
+	public String getStrValidEndTime() {
+		return strValidEndTime;
+	}
+	
+	public void setStrValidEndTime(String strValidEndTime) {
+		this.strValidEndTime = strValidEndTime;
+	}
+
 	public String getStrInserttime() {
 		return strInserttime;
 	}

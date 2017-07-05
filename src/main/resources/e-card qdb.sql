@@ -212,6 +212,7 @@ CREATE TABLE tb_member
   INTINTEGRAL               INT DEFAULT 0,             -- 会员卡余额
   DBALANCE                  DECIMAL(11,2) DEFAULT 0.00,-- 会员卡余额
   DAFTERSTOREDBALANCE       DECIMAL(11,2) DEFAULT 0.00,-- 会员卡售后储值余额
+  strValidEndTime			varchar(50) not null,	   -- 会员卡售后储值有效期
   STRINSERTTIME             VARCHAR(50) NOT NULL,      -- 录入时间
   STRUPDATETIME             VARCHAR(50) DEFAULT '',    -- 修改时间
   PRIMARY KEY (STRMEMBERID)
