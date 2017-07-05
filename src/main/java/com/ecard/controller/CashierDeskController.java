@@ -812,8 +812,7 @@ private static Log                  log = LogFactory.getLog(Main.class);
 	
 
 	// 简单打印应答
-
-    private void dumpResponse(AlipayResponse response) {
+	private void dumpResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
           if (StringUtils.isNotEmpty(response.getSubCode())) 
