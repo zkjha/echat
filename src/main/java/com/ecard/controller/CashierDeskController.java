@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.chainsaw.Main;
@@ -812,8 +812,7 @@ private static Log                  log = LogFactory.getLog(Main.class);
 	
 
 	// 简单打印应答
-
-    private void dumpResponse(AlipayResponse response) {
+	private void dumpResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
           if (StringUtils.isNotEmpty(response.getSubCode())) 

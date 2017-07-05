@@ -108,6 +108,21 @@ public class WechatHomepageController {
 	}
 	
 	/**
+	 * 下订单 
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/generateOrder")
+	public ModelAndView generateOrder(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/generateOrder");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 查询会员基本信息
 	 * @return
 	 */

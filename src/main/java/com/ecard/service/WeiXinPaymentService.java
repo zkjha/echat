@@ -199,9 +199,13 @@ public class WeiXinPaymentService
 		String strValidEndTime="";	//会员卡售后储值有效期
 		//查会员信息
 		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberDetailInfo(queryMap);
+		if(memberEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
+		if(memberEntity.getStrMemberid()==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
-		return null;
+		return null; 
 	}
 
 }
