@@ -132,7 +132,7 @@ public class WeiXinPaymentService
 			return DataTool.constructResponse(ResultCode.NO_DATA,"该笔订单不能用积分支付",null);
 		
 		//查会员信息,积分余额
-		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberIntegration(queryMap);
+		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberIntegrationInfo(queryMap);
 		
 		if(memberEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
@@ -189,4 +189,19 @@ public class WeiXinPaymentService
 	
 		return weiXinPaymentMapper.selectWeiXinGoodsOrderEntity(strOrderId);
 	}
+	
+	//会员卡储值支付
+	public String payGoodsOrderWithCardCash(Map<String,Object> queryMap) throws Exception
+	{
+		BigDecimal dMemberCardCash=new BigDecimal("0");	//会员卡余额
+		BigDecimal dMemberCardAfterCash=new BigDecimal("0");//会员卡售后余额
+		BigDecimal dTotalCashAmount=new BigDecimal("0");
+		String strValidEndTime="";	//会员卡售后储值有效期
+		//查会员信息
+		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberDetailInfo(queryMap);
+		//查订单信息
+		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
+		return null;
+	}
+
 }
