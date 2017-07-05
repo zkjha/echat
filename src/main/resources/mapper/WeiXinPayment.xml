@@ -170,7 +170,7 @@ select
 </select>
 
 <!-- 查会员积分余额 -->
-<select id="selectMemberIntegration" parameterType="map" resultType="com.ecard.entity.MemberEntity">
+<select id="selectMemberIntegrationInfo" parameterType="map" resultType="com.ecard.entity.MemberEntity">
 select
 	tbM.STRMEMBERID AS strMemberid,
  	tbM.STRREALNAME AS strRealname, 
@@ -234,4 +234,27 @@ select
 	set INTINTEGRAL=#{iRestIntegration}
 	where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </update>
+<!-- 查询订单金额 -->
+<select id="selectGoodsTotalCash" parameterType="map" resultType="double">
+	select (case when count(strOrderId)>0 then dPreferentialCashTotalAmount else 0 end) from tb_weiXinGoods_order where strOrderId=#{strOrderId} and iStatus=0
+</select>
+
+<!-- 查询会员所有信息 -->
+select
+	tbM.STRMEMBERID AS strMemberid,
+ 	tbM.STRREALNAME AS strRealname, 
+    tbM.STRIDCARD AS strIdcard,
+    tbM.STRMOBILE AS strMobile,
+	tbM.INTAGE AS intAge, 
+	tbM.STRMEMBERCARDNUM AS strMembercardnum,
+	tbM.STRLEVELSID AS strLevelsid, 
+	tbM.INTSEX AS intSex,
+	tbM.INTSTATUS AS intStatus, 
+	tbM.INTINTEGRAL AS intIntegral,
+	tbM.DBALANCE AS dBalance,
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance
+	tbM.strValidEndTime,
+	tbM.STRINSERTTIME as strInserttime,
+	tbM.STRUPDATETIME as strUpdatetime
+	from tb_member as tbM where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </mapper>
