@@ -392,7 +392,8 @@ define([],function(){
         selectGoordsInfo:"/weixin/biz/integrationMall/selectGoordsInfo",
         //商品信息-- 按类别 查询
         selectGoordsInfo:"/weixin/biz/integrationMall/selectGoordsInfo",
-
+        //商品信息 -- 商品类别 -- 查询
+        selectGoodsTypeConfigEntityInfo:"/weixin/biz/integrationMall/selectGoodsTypeConfigEntityInfo",
 
         ////////////\积分商城/////////////////////////////
 
