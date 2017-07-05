@@ -183,7 +183,7 @@ select
 	tbM.INTSTATUS AS intStatus, 
 	tbM.INTINTEGRAL AS intIntegral,
 	tbM.DBALANCE AS dBalance,
-	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance, 
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance
 	from tb_member as tbM where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </select>
 
