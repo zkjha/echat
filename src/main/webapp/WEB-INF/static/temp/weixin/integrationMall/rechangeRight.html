@@ -3,9 +3,9 @@
         <div class="centers">
         <div class="zjl_change_select">筛选条件</div>
         <div>
-            <p class="zjl_change_select_true"><a href="">全&nbsp;部</a></p>
-            <div >
-            <p class="zjl_change_select_false"><a href="">代金券</a></p>
+            <p class="zjl_change_select_true" ng-click="rechangeClose()"><a>全&nbsp;部</a></p>
+            <div ng-repeat="selectValue in selectValue">
+            <p class="zjl_change_select_false" ng-click="rechangeRightShowClose(selectValue.strGoodsTypeId)"><a href="">{{selectValue.strGoodsTypeName}}</a></p>
             </div>
         </div>
     </div>

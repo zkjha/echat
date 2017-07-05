@@ -38,6 +38,7 @@
         <comfirm></comfirm>
         <toast></toast>
         <%--<div ng-include="'/static/temp/weixin/integrationMall/rechangeRight.html'"></div>--%>
+        <input type="text" ng-value="selectValue = listGoodsTypeConfigEntity" ng-model="selectValue" ng-hide="true"/>
         <rechange-right></rechange-right>
 
         <div class="mobile_content">

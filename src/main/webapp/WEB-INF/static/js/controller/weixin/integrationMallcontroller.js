@@ -14,13 +14,13 @@ define(
             hotRechargeShop:function($scope,$http,$rootScope){
 
                 $rootScope.jiazaihenaho = function(){
-                    integrationMallCont.selectGoordsInfo($scope, $http);
+                    integrationMallCont.selectGoordsInfo($scope,$rootScope,$http);
                 }
 
 
                 //integrationMallCont.selectGoordsInfo($scope, $http);
                 //每页显示数量
-                $scope.iPageSize = 2;
+                $scope.iPageSize = 4;
                 // 当前页数
                 $scope.currentPage = 1;
                 // 总页数
@@ -46,14 +46,14 @@ define(
                         //var
                         var Allnews = $scope.currentPage* $scope.iPageSize
                         //integrationMallCont.selectGoordsInfo($scope, $http,$scope.currentPage);
-                        integrationMallCont.selectGoordsInfo($scope, $http,Allnews);
+                        integrationMallCont.selectGoordsInfo($scope,$rootScope, $http,Allnews);
                         $scope.currentPage++;
 
                     }
                 };
                 $scope.loadMore();
             },
-            selectGoordsInfo:function($scope,$http,currentPage){
+            selectGoordsInfo:function($scope,$rootScope,$http,currentPage){
                var data={
                    iPageSize:currentPage,
                    iSearchGoodsState:$scope.iSearchGoodsState
@@ -70,7 +70,7 @@ define(
                         if(code==1){
                             $scope.totalPages = data.iTotalPage;
                             $scope.iTotalRecord = data.iTotalRecord;
-                            $scope.listGoodsVO = data.listGoodsVO;
+                            $rootScope.listGoodsVO = data.listGoodsVO;
                             console.info(data.listGoodsVO)
                            console.info(result)
                         }else if(code ==-1){

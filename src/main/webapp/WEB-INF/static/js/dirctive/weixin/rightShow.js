@@ -11,8 +11,8 @@ define(['lib/angular'],function(angular){
             replace: true,
             templateUrl: "/static/temp/weixin/integrationMall/rechangeRight.html",
             controller:function($scope, $element, $attrs){
-                $scope.rechangeRightShow =true
-                console.info(123455784)
+                //$scope.rechangeRightShow =true
+                //console.info(123455784)
             }
         };
 
