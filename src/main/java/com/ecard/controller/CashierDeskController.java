@@ -1,5 +1,6 @@
 package com.ecard.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.chainsaw.Main;
@@ -20,7 +22,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alipay.api.AlipayResponse;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.demo.trade.config.Configs;
+import com.alipay.demo.trade.model.ExtendParams;
+import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
+import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayMonitorService;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
@@ -35,10 +42,14 @@ import com.ecard.config.StaticValue;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.PurchaseOrderDetailEntity;
+import com.ecard.entity.PurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.CashierDeskService;
+import com.ecard.util.QRCodeTool;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
+import com.google.zxing.WriterException;
+
 
 @Controller
 @RequestMapping("/admin/biz/CashierDesk")
@@ -663,10 +674,10 @@ private static Log                  log = LogFactory.getLog(Main.class);
 	
 	
 	//支付宝支付
-	@ResponseBody
-	@RequestMapping("payWithAliPayment")
+	//@ResponseBody
+	//@RequestMapping("payWithAliPayment")
 	//localhost:8083/admin/biz/CashierDesk/payWithAliPayment?strOrderId=oeojgjg
-/*	
+
 	public String payWithAliPayment(HttpServletRequest request, HttpServletResponse response)
 	{
 		//读取订单信息
@@ -732,6 +743,8 @@ private static Log                  log = LogFactory.getLog(Main.class);
       //  goodsDetailList.add(goods2);
 
         // 创建扫码支付请求builder，设置请求参数
+
+  
         AlipayTradePrecreateRequestBuilder builder = new AlipayTradePrecreateRequestBuilder()
             .setSubject(subject)
             .setTotalAmount(totalAmount)
@@ -795,15 +808,16 @@ private static Log                  log = LogFactory.getLog(Main.class);
 		
     }		
 	
-	*/
+
 	
 
 	// 简单打印应答
-/*
+
     private void dumpResponse(AlipayResponse response) {
         if (response != null) {
             log.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
-            if (StringUtils.isNotEmpty(response.getSubCode())) {
+          if (StringUtils.isNotEmpty(response.getSubCode())) 
+            {
                 log.info(String.format("subCode:%s, subMsg:%s", response.getSubCode(),
                     response.getSubMsg()));
             }
@@ -811,7 +825,7 @@ private static Log                  log = LogFactory.getLog(Main.class);
         }
     }
 	
-	*/
+
 	//校验
 	public static boolean isNumber(String strCheckString)
 	{

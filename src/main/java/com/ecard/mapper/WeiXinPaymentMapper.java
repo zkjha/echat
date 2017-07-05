@@ -27,12 +27,17 @@ public interface WeiXinPaymentMapper
 	//查询订单所需积分
 	public int selectOrderIntegration(Map<String,Object> queryMap) throws Exception;
 	//查会员积分余额
-	public MemberEntity selectMemberIntegration(Map<String,Object> queryMap) throws Exception;
+	public MemberEntity selectMemberIntegrationInfo(Map<String,Object> queryMap) throws Exception;
 	//更新订单信息
 	public int updateOrderInfo(Map<String,Object> updateMap) throws Exception;
 	//插入积分变更流水信息
 	public int insertIntegrationChangedRecord(IntegralModRecord integralModRecord) throws Exception;
 	//修改会员剩余积分信息
 	public int updateMemberIntegrationInfo(Map<String,Object> queryMap) throws Exception;
+	//查询订单总金额
+	public double selectGoodsTotalCash(Map<String,Object> queryMap) throws Exception;
+	//查询会员表所有属性
+	public MemberEntity selectMemberDetailInfo(Map<String,Object> queryMap) throws Exception;
+	
 
 }
