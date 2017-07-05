@@ -113,6 +113,17 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.fushoukeji</groupId>
+		    <artifactId>alipay-sdk</artifactId>
+		    <version>20161213173952</version>
+	   </dependency>
+		<dependency>
+    <groupId>com.fushoukeji</groupId>
+    <artifactId>alipay-trade-sdk</artifactId>
+    <version>20161215</version>
+</dependency>
+		
 	</dependencies>
 
 	<!-- Package as an executable jar -->

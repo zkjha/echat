@@ -1,5 +1,5 @@
 package com.ecard.controller;
-/*
+
 import com.alipay.demo.trade.model.builder.AlipayHeartbeatSynRequestBuilder;
 import com.alipay.demo.trade.model.hb.*;
 import com.alipay.demo.trade.service.AlipayMonitorService;
@@ -10,7 +10,7 @@ import com.alipay.demo.trade.utils.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-*/
+
 /**
  * Created by liuyangkly on 15/10/23.
  执行调度，主要任务由两个线程完成，交易线程（调用当面付2.0接口）和交易保障线程（轮询），具体需要做的事情
@@ -18,7 +18,7 @@ import java.util.List;
  2.轮询线程读取临时队列，获取基础采集信息和最多30条trade_info信息，调用支付宝monitor.heartbeat.syn接口
  示例代码仅封装了如何调用该接口api，采集数据，比如采集网络信息、交易耗时、异常信息等，需要系统商开发者自行完成。
  */
-/*
+
 
 public class DemoHbRunner extends AbsHbRunner {
 
@@ -54,4 +54,4 @@ public class DemoHbRunner extends AbsHbRunner {
         return builder;
     }
 }
-*/
+

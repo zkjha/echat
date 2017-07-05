@@ -1,6 +1,5 @@
 package com.ecard.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,47 +12,33 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.chainsaw.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-/*
-import com.alipay.api.AlipayResponse;
-import com.alipay.api.response.AlipayTradePrecreateResponse;
+
 import com.alipay.demo.trade.config.Configs;
-import com.alipay.demo.trade.model.ExtendParams;
-import com.alipay.demo.trade.model.GoodsDetail;
-import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
-import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayMonitorService;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
-import com.alipay.demo.trade.utils.ZxingUtils;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-*/
-
 import com.commontools.data.DataTool;
 import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
-import com.ecard.entity.EmployeeEntity;
 import com.ecard.entity.GoodsInfoEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.PurchaseOrderDetailEntity;
-import com.ecard.entity.PurchaseOrderEntity;
 import com.ecard.entity.ServiceInfoEntity;
 import com.ecard.service.CashierDeskService;
-import com.ecard.util.QRCodeTool;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
-import com.google.zxing.WriterException;
 
 @Controller
 @RequestMapping("/admin/biz/CashierDesk")
@@ -64,36 +49,36 @@ public class CashierDeskController
 	@Autowired
 	private WebSessionUtil webSessionUtil;
 	
-//	@Autowired
-//	private static AlipayTradeService   tradeService;
-//	@Autowired
+	@Autowired
+	private static AlipayTradeService   tradeService;
+	@Autowired
     // 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-//    private static AlipayTradeService   tradeWithHBService;
-//	@Autowired
+    private static AlipayTradeService   tradeWithHBService;
+	@Autowired
     // 支付宝交易保障接口服务，供测试接口api使用，请先阅读readme.txt
- //   private static AlipayMonitorService monitorService;
+   private static AlipayMonitorService monitorService;
 	
-//private static Log                  log = LogFactory.getLog(Main.class);
-//	 static {
+private static Log                  log = LogFactory.getLog(Main.class);
+	 static {
 	        /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
 	         *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
 	         */
 		 
-	//        Configs.init("zfbinfo.properties");
+	       Configs.init("zfbinfo.properties");
 
 	        /** 使用Configs提供的默认参数
 	         *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new
 	         */
-	  //      tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
+	       tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
 
 	        // 支付宝当面付2.0服务（集成了交易保障接口逻辑）
-	   //    tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
+	      tradeWithHBService = new AlipayTradeWithHBServiceImpl.ClientBuilder().build();
 
 	        /** 如果需要在程序中覆盖Configs提供的默认参数, 可以使用ClientBuilder类的setXXX方法修改默认参数 否则使用代码中的默认设置 */
-	  //      monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
-	//            .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
-	//            .setFormat("json").build();
-	//    }
+	        monitorService = new AlipayMonitorServiceImpl.ClientBuilder()
+	            .setGatewayUrl("http://mcloudmonitor.com/gateway.do").setCharset("GBK")
+	            .setFormat("json").build();
+	    }
 	
 	//根据手机号或会员卡号、姓名搜索会员信息
 	@ResponseBody
