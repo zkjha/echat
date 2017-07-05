@@ -125,7 +125,6 @@
 </dependency>
 		
 	</dependencies>
-
 	<!-- Package as an executable jar -->
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

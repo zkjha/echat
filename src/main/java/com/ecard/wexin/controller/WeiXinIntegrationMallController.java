@@ -34,7 +34,7 @@ public class WeiXinIntegrationMallController
 	@ResponseBody
 	@RequestMapping("selectGoordsInfo")
 	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?iSearchGoodsState=0
-	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?strSearchGoodsTypeId=oiejojot
+	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?strSearchGoodsTypeId=99d9b574c8f340d0ad8102ad8f46a6ce
 	public String selectGoordsInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//要么按商品状态查询 要么按商品类别查询

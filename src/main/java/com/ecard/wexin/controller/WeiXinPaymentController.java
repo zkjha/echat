@@ -207,7 +207,6 @@ public class WeiXinPaymentController
 	{
 		String strOrderId=request.getParameter("strOrderId");
 		String strMemberId="";
-		/*
 		try{
 			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
 		}catch(Exception e)
@@ -215,9 +214,9 @@ public class WeiXinPaymentController
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
-		*/	
+		
 		//以下会员ID为测试数据
-		strMemberId="377f37a5871f4874a2879dd77758e075";
+		//strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 		

@@ -50,6 +50,9 @@ public class MemberVO {
 	 * 录入时间
 	 */
 	private String strInserttime;
+	//会员卡售后余额有效期
+	private String strValidEndTime;
+	
 	public String getStrMemberid() {
 		return strMemberid;
 	}
@@ -123,4 +126,11 @@ public class MemberVO {
 		this.strInserttime = strInserttime;
 	}
 	
+	public String getStrValidEndTime() {
+		return strValidEndTime;
+	}
+	
+	public void setStrValidEndTime(String strValidEndTime) {
+		this.strValidEndTime = strValidEndTime;
+	}	
 } 
