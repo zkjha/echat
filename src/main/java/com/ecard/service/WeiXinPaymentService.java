@@ -205,7 +205,7 @@ public class WeiXinPaymentService
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
-		return null;
+		return null; 
 	}
 
 }

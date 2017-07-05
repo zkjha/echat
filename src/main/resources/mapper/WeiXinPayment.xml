@@ -240,6 +240,8 @@ select
 </select>
 
 <!-- 查询会员所有信息 -->
+
+<select id="sss" resultType="int" parameterType="map">
 select
 	tbM.STRMEMBERID AS strMemberid,
  	tbM.STRREALNAME AS strRealname, 
@@ -257,4 +259,6 @@ select
 	tbM.STRINSERTTIME as strInserttime,
 	tbM.STRUPDATETIME as strUpdatetime
 	from tb_member as tbM where STRMEMBERID=#{strMemberId} and INTSTATUS=1
-</mapper>
+</select>
+
+</mapper> 
