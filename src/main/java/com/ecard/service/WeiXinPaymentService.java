@@ -147,12 +147,10 @@ public class WeiXinPaymentService
 		iRestIntegration=iMemberIntegration-iOrderIntegration;
 		if(iRestIntegration<0)
 			return DataTool.constructResponse(ResultCode.OK,"会员卡积分余额不足,不能用积分支付",null);
-		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-		System.out.println("--++++++++++++++++++++++++++++++++++++++++++--");
-		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		
 		//修改改订单状态
 		Map<String,Object> updateMap=new HashMap<String,Object>();
-		updateMap.put("strLastAccessTime", strLastAccessTime);
+		updateMap.put("strLastAccessedTime", strLastAccessTime);
 		updateMap.put("strPayTime",strPayTime);
 		updateMap.put("iPayType",0);
 		updateMap.put("strOrderId",queryMap.get("strOrderId"));
