@@ -2,6 +2,8 @@ package com.ecard.wexin.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -161,5 +163,76 @@ public class WeiXinPaymentController
 		}
 	}
 		
+	
+	//根据会员 ID查询订单详情
+	@ResponseBody
+	@RequestMapping("selectWeiXinGoodsOrderEntity")
+	//localhost:8083/weixin/biz/selectWeiXinGoodsOrderEntity
+	public String selectWeiXinGoodsOrderEntity(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strMemberId="";
+	
+		try{
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		
+		//以下会员ID为测试数据
+		//strMemberId="377f37a5871f4874a2879dd77758e075";
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+		WeiXinGoodsOrderEntity weiXinGoodsOrderEntity=null;
+		try{
+			weiXinGoodsOrderEntity=weiXinPaymentService.selectWeiXinGoodsOrderEntity(strMemberId);
+			if(weiXinGoodsOrderEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("weiXinGoodsOrderEntity",weiXinGoodsOrderEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+			{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}
+	
+	//积分支付
+	@ResponseBody
+	@RequestMapping("payGoodsOrderWithIntegration")
+	//localhost:8083/weixin/biz/payGoodsOrderWithIntegration?strOrderId=107d0a7320d34efd9a75624033c3c53a
+	public String payGoodsOrderWithIntegration(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		String strMemberId="";
+		/*
+		try{
+			strMemberId = (String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+		*/	
+		//以下会员ID为测试数据
+		strMemberId="377f37a5871f4874a2879dd77758e075";
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+		
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无订单数据",null);
+		Map<String,Object> queryMap=new HashMap<String,Object>();
+		queryMap.put("strOrderId",strOrderId);
+		queryMap.put("strMemberId",strMemberId);
+		try{
+			return weiXinPaymentService.payGoodsOrderWithIntegration(queryMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
 	
 }

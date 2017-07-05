@@ -19,6 +19,7 @@ import java.util.List;
  示例代码仅封装了如何调用该接口api，采集数据，比如采集网络信息、交易耗时、异常信息等，需要系统商开发者自行完成。
  */
 /*
+
 public class DemoHbRunner extends AbsHbRunner {
 
     public DemoHbRunner(AlipayMonitorService monitorService) {
