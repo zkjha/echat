@@ -29,7 +29,7 @@
         document.write(css);
         })();
         </script>
-        <title>微信登录</title>
+        <title>商品详情</title>
         </head>
         <body ng-controller="goodsDetailinfo">
 

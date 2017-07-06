@@ -6,6 +6,7 @@
 <div class="z-exchangeTwo-CommodityContent">
 
     <div class="z-exchangeTwo-Commodity" ng-repeat="listGoodsVO in listGoodsVO">
+        <a  href="{{'/weixin/biz/goodsDetailInfo?strGoodsId='+ listGoodsVO.strGoodsId}}">
         <div class="z-exchangeTwo-Commodity-img">
             <img src="/static/images/weixin/exchange/meinvgirl.jpg" alt="" />
         </div>
@@ -25,10 +26,11 @@
                     <a href=""><img src="/static/images/weixin/exchange/changeShop.png"/></a>
                     <a href=""><img src="/static/images/weixin/exchange/changeShop.png"/></a>
                 </div>
-                <a href="{{'/weixin/biz/goodsDetailInfo?strGoodsId='+ listGoodsVO.strGoodsId}}"><div  class="z-exchangeTwo-Commodity-makesure">现在兑换</div></a>
+                <a href=""><div  class="z-exchangeTwo-Commodity-makesure">现在兑换</div></a>
                 </p>
             </div>
         </div>
+        </a>
     </div>
 </div>
 </div>

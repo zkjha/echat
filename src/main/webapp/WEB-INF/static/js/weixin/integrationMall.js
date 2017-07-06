@@ -99,7 +99,7 @@ require(['lib/angular','controller/weixin/integrationMallcontroller', 'lib/remot
                         //未登录
                     }else if(code<=-2&&code>=-7){
                         //必填字段未填写
-                        $scope.showToast(data.msg);
+                        $scope.showToast(rs.msg);
                     }else if(code ==-8){
                         //暂无数据
                     }
@@ -108,7 +108,7 @@ require(['lib/angular','controller/weixin/integrationMallcontroller', 'lib/remot
                 function(result){
                     var status=result.status;
                     if(status==-1){
-                        $scope.showAlert("服务器错误")
+                        $scope.showToast("服务器错误")
                     }else if(status>=404&&status<500){
                         $scope.showToast("请求路径错误")
                     }else if(status>=500){

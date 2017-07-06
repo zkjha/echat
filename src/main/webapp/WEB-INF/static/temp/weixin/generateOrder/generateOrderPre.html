@@ -1,0 +1,54 @@
+<div class="mobile_content">
+    <div class="z-pay-news">
+        <div class="z-pay-news-img">
+            <img src="/static/images/weixin/exchange/meinvgirl.jpg"/>
+        </div>
+        <div class="z-pay-news-detail">
+            <p class="z-pay-news-detail-name">{{goodsVOEntity.strGoodsName}}</p>
+            <div class="z-pay-news-detail-add">
+                <div class="z-pay-news-detail-add-text">
+                    数量：
+                </div>
+                <div class="z-pay-news-detail-add-text">
+                    <div class="z-pay-news-detail-add-slow" ng-click="numberSlow()">-</div>
+                    <div class="z-pay-news-detail-add-slow z-pay-news-detail-add-input"><input type="" name="" id="" value="1" ng-model="buyNumber"/></div>
+                    <div class="z-pay-news-detail-add-slow" ng-click="numberAdd()">+</div>
+                </div>
+            </div>
+            <p  class="z-pay-news-detail-price">价格：{{goodsVOEntity.iLevelIntegration}}<span>积分</span>/{{goodsVOEntity.dPreferentialPrice}}<span>元</span></p>
+            <p class="z-pay-news-detail-explain">可使用积分或现金进行支付</p>
+        </div>
+    </div>
+
+    <div class="z-pay-paychange">
+        支付方式
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoney" value="" checked="checked"/>&nbsp;&nbsp;积分支付
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoney" value="" />&nbsp;&nbsp;现金支付
+        <div class="z-pay-paymoney-img">
+            <span>img</span><span>img</span>
+        </div>
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoney" value="" />&nbsp;&nbsp;储值支付
+    </div>
+    <!--收货方式-->
+    <div class="z-pay-paychange">
+        收货方式
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="address" id="address" value="" checked="checked"/>&nbsp;&nbsp;到店领取
+        <span class="z-pay-paymoney-time"><input type="date" id="" value="2016-06-19" /></span>
+        <p class="z-pay-paymoney-address">领取地址：贵阳市花溪区孟关汽车城潜同现代4s店</p>
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="address" id="address" value="" />&nbsp;&nbsp;快递配送
+    </div>
+    <div style="height: .7rem;"></div>
+    <div class="z-pay-sure">
+        确定
+    </div>
+</div>

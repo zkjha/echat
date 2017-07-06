@@ -30,7 +30,7 @@
     })();
 </script>
 
-<title>微信首页</title>
+<title>首页</title>
 </head>
 <body ng-controller="homepage">
 	<alert></alert>
