@@ -191,6 +191,7 @@ public class WeiXinPaymentService
 	}
 	
 	//会员卡储值支付
+	@Transactional(rollbackFor=Exception.class)
 	public String payGoodsOrderWithCardCash(Map<String,Object> queryMap) throws Exception
 	{
 		int iAffectNum=0;
@@ -200,7 +201,8 @@ public class WeiXinPaymentService
 		BigDecimal dTotalCashAmount=new BigDecimal("0");	//订单金额
 		BigDecimal dCanUseAmount=new BigDecimal("0");	//会员可以用的储值总额=会员卡余额+有效的售后储值 余额
 		String strValidEndTime="";	//会员卡售后储值有效期
-		
+		BigDecimal dChangedCardAfterCash=new BigDecimal("0");//会员卡售后余额变更后的终值 
+		BigDecimal dChangedCardCash=new BigDecimal("0");//会员卡余额
 		//查会员信息
 		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberDetailInfo(queryMap);
 		if(memberEntity==null)
@@ -234,8 +236,22 @@ public class WeiXinPaymentService
 		if(iAffectNum==0)
 			iOk=0;
 		//修改会员表信息
-		//iAffectNum=weiXinPaymentMapper.updateMemberBalance(updateMap);
-		return null; 
+		if(dMemberCardAfterCash.subtract(dTotalCashAmount).doubleValue()>=0)
+			{
+			dChangedCardAfterCash=dMemberCardAfterCash.subtract(dTotalCashAmount);
+			dChangedCardCash=dMemberCardCash;
+			}
+		else
+			dChangedCardCash=dTotalCashAmount.subtract(dMemberCardAfterCash);
+		updateMap.put("dChangedCardAfterCash",dChangedCardAfterCash);
+		updateMap.put("dChangedCardCash",dChangedCardCash);
+		iAffectNum=weiXinPaymentMapper.updateMemberBalance(updateMap);
+		if(iAffectNum==0)
+			iOk=0;
+		if(iOk==0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"会员卡余额支付失败",null);
+		else
+			return DataTool.constructResponse(ResultCode.OK,"会员卡余额支付成功",null);
 	}
 
 }
