@@ -38,6 +38,8 @@ public interface WeiXinPaymentMapper
 	public double selectGoodsTotalCash(Map<String,Object> queryMap) throws Exception;
 	//查询会员表所有属性
 	public MemberEntity selectMemberDetailInfo(Map<String,Object> queryMap) throws Exception;
+	//更新会员表储值 属性
+	public int updateMemberBalance(Map<String,Object> updateMap) throws Exception;
 	
 
 }

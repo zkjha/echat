@@ -254,11 +254,20 @@ select
 	tbM.INTSTATUS AS intStatus, 
 	tbM.INTINTEGRAL AS intIntegral,
 	tbM.DBALANCE AS dBalance,
-	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance
+	tbM.DAFTERSTOREDBALANCE as dAfterStoredBalance,
 	tbM.strValidEndTime,
 	tbM.STRINSERTTIME as strInserttime,
 	tbM.STRUPDATETIME as strUpdatetime
 	from tb_member as tbM where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </select>
+
+<!-- 更新会员的储值 属性 -->
+<update id="updateMemberBalance" parameterType="map">
+	update tb_member
+		set DBALANCE=#{dChangedCardCash},
+		DAFTERSTOREDBALANCE=#{dChangedCardAfterCash},
+		STRUPDATETIME=#{strLastAccessTime}
+		where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+</update>
 
 </mapper> 
