@@ -193,18 +193,48 @@ public class WeiXinPaymentService
 	//会员卡储值支付
 	public String payGoodsOrderWithCardCash(Map<String,Object> queryMap) throws Exception
 	{
-		BigDecimal dMemberCardCash=new BigDecimal("0");	//会员卡余额
+		int iAffectNum=0;
+		int iOk=1;
+		BigDecimal dMemberCardCash=new BigDecimal("0");	//会员 卡储值余额
 		BigDecimal dMemberCardAfterCash=new BigDecimal("0");//会员卡售后余额
-		BigDecimal dTotalCashAmount=new BigDecimal("0");
+		BigDecimal dTotalCashAmount=new BigDecimal("0");	//订单金额
+		BigDecimal dCanUseAmount=new BigDecimal("0");	//会员可以用的储值总额=会员卡余额+有效的售后储值 余额
 		String strValidEndTime="";	//会员卡售后储值有效期
+		
 		//查会员信息
 		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberDetailInfo(queryMap);
 		if(memberEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
 		if(memberEntity.getStrMemberid()==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无会员信息",null);
+		dMemberCardCash=memberEntity.getdBalance();
+		dMemberCardAfterCash=memberEntity.getdAfterstoredbalance();
+		strValidEndTime=memberEntity.getStrValidEndTime();
+		//判断售后储值是否还可效
+		String strCurrentTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		if(strValidEndTime.compareTo(strCurrentTime)<=0)
+			dCanUseAmount=dMemberCardCash.add(dMemberCardAfterCash);//售后储值 有效的情况:
+		else
+			dCanUseAmount=dMemberCardCash;//售后储值无效的情况：
+		
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
+		//卡余额不足的情况:
+		if(dCanUseAmount.subtract(dTotalCashAmount).doubleValue()<0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"会员卡储值余额不足，请充值或采用其它结算方式",null);
+		//修改改订单状态
+		String strLastAccessTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+		Map<String,Object> updateMap=new HashMap<String,Object>();
+		updateMap.put("strLastAccessedTime", strLastAccessTime);
+		updateMap.put("strPayTime",strPayTime);
+		updateMap.put("iPayType",4);
+		updateMap.put("strOrderId",queryMap.get("strOrderId"));
+		iAffectNum=weiXinPaymentMapper.updateOrderInfo(updateMap);
+		if(iAffectNum==0)
+			iOk=0;
+		//修改会员表信息
+		//iAffectNum=weiXinPaymentMapper.updateMemberBalance(updateMap);
 		return null; 
 	}
 
