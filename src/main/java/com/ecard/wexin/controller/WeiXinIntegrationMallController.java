@@ -33,8 +33,9 @@ public class WeiXinIntegrationMallController
 	//查询登陆会员信息
 	@ResponseBody
 	@RequestMapping("selectGoordsInfo")
-	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?iSearchGoodsState=0
-	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?strSearchGoodsTypeId=99d9b574c8f340d0ad8102ad8f46a6ce
+	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?iSearchGoodsState=0  查热门商品
+	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?iSearchGoodsState=1  查本周新品
+	//localhost:8083/weixin/biz/integrationMall/selectGoordsInfo?strSearchGoodsTypeId=99d9b574c8f340d0ad8102ad8f46a6ce	//按类别查
 	public String selectGoordsInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		//要么按商品状态查询 要么按商品类别查询

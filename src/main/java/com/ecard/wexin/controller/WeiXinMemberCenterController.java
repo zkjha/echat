@@ -44,9 +44,10 @@ public class WeiXinMemberCenterController
 		
 			//以下会员ID为测试数据
 			//String strMemberId="377f37a5871f4874a2879dd77758e075";
-			if(ValidateTool.isEmptyStr(strMemberId))
+			if(strMemberId==null)
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
-
+			if(strMemberId.isEmpty())
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 			return weiXinMemberCenterService.selectMemberInfo(strMemberId);
 
 		} catch (Exception e) {
