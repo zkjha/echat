@@ -241,7 +241,7 @@ select
 
 <!-- 查询会员所有信息 -->
 
-<select id="sss" resultType="int" parameterType="map">
+<select id="selectMemberDetailInfo" resultType="ecard.entity.MemberEntity" parameterType="map">
 select
 	tbM.STRMEMBERID AS strMemberid,
  	tbM.STRREALNAME AS strRealname, 
