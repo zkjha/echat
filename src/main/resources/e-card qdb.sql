@@ -1139,3 +1139,63 @@ CREATE TABLE tb_weiXinGoods_order
   strLastAccessedTime 			VARCHAR(50) 	NOT NULL,		-- 记录修改时间
   primary key(strOrderId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------------------------------------------------
+-- -tableName:tb_Nation													[全国 名大省 市 区 表|国家表]
+-- ------------------------------------------------------------------------------------------------
+drop table if exists tb_Nation;
+CREATE TABLE tb_Nation
+(
+ NID INT AUTO_INCREMENT,    -- 自动编号，标识列
+ Ncode INT,                -- 国家代码
+ Nname NVARCHAR(30),       -- 国家名称
+ NrecordCreationDate DATETIME,      -- 记录创建时间
+ NrecordCreator NVARCHAR(20),       -- 记录创建者
+ NrecordVersion NVARCHAR(200),        -- 记录版本
+ primary key(NID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- -----------------------------------------------------------------------------------------------
+-- -tableName:tb_Province													[全国 名大省 市 区 表|省表]
+-- ------------------------------------------------------------------------------------------------
+DROP TABLE if exists tb_Province;
+create TABLE tb_Province
+(
+ PID INT AUTO_INCREMENT,   -- 自动编号，标识列
+ Pcode INT,               -- 省份代码
+ Pname NVARCHAR(30),      -- 省份名称
+ NationCode INT,          -- 国家代码
+ PrecordCreationDate DATETIME,      -- 记录创建时间
+ PrecordCreator NVARCHAR(20),       -- 记录创建者
+ PrecordVersion NVARCHAR(200),        -- 记录版本
+ primary key(PID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------------------------------------------------
+-- -tableName:tb_City													[全国 名大省 市 区 表|城市表]
+-- ------------------------------------------------------------------------------------------------
+drop table if exists tb_City;
+CREATE TABLE tb_City
+(
+ CID INT AUTO_INCREMENT,      -- 自动编号，标识列
+ Ccode INT,                  -- 城市代码
+ Cname NVARCHAR(30),         -- 城市名称
+ ProvinceCode INT,             -- 省份代码
+ CrecordCreationDate DATETIME,      -- 记录创建时间
+ CrecordCreator NVARCHAR(20),       -- 记录创建者
+ CrecordVersion NVARCHAR(200),       -- 记录版本
+ primary key(CID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------------------------------------------------
+-- -tableName:tb_AreaCounty													[全国 名大省 市 区 表|区县表]
+-- ------------------------------------------------------------------------------------------------
+drop table if exists tb_AreaCounty;
+CREATE TABLE tb_AreaCounty
+(
+ AID INT AUTO_INCREMENT,    -- 自动编号，标识列
+ Acode INT,                -- 区县代码
+ Aname NVARCHAR(30),       -- 区县名称
+ CityCode INT,                -- 城市代码
+ ArecordCreationDate DATETIME,      -- 记录创建时间
+ ArecordCreator NVARCHAR(20),       -- 记录创建者
+ ArecordVersion NVARCHAR(200),       -- 记录版本
+ primary key(AID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

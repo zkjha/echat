@@ -270,4 +270,41 @@ select
 		where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </update>
 
+<!-- 查询全国省份 -->
+<select id="selectProvince" resultType="com.ecard.entity.ProvinceEntity">
+	select 
+	PID as pId,
+	Pcode as pcode,
+	Pname as Pname,
+	NationCode as nationCode,
+	PrecordCreationDate as precordCreationDate,
+	PrecordCreator as precordCreator,
+	PrecordVersion as precordVersion from tb_Province
+</select>
+
+<!-- 根据省份代码查询所有城市 列表 -->
+<select id="selectCityInfo" resultType="com.ecard.entity.CityEntity">
+	select 
+	CID as cId,
+	Ccode as ccode,
+	Cname as cname,
+	ProvinceCode as provinceCode,
+	CrecordCreationDate as crecordCreationDate,
+	CrecordCreator as crecordCreator,
+	CrecordVersion as crecordVersion
+	from tb_City where ProvinceCode=#{strProvinceCode}
+</select>
+
+<!-- 查询区县信息 -->
+<select id="selectAreaCountyInfo" resultType="com.ecard.entity.AreaCountyEntity">
+	select 
+	AID as aId,
+	Acode as acode,
+	Aname as aname,
+	CityCode as cityCode,
+	ArecordCreationDate as arecordCreationDate,
+	ArecordCreator as arecordCreator,
+	ArecordVersion as arecordVersion
+	from tb_AreaCounty where CityCode=#{strCityCode}
+</select>
 </mapper> 

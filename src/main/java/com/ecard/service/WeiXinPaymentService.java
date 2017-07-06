@@ -3,6 +3,7 @@ package com.ecard.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import com.commontools.data.DataTool;
 import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.AreaCountyEntity;
+import com.ecard.entity.CityEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.ProvinceEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
 import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 import com.ecard.mapper.WeiXinPaymentMapper;
@@ -252,6 +256,42 @@ public class WeiXinPaymentService
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"会员卡余额支付失败",null);
 		else
 			return DataTool.constructResponse(ResultCode.OK,"会员卡余额支付成功",null);
+	}
+	
+	//查询全国省份--列表 
+	public List<ProvinceEntity> selectProvince() throws Exception
+	{
+		return weiXinPaymentMapper.selectProvince();
+		
+	}
+	
+	//根据省份代码查询所有城市--列表
+	public String selectCityInfo(String strProvinceCode) throws Exception
+	{
+		List<CityEntity> listCityEntity=weiXinPaymentMapper.selectCityInfo(strProvinceCode);
+		if(listCityEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应城市数据",null);
+		if(listCityEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应城市数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listCityEntity",listCityEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询城市成功",listCityEntity);
+		
+	}
+
+	
+	//根据城市代码查询所有区县--列表
+	public String selectAreaCountyInfo(String strCityCode) throws Exception
+	{
+		List<AreaCountyEntity> listAreaCountyEntity=weiXinPaymentMapper.selectAreaCountyInfo(strCityCode);
+		if(listAreaCountyEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应区县数据",null);
+		if(listAreaCountyEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应区县数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listAreaCountyEntity",listAreaCountyEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询区县成功",listAreaCountyEntity);
+		
 	}
 
 }

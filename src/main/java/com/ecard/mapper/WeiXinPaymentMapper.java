@@ -1,9 +1,13 @@
 package com.ecard.mapper;
 
+import java.util.List;
 import java.util.Map;
 
+import com.ecard.entity.AreaCountyEntity;
+import com.ecard.entity.CityEntity;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.ProvinceEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
 import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 import com.ecard.vo.GoodsVO;
@@ -40,6 +44,10 @@ public interface WeiXinPaymentMapper
 	public MemberEntity selectMemberDetailInfo(Map<String,Object> queryMap) throws Exception;
 	//更新会员表储值 属性
 	public int updateMemberBalance(Map<String,Object> updateMap) throws Exception;
-	
-
+	//查询全国省份--列表 
+	public List<ProvinceEntity> selectProvince() throws Exception;
+	//根据省份代码查询所有城市--列表
+	public List<CityEntity> selectCityInfo(String strProvinceCode) throws Exception;
+	//根据城市代码查询所有区县--列表
+	public List<AreaCountyEntity> selectAreaCountyInfo(String strAreaCountyCode) throws Exception;
 }

@@ -3,6 +3,7 @@ package com.ecard.wexin.controller;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
+import com.ecard.entity.ProvinceEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
 import com.ecard.entity.WeiXinReceiveGoodsAddressEntity;
 import com.ecard.service.WeiXinPaymentService;
@@ -272,6 +274,67 @@ public class WeiXinPaymentController
 		}
 	}
 
+	//查询全国省份--列表 
+	@ResponseBody
+	@RequestMapping("selectProvince")
+	//localhost:8083/weixin/biz/selectProvince
+	public String selectProvince(HttpServletResponse response,HttpServletRequest request)
+	{
+		try{
+		List<ProvinceEntity> listProvinceEntity=weiXinPaymentService.selectProvince();
+		if(listProvinceEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listProvinceEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listProvinceEntity",listProvinceEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",listProvinceEntity);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+	
+	//根据省份代码查询所有城市--列表
+	@ResponseBody
+	@RequestMapping("selectCityInfo")
+	//localhost:8083/weixin/biz/selectCityInfo?strProvinceCode=450000
+	public String selectCityInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strProvinceCode=request.getParameter("strProvinceCode");
+		if(ValidateTool.isEmptyStr(strProvinceCode))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"省份代码不能为空",null);
+		try{
+			return weiXinPaymentService.selectCityInfo(strProvinceCode);
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+	
+	//根据城市代码查询所有区县--列表
+	@ResponseBody
+	@RequestMapping("selectAreaCountyInfo")
+	//localhost:8083/weixin/biz/selectAreaCountyInfo?strCityCode=500100
+	public String selectAreaCountyInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strCityCode=request.getParameter("strCityCode");
+		if(ValidateTool.isEmptyStr(strCityCode))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"城市代码不能为空",null);
+		try{
+			return weiXinPaymentService.selectAreaCountyInfo(strCityCode);
+				
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
 	
 	
 }
