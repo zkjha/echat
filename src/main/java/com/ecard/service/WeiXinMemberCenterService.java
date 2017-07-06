@@ -34,6 +34,8 @@ public class WeiXinMemberCenterService
 		int iUsedVoucherTicketAmount=0;	//特定会员的已使用，但还可以继续使用的抵用券张数
 		//登录用户不为空，查询登录用户对应的会员信息
 		MemberVO memberVOEntity = weiXinMemberCenterMapper.selectMemberInfo(strMemberId);
+		if(memberVOEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"无会员信息，请重新登录",null);
 		iUnUsedVoucherTicketAmount=weiXinMemberCenterMapper.selectUnUsedTicketAmount(strMemberId);
 		iUsedVoucherTicketAmount=weiXinMemberCenterMapper.selectUsedTicketAmount(strMemberId);
 		Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -45,6 +47,7 @@ public class WeiXinMemberCenterService
 		String code_url_base64 = QRCodeTool.getQRCode(strMemberId);
 		resultMap.put("strQrCode", "data:image/png;base64," + code_url_base64);
 		resultMap.put("intVouchers",iUnUsedVoucherTicketAmount+iUsedVoucherTicketAmount);
+		
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 	}
 	

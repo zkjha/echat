@@ -48,6 +48,7 @@ public class WeiXinMemberCenterController
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 			if(strMemberId.isEmpty())
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+			
 			return weiXinMemberCenterService.selectMemberInfo(strMemberId);
 
 		} catch (Exception e) {
