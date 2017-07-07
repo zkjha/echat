@@ -273,38 +273,29 @@ select
 <!-- 查询全国省份 -->
 <select id="selectProvince" resultType="com.ecard.entity.ProvinceEntity">
 	select 
-	PID as pId,
-	Pcode as pcode,
-	Pname as Pname,
-	NationCode as nationCode,
-	PrecordCreationDate as precordCreationDate,
-	PrecordCreator as precordCreator,
-	PrecordVersion as precordVersion from tb_Province
+	iProvinceId,
+	iProvinceCode,
+	strProvinceName,
+	iNationCode from tb_Province
 </select>
 
 <!-- 根据省份代码查询所有城市 列表 -->
-<select id="selectCityInfo" resultType="com.ecard.entity.CityEntity">
+<select id="selectCityInfo" resultType="com.ecard.entity.CityEntity" parameterType="int">
 	select 
-	CID as cId,
-	Ccode as ccode,
-	Cname as cname,
-	ProvinceCode as provinceCode,
-	CrecordCreationDate as crecordCreationDate,
-	CrecordCreator as crecordCreator,
-	CrecordVersion as crecordVersion
-	from tb_City where ProvinceCode=#{strProvinceCode}
+ 	iCityId,
+ 	iCityCode,
+ 	strCityName,
+ 	iProvinceCode
+ 	from tb_city where iProvinceCode=#{iProvinceCode}
 </select>
 
 <!-- 查询区县信息 -->
-<select id="selectAreaCountyInfo" resultType="com.ecard.entity.AreaCountyEntity">
+<select id="selectAreaCountyInfo" resultType="com.ecard.entity.AreaCountyEntity" parameterType="int">
 	select 
-	AID as aId,
-	Acode as acode,
-	Aname as aname,
-	CityCode as cityCode,
-	ArecordCreationDate as arecordCreationDate,
-	ArecordCreator as arecordCreator,
-	ArecordVersion as arecordVersion
-	from tb_AreaCounty where CityCode=#{strCityCode}
+	iAreaCountryId,
+ 	iAreaCountryCode,
+ 	strAreaCountryName,
+ 	iCityCode
+	from tb_AreaCounty where iCityCode=#{iCityCode}
 </select>
 </mapper> 

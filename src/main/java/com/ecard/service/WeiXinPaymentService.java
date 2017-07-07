@@ -266,9 +266,9 @@ public class WeiXinPaymentService
 	}
 	
 	//根据省份代码查询所有城市--列表
-	public String selectCityInfo(String strProvinceCode) throws Exception
+	public String selectCityInfo(int iProvinceCode) throws Exception
 	{
-		List<CityEntity> listCityEntity=weiXinPaymentMapper.selectCityInfo(strProvinceCode);
+		List<CityEntity> listCityEntity=weiXinPaymentMapper.selectCityInfo(iProvinceCode);
 		if(listCityEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应城市数据",null);
 		if(listCityEntity.size()==0)
@@ -281,9 +281,9 @@ public class WeiXinPaymentService
 
 	
 	//根据城市代码查询所有区县--列表
-	public String selectAreaCountyInfo(String strCityCode) throws Exception
+	public String selectAreaCountyInfo(int iCityCode) throws Exception
 	{
-		List<AreaCountyEntity> listAreaCountyEntity=weiXinPaymentMapper.selectAreaCountyInfo(strCityCode);
+		List<AreaCountyEntity> listAreaCountyEntity=weiXinPaymentMapper.selectAreaCountyInfo(iCityCode);
 		if(listAreaCountyEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无相应区县数据",null);
 		if(listAreaCountyEntity.size()==0)

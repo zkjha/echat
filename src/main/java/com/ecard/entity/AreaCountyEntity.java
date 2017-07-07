@@ -1,86 +1,51 @@
 package com.ecard.entity;
 
-import java.util.Date;
-
 //全国各个区县
 public class AreaCountyEntity {
-	private String aId="";//自动编号，标识列
-	private String acode="";//区县代码
-	private String aname="";//区县名称
-	private String cityCode="";//城市代码
-	private Date arecordCreationDate;//记录创建时间
-	private String arecordCreator="";//记录创建者
-	private String arecordVersion="";//记录版本
-	
-	public void setAId(String aId)
+	private int iAreaCountryId;           //区县主键
+	private int iAreaCountryCode;           //区县代码
+	private String strAreaCountryName;           //区县名称
+	private int iCityCode;           //城市代码
+
+
+	public void setiAreaCountryId(int iAreaCountryId)
 	{
-		this.aId=aId;
+		this.iAreaCountryId=iAreaCountryId;
 	}
-	
-	public String getAId()
+
+	public int getiAreaCountryId()
 	{
-		return aId;
+		return iAreaCountryId;
 	}
-	
-	
-	public void setAcode(String acode)
+
+	public void setiAreaCountryCode(int iAreaCountryCode)
 	{
-		this.acode=acode;
+		this.iAreaCountryCode=iAreaCountryCode;
 	}
-	
-	public String getAcode()
+
+	public int getiAreaCountryCode()
 	{
-		return acode;
+		return iAreaCountryCode;
 	}
-	
-	public void setAname(String aname)
+
+	public void setStrAreaCountryName(String strAreaCountryName)
 	{
-		this.aname=aname;
+		this.strAreaCountryName=strAreaCountryName;
 	}
-	
-	public String getAname()
+
+	public String getStrAreaCountryName()
 	{
-		return aname;
+		return strAreaCountryName;
 	}
-	
-	public void setCityCode(String cityCode)
+
+	public void setiCityCode(int iCityCode)
 	{
-		this.cityCode=cityCode;
+		this.iCityCode=iCityCode;
 	}
-	
-	public String getCityCode()
+
+	public int getiCityCode()
 	{
-		return cityCode;
-	}
-	
-	public void setArecordCreationDate(Date arecordCreationDate)
-	{
-		this.arecordCreationDate=arecordCreationDate;
-	}
-	
-	public Date getArecordCreationDate()
-	{
-		return arecordCreationDate;
-	}
-	
-	public void setArecordCreator(String arecordCreator)
-	{
-		this.arecordCreator=arecordCreator;
-	}
-	
-	public String getArecordCreator()
-	{
-		return arecordCreator;
-	}
-	
-	public void setArecordVersion(String arecordVersion)
-	{
-		this.arecordVersion=arecordVersion;
-	}
-	
-	public String getArecordVersion()
-	{
-		return arecordVersion;
+		return iCityCode;
 	}
 	
 	

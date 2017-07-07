@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -300,14 +302,21 @@ public class WeiXinPaymentController
 	//根据省份代码查询所有城市--列表
 	@ResponseBody
 	@RequestMapping("selectCityInfo")
-	//localhost:8083/weixin/biz/selectCityInfo?strProvinceCode=450000
+	//localhost:8083/weixin/biz/selectCityInfo?iProvinceCode=450000
 	public String selectCityInfo(HttpServletResponse response,HttpServletRequest request)
 	{
-		String strProvinceCode=request.getParameter("strProvinceCode");
+		int iProvinceCode=0;	
+		String strProvinceCode=request.getParameter("iProvinceCode");
 		if(ValidateTool.isEmptyStr(strProvinceCode))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"省份代码不能为空",null);
+		
+		if(isNumber(strProvinceCode))
+			iProvinceCode=Integer.parseInt(strProvinceCode);
+		else
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"省份代码格式错误",null);
+		
 		try{
-			return weiXinPaymentService.selectCityInfo(strProvinceCode);
+			return weiXinPaymentService.selectCityInfo(iProvinceCode);
 			
 		}catch(Exception e)
 		{
@@ -320,14 +329,21 @@ public class WeiXinPaymentController
 	//根据城市代码查询所有区县--列表
 	@ResponseBody
 	@RequestMapping("selectAreaCountyInfo")
-	//localhost:8083/weixin/biz/selectAreaCountyInfo?strCityCode=500100
+	//localhost:8083/weixin/biz/selectAreaCountyInfo?iCityCode=500100
 	public String selectAreaCountyInfo(HttpServletResponse response,HttpServletRequest request)
 	{
-		String strCityCode=request.getParameter("strCityCode");
+		int iCityCode=0;
+		String strCityCode=request.getParameter("iCityCode");
 		if(ValidateTool.isEmptyStr(strCityCode))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"城市代码不能为空",null);
+		
+		if(isNumber(strCityCode))
+			iCityCode=Integer.parseInt(strCityCode);
+		else
+			return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"城市代码格式错误",null);
+		
 		try{
-			return weiXinPaymentService.selectAreaCountyInfo(strCityCode);
+			return weiXinPaymentService.selectAreaCountyInfo(iCityCode);
 				
 		}catch(Exception e)
 		{
@@ -336,5 +352,16 @@ public class WeiXinPaymentController
 		}
 	}
 	
+	
+	
+	//校验
+		public static boolean isNumber(String strCheckString)
+		{
+			boolean flag=false;
+			Pattern p1 = Pattern.compile("^[0-9]\\d*$|^[1-9]\\d*\\.\\d{1,2}$|^0\\.\\d{1,2}$");
+			Matcher matcher=p1.matcher(strCheckString);
+			flag=matcher.matches();   
+			return flag;
+		}
 	
 }

@@ -1,87 +1,49 @@
 package com.ecard.entity;
-
-import java.util.Date;
-
 //全国省份
 public class ProvinceEntity 
 {
-	private String pId="";	//自动编号，标识列
-	private String pcode="";//省份代码
-	private String pname="";//省份名称
-	private String nationCode="";//国家代码
-	private Date precordCreationDate=null;//记录创建时间
-	private String precordCreator="";//记录创建者
-	private String precordVersion="";//记录版本
-	
-	public void setPID(String pId)
+	private int iProvinceId;	//自动编号，标识列
+	private int iProvinceCode;//省份代码
+	private String strProvinceName="";//省份名称
+	private int iNationCode;//国家代码
+	public void setiProvinceId(int iProvinceId)
 	{
-		this.pId=pId;
+		this.iProvinceId=iProvinceId;
 	}
 	
-	public String getPId()
+	public int getiProvinceId()
 	{
-		return pId;
+		return iProvinceId;
 	}
 	
-	public void setPcode(String pcode)
+	public void setiProvinceCode(int iProvinceCode)
 	{
-		this.pcode=pcode;
+		this.iProvinceCode=iProvinceCode;
 	}
 	
-	public String getPcode()
+	public int getiProvinceCode()
 	{
-		return pcode;
+		return iProvinceCode;
 	}
 	
-	public void setPname(String pname)
+	public void setstrProvinceName(String strProvinceName)
 	{
-		this.pname=pname;
+		this.strProvinceName=strProvinceName;
 	}
 	
-	public String getPname()
+	public String getstrProvinceName()
 	{
-		return pname;
+		return strProvinceName;
 	}
 	
-	public void setNationCode(String nationCode)
+	public void setiNationCode(int iNationCode)
 	{
-		this.nationCode=nationCode;
+		this.iNationCode=iNationCode;
 	}
 	
-	public String getNationCode()
+	public int getiNationCode()
 	{
-		return nationCode;
+		return iNationCode;
 	}
 	
-	public void setPrecordCreationDate(Date precordCreationDate)
-	{
-		this.precordCreationDate=precordCreationDate;
-	}
-	
-	public Date getPrecordCreationDate()
-	{
-		return precordCreationDate;
-	}
-	
-	public void setPrecordCreator(String precordCreator)
-	{
-	this.precordCreator=precordCreator;	
-	}
-	
-	public String getPrecordCreator()
-	{
-		return precordCreator;
-	}
-	
-	public void setPrecordVersion(String precordVersion)
-	{
-		this.precordVersion=precordVersion;
-	}
-	
-	public String getPrecordVersion()
-	{
-		return precordVersion;
-	}
-	
-
 }

@@ -47,7 +47,7 @@ public interface WeiXinPaymentMapper
 	//查询全国省份--列表 
 	public List<ProvinceEntity> selectProvince() throws Exception;
 	//根据省份代码查询所有城市--列表
-	public List<CityEntity> selectCityInfo(String strProvinceCode) throws Exception;
+	public List<CityEntity> selectCityInfo(int iProvinceCode) throws Exception;
 	//根据城市代码查询所有区县--列表
-	public List<AreaCountyEntity> selectAreaCountyInfo(String strAreaCountyCode) throws Exception;
+	public List<AreaCountyEntity> selectAreaCountyInfo(int iCityCode) throws Exception;
 }
