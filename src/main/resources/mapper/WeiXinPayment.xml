@@ -298,4 +298,9 @@ select
  	iCityCode
 	from tb_AreaCounty where iCityCode=#{iCityCode}
 </select>
+
+<!-- 查询_商家地址[tableName:tb_merchant] -->
+<select id="selectMerchantAddress" resultType="String">
+ select STRMERCHANTADDRESS from tb_merchant limit 0,1
+</select>
 </mapper> 

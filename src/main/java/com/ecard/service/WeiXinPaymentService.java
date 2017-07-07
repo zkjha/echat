@@ -217,12 +217,19 @@ public class WeiXinPaymentService
 		dMemberCardAfterCash=memberEntity.getdAfterstoredbalance();
 		strValidEndTime=memberEntity.getStrValidEndTime();
 		//判断售后储值是否还可效
-		String strCurrentTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
-		if(strValidEndTime.compareTo(strCurrentTime)<=0)
-			dCanUseAmount=dMemberCardCash.add(dMemberCardAfterCash);//售后储值 有效的情况:
+		if(strValidEndTime==null)//无售后余额有效期时间信息,则暂不使用售后储值金额
+			dCanUseAmount=dMemberCardCash;
 		else
-			dCanUseAmount=dMemberCardCash;//售后储值无效的情况：
-		
+		{
+			String strCurrentTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
+			if(strValidEndTime.compareTo(strCurrentTime)<=0)
+				dCanUseAmount=dMemberCardCash.add(dMemberCardAfterCash);//售后储值 有效的情况:
+			else
+				dCanUseAmount=dMemberCardCash;//售后储值无效的情况：
+		}
+		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		System.out.println("可用余额数量:"+dCanUseAmount);
+		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
 		//卡余额不足的情况:
@@ -294,4 +301,10 @@ public class WeiXinPaymentService
 		
 	}
 
+	////查询商家店铺地址
+	public String selectMerchantAddress() throws Exception
+	{
+		return weiXinPaymentMapper.selectMerchantAddress();
+	
+	}
 }

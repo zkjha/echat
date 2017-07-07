@@ -50,4 +50,7 @@ public interface WeiXinPaymentMapper
 	public List<CityEntity> selectCityInfo(int iProvinceCode) throws Exception;
 	//根据城市代码查询所有区县--列表
 	public List<AreaCountyEntity> selectAreaCountyInfo(int iCityCode) throws Exception;
+	//查询商家店铺地址
+	public String selectMerchantAddress() throws Exception;
+	
 }

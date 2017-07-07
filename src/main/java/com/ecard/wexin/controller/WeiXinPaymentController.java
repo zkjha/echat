@@ -353,6 +353,24 @@ public class WeiXinPaymentController
 	}
 	
 	
+	//查询商家店铺地址
+	@ResponseBody
+	@RequestMapping("selectMerchantAddress")
+	//localhost:8083/weixin/biz/selectMerchantAddress
+	public String selectMerchantAddress(HttpServletResponse response,HttpServletRequest request)
+	{
+		try{
+			String strAddress=weiXinPaymentService.selectMerchantAddress();
+			Map<String,String> resultMap=new HashMap<String,String>();
+			resultMap.put("strAddress",strAddress);
+			return  DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}catch(Exception e)
+		{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
 	
 	//校验
 		public static boolean isNumber(String strCheckString)
