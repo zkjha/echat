@@ -396,10 +396,31 @@ define([],function(){
         selectGoodsTypeConfigEntityInfo:"/weixin/biz/integrationMall/selectGoodsTypeConfigEntityInfo",
 
         ////////////\积分商城/////////////////////////////
+        ////////////\支付/////////////////////////////
+
+
+        //全国区县信息 -- 查询 列表
+        selectAreaCountyInfo:"/weixin/biz/selectAreaCountyInfo",
+        //全国城市息 -- 查询 列表
+        selectCityInfo:"/weixin/biz/selectCityInfo",
+        //全国省份信息 -- 查询 列表
+        selectProvince:"/weixin/biz/selectProvince",
+        //商家地址 -- 查询 单条
+        selectMerchantAddress:"/weixin/biz/selectMerchantAddress",
+        //到店取货方式-- 生成订单
+        generateWeiXinOrderToShop:"/weixin/biz/generateWeiXinOrderToShop",
+        //快递方式 -- 生成订单
+        generateWeiXinOrderExpress:"/weixin/biz/generateWeiXinOrderExpress",
+        //订单 -- 查询
+        selectWeiXinGoodsOrderEntity:"/weixin/biz/selectWeiXinGoodsOrderEntity",
+        //订单 -- 积分支付
+        payGoodsOrderWithIntegration:"/weixin/biz/payGoodsOrderWithIntegration",
+        //订单 --会员卡余额支付
+        payGoodsOrderWithCardCash:"/weixin/biz/payGoodsOrderWithCardCash",
 
 
 
-
+        ////////////\支付/////////////////////////////
 		////////////登陆认证/////////////////////////////
 			
 			//发送验证码
