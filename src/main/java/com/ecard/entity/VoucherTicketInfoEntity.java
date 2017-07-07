@@ -9,6 +9,7 @@ public class VoucherTicketInfoEntity {
 	private BigDecimal dVoucherTicketAmount;	//抵用卷金额
 	private String strValidEndTime;//有效期截止时间
 	private int iIsValid;	//是否启用：1启用 0禁用
+	private int iCanUseCount;	//可使用次数
 	private String strRuleDesc;	//使用卷规则描述
 	private String strReserved;	//预留字段 
 	private String strCreationTime;		//创建时间
@@ -16,6 +17,7 @@ public class VoucherTicketInfoEntity {
 	private String strEmployeeId;			//登录员工ID
 	private String strEmployeeName;		//登录员工姓名
 	private String strEmployeeRealName;	//登录员工真实姓名
+	
 	
 	public void setStrVoucherTicketId(String strVoucherTicketId)
 	{
@@ -57,6 +59,17 @@ public class VoucherTicketInfoEntity {
 		return strValidEndTime;
 	}
 	
+	public void setiCanUseCount(int iCanUseCount)
+	{
+		this.iCanUseCount=iCanUseCount;
+	}
+	
+	public int getiCanUseCount()
+	{
+		return iCanUseCount;
+	}
+	
+
 	public void setIisValid(int iIsValid)
 	{
 		this.iIsValid=iIsValid;

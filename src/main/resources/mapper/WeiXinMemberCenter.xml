@@ -195,4 +195,25 @@ select
  	iTotalSignCount
  	from tb_member_sign where strMemberId=#{strMemberId} and strSignTime&gt;=#{strStartTime} and strSignTime&lt;#{strEndTime}
 </select>
+
+<!-- 查询会员领用 已过期抵用券信息_[tableName:tb_voucherticket_useinfo] -->
+<select id="selectVoucherticketUseInfoEntity" resultType="com.ecard.entity.VoucherticketUseInfoEntity" parameterType="String">
+ select 
+ 	strVoucherUseInfoId,
+ 	strVoucherTicketId,
+ 	strVoucherTicketName,
+ 	strValidEndTime,
+ 	strMemberId,
+ 	strMemberName,
+ 	iStat,
+ 	iExpired,
+ 	iCanUseCount,
+ 	iUsedCount,
+ 	iIsValid,
+ 	strUseCountDesc,
+ 	strRuleDesc,
+ 	strReserved
+ 	from tb_voucherticket_useinfo
+	where strMemberId=#{strMemberId} and iExpired=1
+</select>
 </mapper>

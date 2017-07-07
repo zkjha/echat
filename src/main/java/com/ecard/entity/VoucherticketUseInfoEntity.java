@@ -19,6 +19,7 @@ public class VoucherticketUseInfoEntity {
 	private String strMemberId="";	//领用会员ID
 	private String strMemberName="";	//领用会员姓名
 	private int iStat=0;	//抵用券状态 1未使用 2已使用 3已过期
+	private int iExpired=0;	//抵用券状态 是否过期 0未过期  1已经过期
 	private int iCanUseCount=0;	//可使用次数
 	private int iUsedCount=0;	//已经使用次数
 	private int iIsValid=0;	//是否生效 0 禁用 1 启用
@@ -137,7 +138,18 @@ public class VoucherticketUseInfoEntity {
 	public void setiStat(int iStat) {
 		this.iStat = iStat;
 	}
+
+	public int getiExpired() {
+		return iExpired;
+	}
 	
+	/**
+	 * create time:2017年4月1日
+	 * @param iStat the iStat to set
+	 */
+	public void setiExpired(int iExpired) {
+		this.iExpired = iExpired;
+	}
 	/**
 	 * create time:2017年4月1日
 	 * @return the iCanUseCount

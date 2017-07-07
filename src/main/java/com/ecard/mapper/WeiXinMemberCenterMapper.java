@@ -6,6 +6,8 @@ import java.util.Map;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.SignIntegrationRuleEntity;
+import com.ecard.entity.VoucherTicketInfoEntity;
+import com.ecard.entity.VoucherticketUseInfoEntity;
 import com.ecard.entity.WeiXinMemberSignEntity;
 import com.ecard.vo.MemberVO;
 
@@ -39,5 +41,7 @@ public interface WeiXinMemberCenterMapper
 	public WeiXinMemberSignEntity selectSignDays(String strMemberId) throws Exception;
 	//按月查询指定会员的签到记录
 	public List<WeiXinMemberSignEntity> selectSignDaysByMonth(Map<String,Object> queryMap) throws Exception;
+	//查询未使用执用券信息 --列表
+	public List<VoucherticketUseInfoEntity> selectVoucherticketUseInfoEntity(String strMemberId) throws Exception;
 	
 }

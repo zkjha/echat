@@ -194,6 +194,43 @@ public class WeiXinMemberCenterController
 		}
 
 	}
+	
+	//查询未使用执用券信息 --列表
+	//@ResponseBody
+	//@RequestMapping("selectUnUsedVoucherTicketInfo")
+	//localhost:8083/weixin/biz/selectUnUsedVoucherTicketInfo
+	/*
+	public String selectUnUsedVoucherTicketInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strMemberId="";
+		*/
+		/*
+		try{
+				strMemberId=(String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		*/
+			//以下会员ID为测试数据
+	/*
+			strMemberId="377f37a5871f4874a2879dd77758e075";
+			if(ValidateTool.isEmptyStr(strMemberId))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+			try{
+				
+				return weiXinMemberCenterService.selectUnUsedVoucherTicketInfo(strMemberId);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+			
+	
+		
+	}
 
+	*/
 }
 

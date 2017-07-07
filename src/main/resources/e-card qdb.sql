@@ -618,7 +618,8 @@ CREATE TABLE tb_voucherticket_useinfo
   strValidEndTime           VARCHAR(50) NOT NULL,       -- 有效期截止时间  
   strMemberId               VARCHAR(50) NOT NULL,       -- 领用会员ID	
   strMemberName             VARCHAR(50) NOT NULL,       -- 领用会员姓名 
-  iStat                     int default 1,              -- 抵用券状态 1未使用 2已使用 3已过期
+  iStat                     int default 1,              -- 抵用券状态 1未使用 2已使用 
+  iExpired					int default 0,				-- 抵用券状态 0 未过期  1已经过期
   iCanUseCount              int default 1,              -- 可使用次数
   iUsedCount                int default 0,              -- 已经使用次数
   iIsValid                  int default 0,              -- 是否生效 0 禁用 1 启用
@@ -767,6 +768,7 @@ CREATE TABLE tb_voucherticket_infomanage
   dVoucherTicketAmount    DECIMAL(11,2) 	DEFAULT 0.00, 	-- 抵用券金额
   strValidEndTime           VARCHAR(50) 	NOT NULL,       -- 有效期截止时间  
   iIsValid                  int default 0,              	-- 是否生效 0 禁用 1 启用
+  iCanUseCount				int default 1,					-- 可使用次数
   strRuleDesc               VARCHAR(1024) 	NULL,        	-- 抵用券使用规则描述                       
   strReserved               VARCHAR(500) 	NULL,         	-- 预留字段
   strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID

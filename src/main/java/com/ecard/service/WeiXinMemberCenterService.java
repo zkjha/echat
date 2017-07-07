@@ -1,5 +1,6 @@
 package com.ecard.service;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
 import com.ecard.entity.SignIntegrationRuleEntity;
+import com.ecard.entity.VoucherTicketInfoEntity;
+import com.ecard.entity.VoucherticketUseInfoEntity;
 import com.ecard.entity.WeiXinMemberSignEntity;
 import com.ecard.mapper.WeiXinMemberCenterMapper;
 import com.ecard.util.QRCodeTool;
@@ -263,4 +266,34 @@ public class WeiXinMemberCenterService
 	}
 	
 	
+	//查询未使用执用券信息 --列表
+	/*
+	public String selectUnUsedVoucherTicketInfo(String strMemberId) throws Exception
+	{
+		int iLoopTimes=0;	
+		String strVoucherTickedId="";
+		Map<String,Object> queryMap=new HashMap<String,Object>();
+		queryMap.put("strMemberId", strMemberId);
+		queryMap.put("strMemberId", strMemberId);
+		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectVoucherticketUseInfoEntity(strMemberId);
+		if(listVoucherticketUseInfoEntity==null)
+			return DataTool.constructResponseNoHtmlEscaping(ResultCode.NO_DATA,"暂无数据",null);
+		if(listVoucherticketUseInfoEntity.size()==0)
+			return DataTool.constructResponseNoHtmlEscaping(ResultCode.NO_DATA,"暂无数据",null);
+		//根据抵用券的ID查询抵用券详情
+		iLoopTimes=listVoucherticketUseInfoEntity.size();
+		List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=new ArrayList<VoucherTicketInfoEntity>();
+		for(int i=0;i<iLoopTimes;i++)
+		{
+			strVoucherTickedId=listVoucherticketUseInfoEntity.get(i).getStrVoucherTicketId();
+			VoucherTicketInfoEntity voucherTicketInfoEntity=weiXinMemberCenterMapper.selectVoucherTicketDetailInfo(strVoucherTickedId);
+			if(voucherTicketInfoEntity!=null)
+				listVoucherTicketInfoEntity.add(voucherTicketInfoEntity);
+		}
+			
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listVoucherticketUseInfoEntity", listVoucherticketUseInfoEntity);
+		return DataTool.constructResponseNoHtmlEscaping(ResultCode.OK,"查询成功",resultMap);
+	}
+	*/
 }
