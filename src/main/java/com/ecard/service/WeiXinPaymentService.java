@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.commontools.data.DataTool;
 import com.commontools.date.DateStyle;
 import com.commontools.date.DateTool;
+import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.AreaCountyEntity;
 import com.ecard.entity.CityEntity;
@@ -195,11 +196,12 @@ public class WeiXinPaymentService
 	}
 	
 	//会员卡储值支付
-	@Transactional(rollbackFor=Exception.class)
+	@Transactional
 	public String payGoodsOrderWithCardCash(Map<String,Object> queryMap) throws Exception
 	{
 		int iAffectNum=0;
 		int iOk=1;
+		int iAlreadyUserAfterValue=0;	//是否使用了售后余额
 		BigDecimal dMemberCardCash=new BigDecimal("0");	//会员 卡储值余额
 		BigDecimal dMemberCardAfterCash=new BigDecimal("0");//会员卡售后余额
 		BigDecimal dTotalCashAmount=new BigDecimal("0");	//订单金额
@@ -217,19 +219,25 @@ public class WeiXinPaymentService
 		dMemberCardAfterCash=memberEntity.getdAfterstoredbalance();
 		strValidEndTime=memberEntity.getStrValidEndTime();
 		//判断售后储值是否还可效
-		if(strValidEndTime==null)//无售后余额有效期时间信息,则暂不使用售后储值金额
+		if(ValidateTool.isEmptyStr(strValidEndTime))//无售后余额有效期时间信息,则暂不使用售后储值金额
+			{
 			dCanUseAmount=dMemberCardCash;
+			iAlreadyUserAfterValue=0;
+			}
 		else
 		{
 			String strCurrentTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
-			if(strValidEndTime.compareTo(strCurrentTime)<=0)
+			if(strCurrentTime.compareTo(strValidEndTime)<=0)
+				{
 				dCanUseAmount=dMemberCardCash.add(dMemberCardAfterCash);//售后储值 有效的情况:
+				iAlreadyUserAfterValue=1;
+				}
 			else
+				{
 				dCanUseAmount=dMemberCardCash;//售后储值无效的情况：
+				iAlreadyUserAfterValue=0;
+				}
 		}
-		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-		System.out.println("可用余额数量:"+dCanUseAmount);
-		//'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
 		//卡余额不足的情况:
@@ -239,6 +247,7 @@ public class WeiXinPaymentService
 		String strLastAccessTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		String strPayTime=DateTool.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS);
 		Map<String,Object> updateMap=new HashMap<String,Object>();
+		updateMap.put("strMemberId",queryMap.get("strMemberId"));
 		updateMap.put("strLastAccessedTime", strLastAccessTime);
 		updateMap.put("strPayTime",strPayTime);
 		updateMap.put("iPayType",4);
@@ -247,13 +256,27 @@ public class WeiXinPaymentService
 		if(iAffectNum==0)
 			iOk=0;
 		//修改会员表信息
-		if(dMemberCardAfterCash.subtract(dTotalCashAmount).doubleValue()>=0)
-			{
-			dChangedCardAfterCash=dMemberCardAfterCash.subtract(dTotalCashAmount);
-			dChangedCardCash=dMemberCardCash;
-			}
-		else
-			dChangedCardCash=dTotalCashAmount.subtract(dMemberCardAfterCash);
+		switch (iAlreadyUserAfterValue)
+		{
+		case 0:
+			//未用售后余额的情况
+			dChangedCardAfterCash=dMemberCardAfterCash;
+			dChangedCardCash=dMemberCardCash.subtract(dTotalCashAmount);
+			break;
+		case 1:
+			//已用售后余额的情况
+			if(dMemberCardAfterCash.subtract(dTotalCashAmount).doubleValue()>=0)
+				{
+					dChangedCardAfterCash=dMemberCardAfterCash.subtract(dTotalCashAmount);
+					dChangedCardCash=dMemberCardCash;
+				}
+			else
+				{
+				dChangedCardCash=dMemberCardCash.subtract(dTotalCashAmount.subtract(dMemberCardAfterCash));
+				dChangedCardAfterCash=new BigDecimal("0");
+				}
+			break;
+		}
 		updateMap.put("dChangedCardAfterCash",dChangedCardAfterCash);
 		updateMap.put("dChangedCardCash",dChangedCardCash);
 		iAffectNum=weiXinPaymentMapper.updateMemberBalance(updateMap);
