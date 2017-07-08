@@ -196,8 +196,8 @@ select
  	from tb_member_sign where strMemberId=#{strMemberId} and strSignTime&gt;=#{strStartTime} and strSignTime&lt;#{strEndTime}
 </select>
 
-<!-- 查询会员领用 已过期抵用券信息_[tableName:tb_voucherticket_useinfo] -->
-<select id="selectVoucherticketUseInfoEntity" resultType="com.ecard.entity.VoucherticketUseInfoEntity" parameterType="String">
+<!-- 查询抵用券领用信息_[tableName:tb_voucherticket_useinfo] -->
+<select id="selectVoucherticketUseInfoEntity" resultType="com.ecard.entity.VoucherticketUseInfoEntity" parameterType="map">
  select 
  	strVoucherUseInfoId,
  	strVoucherTicketId,
@@ -214,6 +214,25 @@ select
  	strRuleDesc,
  	strReserved
  	from tb_voucherticket_useinfo
-	where strMemberId=#{strMemberId} and iExpired=1
+	where strMemberId=#{strMemberId} and iStat=#{iState}
+</select>
+
+<!-- 查询_抵用券详细信息[tableName:tb_voucherticket_infomanage] -->
+<select id="selectVoucherTicketDetailInfo" resultType="com.ecard.entity.VoucherTicketInfoEntity" parameterType="String">
+ select 
+ 	strVoucherTicketId,
+ 	strVoucherTicketName,
+ 	dVoucherTicketAmount,
+ 	strValidEndTime,
+ 	iIsValid,
+ 	iCanUseCount,
+ 	strRuleDesc,
+ 	strReserved,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_voucherticket_infomanage where strVoucherTicketId=#{strVoucherTicketId} and iIsValid=1
 </select>
 </mapper>

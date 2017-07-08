@@ -41,7 +41,9 @@ public interface WeiXinMemberCenterMapper
 	public WeiXinMemberSignEntity selectSignDays(String strMemberId) throws Exception;
 	//按月查询指定会员的签到记录
 	public List<WeiXinMemberSignEntity> selectSignDaysByMonth(Map<String,Object> queryMap) throws Exception;
-	//查询未使用执用券信息 --列表
-	public List<VoucherticketUseInfoEntity> selectVoucherticketUseInfoEntity(String strMemberId) throws Exception;
-	
+	//查询领用抵用券信息 --列表
+	public List<VoucherticketUseInfoEntity> selectVoucherticketUseInfoEntity(Map<String,Object> queryMap) throws Exception;
+	//查抵用券详情
+	public VoucherTicketInfoEntity selectVoucherTicketDetailInfo(String strVoucherTickedId) throws Exception;
+
 }

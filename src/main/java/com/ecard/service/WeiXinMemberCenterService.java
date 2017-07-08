@@ -266,20 +266,20 @@ public class WeiXinMemberCenterService
 	}
 	
 	
-	//查询未使用执用券信息 --列表
-	/*
+	//查询未使用抵用券信息 --列表
 	public String selectUnUsedVoucherTicketInfo(String strMemberId) throws Exception
 	{
 		int iLoopTimes=0;	
+		int iState=1;//抵用券未使用
 		String strVoucherTickedId="";
 		Map<String,Object> queryMap=new HashMap<String,Object>();
 		queryMap.put("strMemberId", strMemberId);
-		queryMap.put("strMemberId", strMemberId);
-		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectVoucherticketUseInfoEntity(strMemberId);
+		queryMap.put("iState", iState);
+		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectVoucherticketUseInfoEntity(queryMap);
 		if(listVoucherticketUseInfoEntity==null)
-			return DataTool.constructResponseNoHtmlEscaping(ResultCode.NO_DATA,"暂无数据",null);
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		if(listVoucherticketUseInfoEntity.size()==0)
-			return DataTool.constructResponseNoHtmlEscaping(ResultCode.NO_DATA,"暂无数据",null);
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		//根据抵用券的ID查询抵用券详情
 		iLoopTimes=listVoucherticketUseInfoEntity.size();
 		List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=new ArrayList<VoucherTicketInfoEntity>();
@@ -290,10 +290,69 @@ public class WeiXinMemberCenterService
 			if(voucherTicketInfoEntity!=null)
 				listVoucherTicketInfoEntity.add(voucherTicketInfoEntity);
 		}
-			
+		
+		if(listVoucherTicketInfoEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		Map<String,Object> resultMap=new HashMap<String,Object>();
-		resultMap.put("listVoucherticketUseInfoEntity", listVoucherticketUseInfoEntity);
-		return DataTool.constructResponseNoHtmlEscaping(ResultCode.OK,"查询成功",resultMap);
+		resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 	}
-	*/
+	
+	
+	//查询已使用抵用券信息 --列表
+	public String selectUsedVoucherTicketInfo(Map<String,Object> queryMap) throws Exception
+	{
+		int iLoopTimes=0;	
+		int iState=2;//抵用券已使用
+		int iTotalRecord=0;
+		int iTotalPage=0;
+		int iPageFromIndex=0;
+		int iPageEndIndex=0;
+		int iListMaxIndex=0;
+		int iPageSize=(Integer)queryMap.get("iPageSize");
+		String strVoucherTickedId="";
+		String strMemberId=(String)queryMap.get("strMemberId");
+		Map<String,Object> voucherMap=new HashMap<String,Object>();
+		queryMap.put("strMemberId", strMemberId);
+		queryMap.put("iState", iState);
+		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectVoucherticketUseInfoEntity(voucherMap);
+		if(listVoucherticketUseInfoEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		if(listVoucherticketUseInfoEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		iTotalRecord=listVoucherticketUseInfoEntity.size();
+		iTotalPage=iTotalRecord%iPageSize==0?iTotalRecord/iPageSize:iTotalRecord/iPageSize+1;
+		//iPageFromIndex=(iPageNum-1)*iPageSize;
+		iPageEndIndex=iPageFromIndex+iPageSize-1;
+		//根据抵用券的ID查询抵用券详情
+		iLoopTimes=listVoucherticketUseInfoEntity.size();
+		
+		List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=new ArrayList<VoucherTicketInfoEntity>();
+		for(int i=0;i<iLoopTimes;i++)
+		{
+			strVoucherTickedId=listVoucherticketUseInfoEntity.get(i).getStrVoucherTicketId();
+			VoucherTicketInfoEntity voucherTicketInfoEntity=weiXinMemberCenterMapper.selectVoucherTicketDetailInfo(strVoucherTickedId);
+			if(voucherTicketInfoEntity!=null)
+				listVoucherTicketInfoEntity.add(voucherTicketInfoEntity);
+		}
+		
+		if(listVoucherTicketInfoEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+		//从listVoucherTicketInfoEntity里取出iPageFrom，iPageSize指定的数据
+		iListMaxIndex=listVoucherTicketInfoEntity.size()-1;
+		if(iListMaxIndex>=iPageEndIndex)
+		{
+			/*
+			for(int i=0;i<=iListMaxIndex;i++)
+			{
+				if(i>=iPageFromIndex&&i<=)
+			}
+			*/
+		}
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}
+	
 }
