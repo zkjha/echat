@@ -1,4 +1,4 @@
-package com.ecard.controller;
+ package com.ecard.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -42,11 +42,13 @@ import com.ecard.service.RechargeOrderService;
 import com.ecard.util.WebSessionUtil;
 import com.ecard.vo.MemberVO;
 import com.ecard.vo.MemberexpandinformationVO;
+
 /**
  * 会员级别控制层
  * @author dinghongxing
  *
  */
+
 @Controller
 @RequestMapping("/admin/biz/member")
 public class MemberController {
@@ -97,9 +99,11 @@ public class MemberController {
 		if(ValidateTool.isEmptyStr(strAge)) {
 			strAge = "0";
 		}
+
 		/*if(ValidateTool.isEmptyStr(strMembercardnum)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员卡号不能为空", null);
 		}*/
+
 		if(ValidateTool.isEmptyStr(strLevelsid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员级别不能为空", null);
 		}
@@ -236,6 +240,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+	
 	@ResponseBody
 	@RequestMapping("getMemberById")
 	public String getMemberById(HttpServletRequest request, HttpServletResponse response) {
@@ -289,6 +294,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+	
 	@ResponseBody
 	@RequestMapping("updateMember")
 	public String updateMember(HttpServletRequest request, HttpServletResponse response) {
@@ -311,18 +317,24 @@ public class MemberController {
 		if(ValidateTool.isEmptyStr(strIdcard)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "登录密码不能为空", null);
 		}
+		
 		/*if(ValidateTool.isEmptyStr(strMobile)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "职务ID不能为空", null);
 		}
 		if(!ValidateTool.isMobile(strMobile)) {
 			return DataTool.constructResponse(ResultCode.MOBILE_FORMAT_ERROR, "电话格式错误", null);
 		}*/
-		if(ValidateTool.isEmptyStr(strAge)) {
+
+		
+	if(ValidateTool.isEmptyStr(strAge)) {
 			strAge = "0";
 		}
+
 		/*if(ValidateTool.isEmptyStr(strMembercardnum)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员卡号不能为空", null);
 		}*/
+
+
 		if(ValidateTool.isEmptyStr(strLevelsid)) {
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "会员级别不能为空", null);
 		}
@@ -451,6 +463,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("listAllMemberLevels")
 	public String listAllMemberLevels(HttpServletRequest request, HttpServletResponse response) {
@@ -476,6 +489,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("listAllExpandInfo")
 	public String listAllExpandInfo(HttpServletRequest request, HttpServletResponse response) {
@@ -504,6 +518,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("listMember")
 	public String listMember(HttpServletRequest request, HttpServletResponse response) {
@@ -544,8 +559,7 @@ public class MemberController {
 		}
 		
 	}
-	
-	
+
 	/**
 	 * 修改会员卡积分
 	 * @param request
@@ -553,6 +567,7 @@ public class MemberController {
 	 * @return
 	 * localhost:8080/admin/biz/member/modMemberIntegral?strAddOrCutFlag=0&strMemberId=e8b9c2cabd364e15ade4cce6480c7b7d&strIntegralNum=3&strDesc=1nianiqinieni
 	 */
+
 	@ResponseBody
 	@RequestMapping("modMemberIntegral")
 	public String modMemberIntegral(HttpServletRequest request, HttpServletResponse response) {
@@ -630,6 +645,7 @@ public class MemberController {
 	 * @return
 	 * localhost:8080/admin/biz/member/backgroundRechargForMember?strMemberId=e8b9c2cabd364e15ade4cce6480c7b7d&strRechargeAmount=3
 	 */
+
 	@ResponseBody
 	@RequestMapping("backgroundRechargForMember")
 	public String backgroundRechargForMember(HttpServletRequest request, HttpServletResponse response) {
@@ -691,13 +707,14 @@ public class MemberController {
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
 	}
-	
+
 	/**
 	 * 现金充值
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+	
 	@ResponseBody
 	@RequestMapping("cashMoneyRechargForMember")
 	public String cashMoneyRechargForMember(HttpServletRequest request, HttpServletResponse response) {
@@ -751,7 +768,7 @@ public class MemberController {
 		}
 		
 	}
-	
+
 	/**
 	 * @描述：轮询检测订单是否支付成功
 	 * @作者:丁洪星
@@ -759,6 +776,7 @@ public class MemberController {
 	 * @日期： 2016年11月16日下午3:22:40 
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("checkIsPayed")
 	public String checkIsPayed(HttpServletRequest request, HttpServletResponse response) {
@@ -793,6 +811,7 @@ public class MemberController {
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("updateMemberStatus")
 	public String updateMemberStatus(HttpServletRequest request, HttpServletResponse response) {
@@ -811,13 +830,14 @@ public class MemberController {
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR, "系统错误", null);
 		}
 	}
-	
+
 	/**
 	 * 查询用户订单列表
 	 * @param request
 	 * @param response
 	 * @return
 	 */
+
 	@ResponseBody
 	@RequestMapping("listMemberGoodsOrder")
 	public String listMemberGoodsOrder(HttpServletRequest request, HttpServletResponse response) {
