@@ -108,6 +108,21 @@ public class WechatHomepageController {
 	}
 	
 	/**
+	 * 抵用券查询页
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/voucherTicketInfo")
+	public ModelAndView voucherTicketInfo(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/voucherTicketInfo");
+		
+		return mv;
+		
+	}
+	
+	/**
 	 * 下订单 
 	 * @return
 	 */

@@ -126,7 +126,7 @@ public class WeiXinPaymentController
 	}
 	
 	//到店领货 --生成订单
-	//localhost:8083/weixin/biz/generateWeiXinOrderToShop?strGoodsId=84848johoghgh&iPurchaseAmount=2&strReceiveTime=2017-08-08
+	//localhost:8083/weixin/biz/generateWeiXinOrderToShop?strGoodsId=84848johoghgh&iPurchaseAmount=2&strReceiveTime=2016-08-08 10:00
 	@RequestMapping("generateWeiXinOrderToShop")
 	@ResponseBody
 	public String generateWeiXinOrderToShop(HttpServletRequest request,HttpServletResponse response)
@@ -144,7 +144,8 @@ public class WeiXinPaymentController
 		{
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
-		}		
+		}	
+		
 		//以下会员ID为测试数据
 		//strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))
@@ -167,7 +168,7 @@ public class WeiXinPaymentController
 		String strLastAccessedTime=DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM);
 		if(ValidateTool.isEmptyStr(strReceiveTime))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL, "取货时间不能为空", null);
-			
+		strReceiveTime=DateTool.StringToString(strReceiveTime, DateStyle.YYYY_MM_DD);
 		//属性组装进对象
 		WeiXinGoodsOrderEntity weiXinGoodsOrderEntity=new WeiXinGoodsOrderEntity();
 		weiXinGoodsOrderEntity.setStrOrderId(strOrderId);
