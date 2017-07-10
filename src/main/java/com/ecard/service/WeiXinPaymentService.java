@@ -218,7 +218,7 @@ public class WeiXinPaymentService
 		//查订单积分
 		iOrderIntegration=weiXinPaymentMapper.selectOrderIntegration(queryMap);
 		if(iOrderIntegration==0)
-			return DataTool.constructResponse(ResultCode.NO_DATA,"该笔订单不能用积分支付",null);
+			return DataTool.constructResponse(ResultCode.PAY_ERROR,"该笔订单不能用积分支付",null);
 		
 		//查会员信息,积分余额
 		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberIntegrationInfo(queryMap);
@@ -231,7 +231,7 @@ public class WeiXinPaymentService
 	
 		iMemberIntegration=memberEntity.getIntIntegral();
 		if(iMemberIntegration==0)
-			return DataTool.constructResponse(ResultCode.OK,"会员卡积分余额为0,不能用积分支付",null);
+			return DataTool.constructResponse(ResultCode.PAY_ERROR,"会员卡积分余额为0,不能用积分支付",null);
 		
 		iRestIntegration=iMemberIntegration-iOrderIntegration;
 		if(iRestIntegration<0)
