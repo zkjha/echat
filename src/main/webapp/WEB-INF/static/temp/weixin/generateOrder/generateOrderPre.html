@@ -42,7 +42,7 @@
     <div class="z-pay-paymoney">
         <div>
             <span ng-click="GotoShopGet()"><input type="radio" name="address" id="address" value="" ng-checked="GotoShopGetShow" />&nbsp;&nbsp;到店领取</span>
-        <span class="z-pay-paymoney-time" ng-show="GotoShopGetShow"><input type="date" id="date" value="{{nowData}}" ng-model="strReceiveTime"/></span></div>
+        <span class="z-pay-paymoney-time" ng-show="GotoShopGetShow"><input type="date" id="date" ng-model="strReceiveTime"/>{{nowData}}</span></div>
         <p class="z-pay-paymoney-address" ng-show="GotoShopGetShow">领取地址：{{strAddress}}</p>
     </div>
     <div class="z-pay-paymoney">
@@ -81,6 +81,7 @@
         </form>
     </div>
     <div style="height: .7rem;"></div>
+
     <div class="z-pay-sure" ng-click="sureShengChengdongdan()">
         确定
     </div>

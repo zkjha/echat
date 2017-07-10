@@ -28,9 +28,9 @@ require(['lib/angular','lib/remoteUrl','controller/weixin/generateOrderControlle
             templateUrl: "/static/temp/weixin/generateOrder/generateOrderPre.html",
             controller:generateOrderController.generateOrderPre
 
-        }).when("/listHotRechargeShop", {
-            templateUrl: "/static/temp/weixin/integrationMall/listHotRechargeShop.html",
-            //controller:integrationMallCont.hotRechargeShop
+        }).when("/generateOrderDetail", {
+            templateUrl: "/static/temp/weixin/generateOrder/generateOrderDetail.html",
+            controller:generateOrderController.generateOrderDetail
 
         }).otherwise({
             redirectTo: "/generateOrderPre"

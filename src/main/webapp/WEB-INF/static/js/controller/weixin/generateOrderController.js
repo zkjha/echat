@@ -14,9 +14,96 @@ define(
         'use strict'
         console.info(122444)
         var generateOrderController = {
+            generateOrderDetail:function($scope,$http){
+                console.info(4884848484848484)
+                generateOrderController.selectWeiXinGoodsOrderEntity($scope,$http)//查询订单详情
+
+                $scope.PayChanges = 0;//默认积分支付
+                $scope.PayFangshi = function(Pay){//支付方式
+                    $scope.PayChanges = Pay;
+                };
+                $scope.surePay = function(strOrderId){
+                    if($scope.PayChanges == 0){
+                        generateOrderController.payGoodsOrderWithIntegration($scope,$http,strOrderId)//积分支付
+                    }
+                }
+            },
+            //////////////////////积分支付////////////////////
+            payGoodsOrderWithIntegration:function($scope,$http,strOrderId){
+                var date = {
+                    strOrderId:strOrderId
+                };
+                $http.post(remoteUrl.payGoodsOrderWithIntegration,date).then(
+                    function(result){
+                        var rs =result.data;
+                        var code =rs.code;
+                        var data=rs.data;
+                        console.info(result)
+                        if(code==1){
+                            alert(rs.msg)
+                        }else if(code ==-1){
+                            //得到登录路径
+                            window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;
+                            //未登录
+                        }else if(code<=-2&&code>=-7){
+                            //必填字段未填写
+                            $scope.showAlert(data.msg);
+                        }else if(code ==-8){
+                            //暂无数据
+                        }
+
+                    },
+                    function(result){
+                        var status=result.status;
+                        if(status==-1){
+                            $scope.showAlert("服务器错误")
+                        }else if(status>=404&&status<500){
+                            $scope.showAlert("请求路径错误")
+                        }else if(status>=500){
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            //////////////////////查询订单详情////////////////
+            selectWeiXinGoodsOrderEntity:function($scope,$http){
+                $http.post(remoteUrl.selectWeiXinGoodsOrderEntity).then(
+                    function(result){
+                        var rs =result.data;
+                        var code =rs.code;
+                        var data=rs.data;
+                        console.info(result)
+                        if(code==1){
+                            $scope.weiXinGoodsOrderEntity = data.weiXinGoodsOrderEntity;
+                            console.info($scope.weiXinGoodsOrderEntity)
+                        }else if(code ==-1){
+                            //得到登录路径
+                            window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;
+                            //未登录
+                        }else if(code<=-2&&code>=-7){
+                            //必填字段未填写
+                            $scope.showAlert(data.msg);
+                        }else if(code ==-8){
+                            //暂无数据
+                        }
+
+                    },
+                    function(result){
+                        var status=result.status;
+                        if(status==-1){
+                            $scope.showAlert("服务器错误")
+                        }else if(status>=404&&status<500){
+                            $scope.showAlert("请求路径错误")
+                        }else if(status>=500){
+                            $scope.showAlert("服务器错误")
+                        }
+                    }
+                )
+            },
+            ////////////////////////////////下订单///////////////////////
             generateOrderPre:function($scope,$http){
-                $scope.nowData = new Date().toLocaleString();
-                console.info($scope.nowData.toLocaleString())
+                $scope.strReceiveTime = new Date();
+                console.info($scope.strReceiveTime)
                 //调用查询商品详情接口
                 var strGoodsIds = window.location.search.split("=")[1];
                 generateOrderController.selectGoodsDetailInfo($scope,$http,strGoodsIds)
@@ -65,7 +152,11 @@ define(
                 //到店领取订单调用
                 $scope.sureShengChengdongdan =function(){
                     if($scope.GotoShopGetShow){
-                        console.info($scope.buyNumber +":"+strGoodsIds )
+                        console.info($scope.buyNumber +":"+strGoodsIds +":"+ $scope.strReceiveTime )
+                        var strReceiveTime =  $scope.strReceiveTime.toLocaleString();
+                        console.info(strReceiveTime)
+
+                        generateOrderController.generateWeiXinOrderToShop($scope,$http,$scope.buyNumber,strGoodsIds,strReceiveTime);
                     }
                     else if($scope.GotoShopSpeedShow){
                         console.info(456789)
@@ -75,9 +166,11 @@ define(
                 }
             },
             //到店领取生成订单
-            generateWeiXinOrderToShop:function($scope,$http,WeiXinOrderToShop){
+            generateWeiXinOrderToShop:function($scope,$http,buyNumber,strGoodsIds,strReceiveTime){
                 var date = {
-                    iProvinceCode:iProvinceCode
+                    iPurchaseAmount:buyNumber,
+                    strGoodsId:strGoodsIds,
+                    strReceiveTime:strReceiveTime
                 }
                 $http.post(remoteUrl.generateWeiXinOrderToShop,date).then(
                     function(result){
@@ -86,7 +179,7 @@ define(
                         var data=rs.data;
                         console.info(result)
                         if(code==1){
-                            $scope.ShowCityInfo = data
+                            window.location.hash ="#!/generateOrderDetail";//跳转页面
                         }else if(code ==-1){
                             //得到登录路径
                             window.location.href="/admin/login?url="+window.location.pathname+window.location.search+window.location.hash;

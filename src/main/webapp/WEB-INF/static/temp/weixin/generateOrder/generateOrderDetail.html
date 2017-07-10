@@ -1,0 +1,85 @@
+<div class="mobile_content">
+    <div class="z-pay-news">
+        <div class="z-pay-news-img">
+            <img src="/static/images/weixin/exchange/meinvgirl.jpg"/>
+        </div>
+        <div class="z-pay-news-detail">
+            <p class="z-pay-news-detail-name">{{weiXinGoodsOrderEntity.strGoodsName}}</p>
+            <div class="z-pay-news-detail-add">
+                <div class="z-pay-news-detail-add-text">
+                    购买数量：
+                </div>
+                <div class="z-pay-news-detail-add-text">
+                    <div class="z-pay-news-detail-add-slow z-pay-news-detail-add-input"><input type="" name="" id="" value="{{weiXinGoodsOrderEntity.iPurchaseAmount}}" disabled/></div>
+                </div>
+            </div>
+            <p  class="z-pay-news-detail-price">价格：{{weiXinGoodsOrderEntity.iPurchaseIntegrationAmount}}<span>积分</span>/{{weiXinGoodsOrderEntity.dPreferentialPrice}}<span>元</span></p>
+            <p class="z-pay-news-detail-explain">可使用积分或现金进行支付</p>
+        </div>
+    </div>
+
+    <div class="z-pay-paychange">
+        支付方式
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoney" value="" ng-click="PayFangshi(0)" checked/>&nbsp;&nbsp;<label for="paymoney">积分支付</label>
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoneyO" value="" ng-click="PayFangshi(1)"/>&nbsp;&nbsp;<label for="paymoneyO">现金支付</label>
+        <div class="z-pay-paymoney-img">
+            <span>img</span><span>img</span>
+        </div>
+    </div>
+    <div class="z-pay-paymoney">
+        <input type="radio" name="paymoney" id="paymoneyT" value=""  ng-click="PayFangshi(3)" />&nbsp;&nbsp;<label for="paymoneyT">储值支付</label>
+    </div>
+    <!--收货方式-->
+    <!--<div class="z-pay-paychange">-->
+        <!--收货方式-->
+    <!--</div>-->
+    <!--<div class="z-pay-paymoney">-->
+        <!--<div>-->
+            <!--<span ng-click="GotoShopGet()"><input type="radio" name="address" id="address" value="" ng-checked="GotoShopGetShow" />&nbsp;&nbsp;到店领取</span>-->
+        <!--<span class="z-pay-paymoney-time" ng-show="GotoShopGetShow"><input type="date" id="date" ng-model="strReceiveTime"/>{{nowData}}</span></div>-->
+        <!--<p class="z-pay-paymoney-address" ng-show="GotoShopGetShow">领取地址：{{strAddress}}</p>-->
+    <!--</div>-->
+    <!--<div class="z-pay-paymoney">-->
+        <!--<div  ng-click="GotoShopSpeed()"><input type="radio" name="address" id="address" value="" ng-checked="GotoShopSpeedShow"/>&nbsp;&nbsp;快递配送</div>-->
+    <!--</div>-->
+    <!--<div class="pl30 pr30" ng-show="GotoShopSpeedShow">-->
+        <!--<p class="mt10 f20">送货地址</p>-->
+
+        <!--<form action="">-->
+            <!--<div class="p20">-->
+        <!--<p class="mt5 clearfix"><input class="hd35 wb45 fl" type="text" placeholder="姓氏"/> <input  class="hd35 wb49 fr" type="text"  placeholder="名字"/></p>-->
+        <!--<p class="mt5 clearfix"><input  class="hd35 wb25 fl"  type="text" placeholder="区号"/><input  class="hd35 wb70 fr"  type="text" placeholder="联系电话"/></p>-->
+        <!--<p class="mt5">-->
+            <!--<select name=""  class="hd35 w" id="iProvinceCode" ng-options="shouhuoxiadingdan.iProvinceCode as shouhuoxiadingdan.strProvinceName for shouhuoxiadingdan in ShowProvince" ng-model="shouhuoxiadingdan.iProvinceCode" ng-change="iProvinceCodeChecked(shouhuoxiadingdan.iProvinceCode)">-->
+                <!--<option value="">请选择省份</option>-->
+            <!--</select>-->
+        <!--</p>-->
+        <!--<p class="mt5 clearfix">-->
+            <!--&lt;!&ndash;ShowCityInfo&ndash;&gt;-->
+            <!--<select name=""  class="hd35 wb49 fl" id="iCityCode" ng-options="shouhuoxiadingdan.iCityCode as shouhuoxiadingdan.strCityName for shouhuoxiadingdan in ShowCityInfo" ng-model="shouhuoxiadingdan.iCityCode"  ng-change="iCityCodeChecked(shouhuoxiadingdan.iCityCode)">-->
+                <!--<option value="">请选择城市</option>-->
+            <!--</select>-->
+            <!--&lt;!&ndash;AreaCountyInfo&ndash;&gt;-->
+            <!--<select name=""  class="hd35 wb49 fr" id="iAreaCountryCode" ng-options="shouhuoxiadingdan.iAreaCountryCode as shouhuoxiadingdan.strAreaCountryName for shouhuoxiadingdan in AreaCountyInfo" ng-model="shouhuoxiadingdan.iAreaCountryCode"  ng-change="iCityCodeChecked(shouhuoxiadingdan.iAreaCountryCode)">-->
+                <!--<option value="">请选择区县</option>-->
+            <!--</select>-->
+        <!--</p>-->
+            <!--<p class="mt5">-->
+                <!--<input  class="hd35 w" type="text" placeholder="区、街道编号/名称，楼宇名称"/>-->
+            <!--</p>-->
+            <!--<p class="mt5">-->
+                <!--<input  class="hd35 w" type="text" placeholder="房间、套房、单元、楼层或街区"/>-->
+            <!--</p>-->
+            <!--<p class="mt5"><input  class="hd35 w80"  type="text" placeholder="邮政编码"/></p>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+    <!--<div style="height: .7rem;"></div>-->
+    <div class="z-pay-sure" ng-click="surePay(weiXinGoodsOrderEntity.strOrderId)">
+        确定支付
+    </div>
+</div>
