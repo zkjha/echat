@@ -235,7 +235,7 @@ public class WeiXinPaymentService
 		
 		iRestIntegration=iMemberIntegration-iOrderIntegration;
 		if(iRestIntegration<0)
-			return DataTool.constructResponse(ResultCode.OK,"会员卡积分余额不足,不能用积分支付",null);
+			return DataTool.constructResponse(ResultCode.PAY_ERROR,"会员卡积分余额不足,不能用积分支付",null);
 		
 		//修改改订单状态
 		Map<String,Object> updateMap=new HashMap<String,Object>();
