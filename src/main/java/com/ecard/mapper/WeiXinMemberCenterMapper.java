@@ -45,5 +45,7 @@ public interface WeiXinMemberCenterMapper
 	public List<VoucherticketUseInfoEntity> selectVoucherticketUseInfoEntity(Map<String,Object> queryMap) throws Exception;
 	//查抵用券详情
 	public VoucherTicketInfoEntity selectVoucherTicketDetailInfo(String strVoucherTickedId) throws Exception;
+	//查已领用的过期抵用券信息
+	public List<VoucherticketUseInfoEntity> selectExpiredVoucherTicketInfo(Map<String,Object> queryMap) throws Exception;
 
 }

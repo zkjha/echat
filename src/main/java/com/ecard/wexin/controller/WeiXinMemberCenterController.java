@@ -230,18 +230,18 @@ public class WeiXinMemberCenterController
 	}
 	
 	
-	//查询已使用抵用券信息 --列表
+	//分页查询已使用抵用券信息 --列表
 	@ResponseBody
 	@RequestMapping("selectUsedVoucherTicketInfo")
-	//localhost:8083/weixin/biz/selectUsedVoucherTicketInfo
+	//localhost:8083/weixin/biz/selectUsedVoucherTicketInfo?iPageSize=1&iPageNum=1
 	public String selectUsedVoucherTicketInfo(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strPageSize=request.getParameter("iPageSize");
-		String strPageNum=request.getParameter("strPageNum");
+		String strPageNum=request.getParameter("iPageNum");
 		int iPageNum=1;
 		int iPageSize=0;
 		String strMemberId="";
-	/*
+
 		try{
 				strMemberId=(String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
 			}catch(Exception e)
@@ -249,10 +249,9 @@ public class WeiXinMemberCenterController
 				e.printStackTrace();
 				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 			}
-	*/	
+
 			//以下会员ID为测试数据
-	
-			strMemberId="377f37a5871f4874a2879dd77758e075";
+			//strMemberId="377f37a5871f4874a2879dd77758e075";
 			if(ValidateTool.isEmptyStr(strMemberId))
 				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
 			
@@ -281,6 +280,65 @@ public class WeiXinMemberCenterController
 			try{
 				
 				return weiXinMemberCenterService.selectUsedVoucherTicketInfo(queryMap);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}	
+	
+	
+	
+	//分页查询已过期抵用券信息 --列表
+	@ResponseBody
+	@RequestMapping("selectExpiredVoucherTicketInfo")
+	//localhost:8083/weixin/biz/selectExpiredVoucherTicketInfo?iPageSize=1&iPageNum=1
+	public String selectExpiredVoucherTicketInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strPageSize=request.getParameter("iPageSize");
+		String strPageNum=request.getParameter("iPageNum");
+		int iPageNum=1;
+		int iPageSize=0;
+		String strMemberId="";
+
+		try{
+				strMemberId=(String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+
+			//以下会员ID为测试数据
+			//strMemberId="377f37a5871f4874a2879dd77758e075";
+			if(ValidateTool.isEmptyStr(strMemberId))
+				return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);
+				
+			if(ValidateTool.isEmptyStr(strPageNum))
+				iPageNum=1;
+			else
+			{
+				if(isNumber(strPageNum))
+					iPageNum=Integer.parseInt(strPageNum);
+				else
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"起始页数格式错误",null);
+			}
+
+			if(ValidateTool.isEmptyStr(strPageSize))
+					iPageSize=StaticValue.PAGE_SIZE;
+			else
+			{	if(isNumber(strPageSize))
+					iPageSize=Integer.valueOf(strPageSize);
+				else
+					return DataTool.constructResponse(ResultCode.PARAMER_TYPE_ERROR,"每页数量格式错误",null);
+			}
+			Map<String,Object> queryMap=new HashMap<String,Object>();
+			queryMap.put("iPageNum",iPageNum);
+			queryMap.put("iPageSize",iPageSize);
+			queryMap.put("strMemberId",strMemberId);
+			try{
+					
+				return weiXinMemberCenterService.selectExpiredVoucherTicketInfo(queryMap);
 			}catch(Exception e)
 			{
 				e.printStackTrace();

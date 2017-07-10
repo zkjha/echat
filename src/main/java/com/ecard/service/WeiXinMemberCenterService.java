@@ -310,19 +310,24 @@ public class WeiXinMemberCenterService
 		int iPageEndIndex=0;
 		int iListMaxIndex=0;
 		int iPageSize=(Integer)queryMap.get("iPageSize");
+		int iPageNum=(Integer)queryMap.get("iPageNum");
 		String strVoucherTickedId="";
 		String strMemberId=(String)queryMap.get("strMemberId");
 		Map<String,Object> voucherMap=new HashMap<String,Object>();
-		queryMap.put("strMemberId", strMemberId);
-		queryMap.put("iState", iState);
+		voucherMap.put("strMemberId", strMemberId);
+		voucherMap.put("iState", iState);
 		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectVoucherticketUseInfoEntity(voucherMap);
 		if(listVoucherticketUseInfoEntity==null)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+	
 		if(listVoucherticketUseInfoEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		iTotalRecord=listVoucherticketUseInfoEntity.size();
 		iTotalPage=iTotalRecord%iPageSize==0?iTotalRecord/iPageSize:iTotalRecord/iPageSize+1;
-		//iPageFromIndex=(iPageNum-1)*iPageSize;
+		if(iPageNum>iTotalPage)
+			iPageNum=iTotalPage;
+		iPageFromIndex=(iPageNum-1)*iPageSize;
+
 		iPageEndIndex=iPageFromIndex+iPageSize-1;
 		//根据抵用券的ID查询抵用券详情
 		iLoopTimes=listVoucherticketUseInfoEntity.size();
@@ -335,24 +340,168 @@ public class WeiXinMemberCenterService
 			if(voucherTicketInfoEntity!=null)
 				listVoucherTicketInfoEntity.add(voucherTicketInfoEntity);
 		}
-		
+	
 		if(listVoucherTicketInfoEntity.size()==0)
 			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
 		
-		//从listVoucherTicketInfoEntity里取出iPageFrom，iPageSize指定的数据
+		List<VoucherTicketInfoEntity> listVoucherEntityOrderByValidEndTime=new ArrayList<VoucherTicketInfoEntity>();
+		//对listVoucherTicketInfoEntity里的对象按strValidEndTime排序
 		iListMaxIndex=listVoucherTicketInfoEntity.size()-1;
+		String strValidEndTimeOrderByTimeDesc="";
+		int iOrderByTimeIndex=0;
+		for(int i=0;i<=iListMaxIndex;i++)
+		{
+			iOrderByTimeIndex=0;
+			if(listVoucherTicketInfoEntity.size()!=1)
+			{
+				for(int j=1;j<listVoucherTicketInfoEntity.size();j++)
+				{
+					strValidEndTimeOrderByTimeDesc=listVoucherTicketInfoEntity.get(0).getStrValidEndTime();
+					
+					if(strValidEndTimeOrderByTimeDesc.compareTo(listVoucherTicketInfoEntity.get(j).getStrValidEndTime())<=0)
+						iOrderByTimeIndex=j;
+					
+				}
+				
+				VoucherTicketInfoEntity moveEntity=listVoucherTicketInfoEntity.get(iOrderByTimeIndex);
+				listVoucherEntityOrderByValidEndTime.add(moveEntity);
+				listVoucherTicketInfoEntity.remove(iOrderByTimeIndex);
+			}
+			else
+			{
+					VoucherTicketInfoEntity moveEntity=listVoucherTicketInfoEntity.get(iOrderByTimeIndex);
+					listVoucherEntityOrderByValidEndTime.add(moveEntity);
+					listVoucherTicketInfoEntity.remove(iOrderByTimeIndex);
+			}
+		}
+		//从listVoucherTicketInfoOrderByValidEndTimeEntity里取出iPageFrom，iPageSize指定的数据
+		List<VoucherTicketInfoEntity> returnListVouncherEntity=new ArrayList<VoucherTicketInfoEntity>();
 		if(iListMaxIndex>=iPageEndIndex)
 		{
-			/*
 			for(int i=0;i<=iListMaxIndex;i++)
 			{
-				if(i>=iPageFromIndex&&i<=)
+				if(i>=iPageFromIndex&&i<=iPageEndIndex)
+					returnListVouncherEntity.add(listVoucherEntityOrderByValidEndTime.get(i));
 			}
-			*/
+			
 		}
+		else
+		{
+			for(int i=0;i<=iListMaxIndex;i++)
+			{
+				if(i>=iPageFromIndex)
+					returnListVouncherEntity.add(listVoucherEntityOrderByValidEndTime.get(i));
+			}
+		}
+		
 		Map<String,Object> resultMap=new HashMap<String,Object>();
-		resultMap.put("listVoucherTicketInfoEntity", listVoucherTicketInfoEntity);
+		resultMap.put("returnListVouncherEntity", returnListVouncherEntity);
+		resultMap.put("iTotalRecord",iTotalRecord);
+		resultMap.put("iTotalPage",iTotalPage);
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 	}
+	
+	
+	//查询已过期抵用券信息
+	public String selectExpiredVoucherTicketInfo(Map<String,Object> queryMap) throws Exception
+	{
+		int iLoopTimes=0;	
+		int iExpired=1;//抵用券已过期
+		int iTotalRecord=0;
+		int iTotalPage=0;
+		int iPageFromIndex=0;
+		int iPageEndIndex=0;
+		int iListMaxIndex=0;
+		int iPageSize=(Integer)queryMap.get("iPageSize");
+		int iPageNum=(Integer)queryMap.get("iPageNum");
+		String strVoucherTickedId="";
+		String strMemberId=(String)queryMap.get("strMemberId");
+		Map<String,Object> voucherMap=new HashMap<String,Object>();
+		voucherMap.put("strMemberId", strMemberId);
+		voucherMap.put("iExpired",iExpired);
+		List<VoucherticketUseInfoEntity> listVoucherticketUseInfoEntity=weiXinMemberCenterMapper.selectExpiredVoucherTicketInfo(voucherMap);
+		if(listVoucherticketUseInfoEntity==null)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+	
+		if(listVoucherticketUseInfoEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		iTotalRecord=listVoucherticketUseInfoEntity.size();
+		iTotalPage=iTotalRecord%iPageSize==0?iTotalRecord/iPageSize:iTotalRecord/iPageSize+1;
+		if(iPageNum>iTotalPage)
+			iPageNum=iTotalPage;
+		iPageFromIndex=(iPageNum-1)*iPageSize;
+
+		iPageEndIndex=iPageFromIndex+iPageSize-1;
+		//根据抵用券的ID查询抵用券详情
+		iLoopTimes=listVoucherticketUseInfoEntity.size();
+		
+		List<VoucherTicketInfoEntity> listVoucherTicketInfoEntity=new ArrayList<VoucherTicketInfoEntity>();
+		for(int i=0;i<iLoopTimes;i++)
+		{
+			strVoucherTickedId=listVoucherticketUseInfoEntity.get(i).getStrVoucherTicketId();
+			VoucherTicketInfoEntity voucherTicketInfoEntity=weiXinMemberCenterMapper.selectVoucherTicketDetailInfo(strVoucherTickedId);
+			if(voucherTicketInfoEntity!=null)
+				listVoucherTicketInfoEntity.add(voucherTicketInfoEntity);
+		}
+	
+		if(listVoucherTicketInfoEntity.size()==0)
+			return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+		List<VoucherTicketInfoEntity> listVoucherEntityOrderByValidEndTime=new ArrayList<VoucherTicketInfoEntity>();
+		//对listVoucherTicketInfoEntity里的对象按strValidEndTime排序
+		iListMaxIndex=listVoucherTicketInfoEntity.size()-1;
+		String strValidEndTimeOrderByTimeDesc="";
+		int iOrderByTimeIndex=0;
+		for(int i=0;i<=iListMaxIndex;i++)
+		{
+			iOrderByTimeIndex=0;
+			if(listVoucherTicketInfoEntity.size()!=1)
+			{
+				for(int j=1;j<listVoucherTicketInfoEntity.size();j++)
+				{
+					strValidEndTimeOrderByTimeDesc=listVoucherTicketInfoEntity.get(0).getStrValidEndTime();
+					
+					if(strValidEndTimeOrderByTimeDesc.compareTo(listVoucherTicketInfoEntity.get(j).getStrValidEndTime())<=0)
+						iOrderByTimeIndex=j;
+					
+				}
+				
+				VoucherTicketInfoEntity moveEntity=listVoucherTicketInfoEntity.get(iOrderByTimeIndex);
+				listVoucherEntityOrderByValidEndTime.add(moveEntity);
+				listVoucherTicketInfoEntity.remove(iOrderByTimeIndex);
+			}
+			else
+			{
+					VoucherTicketInfoEntity moveEntity=listVoucherTicketInfoEntity.get(iOrderByTimeIndex);
+					listVoucherEntityOrderByValidEndTime.add(moveEntity);
+					listVoucherTicketInfoEntity.remove(iOrderByTimeIndex);
+			}
+		}
+		//从listVoucherTicketInfoOrderByValidEndTimeEntity里取出iPageFrom，iPageSize指定的数据
+		List<VoucherTicketInfoEntity> returnListVouncherEntity=new ArrayList<VoucherTicketInfoEntity>();
+		if(iListMaxIndex>=iPageEndIndex)
+		{
+			for(int i=0;i<=iListMaxIndex;i++)
+			{
+				if(i>=iPageFromIndex&&i<=iPageEndIndex)
+					returnListVouncherEntity.add(listVoucherEntityOrderByValidEndTime.get(i));
+			}
+			
+		}
+		else
+		{
+			for(int i=0;i<=iListMaxIndex;i++)
+			{
+				if(i>=iPageFromIndex)
+					returnListVouncherEntity.add(listVoucherEntityOrderByValidEndTime.get(i));
+			}
+		}
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("returnListVouncherEntity", returnListVouncherEntity);
+		resultMap.put("iTotalRecord",iTotalRecord);
+		resultMap.put("iTotalPage",iTotalPage);
+		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}
+	
 	
 }

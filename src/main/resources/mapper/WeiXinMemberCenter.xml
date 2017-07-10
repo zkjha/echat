@@ -235,4 +235,26 @@ select
  	strLastAccessedTime
  	from tb_voucherticket_infomanage where strVoucherTicketId=#{strVoucherTicketId} and iIsValid=1
 </select>
+
+
+<!-- 查询已过期抵用券领用信息_[tableName:tb_voucherticket_useinfo] -->
+<select id="selectExpiredVoucherTicketInfo" resultType="com.ecard.entity.VoucherticketUseInfoEntity" parameterType="map">
+ select 
+ 	strVoucherUseInfoId,
+ 	strVoucherTicketId,
+ 	strVoucherTicketName,
+ 	strValidEndTime,
+ 	strMemberId,
+ 	strMemberName,
+ 	iStat,
+ 	iExpired,
+ 	iCanUseCount,
+ 	iUsedCount,
+ 	iIsValid,
+ 	strUseCountDesc,
+ 	strRuleDesc,
+ 	strReserved
+ 	from tb_voucherticket_useinfo
+	where strMemberId=#{strMemberId} and iExpired=#{iExpired}
+</select>
 </mapper>
