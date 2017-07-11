@@ -1034,13 +1034,14 @@ CREATE TABLE tb_orderDetail_info
   iStatus                 	int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
   iPayStandard				int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
   strPayTime                VARCHAR(50) DEFAULT '',     -- 支付时间
-  iPayType                	int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+  iPayType                	int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付 5抵用券支付
+  iExtendedAttribute		int default 0,			-- 扩展属性（结合iPayType使用) 例：若iPayType=0（积分支付) ,则该字段保存的为剩余积分数量,其它雷同
   strThirdPartyTradeFlow    VARCHAR(50) DEFAULT '',     -- 三方支付流水号
   strExpressNumber          VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         VARCHAR(50) DEFAULT '',     -- 快递公司
   strComment				VARCHAR(200) DEFAULT '',     -- 备注字段
-  iReceiveType					int default 0,				 -- 收货方式  0 快递 1 到店取货
-  strReceiveTime				varchar(50)	default '',		 -- 到店取货时间
+  iReceiveType				int default 0,				 -- 收货方式  0 快递 1 到店取货
+  strReceiveTime			varchar(50)	default '',		 -- 到店取货时间
   strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
   strEmployeeName 		    VARCHAR(50) 	NOT NULL,		-- 管理员账号
   strEmployeeRealName 	    VARCHAR(50) 	NOT NULL,		-- 管理员姓名
@@ -1066,7 +1067,8 @@ CREATE TABLE tb_purchase_order
   iStatus                 		int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
   iPayStandard					int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
   strPayTime               	 	VARCHAR(50) DEFAULT '',     -- 支付时间
-  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付,5抵用券支付
+  iExtendedAttribute			int default 0,				-- 扩展属性（结合iPayType使用) 例：若iPayType=0（积分支付) ,则该字段保存的为剩余积分数量,其它雷同
   strThirdPartyTradeFlow    	VARCHAR(50) DEFAULT '',     -- 三方支付流水号
   strExpressNumber         		VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         	VARCHAR(50) DEFAULT '',     -- 快递公司
@@ -1134,7 +1136,8 @@ CREATE TABLE tb_weiXinGoods_order
   iStatus           			int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
   iPayStandard					int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
   strPayTime                	VARCHAR(50) DEFAULT '',     -- 支付时间
-  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+  iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付,5抵用券支付
+  iExtendedAttribute			int default 0,				-- 扩展属性（结合iPayType使用) 例：若iPayType=0（积分支付) ,则该字段保存的为剩余积分数量,其它雷同
   strThirdPartyTradeFlow    	VARCHAR(50) DEFAULT '',     -- 三方支付流水号
   strExpressNumber          	VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         	VARCHAR(50) DEFAULT '',     -- 快递公司
