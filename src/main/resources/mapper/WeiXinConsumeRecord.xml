@@ -1,0 +1,69 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.WeiXinConsumeRecordMapper">
+<!-- 查询后台管理订单表_[tableName:tb_orderDetail_info] -->
+<select id="selectIntegrationConsumeFromOrderDetailInfo" resultType="com.ecard.vo.OrderVo" parameterType="map">
+ select 
+ 	strOrderNum as strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId as strGoodsOrServiceId,
+ 	strProductServiceName as strGoodsOrServiceName,
+ 	iPurchaseType as iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strMemberId=#{strMemberId} and iPayType=0 order by strCreationTime DESC
+</select>
+
+<!-- 查询_微信下单订单表[tableName:tb_weiXinGoods_order] -->
+<select id="selectIntegrationConsumeFromWeiXinGoodsOrderInfo" resultType="com.ecard.vo.OrderVo" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strGoodsId as strGoodsOrServiceId,
+ 	strGoodsName as strGoodsOrServiceName,
+ 	iPurchaseAmount,
+ 	dPrice,
+ 	strUnitName,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	iReceiveType,
+ 	strReceiveTime,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_weiXinGoods_order
+	where strMemberId=#{strMemberId} and iPayType=0 order by strCreationTime DESC
+</select>
+</mapper>
