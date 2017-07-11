@@ -23,5 +23,9 @@ public interface WeiXinConsumeRecordMapper {
 	public List<OrderVo> selectVoucherTicketConsumeFromOrderDetailInfo(Map<String,Object> queryMap) throws Exception;
 	//从WeiXin_Goods_order表里查询用抵用券消费的订单记录
 	public List<OrderVo> selectVoucherTicketConsumeFromWeiXinGoodsOrderInfo(Map<String,Object> queryMap) throws Exception;
+	//从表tb_orderDetail_info中查询用抵用券消费的订单记录
+	public List<OrderVo> selectAllConsumeInfoFromOrderDetailInfo(Map<String,Object> queryMap) throws Exception;
+	//从WeiXin_Goods_order表里查询用抵用券消费的订单记录
+	public List<OrderVo> selectAllConsumeInfoFromWeiXinGoodsOrderInfo(Map<String,Object> queryMap) throws Exception;
 
 }
