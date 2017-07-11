@@ -218,7 +218,7 @@ public class WeiXinPaymentService
 		//查订单积分
 		iOrderIntegration=weiXinPaymentMapper.selectOrderIntegration(queryMap);
 		if(iOrderIntegration==0)
-			return DataTool.constructResponse(ResultCode.PAY_ERROR,"该笔订单不能用积分支付",null);
+			return DataTool.constructResponse(ResultCode.PAY_ERROR,"该笔订单不能用积分支付或已经结算过了",null);
 		
 		//查会员信息,积分余额
 		MemberEntity memberEntity=weiXinPaymentMapper.selectMemberIntegrationInfo(queryMap);
@@ -302,7 +302,7 @@ public class WeiXinPaymentService
 		dMemberCardCash=memberEntity.getdBalance();
 		dMemberCardAfterCash=memberEntity.getdAfterstoredbalance();
 		strValidEndTime=memberEntity.getStrValidEndTime();
-		//判断售后储值是否还可效
+		//判断售后储值是否还有效
 		if(ValidateTool.isEmptyStr(strValidEndTime))//无售后余额有效期时间信息,则暂不使用售后储值金额
 			{
 			dCanUseAmount=dMemberCardCash;
@@ -324,6 +324,8 @@ public class WeiXinPaymentService
 		}
 		//查订单信息
 		dTotalCashAmount=new BigDecimal(String.valueOf(weiXinPaymentMapper.selectGoodsTotalCash(queryMap)));
+		if(dTotalCashAmount.intValue()<=0)
+			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"无此订单或此订单已结算过了",null);
 		//卡余额不足的情况:
 		if(dCanUseAmount.subtract(dTotalCashAmount).doubleValue()<0)
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"会员卡储值余额不足，请充值或采用其它结算方式",null);

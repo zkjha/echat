@@ -1127,7 +1127,7 @@ CREATE TABLE tb_weiXinGoods_order
   dPreferentialCashTotalAmount	DECIMAL(11,2) DEFAULT 0.00, -- 优惠后的商品总价
   iIntegrationAmount			int default 0,				-- 单个商品所需积分数量
   iPurchaseIntegrationAmount	int		default 0,			-- 订单所需积分总数量 :0表示 未设积分兑换
-  iStatus                 		int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
+  iStatus           			int DEFAULT 0,              -- 订单状态0：待支付 1：已支付 2：已发货 3：已完成
   iPayStandard					int default 0,				-- 支付标准：0 会员价（优惠价)支付,1原价支付
   strPayTime                	VARCHAR(50) DEFAULT '',     -- 支付时间
   iPayType                		int DEFAULT 0,              -- 支付方式 0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
