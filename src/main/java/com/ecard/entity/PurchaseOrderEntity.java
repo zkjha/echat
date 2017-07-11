@@ -1,7 +1,7 @@
 package com.ecard.entity;
 
 import java.math.BigDecimal;
-
+//后台订单总表
 public class PurchaseOrderEntity
 {
 	private String strOrderId;           //订单号
@@ -27,7 +27,17 @@ public class PurchaseOrderEntity
 	private String strLastAccessedTime;           //修改时间
 	private int iReceiveType;		//收货方式
 	private String strReceiveTime;	//收货时间
-
+	private int iExtendedAttribute;		//扩展属性（结合iPayType使用) 例：若iPayType=0（积分支付) ,则该字段保存的为剩余积分数量,其它同理
+	public void setiExtendedAttribute(int iExtendedAttribute)
+	{
+		this.iExtendedAttribute=iExtendedAttribute;
+	}
+	
+	public int getiExtendedAttribute()
+	{
+		return iExtendedAttribute;
+	}
+	
 	public void setStrOrderId(String strOrderId)
 	{
 		this.strOrderId=strOrderId;

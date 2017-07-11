@@ -267,7 +267,7 @@ public class WeiXinPaymentController
 	//会员卡余额 支付
 	@ResponseBody
 	@RequestMapping("payGoodsOrderWithCardCash")
-	//localhost:8083/weixin/biz/payGoodsOrderWithCardCash?strOrderId=107d0a7320d34efd9a75624033c3c53a
+	//localhost:8083/weixin/biz/payGoodsOrderWithCardCash?strOrderId=683f699f16c5417fb0929f3ff60ed086
 	public String payGoodsOrderWithCardCash(HttpServletResponse response,HttpServletRequest request)
 	{
 		String strOrderId=request.getParameter("strOrderId");
@@ -280,7 +280,7 @@ public class WeiXinPaymentController
 			e.printStackTrace();
 			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 		}
-	
+
 		//以下会员ID为测试数据
 		//strMemberId="377f37a5871f4874a2879dd77758e075";
 		if(ValidateTool.isEmptyStr(strMemberId))

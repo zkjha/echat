@@ -66,4 +66,209 @@
  	from tb_weiXinGoods_order
 	where strMemberId=#{strMemberId} and iPayType=0 order by strCreationTime DESC
 </select>
+
+
+
+<!-- 从tableName:tb_orderDetail_info里查储值消费记录_[tableName:tb_orderDetail_info] -->
+<select id="selectStoredValueConsumeFromOrderDetailInfo" resultType="com.ecard.vo.OrderVo" parameterType="map">
+ select 
+ 	strOrderNum as strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId as strGoodsOrServiceId,
+ 	strProductServiceName as strGoodsOrServiceName,
+ 	iPurchaseType as iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strMemberId=#{strMemberId} and iPayType=4 order by strCreationTime DESC
+</select>
+
+<!-- 查询_微信下单订单表 储值消费记录[tableName:tb_weiXinGoods_order] -->
+<select id="selectStoredValueConsumeFromWeiXinGoodsOrderInfo" resultType="com.ecard.vo.OrderVo" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strGoodsId as strGoodsOrServiceId,
+ 	strGoodsName as strGoodsOrServiceName,
+ 	iPurchaseAmount,
+ 	dPrice,
+ 	strUnitName,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	iReceiveType,
+ 	strReceiveTime,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_weiXinGoods_order
+	where strMemberId=#{strMemberId} and iPayType=4 order by strCreationTime DESC
+</select>
+
+
+<!-- 从tableName:tb_orderDetail_info里查现金 支付宝，微信消费记录_[tableName:tb_orderDetail_info] -->
+<select id="selectCashConsumeFromOrderDetailInfo" resultType="com.ecard.vo.OrderVo" parameterType="map">
+ select 
+ 	strOrderNum as strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId as strGoodsOrServiceId,
+ 	strProductServiceName as strGoodsOrServiceName,
+ 	iPurchaseType as iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strMemberId=#{strMemberId} and iPayType in(1,2,3) order by strCreationTime DESC
+</select>
+
+<!-- 查询_微信下单订单表 查现金 支付宝，微信消费记录[tableName:tb_weiXinGoods_order] -->
+<select id="selectCashConsumeFromWeiXinGoodsOrderInfo" resultType="com.ecard.vo.OrderVo" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strGoodsId as strGoodsOrServiceId,
+ 	strGoodsName as strGoodsOrServiceName,
+ 	iPurchaseAmount,
+ 	dPrice,
+ 	strUnitName,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	iReceiveType,
+ 	strReceiveTime,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_weiXinGoods_order
+	where strMemberId=#{strMemberId} and iPayType in(1,2,3) order by strCreationTime DESC
+</select>
+
+
+<!-- 从tableName:tb_orderDetail_info里查抵用券消费记录_[tableName:tb_orderDetail_info] -->
+<select id="selectVoucherTicketConsumeFromOrderDetailInfo" resultType="com.ecard.vo.OrderVo" parameterType="map">
+ select 
+ 	strOrderNum as strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strProductServiceId as strGoodsOrServiceId,
+ 	strProductServiceName as strGoodsOrServiceName,
+ 	iPurchaseType as iPurchaseType,
+ 	iPurchaseAmount,
+ 	strUnitName,
+ 	dPrice,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_orderDetail_info
+	where strMemberId=#{strMemberId} and iPayType=5 order by strCreationTime DESC
+</select>
+
+<!-- 查询_微信下单订单表 查抵用券消费记录[tableName:tb_weiXinGoods_order] -->
+<select id="selectVoucherTicketConsumeFromWeiXinGoodsOrderInfo" resultType="com.ecard.vo.OrderVo" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strGoodsId as strGoodsOrServiceId,
+ 	strGoodsName as strGoodsOrServiceName,
+ 	iPurchaseAmount,
+ 	dPrice,
+ 	strUnitName,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	iReceiveType,
+ 	strReceiveTime,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_weiXinGoods_order
+	where strMemberId=#{strMemberId} and iPayType=5 order by strCreationTime DESC
+</select>
 </mapper>
