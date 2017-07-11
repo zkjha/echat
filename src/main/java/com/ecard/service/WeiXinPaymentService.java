@@ -416,4 +416,10 @@ public class WeiXinPaymentService
 		return weiXinPaymentMapper.selectMerchantAddress();
 	
 	}
+	
+	////支付成功后的查询
+	public WeiXinGoodsOrderEntity selectPayOverInfo(String strOrderId) throws Exception
+	{
+		return weiXinPaymentMapper.selectPayOverInfo(strOrderId);
+	}
 }

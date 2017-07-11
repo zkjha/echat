@@ -303,4 +303,39 @@ select
 <select id="selectMerchantAddress" resultType="String">
  select STRMERCHANTADDRESS from tb_merchant limit 0,1
 </select>
+
+<!-- 根据订单号查询订单 -->
+<!-- 查询_[tableName:tb_weiXinGoods_order] -->
+<select id="selectPayOverInfo" resultType="com.ecard.entity.WeiXinGoodsOrderEntity" parameterType="String">
+ select 
+ 	strOrderId,
+ 	strMemberId,
+ 	strMemberCardNumber,
+ 	strMemberName,
+ 	strLevelsId,
+ 	strGoodsId,
+ 	strGoodsName,
+ 	iPurchaseAmount,
+ 	dPrice,
+ 	strUnitName,
+ 	dPurchaseCashTotalAmount,
+ 	dPreferentialPrice,
+ 	dPreferentialCashTotalAmount,
+ 	iIntegrationAmount,
+ 	iPurchaseIntegrationAmount,
+ 	iStatus,
+ 	iPayStandard,
+ 	strPayTime,
+ 	iPayType,
+ 	strThirdPartyTradeFlow,
+ 	strExpressNumber,
+ 	strExpressCompany,
+ 	strComment,
+ 	iReceiveType,
+ 	strReceiveTime,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_weiXinGoods_order
+	where strOrderId=#{strOrderId} and iStatus=1
+</select>
 </mapper> 

@@ -52,5 +52,7 @@ public interface WeiXinPaymentMapper
 	public List<AreaCountyEntity> selectAreaCountyInfo(int iCityCode) throws Exception;
 	//查询商家店铺地址
 	public String selectMerchantAddress() throws Exception;
+	//支付成功后的查询
+	public WeiXinGoodsOrderEntity selectPayOverInfo(String strOrderId) throws Exception;
 	
 }

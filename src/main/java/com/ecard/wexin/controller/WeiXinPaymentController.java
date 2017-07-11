@@ -396,6 +396,56 @@ public class WeiXinPaymentController
 		
 	}
 	
+	
+	//支付成功后的查询
+	@ResponseBody
+	@RequestMapping("selectPayOverInfo")
+	//localhost:8083/weixin/biz/selectPayOverInfo?strOrderId=f6a69354b9fd4c28be6c5acf88c094ac
+	public String selectPayOverInfo(HttpServletResponse response,HttpServletRequest request)
+	{
+		String strOrderId=request.getParameter("strOrderId");
+		if(ValidateTool.isEmptyStr(strOrderId))
+			return  DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"订单号不能为空",null);
+		try{
+			WeiXinGoodsOrderEntity weiXinGoodsOrderEntity=weiXinPaymentService.selectPayOverInfo(strOrderId);
+			if(weiXinGoodsOrderEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			int iPayType=weiXinGoodsOrderEntity.getiPayType();
+			String strPayType="";
+			//0：积分兑换 1：微信支付 2：支付宝支付,3现金支付,4会员卡余额支付
+			switch (iPayType)
+			{
+			case 0:
+				strPayType="积分兑换";
+				break;
+			case 1:
+				strPayType="微信支付";
+				break;
+			case 2:
+				strPayType="支付宝支付";
+				break;
+			case 3:
+				strPayType="现金支付";
+				break;
+			case 4:
+				strPayType="会员卡余额支付";
+				break;
+			}
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("strOrderId",weiXinGoodsOrderEntity.getStrOrderId());
+			resultMap.put("strPayType",strPayType);
+			resultMap.put("strThirdPartyTradeFlow", weiXinGoodsOrderEntity.getStrThirdPartyTradeFlow());
+			resultMap.put("strPayTime",weiXinGoodsOrderEntity.getStrPayTime());
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);	
+		}
+		
+	}
+	
+	
 	//校验
 		public static boolean isNumber(String strCheckString)
 		{
