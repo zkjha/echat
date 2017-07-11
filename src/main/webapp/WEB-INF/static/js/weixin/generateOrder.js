@@ -32,6 +32,10 @@ require(['lib/angular','lib/remoteUrl','controller/weixin/generateOrderControlle
             templateUrl: "/static/temp/weixin/generateOrder/generateOrderDetail.html",
             controller:generateOrderController.generateOrderDetail
 
+        }).when("/generateOrderPaySuccess", {
+            templateUrl: "/static/temp/weixin/generateOrder/generateOrderPaySuccess.html",
+            controller:generateOrderController.generateOrderPaySuccess
+
         }).otherwise({
             redirectTo: "/generateOrderPre"
         });

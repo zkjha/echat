@@ -417,8 +417,8 @@ define([],function(){
         payGoodsOrderWithIntegration:"/weixin/biz/payGoodsOrderWithIntegration",
         //订单 --会员卡余额支付
         payGoodsOrderWithCardCash:"/weixin/biz/payGoodsOrderWithCardCash",
-
-
+        //订单 -- 支付成功后的查询
+        selectPayOverInfo:"/weixin/biz/selectPayOverInfo",
 
         ////////////\支付/////////////////////////////
 		////////////登陆认证/////////////////////////////

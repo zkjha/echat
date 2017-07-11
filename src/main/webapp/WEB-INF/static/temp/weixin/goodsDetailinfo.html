@@ -28,7 +28,9 @@
 					<span class="z-CommodityDetails-fixed-num-or">或</span>
 					<span class="z-CommodityDetails-fixed-num-number">{{goodsVOEntity.dPreferentialPrice}}</span>元
 				</div>
-				<div class="z-CommodityDetails-fixed-exchange"><a href="">立即兑换</a></div>
-			</div>
+				<div class="z-CommodityDetails-fixed-exchange"><a href="{{'/weixin/biz/generateOrder?strGoodsId='+ goodsVOEntity.strGoodsId}}">立即兑换</a></div>
+                <!--<a href="{{'/weixin/biz/generateOrder?strGoodsId='+ listGoodsVO.strGoodsId}}"><div  class="z-exchangeTwo-Commodity-makesure">现在兑换</div></a>-->
+
+            </div>
 		</div>
 

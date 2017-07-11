@@ -48,41 +48,43 @@
     <div class="z-pay-paymoney">
         <div  ng-click="GotoShopSpeed()"><input type="radio" name="address" id="address" value="" ng-checked="GotoShopSpeedShow"/>&nbsp;&nbsp;快递配送</div>
     </div>
+    <form ng-submit="AddressSelect()">
     <div class="pl30 pr30" ng-show="GotoShopSpeedShow">
         <p class="mt10 f20">送货地址</p>
 
-        <form action="">
+
             <div class="p20">
-        <p class="mt5 clearfix"><input class="hd35 wb45 fl" type="text" placeholder="姓氏"/> <input  class="hd35 wb49 fr" type="text"  placeholder="名字"/></p>
-        <p class="mt5 clearfix"><input  class="hd35 wb25 fl"  type="text" placeholder="区号"/><input  class="hd35 wb70 fr"  type="text" placeholder="联系电话"/></p>
+        <p class="mt5 clearfix"><input class="hd35 wb45 fl" type="text" placeholder="姓氏" ng-model="shouhuoxiadingdan.name" required/> <input  class="hd35 wb49 fr" type="text"  ng-model="shouhuoxiadingdan.namess"  placeholder="名字" required/></p>
+        <p class="mt5 clearfix"><input  class="hd35 wb25 fl"  type="text" placeholder="区号"  ng-model="shouhuoxiadingdan.quhao" required/><input  ng-model="shouhuoxiadingdan.tellphone"  class="hd35 wb70 fr"  type="text" placeholder="联系电话" required/></p>
         <p class="mt5">
-            <select name=""  class="hd35 w" id="iProvinceCode" ng-options="shouhuoxiadingdan.iProvinceCode as shouhuoxiadingdan.strProvinceName for shouhuoxiadingdan in ShowProvince" ng-model="shouhuoxiadingdan.iProvinceCode" ng-change="iProvinceCodeChecked(shouhuoxiadingdan.iProvinceCode)">
+            <select name=""  class="hd35 w" id="iProvinceCode" ng-options="shouhuoxiadingdan.iProvinceCode as shouhuoxiadingdan.strProvinceName for shouhuoxiadingdan in ShowProvince" ng-model="shouhuoxiadingdan.iProvinceCode" ng-change="iProvinceCodeChecked(shouhuoxiadingdan.iProvinceCode)" required>
                 <option value="">请选择省份</option>
             </select>
         </p>
         <p class="mt5 clearfix">
             <!--ShowCityInfo-->
-            <select name=""  class="hd35 wb49 fl" id="iCityCode" ng-options="shouhuoxiadingdan.iCityCode as shouhuoxiadingdan.strCityName for shouhuoxiadingdan in ShowCityInfo" ng-model="shouhuoxiadingdan.iCityCode"  ng-change="iCityCodeChecked(shouhuoxiadingdan.iCityCode)">
+            <select name="" class="hd35 wb49 fl"  id="iCityCode" ng-options="shouhuoxiadingdan.iCityCode as shouhuoxiadingdan.strCityName for shouhuoxiadingdan in ShowCityInfo" ng-model="shouhuoxiadingdan.iCityCode"  ng-change="iCityCodeChecked(shouhuoxiadingdan.iCityCode)" required>
                 <option value="">请选择城市</option>
             </select>
             <!--AreaCountyInfo-->
-            <select name=""  class="hd35 wb49 fr" id="iAreaCountryCode" ng-options="shouhuoxiadingdan.iAreaCountryCode as shouhuoxiadingdan.strAreaCountryName for shouhuoxiadingdan in AreaCountyInfo" ng-model="shouhuoxiadingdan.iAreaCountryCode"  ng-change="iCityCodeChecked(shouhuoxiadingdan.iAreaCountryCode)">
+            <select name="" class="hd35 wb49 fr" id="iAreaCountryCode" ng-options="shouhuoxiadingdan.iAreaCountryCode as shouhuoxiadingdan.strAreaCountryName for shouhuoxiadingdan in AreaCountyInfo" ng-model="shouhuoxiadingdan.iAreaCountryCode"  ng-change="iAreaCountryChecked(shouhuoxiadingdan.iAreaCountryCode)">
                 <option value="">请选择区县</option>
             </select>
         </p>
             <p class="mt5">
-                <input  class="hd35 w" type="text" placeholder="区、街道编号/名称，楼宇名称"/>
+                <input  class="hd35 w"  ng-model="shouhuoxiadingdan.Areas" type="text" placeholder="区、街道编号/名称，楼宇名称" required/>
             </p>
             <p class="mt5">
-                <input  class="hd35 w" type="text" placeholder="房间、套房、单元、楼层或街区"/>
+                <input  class="hd35 w"  ng-model="shouhuoxiadingdan.room" type="text" placeholder="房间、套房、单元、楼层或街区" required/>
             </p>
-            <p class="mt5"><input  class="hd35 w80"  type="text" placeholder="邮政编码"/></p>
+            <p class="mt5"><input  ng-model="shouhuoxiadingdan.eamailAddress" class="hd35 w80"  type="text" placeholder="邮政编码" required/></p>
             </div>
-        </form>
     </div>
     <div style="height: .7rem;"></div>
-
-    <div class="z-pay-sure" ng-click="sureShengChengdongdan()">
+        <input type="submit" value="确定" class="z-pay-sure" ng-show="GotoShopSpeedShow"/>
+    </form>
+    <div class="z-pay-sure" ng-click="sureShengChengdongdan()" ng-show="GotoShopGetShow">
         确定
     </div>
+
 </div>
