@@ -27,6 +27,8 @@ private String strPayTime;           //支付时间
 private int iPayType;           //支付方式 0：积分兑换 1：微信支付 2：支付宝支付
 private String strThirdPartyTradeFlow;           //三方支付流水号
 private String strComment;					//备注字段 
+private int iReceiveType;		//收货方式
+private String strReceiveTime;	//收货时间
 private String strExpressNumber;           //快递单号
 private String strExpressCompany;           //快递公司
 private String strEmployeeId;           //管理员ID
@@ -334,6 +336,27 @@ public void setStrLastAccessedTime(String strLastAccessedTime)
 public String getStrLastAccessedTime()
 {
 	return strLastAccessedTime;
+}
+
+
+public void setiReceiveType(int iReceiveType)
+{
+	this.iReceiveType=iReceiveType;
+}
+
+public int getiReceiveType()
+{
+	return iReceiveType;
+}
+
+public void setStrReceiveTime(String strReceiveTime)
+{
+	this.strReceiveTime=strReceiveTime;
+}
+
+public String getStrReceiveTime()
+{
+	return strReceiveTime;
 }
 
 }

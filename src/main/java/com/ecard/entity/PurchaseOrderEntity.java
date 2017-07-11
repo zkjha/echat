@@ -25,7 +25,8 @@ public class PurchaseOrderEntity
 	private String strEmployeeRealName;           //管理员姓名
 	private String strCreationTime;           //创建时间
 	private String strLastAccessedTime;           //修改时间
-
+	private int iReceiveType;		//收货方式
+	private String strReceiveTime;	//收货时间
 
 	public void setStrOrderId(String strOrderId)
 	{
@@ -237,5 +238,24 @@ public class PurchaseOrderEntity
 		return strLastAccessedTime;
 	}
 	
+	public void setiReceiveType(int iReceiveType)
+	{
+		this.iReceiveType=iReceiveType;
+	}
+
+	public int getiReceiveType()
+	{
+		return iReceiveType;
+	}
+
+	public void setStrReceiveTime(String strReceiveTime)
+	{
+		this.strReceiveTime=strReceiveTime;
+	}
+
+	public String getStrReceiveTime()
+	{
+		return strReceiveTime;
+	}
 
 }

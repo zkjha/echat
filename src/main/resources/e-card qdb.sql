@@ -1039,6 +1039,8 @@ CREATE TABLE tb_orderDetail_info
   strExpressNumber          VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         VARCHAR(50) DEFAULT '',     -- 快递公司
   strComment				VARCHAR(200) DEFAULT '',     -- 备注字段
+  iReceiveType					int default 0,				 -- 收货方式  0 快递 1 到店取货
+  strReceiveTime				varchar(50)	default '',		 -- 到店取货时间
   strEmployeeId 		    VARCHAR(50) 	NOT NULL,		-- 管理员ID
   strEmployeeName 		    VARCHAR(50) 	NOT NULL,		-- 管理员账号
   strEmployeeRealName 	    VARCHAR(50) 	NOT NULL,		-- 管理员姓名
@@ -1069,6 +1071,8 @@ CREATE TABLE tb_purchase_order
   strExpressNumber         		VARCHAR(50) DEFAULT '',     -- 快递单号
   strExpressCompany         	VARCHAR(50) DEFAULT '',     -- 快递公司
   strComment					VARCHAR(200) DEFAULT '',     -- 备注字段
+  iReceiveType					int default 0,				 -- 收货方式  0 快递 1 到店取货
+  strReceiveTime				varchar(50)	default '',		 -- 到店取货时间
   strEmployeeId 		    	VARCHAR(50) NOT NULL,		-- 管理员ID
   strEmployeeName 		   		VARCHAR(50) NOT NULL,		-- 管理员账号
   strEmployeeRealName 	    	VARCHAR(50) NOT NULL,		-- 管理员姓名
