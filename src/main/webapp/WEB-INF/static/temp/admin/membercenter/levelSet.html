@@ -1,3 +1,111 @@
-<div>
-    级别设置
+
+<!--职务管理  -->
+<div class="right-content-main">
+    <div class="right-content-header">
+        <div class="right-content-header-left-info fl"><a href="/admin/page/homepage">{{strMerchantname}}</a>&nbsp;&nbsp;>>&nbsp;&nbsp;<a href="/admin/page/membercente">会员中心</a>&nbsp;&nbsp; >> &nbsp;&nbsp;<a>会员级别及权益设置</a></div>
+        <div class="right-content-header-right-info fr">
+            <!-- <a class="small-btn fl">导入</a><a class="small-btn fl">导出</a> -->
+            <a class="small-btn small-btn-primary fl" ng-click="newExpandinginfo()">新增</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="merchant-info-container">
+        <table class="list-table">
+            <tr>
+                <th>序号</th>
+                <th>级别名称</th>
+                <th>折扣率</th>
+                <th>积分赔率</th>
+                <th>最低充值金额</th>
+                <th class="w40">操作</th>
+            </tr>
+
+            <tr ng-repeat='memberexpandinformationEntity  in memberexpandinformationEntityList'>
+                <td>{{$index+(currentPage-1)*pageSize+1}}</td>
+                <td>{{memberexpandinformationEntity.strInformationname}}</td>
+                <td>{{memberexpandinformationEntity.intType|replaceExpandType}}</td>
+
+                <td>
+                    <div class="-lpy-list-control">
+                        <div class="-lpy-list-control-title" ng-mouseout="openCtrMenu($index,'out')" ng-mouseover="openCtrMenu($index,'over')">
+                            操作
+
+                            <ul ng-show="isShowListMenu[$index]">
+                                <li><a ng-click="updataExpand(memberexpandinformationEntity.strInformationid)">修改</a></li>
+                                <li><a ng-click="delectExpand(memberexpandinformationEntity.strInformationid,memberexpandinformationEntity.strInformationname)">删除</a></li>
+                                <!-- <li><a>修改2</a></li> -->
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </table>
+        <div class="no-data-container" ng-click="newExpandinginfo()" ng-if="isNoData">
+            <div class="no-data-add-btn" ></div>
+            <div class="no-data-info" >添加拓展资料</div>
+        </div>
+
+
+        <div class="bottom-pager" >
+            <pager class="fr"  page-count="pageCount"  current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text=">" prev-text="<" last-text="尾页"  goto-text="跳转"></pager>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="-lpy-mengban"  ng-show="showExpandInfoWindow"></div>
+    <div class="-lpy-big-alert-window w650" ng-show="showExpandInfoWindow">
+        <div class="-lpy-big-alert-window-title">
+            <div  ng-switch="isAddNewExpand">
+                <div class="fl" ng-switch-default>新增拓展信息</div>
+                <div class="fl" ng-switch-when="false">修改拓展信息</div>
+            </div>
+            <div class="fr  close_btn" ng-click="clostExpandWindow()">x</div>
+        </div>
+        <div class="-lpy-alert-window-main-content ">
+
+            <div class="-lpy-edit-staff-content">
+
+                <form  name="memberexpandinformationEntityForm" ng-submit="submitExpandinfo()">
+                    <div class="form-container">
+                        <div class=" w300 center">
+
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
+                                <input type="text" ng-value="memberexpandinformationEntity.strInformationname" name="strInformationname"   ng-model="memberexpandinformationEntity.strInformationname" ngTrim="true" ng-maxlength="8" required/>
+
+
+                            </div>
+
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 是否必填：
+                                <select ng-model="memberexpandinformationEntity.intIsmust" ng-options="mustInput.id as mustInput.value for mustInput in mustInputTypes"></select>
+
+                            </div>
+                            <div class="mt20">&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
+                                <select ng-disabled="!isAddNewExpand" ng-change="typeChange()" ng-model="memberexpandinformationEntity.intType" ng-options="inputType.id as inputType.value for inputType in inputTypes"></select>
+
+                            </div>
+
+                            <div ng-repeat="option in  optionsArray"    class="mt20" >&nbsp;&nbsp;&nbsp;<span class="red-require">*</span> 选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项：
+                                <input type="text" ng-value="memberexpandinformationEntity.options[$index]" name="strRealname"   ng-model="memberexpandinformationEntity.options[$index]" ngTrim="true" ng-maxlength="8" required/>
+                                <span ng-if="optionIsMoreOne" ng-click="subOption($index)" class="option-controller-span">-</span> <span ng-click="addOption($index)" class="option-controller-span">+</span>
+                            </div>
+
+
+                        </div>
+                        <div class="mt10"></div>
+                    </div>
+
+                    <div class="w150 center ">
+                        <input class="fl small-btn small-btn-primary" type="submit" value="确定"/><a class="fr small-btn small-btn-default" ng-click="clostExpandWindow()">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>

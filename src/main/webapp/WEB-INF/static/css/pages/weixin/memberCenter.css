@@ -1,0 +1,139 @@
+body{
+    background-color: #D6D6D6;
+}
+
+
+.z-vipCenter-box{
+    height: 6.0rem;
+    padding: .2rem .25rem;
+    background-color: white;
+}
+.z-vipCenter-solid{
+    height: 4rem;
+    margin-top: 1rem;
+    position: relative;
+}
+.z-vipCenter-xuxian{
+    width: 8rem;
+    transform:rotate(-30deg) ;
+    border-bottom: 1px dashed #000000;
+    position: absolute;
+    bottom: 1.75rem;
+    left: -.5rem;
+}
+.z-vipCenter-cycle{
+    position: absolute;
+    height: .3rem;
+    width: .3rem;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #777;
+}
+.z-vipCenter-cycle-position{
+    position: relative;
+}
+.z-vipCenter-cycle-complain{
+    position: absolute;
+    text-align: center;
+    width: 1.3rem;
+    text-align: center;
+    top: .5rem;
+    left: -.5rem;
+    font-size: .12rem;
+    color: #81A8B2;
+}
+.z-vipCenter-cycle-absolute{
+    position: absolute;
+    height: 1.1rem;
+    border-right:1px dashed #000000;
+    bottom: 0px;
+    left: 50%;
+}
+.z-vipCenter-cycle-position-relative{
+    position: relative;
+}
+.z-vipCenter-cycle-position-absolute{
+    position: absolute;
+    height: .5rem;
+    width: 1.3rem;
+    bottom: 0px;
+    left: -.65rem;
+    background-color: #FFBE0C;
+    color: white;
+    text-align: center;
+    font-size: .3rem;
+    line-height: .5rem;
+}
+/*表单下面布局*/
+
+.z-vipCenter-memberRight{
+
+}
+.z-vipCenter-memberregulation{
+    width: 7rem;
+    margin: 0 auto;
+}
+.z-vipCenter-memberRight-text{
+    height: .5rem;
+    border-bottom: 2px solid white;
+    position: relative;
+}
+.z-vipCenter-memberRight-text p{
+    position: absolute;
+    height: .3rem;
+    width: 1.6rem;
+    bottom: -.1rem;
+    left: 50%;
+    margin-left: -.8rem;
+    background-color: #D6D6D6;
+    text-align: center;
+    color: white;
+    font-size: .3rem;
+}
+.z-vipCenter-memberRight-card{
+    width: 7.1rem;
+    margin: 0 auto;
+    min-height: .6rem;
+    background-color: #F4F2F3;
+}
+.z-vipCenter-memberRight-card-name{
+    text-align: center;
+    font-size: .3rem;
+    color: #F72173;
+    text-align: center;
+    height: .6rem;
+    line-height: .6rem;
+    border-bottom:1px solid #D6D6D6;
+}
+.z-vipCenter-memberRight-card-content{
+    padding: .1rem;
+    display: -webkit-box;
+}
+.z-vipCenter-memberRight-card-content-solid{
+    border: 1px solid #D6D6D6;
+}
+.z-vipCenter-memberRight-card-content-indetal{
+    -webkit-box-flex: 1;
+    text-align: center;
+}
+.z-vipCenter-memberRight-card-content-indetal p{
+    margin: .3rem 0px;
+    font-size: .25rem;
+    color: #000000;
+}
+
+
+.z-vipCenter-memberRight-rule{
+    padding: .2rem .5rem;
+}
+.z-vipCenter-memberRight-userule{
+    margin-bottom: .5rem;
+}
+.z-vipCenter-memberRight-userule p{
+    margin-bottom: .1rem;
+    font-size: .25rem;
+    color: #000000;
+}
+.z-vipCenter-memberRight-userule-tittle{
+    font-weight: bold;
+}
