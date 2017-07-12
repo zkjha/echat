@@ -137,6 +137,21 @@ public class WechatHomepageController {
 		
 	}
 	
+	
+	/**
+	 * 消费记录
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/consumeRecord")
+	public ModelAndView consumeRecord(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/consumeRecord");
+		
+		return mv;
+		
+	}
 	/**
 	 * 查询会员基本信息
 	 * @return

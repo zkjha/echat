@@ -322,9 +322,11 @@ CREATE TABLE tb_recharge_order
   STRMEMBERCARDNUM          VARCHAR(50) NOT NULL,       -- 会员卡号
   STRMEMBERNAME             VARCHAR(50) NOT NULL,       -- 用户姓名   
   DBALANCE                  DECIMAL(11,2) DEFAULT 0.00, -- 充值金额
-  STREMPLOYEEID             VARCHAR(50) NOT NULL,       -- 操作员工ID
-  STREMPLOYEEREALNAME       VARCHAR(50) NOT NULL,       -- 操作员工姓名
-  STREMPLOYEELOGINNAME      VARCHAR(50) NOT NULL,       -- 操作员工登录账号
+  STREMPLOYEEID             VARCHAR(50) default'',       -- 操作员工ID
+  STREMPLOYEEREALNAME       VARCHAR(50) default'',       -- 操作员工姓名
+  STREMPLOYEELOGINNAME      VARCHAR(50) default'',       -- 操作员工登录账号
+  dRestBalance				decimal(11,2) DEFAULT 0.00,	 -- 会员剩余储值
+  dRestAfterBalance			decimal(11,2) DEFAULT 0.00,	 -- 会员剩余售后储值
   STRINSERTTIME             VARCHAR(50) NOT NULL,       -- 录入时间
   INTSTATUS                 INT DEFAULT 0,              -- 订单状态0：待支付 1：已支付
   STRPAYTIME                VARCHAR(50) DEFAULT '',     -- 支付时间

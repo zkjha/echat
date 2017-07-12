@@ -23,6 +23,30 @@ public class RechargeOrderEntity {
 	private String  strPayTime;//支付时间
 	private int intPayType; //支付方式 0：现金支付 1：微信支付 2：支付宝支付
 	private String strThirdPartyTradeFlow; //三方支付流水号
+	
+	private BigDecimal dRestBalance;	//剩余储值 金额
+	private BigDecimal dRestAfterBalance;	//剩余售后储值 金额
+	
+	public void setdRestBalance(BigDecimal dRestBalance)
+	{
+		this.dRestBalance=dRestBalance;
+	}
+	
+	public BigDecimal getdRestBalance()
+	{
+		return dRestBalance;
+	}
+	
+	public void setdRestAfterBalance(BigDecimal dRestAfterBalance)
+	{
+		this.dRestAfterBalance=dRestAfterBalance;
+	}
+	
+	public BigDecimal getdRestAfterBalance()
+	{
+		return dRestAfterBalance;
+	}
+	
 	public String getStrOrderId() {
 		return strOrderId;
 	}
