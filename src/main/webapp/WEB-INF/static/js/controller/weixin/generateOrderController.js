@@ -1,14 +1,6 @@
 /**
  * Created by zhujunliang on 2017/7/6.
  */
-/**
- * Created by Administrator on 2017/7/3.
- */
-
-/**
- * Created by zhujunliang on 17/4/3.
- * 处理收银控制器
- */
 define(
     ['lib/remoteUrl'], function (remoteUrl) {
         'use strict'

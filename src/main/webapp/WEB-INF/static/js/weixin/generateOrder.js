@@ -1,10 +1,6 @@
 /**
  * Created by zhujunliang on 2017/7/6.
  */
-/**
- * Created by zhujunliang on 17/3/9.
- */
-
 require.config({
     baseUrl : EK.STATIC_ROOT + "js" ,
     shim:{

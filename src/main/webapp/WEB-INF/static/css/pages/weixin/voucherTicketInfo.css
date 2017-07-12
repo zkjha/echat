@@ -1,0 +1,117 @@
+body{
+    background-color: #D8D8D8;
+}
+
+/*缺口 的长方形*/
+
+.z-Voucher-card{
+    width: 4.6rem;
+    padding: .05rem 0px;
+    height: 2.3rem;
+    background-color: #FEC629;
+    position: relative;
+    margin: 0 auto;
+}
+.z-Voucher-card-cycle{
+    height: 2.3rem;
+    width: .2rem;
+    position: absolute;
+}
+.z-Voucher-card-cycle p{
+    width: .2rem;
+    height: .2rem;
+    border-radius: 50px;
+    background-color: white;
+    margin: .05rem 0px;
+}
+.z-Voucher-card-cycle-left{
+    left: -.1rem;
+}
+.z-Voucher-card-cycle-right{
+    right: -.1rem;
+}
+.z-Voucher-card-box{
+    width: 2.9rem;
+    border: .03rem solid #000000;
+    margin: 0 auto;
+    height: 2.3rem;
+    border-bottom: transparent;
+    border-top:transparent;
+}
+.z-Voucher-card-content{
+    width: 2.0rem;
+    margin: 0 auto;
+    padding: .5rem 0px;
+    text-align: center;
+}
+.z-Voucher-card-content p{
+    border-bottom: .05rem solid white;
+    font-size: .3rem;
+    color: #000000;
+}
+.z-Voucher-card-content div{
+    color: #000000;
+    font-weight: 100;
+    font-size: .18rem;
+    margin-top:.05rem ;
+}
+/*缺口玩*/
+
+
+
+/*未使用*/
+.z-notUseVoucher-select{
+    height: .8rem;
+    text-align: center;
+}
+.z-notUseVoucher-select-gray,.z-notUseVoucher-select-orange{
+    display: inline-block;
+    width: 1.18rem;
+    height: .38rem;
+    text-align: center;
+    line-height: .38rem;
+    font-size: .20rem;
+    border-radius: 50px;
+    background-color: white;
+    margin: .2rem .2rem;
+}
+.z-notUseVoucher-select-orange{
+    border:1px solid #F67F44;
+    color: #F67F44;
+}
+.z-notUseVoucher-select-gray{
+    border:1px solid #6B6B6B;
+    color: #6B6B6B;
+}
+
+.z-Voucher-card-code{
+    position: absolute;
+    transform:rotate(-90deg);
+    color: white;
+    font-size: .12rem;
+    bottom: 1rem;
+    left: -.1rem;
+}
+/*过期*/
+.z-notUseVoucher-voucher{
+    padding: .2rem 0px;
+    background-color: white;
+    margin-bottom: .1rem;
+}
+
+
+
+/*
+灰色的背景颜色
+*/
+.grybg_color{
+    background-color: #666666 !important;
+}
+.white_bdcolor{
+    border: .03rem solid #FFFFFF !important;
+    border-bottom:transparent !important;
+    border-top:transparent !important;
+}
+.white_color{
+    color: white !important;
+}

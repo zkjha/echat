@@ -1,0 +1,35 @@
+<div class="mobile_content">
+    <div class="z-notUseVoucher-select">
+        <a href="#!/voucherTicketInfoNotuse"><span class="z-notUseVoucher-select-gray">未使用</span></a>
+        <a href="#!/voucherTicketInfoUse"><span class="z-notUseVoucher-select-orange">已使用</span></a>
+        <a href="#!/voucherTicketInfoGuoqi"><span class="z-notUseVoucher-select-gray">已过期</span></a>
+    </div>
+
+    <div class="tc mt100" ng-show="ifdiyongquanhave">
+        <span class="mt20 mb20 white_color f20">暂无抵用券</span>
+    </div>
+
+    <div class="z-notUseVoucher-voucher" ng-repeat="returnListVouncherEntity in returnListVouncherEntity">
+        <!--缺口型-->
+        <div class="z-Voucher-card grybg_color">
+            <!--边框波浪-->
+            <div class="z-Voucher-card-cycle z-Voucher-card-cycle-left">
+                <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+            </div>
+            <div class="z-Voucher-card-cycle z-Voucher-card-cycle-right">
+                <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+            </div>
+            <div class="z-Voucher-card-code">
+                <span>CODE:{{returnListVouncherEntity.strVoucherTicketId}}</span>
+            </div>
+            <div class="z-Voucher-card-box white_bdcolor">
+                <div class="z-Voucher-card-content">
+                    <p class="white_color">{{returnListVouncherEntity.strVoucherTicketName}}</p>
+                    <p class="white_color">{{returnListVouncherEntity.iCanUseCount}}次</p>
+                    <div class="white_color">{{returnListVouncherEntity.strValidEndTime}}前使用</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

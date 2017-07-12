@@ -380,6 +380,12 @@ define([],function(){
         insertMemberSignInfo:"/weixin/biz/insertMemberSignInfo",
         //会员签到 -- 签到信息 -- 新增
         selectMemberInfo:"/weixin/biz/selectMemberInfo",
+        //已使用抵用券信息 -- 分页查询
+        selectUsedVoucherTicketInfo:"/weixin/biz/selectUsedVoucherTicketInfo",
+        //未使用抵用券信息
+        selectUnUsedVoucherTicketInfo:"/weixin/biz/selectUnUsedVoucherTicketInfo",
+        //过期抵用券 信息 -- 分页查询
+        selectExpiredVoucherTicketInfo:"/weixin/biz/selectExpiredVoucherTicketInfo",
 
         ////////////会员中心/////////////////////////////
 
