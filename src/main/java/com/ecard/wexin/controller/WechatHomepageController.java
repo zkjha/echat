@@ -152,6 +152,21 @@ public class WechatHomepageController {
 		return mv;
 		
 	}
+	
+	/**
+	 * 会员中心
+	 * @return
+	 */
+	@RequestMapping("/weixin/biz/memberCenter")
+	public ModelAndView memberCenter(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("weixin/memberCenter");
+		
+		return mv;
+		
+	}
 	/**
 	 * 查询会员基本信息
 	 * @return
