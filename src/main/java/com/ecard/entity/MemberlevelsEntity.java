@@ -1,5 +1,7 @@
 package com.ecard.entity;
 
+import java.math.BigDecimal;
+
 /**
  * 会员等级信息实体
  * @author dinghongxing
@@ -27,6 +29,39 @@ public class MemberlevelsEntity {
 	 * 修改时间
 	 */
 	private String strUpdatetime;
+	
+
+	private int iTradeTimesDesc;           //会员卡级别描述：交易次数描述
+	private BigDecimal dConsumeCashDesc;        //会员卡级别描述：交易金额描述
+	
+	private String strOtherDesc;//会员卡级别描述：其它文字性描述
+	public void setStrOtherDesc(String strOtherDesc)
+	{
+		this.strOtherDesc=strOtherDesc;
+	}
+	
+	
+	public String getStrOtherDesc()
+	{
+		return strOtherDesc;
+	}
+	public void setdConsumeCashDesc(BigDecimal dConsumeCashDesc)
+	{
+		this.dConsumeCashDesc=dConsumeCashDesc;
+	}
+	
+	public BigDecimal getdConsumeCashDesc()
+	{
+		return dConsumeCashDesc;
+	}
+
+	public int getiTradeTimesDesc() {
+		return iTradeTimesDesc;
+	}
+	public void setiTradeTimesDesc(int iTradeTimesDesc) {
+		this.iTradeTimesDesc = iTradeTimesDesc;
+	}
+	
 	public String getStrLevelsid() {
 		return strLevelsid;
 	}

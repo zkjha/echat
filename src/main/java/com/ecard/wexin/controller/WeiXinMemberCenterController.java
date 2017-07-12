@@ -21,9 +21,14 @@ import com.commontools.date.DateTool;
 import com.commontools.validate.ValidateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.config.StaticValue;
+import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberLevelsRightsMappingEntity;
+import com.ecard.entity.MemberarticlesEntity;
+import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.entity.WeiXinMemberSignEntity;
 import com.ecard.service.WeiXinMemberCenterService;
 import com.ecard.util.WebSessionUtil;
+import com.ecard.vo.MemberVO;
 
 @Controller
 @RequestMapping("/weixin/biz/")
@@ -345,6 +350,91 @@ public class WeiXinMemberCenterController
 				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
 			}
 	}	
+	
+	//查询所有的级别信息
+	@ResponseBody
+	@RequestMapping("selectAllLevelsInfo")
+	//localhost:8083/weixin/biz/selectAllLevelsInfo
+	public String selectAllLevelsInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		try{
+			List<MemberlevelsEntity> listMemberlevelsEntity=weiXinMemberCenterService.selectAllLevelsInfo();
+			if(listMemberlevelsEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listMemberlevelsEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listMemberlevelsEntity",listMemberlevelsEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+		}
+	}
+	
+	//查询会员的级别权益信息
+	@ResponseBody
+	@RequestMapping("selectMemberLevelsRightsMappingEntityInfo")
+	//localhost:8083/weixin/biz/selectMemberLevelsRightsMappingEntityInfo
+	public String selectMemberLevelsRightsMappingEntityInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		String strMemberId="";
+
+		try{
+				strMemberId=(String) webSessionUtil.getWeixinSession(request, response).getAttribute("memberid");
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+
+		//以下会员ID为测试数据
+		//strMemberId="377f37a5871f4874a2879dd77758e075";
+		if(ValidateTool.isEmptyStr(strMemberId))
+			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登录",null);		
+
+		try{
+			List<MemberLevelsRightsMappingEntity> listMemberLevelsRightsMappingEntity=weiXinMemberCenterService.selectMemberLevelsRightsMappingEntityInfo(strMemberId);
+			if(listMemberLevelsRightsMappingEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listMemberLevelsRightsMappingEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listMemberLevelsRightsMappingEntity",listMemberLevelsRightsMappingEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+	}
+	
+	
+	//查询会员章程
+	@ResponseBody
+	@RequestMapping("selectMemberArticlesInfo")
+	//localhost:8083/weixin/biz/selectMemberArticlesInfo
+	public String selectMemberArticlesInfo(HttpServletRequest request,HttpServletResponse response)
+	{
+		try{
+			
+			List<MemberarticlesEntity> listMemberarticlesEntity=weiXinMemberCenterService.selectMemberArticlesInfo();
+			if(listMemberarticlesEntity==null)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+			if(listMemberarticlesEntity.size()==0)
+				return DataTool.constructResponse(ResultCode.NO_DATA,"暂无数据",null);
+		
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			resultMap.put("listMemberarticlesEntity",listMemberarticlesEntity);
+			return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				return DataTool.constructResponse(ResultCode.SYSTEM_ERROR,"系统错误",null);
+			}
+		
+	}
 	
 	
 	//校验

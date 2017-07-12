@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecard.mapper.WeiXinRechargeCenterMapper">
+<!-- 查询会员储值 信息 -->
+<select id="selectMemberInfo" resultType="com.ecard.entity.MemberEntity" parameterType="String">
+select
+  STRMEMBERID as strMemberid,
+  STRREALNAME as strRealname,     
+  STRIDCARD as strIdcard,         
+  STRMOBILE as strMobile,            
+  INTAGE as intAge,            
+  STRMEMBERCARDNUM as strMembercardnum,      
+  STRLEVELSID as strLevelsid,  
+  INTSEX as intSex,      
+  INTSTATUS as intStatus,      
+  INTINTEGRAL as intIntegral,    
+  DAFTERSTOREDBALANCE as dAfterstoredbalance,
+  DBALANCE as dBalance,
+  strValidEndTime as strValidEndTime,
+  STRINSERTTIME as strInserttime,
+  STRUPDATETIME as strUpdatetime
+  from tb_member where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+  </select>
+  
+ <!-- 查询_会员充值订单记录[tb_recharge_order] -->
+<select id="selectMemberRechargeHistory" resultType="com.ecard.entity.RechargeOrderEntity" parameterType="map">
+select 
+  STRORDERID as strOrderId,
+  STRMEMBERID as strMemberId,
+  STRMEMBERCARDNUM as strMemberCardNum,
+  STRMEMBERNAME as strMemberName,
+  DBALANCE as dBalance,
+  STREMPLOYEEID as strEmployeeId,
+  STREMPLOYEEREALNAME as strEmployeeRealName,
+  STREMPLOYEELOGINNAME as strEmployeeLoginName,
+  dRestBalance,
+  dRestAfterBalance,
+  STRINSERTTIME as strInsertTime,
+  INTSTATUS as intStatus,
+  STRPAYTIME as strPayTime,
+  INTPAYTYPE as intPayType,
+  STRTHIRDPARTYTRADEFLOW as strThirdPartyTradeFlow
+  from tb_recharge_order where STRMEMBERID=#{strMemberId} order by STRINSERTTIME DESC limit #{iPageFrom},#{iPageSize}
+  </select>
+  
+  <!-- 查会员充值历史记录条数 -->
+  <select id="selectCountByMemberId" resultType="int" parameterType="map">
+  	select count(STRORDERID) from tb_recharge_order where STRMEMBERID=#{strMemberId}
+  </select>
+</mapper>

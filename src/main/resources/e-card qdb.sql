@@ -185,6 +185,9 @@ CREATE TABLE tb_member_levels
   strLevelsId               VARCHAR(50) NOT NULL,      -- 主键	
   strLevelsName             VARCHAR(50) NOT NULL,      -- 会员卡级别名称
   intStatus                 INT DEFAULT 1,             -- 会员卡级别状态0：禁用 1：启用
+  iTradeTimesDesc			int default 0,			   -- 会员卡级别描述:交易笔数
+  dConsumeCashDesc			decimal(11,2) default 0.00, -- 会员卡级别描述：交易额
+  strOtherDesc				varchar(200) default'',		-- 其他描述
   strEmployeeId             VARCHAR(50)  NULL,         -- 操作员工ID
   strEmployeeName           VARCHAR(50)  NULL,         -- 操作员工姓名
   strEmployeeLoginName      VARCHAR(50)  NULL,         -- 操作员工登录账号

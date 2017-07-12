@@ -5,6 +5,9 @@ import java.util.Map;
 
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberLevelsRightsMappingEntity;
+import com.ecard.entity.MemberarticlesEntity;
+import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.entity.SignIntegrationRuleEntity;
 import com.ecard.entity.VoucherTicketInfoEntity;
 import com.ecard.entity.VoucherticketUseInfoEntity;
@@ -47,5 +50,11 @@ public interface WeiXinMemberCenterMapper
 	public VoucherTicketInfoEntity selectVoucherTicketDetailInfo(String strVoucherTickedId) throws Exception;
 	//查已领用的过期抵用券信息
 	public List<VoucherticketUseInfoEntity> selectExpiredVoucherTicketInfo(Map<String,Object> queryMap) throws Exception;
+	//查询所有的级别信息
+	public List<MemberlevelsEntity> selectAllLevelsInfo() throws Exception;
+	//查询会员的级别权益信息
+	public List<MemberLevelsRightsMappingEntity> selectMemberLevelsRightsMappingEntityInfo(String strLevelsId) throws Exception;
+	//查询会员章程
+	public List<MemberarticlesEntity> selectMemberArticlesInfo() throws Exception;
 
 }

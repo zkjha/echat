@@ -257,4 +257,50 @@ select
  	from tb_voucherticket_useinfo
 	where strMemberId=#{strMemberId} and iExpired=#{iExpired}
 </select>
+
+<!-- 查询_级别信息[tableName:tb_member_levels] -->
+<select id="selectAllLevelsInfo" resultType="com.ecard.entity.MemberlevelsEntity">
+ select 
+ 	strLevelsId,
+ 	strLevelsName,
+ 	intStatus,
+ 	strOtherDesc,
+ 	iTradeTimesDesc,
+ 	dConsumeCashDesc,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeLoginName,
+ 	strInsertTime,
+ 	strUpdateTime
+ 	from tb_member_levels
+</select>
+
+<!-- 查询等级权益信息_[tableName:tb_member_levelsRights_mapping] -->
+<select id="selectMemberLevelsRightsMappingEntityInfo" resultType="com.ecard.entity.MemberLevelsRightsMappingEntity" parameterType="String">
+ select 
+ 	strLevelsRightsMappingId,
+ 	strLevelsId,
+ 	strLevelsName,
+ 	strRightsId,
+ 	strRightsName,
+ 	iRightsStatus,
+ 	dDiscount,
+ 	iPreferentialTimes,
+ 	strEmployeeId,
+ 	strEmployeeName,
+ 	strEmployeeRealName,
+ 	strCreationTime,
+ 	strLastAccessedTime
+ 	from tb_member_levelsRights_mapping
+	where strLevelsId=#{strLevelsId} order by strCreationTime DESC limit 0,5
+</select>
+
+<!-- 查询会员章程 -->
+<select id="selectMemberArticlesInfo" resultType="com.ecard.entity.MemberarticlesEntity">
+	select
+	STRARTICLESID as strArticlesid,
+	STRCONTENT as strContent,
+	STRINSERTTIME as strInserttime
+	from tb_member_articles order by STRINSERTTIME ASC
+</select>
 </mapper>

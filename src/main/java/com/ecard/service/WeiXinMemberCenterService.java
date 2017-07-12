@@ -17,6 +17,9 @@ import com.commontools.date.DateTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.IntegralModRecord;
 import com.ecard.entity.MemberEntity;
+import com.ecard.entity.MemberLevelsRightsMappingEntity;
+import com.ecard.entity.MemberarticlesEntity;
+import com.ecard.entity.MemberlevelsEntity;
 import com.ecard.entity.SignIntegrationRuleEntity;
 import com.ecard.entity.VoucherTicketInfoEntity;
 import com.ecard.entity.VoucherticketUseInfoEntity;
@@ -503,5 +506,32 @@ public class WeiXinMemberCenterService
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
 	}
 	
+	//查询会员的级别权益信息
+	public List<MemberLevelsRightsMappingEntity> selectMemberLevelsRightsMappingEntityInfo(String strMemberId) throws Exception
+	{
+		//查会员级别
+		MemberEntity memberEntity = weiXinMemberCenterMapper.selectMemberEntity(strMemberId);
+		if(memberEntity==null)
+			return null;
+		if("".equals(memberEntity.getStrMemberid()))
+			return null;
+		String strLevelsId=memberEntity.getStrLevelsid();
+		//查等级权益信息
+		return weiXinMemberCenterMapper.selectMemberLevelsRightsMappingEntityInfo(strLevelsId);
+		
+	}
+	
+	//查询所有的级别信息
+	public List<MemberlevelsEntity> selectAllLevelsInfo() throws Exception
+	{
+	
+		return weiXinMemberCenterMapper.selectAllLevelsInfo();
+	}
+	
+	//查询会员章程
+	public List<MemberarticlesEntity> selectMemberArticlesInfo() throws Exception
+	{
+		return weiXinMemberCenterMapper.selectMemberArticlesInfo();
+	}
 	
 }
