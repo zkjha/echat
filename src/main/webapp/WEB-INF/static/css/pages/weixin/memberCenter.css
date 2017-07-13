@@ -29,6 +29,7 @@ body{
     background-color: white;
     border: 1px solid #777;
 }
+
 .z-vipCenter-cycle-position{
     position: relative;
 }
@@ -136,4 +137,8 @@ body{
 }
 .z-vipCenter-memberRight-userule-tittle{
     font-weight: bold;
+}
+/*颜色值*/
+.brownColor{
+    background-color: brown !important;
 }

@@ -1,0 +1,40 @@
+<div id="fixed" when-scrolled="loadMore()">
+<div class="mobile_content">
+    <div class="z-record">
+        <div class="z-record-one z-record-two"><a href="#!/allconsumeRecord">全部</a></div>
+        <div class="z-record-one"><a href="#!/integralconsumeRecord">积分</a></div>
+        <div class="z-record-one"><a href="#!/StoreconsumeRecord">储值</a></div>
+        <div class="z-record-one"><a href="#!/CashconsumeRecord">现金</a></div>
+        <div class="z-record-one"><a href="#!/DyqconsumeRecord">抵用券</a></div>
+    </div>
+    <div ng-hide="returnListOrderVo" style="color: white">
+        <p class="tc f20 mt20">暂无数据</p>
+    </div>
+    <div class="z-allRecord-list" ng-repeat="returnListOrderVo in returnListOrderVo">
+        <div class="z-allRecord-list-img">
+            <img ng-show="returnListOrderVo.iPayType == 0" src="/static/images/weixin/consumeRecord/intering.png"/>
+            <img ng-show="returnListOrderVo.iPayType>= 1 && returnListOrderVo.iPayType<= 3" src="/static/images/weixin/consumeRecord/cash.png"/>
+            <img ng-show="returnListOrderVo.iPayType == 4" src="/static/images/weixin/consumeRecord/store.png"/>
+            <img ng-show="returnListOrderVo.iPayType ==5" src="/static/images/weixin/consumeRecord/diyongq.png"/>
+        </div>
+        <div class="z-allRecord-list-text">
+            <p><span ng-show="returnListOrderVo.iPayType == 0">积分兑换</span>
+                <span ng-show="returnListOrderVo.iPayType == 1">微信支付</span>
+                <span ng-show="returnListOrderVo.iPayType == 2">支付宝支付</span>
+                <span ng-show="returnListOrderVo.iPayType == 3">现金支付</span>
+                <span ng-show="returnListOrderVo.iPayType == 4">会员卡余额支付</span>
+                <span ng-show="returnListOrderVo.iPayType == 5">抵用券支付</span>
+                <span>-{{returnListOrderVo.strGoodsOrServiceName}}</span>
+            </p>
+            <p class="z-allRecord-list-text-color">-{{returnListOrderVo.dPreferentialCashTotalAmount}}</p>
+        </div>
+        <div class="z-allRecord-list-time">
+            <p>{{returnListOrderVo.strCreationTime | limitTo:10}}</p>
+            <p>剩余<span ng-show="returnListOrderVo.iPayType == 0">积分</span><span ng-show="returnListOrderVo.iPayType >= 1 && returnListOrderVo.iPayType <= 4">储值</span><span ng-show="returnListOrderVo.iPayType == 5">抵用券</span>
+                <span>：{{returnListOrderVo.iExtendedAttribute || 0}}</span>
+            </p>
+        </div>
+    </div>
+
+</div>
+</div>

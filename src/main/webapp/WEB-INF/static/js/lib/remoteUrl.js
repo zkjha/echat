@@ -371,6 +371,26 @@ define([],function(){
         /**
          * 微信前端部分
          */
+        ////////////消费记录/////////////////////////////
+        //储值消费记录 -- 分页查询
+        selectStoredValueConsume:"/weixin/biz/selectStoredValueConsume",
+        //全部消费记录-- 分页查询
+        selectAllConsumeInfo:"/weixin/biz/selectAllConsumeInfo",
+        //抵用券消费记录 -- 分页查询
+        selectVoucherTicketConsume:"/weixin/biz/selectVoucherTicketConsume",
+        //现金消费记录 -- 分页查询
+        selectCashConsume:"/weixin/biz/selectCashConsume",
+        //积分消费记录-- 分页查询
+        selectIntegrationConsume:"/weixin/biz/selectIntegrationConsume",
+
+
+
+
+
+
+        ////////////消费记录/////////////////////////////
+
+
         ////////////会员中心/////////////////////////////
         //会员中心 -- 签到信息(最近一次签到信息) -- 查询
         selectSignDays:"/weixin/biz/selectSignDays",
@@ -386,6 +406,16 @@ define([],function(){
         selectUnUsedVoucherTicketInfo:"/weixin/biz/selectUnUsedVoucherTicketInfo",
         //过期抵用券 信息 -- 分页查询
         selectExpiredVoucherTicketInfo:"/weixin/biz/selectExpiredVoucherTicketInfo",
+        //会员权益查询
+        selectMemberLevelsRightsMappingEntityInfo:"/weixin/biz/selectMemberLevelsRightsMappingEntityInfo",
+        //会员章程查询
+        selectMemberArticlesInfo:"/weixin/biz/selectMemberArticlesInfo",
+        //所有会员级别查询 -- 列表
+        selectAllLevelsInfo:"/weixin/biz/selectAllLevelsInfo",
+
+
+
+
 
         ////////////会员中心/////////////////////////////
 

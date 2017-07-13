@@ -1,0 +1,29 @@
+<div id="fixed" when-scrolled="loadMore()">
+    <div class="mobile_content">
+        <div class="z-record">
+            <div class="z-record-one"><a href="#!/allconsumeRecord">全部</a></div>
+            <div class="z-record-one"><a href="#!/integralconsumeRecord">积分</a></div>
+            <div class="z-record-one"><a href="#!/StoreconsumeRecord">储值</a></div>
+            <div class="z-record-one"><a href="#!/CashconsumeRecord">现金</a></div>
+            <div class="z-record-one z-record-two"><a href="#!/DyqconsumeRecord">抵用券</a></div>
+        </div>
+        <div class="z-voucherRecord-box" ng-repeat="returnListOrderVo in returnListOrderVo">
+            <div class="z-Voucher-card">
+                <!--边框波浪-->
+                <div class="z-Voucher-card-cycle z-Voucher-card-cycle-left">
+                    <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+                </div>
+                <div class="z-Voucher-card-cycle z-Voucher-card-cycle-right">
+                    <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+                </div>
+                <div class="z-Voucher-card-box">
+                    <div class="z-Voucher-card-content">
+                        <p>{{returnListOrderVo.strGoodsOrServiceName}}</p>
+                        <p>一次</p>
+                        <div>2016-12-30前使用</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

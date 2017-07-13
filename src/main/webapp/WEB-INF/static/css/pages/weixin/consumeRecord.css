@@ -1,0 +1,191 @@
+body{
+    background-color: #D8D8D8;
+}
+.z-record{
+    height:.55rem;
+    line-height: .55rem;
+    display: -webkit-box;
+    background-color: white;
+    border-bottom: 1px solid #D8D8D8;
+}
+.z-record-one{
+    -webkit-box-flex: 1;
+    text-align: center;
+    font-size: .25rem;
+}
+.z-record-one a{
+    color: #000000;
+}
+.z-record-two a{
+    color: #F67F44;
+}
+
+/*所有身体*/
+.z-allRecord-list{
+    padding: .1rem .4rem;
+    background-color: #F2F2F2;
+    display: -webkit-box;
+    margin-bottom: 2px;
+}
+.z-allRecord-list-img{
+    height: .5rem;
+    width: .5rem;
+    background-color: #FEC629;
+    border-radius: .1rem;
+    text-align: center;
+    display:table;
+    -webkit-box-flex: 1;
+}
+.z-allRecord-list-img img{
+    width: .4rem;
+    vertical-align: middle;
+    margin-top: .08rem;
+}
+.z-allRecord-list-text{
+    margin: 0px 0px 0px .5rem;
+    font-size: .18rem;
+    color: #000000;
+    -webkit-box-flex: 3;
+}
+.z-allRecord-list-text-color{
+    color: #F67F44;
+}
+.z-allRecord-list-time{
+    text-align: right;
+    -webkit-box-flex: 2;
+    font-size: .18rem;
+    font-weight: 300;
+}
+/*积分身体*/
+.z-integralRecord-content{
+    background: white;
+}
+.z-integralRecord-content-complate{
+    height: .6rem;
+    background-color: #EAEAEA;
+    text-align: right;
+    line-height: .6rem;
+}
+.z-integralRecord-content-nocore{
+    height: .6rem;
+    background-color: white;
+    text-align: right;
+    line-height: .6rem;
+}
+.z-integralRecord-content-core{
+    float: left;
+    font-size: .2rem;
+    color: #000000;
+    margin-left: .5rem;
+}
+.z-integralRecord-content-sure{
+    float: right;
+    font-size: .2rem;
+    margin-right: .5rem;
+}
+.z-integralRecord-content-shop{
+    height: 1.8rem;
+    padding: .1rem;
+    display: -webkit-box;
+    background-color:#F3F3F3 ;
+    margin-bottom: .1rem;
+}
+.z-integralRecord-shop-img{
+    height: 1.8rem;
+    width: 1.8rem;
+}
+.z-integralRecord-shop-img img{
+    width: 100%;
+}
+.z-integralRecord-shop-indetail{
+    margin-left: .2rem;
+    font-size: .2rem;
+    color: #000000;
+}
+.z-integralRecord-shop-indetail-p{
+    margin-top: .1rem;
+}
+.z-integralRecord-content-price{
+    text-align: right;
+    color: gray;
+    padding-right: .1rem;
+    padding-bottom: .15rem;
+    color: #000000;
+}
+.z-integralRecord-content-price-num{
+    font-size: .2rem;
+}
+.z-integralRecord-content-price-speed{
+    font-size: .12rem;
+    font-weight: 300;
+    margin: .1rem 0px;
+}
+.z-integralRecord-content-price-time{
+    font-size: .18rem;
+}
+.z-integralRecord-content-gray{
+    height: .2rem;
+    background-color: #D8D8D8;
+}
+
+/*抵用券*/
+.z-voucherRecord-box{
+    padding: .2rem 0px;
+    background-color: #F3F3F3;
+    margin-bottom: .1rem;
+}
+
+
+
+/*缺口 的长方形*/
+
+.z-Voucher-card{
+    width: 4.6rem;
+    padding: .05rem 0px;
+    height: 2.3rem;
+    background-color: #666;
+    position: relative;
+    margin: 0 auto;
+}
+.z-Voucher-card-cycle{
+    height: 2.3rem;
+    width: .2rem;
+    position: absolute;
+}
+.z-Voucher-card-cycle p{
+    width: .2rem;
+    height: .2rem;
+    border-radius: 50px;
+    background-color: #F3F3F3;
+    margin: .05rem 0px;
+}
+.z-Voucher-card-cycle-left{
+    left: -.1rem;
+}
+.z-Voucher-card-cycle-right{
+    right: -.1rem;
+}
+.z-Voucher-card-box{
+    width: 2.9rem;
+    border: .03rem solid #000000;
+    margin: 0 auto;
+    height: 2.3rem;
+    border-bottom: transparent;
+    border-top:transparent;
+}
+.z-Voucher-card-content{
+    width: 2.0rem;
+    margin: 0 auto;
+    padding: .5rem 0px;
+    text-align: center;
+}
+.z-Voucher-card-content p{
+    border-bottom: .05rem solid white;
+    font-size: .3rem;
+    color: white;
+}
+.z-Voucher-card-content div{
+    color: white;
+    font-weight: 100;
+    font-size: .18rem;
+}

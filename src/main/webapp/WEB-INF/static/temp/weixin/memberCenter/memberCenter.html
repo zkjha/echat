@@ -4,17 +4,18 @@
             <!--虚线-->
             <div class="z-vipCenter-xuxian"></div>
             <!--圆圈-->
-            <div class="z-vipCenter-cycle" ng-repeat="x in name" ng-click="color()">
+            <div class="z-vipCenter-cycle" ng-class="{true: 'z-vipCenter-cycle brownColor', false: 'z-vipCenter-cycle'}[listMemberlevelsEntity.strLevelsname == strLevelsName]" ng-repeat="listMemberlevelsEntity in listMemberlevelsEntity" ng-click="color()">
                 <div class="z-vipCenter-cycle-position">
                     <div class="z-vipCenter-cycle-complain">
-                        <p>{{x.content}}</p>
-                        <p>或累计满5000元</p>
+                        <p>{{listMemberlevelsEntity.strOtherDesc}}</p>
+                        <!--<p>或累计满5000元</p>-->
                     </div>
                     <div class="z-vipCenter-cycle-absolute">
                         <div class="z-vipCenter-cycle-position-relative">
                             <div class="z-vipCenter-cycle-position-absolute">
-                                {{x.card}}
+                                {{listMemberlevelsEntity.strLevelsname}}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -35,12 +36,14 @@
         </div>
         <div class="z-vipCenter-memberRight-card-content">
             <div class="z-vipCenter-memberRight-card-content-indetal">
-                <p>工时折扣</p>
-                <p>工时折扣</p>
+                <p ng-repeat="x in listMemberLevelsRightsMappingEntity">{{x.strRightsName}}</p>
             </div>
             <div class="z-vipCenter-memberRight-card-content-solid"></div>
             <div class="z-vipCenter-memberRight-card-content-indetal">
-                <p>工时折扣</p>
+                <p ng-repeat="x in listMemberLevelsRightsMappingEntity">
+                    <span ng-show="x.strRightsName"><span ng-show="x.iPreferentialTimes">{{x.iPreferentialTimes}}次/年</span> <span ng-hide="x.iPreferentialTimes">{{x.dDiscount}}折</span></span>
+                    <span ng-hide="x.strRightsName">{{x.dDiscount}}折</span>
+                </p>
             </div>
         </div>
     </div>
@@ -55,14 +58,15 @@
     </div>
 
     <div class="z-vipCenter-memberRight-rule">
-        <div class="z-vipCenter-memberRight-userule">
-            <p class="z-vipCenter-memberRight-userule-tittle">会员积分卡的使用规定</p>
-            <p>积分卡需要在小费结算前出示；</p>
+        <div class="z-vipCenter-memberRight-userule" ng-repeat=" listMemberarticlesEntity in listMemberarticlesEntity">
+            <!--<p class="z-vipCenter-memberRight-userule-tittle">会员积分卡的使用规定</p>-->
+            <!--<p>积分卡需要在小费结算前出示；</p>-->
+           <div ng-bind-html="listMemberarticlesEntity.strContent | htmlFilter"></div>
         </div>
-        <div class="z-vipCenter-memberRight-userule">
-            <p class="z-vipCenter-memberRight-userule-tittle">会员积分卡的使用规定</p>
-            <p>积分卡需要在小费结算前出示；</p>
-        </div>
+        <!--<div class="z-vipCenter-memberRight-userule">-->
+            <!--<p class="z-vipCenter-memberRight-userule-tittle">会员积分卡的使用规定</p>-->
+            <!--<p>积分卡需要在小费结算前出示；</p>-->
+        <!--</div>-->
     </div>
 
 

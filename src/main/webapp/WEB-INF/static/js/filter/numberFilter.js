@@ -11,5 +11,12 @@ define(['lib/angular'],function(angular){
             return isnum;
         }
 
+    }).filter('htmlFilter',function($sce){
+        return function(isnum){
+            //isnum = parseInt(isnum);
+
+            return $sce.trustAsHtml(isnum);
+        }
+
     });
 });

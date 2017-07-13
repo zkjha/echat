@@ -1,0 +1,37 @@
+<div id="fixed" when-scrolled="loadMore()">
+<div class="mobile_content">
+    <div class="z-record">
+        <div class="z-record-one"><a href="#!/allconsumeRecord">全部</a></div>
+        <div class="z-record-one z-record-two"><a href="#!/integralconsumeRecord">积分</a></div>
+        <div class="z-record-one"><a href="#!/StoreconsumeRecord">储值</a></div>
+        <div class="z-record-one"><a href="#!/CashconsumeRecord">现金</a></div>
+        <div class="z-record-one"><a href="#!/DyqconsumeRecord">抵用券</a></div>
+    </div>
+    <div ng-hide="returnListOrderVo" style="color: white">
+        <p class="tc f20 mt20">暂无数据</p>
+    </div>
+    <div class="z-integralRecord-content" ng-repeat="returnListOrderVo in returnListOrderVo">
+        <div class="z-integralRecord-content-nocore">
+            <div class="z-integralRecord-content-sure">已完成</div>
+        </div>
+        <div class="z-integralRecord-content-shop">
+            <div class="z-integralRecord-shop-img">
+                <img src="/static/images/weixin/exchange/meinvgirl.jpg"/>
+            </div>
+            <div class="z-integralRecord-shop-indetail">
+                <p>{{returnListOrderVo.strGoodsOrServiceName}}</p>
+                <p class="z-integralRecord-shop-indetail-p">积分：&nbsp;{{returnListOrderVo.iIntegrationAmount}}积分</p>
+                <p class="z-integralRecord-shop-indetail-p">x{{returnListOrderVo.iPurchaseAmount}}</p>
+            </div>
+        </div>
+        <div class="z-integralRecord-content-price">
+            <p class="z-integralRecord-content-price-num">共计：&nbsp;{{(returnListOrderVo.iIntegrationAmount)*(returnListOrderVo.iPurchaseAmount)}}分</p>
+            <p class="z-integralRecord-content-price-speed" ng-show="returnListOrderVo.iReceiveType">到店领取：{{strAddress}}</p>
+            <p class="z-integralRecord-content-price-speed"  ng-hide="returnListOrderVo.iReceiveType">快递单号：{{returnListOrderVo.strExpressNumber}}</p>
+            <p class="z-integralRecord-content-price-time">{{returnListOrderVo.strCreationTime}}</p>
+        </div>
+        <div class="z-integralRecord-content-gray"></div>
+    </div>
+
+</div>
+</div>
