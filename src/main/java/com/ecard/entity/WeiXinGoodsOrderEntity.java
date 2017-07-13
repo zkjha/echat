@@ -33,7 +33,16 @@ public class WeiXinGoodsOrderEntity
 	private String strCreationTime;           //记录创建时间
 	private String strLastAccessedTime;           //记录修改时间
 	private int iExtendedAttribute;		//扩展属性（结合iPayType使用) 例：若iPayType=0（积分支付) ,则该字段保存的为剩余积分数量,其它同理
+	private int iPurchaseType;	//购买种类0商品 1服务
+	public void setiPurchaseType(int iPurchaseType)
+	{
+		this.iPurchaseType=iPurchaseType;
+	}
 	
+	public int getiPurchaseType()
+	{
+		return iPurchaseType;
+	}
 	public void setiExtendedAttribute(int iExtendedAttribute)
 	{
 		this.iExtendedAttribute=iExtendedAttribute;

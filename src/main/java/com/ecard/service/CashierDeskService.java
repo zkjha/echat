@@ -488,13 +488,16 @@ public class CashierDeskService
 		boolean booBreak=false;	//是否退出程序执行  false 不退出  true 退出
 		int iTotalIntegrationAmount=0;//	订单所需积分总数量
 		Map<String,Object> orderStatusMap=new HashMap<String,Object>();
+		int iMemberIntegration=0;	//会员剩余积分数量
+		iMemberIntegration=cashierDeskMapper.selectMemberIntegration(insertOrderEntityList.get(0).getStrMemberId());
 		for(PurchaseOrderDetailEntity orderDetailObj:insertOrderEntityList)
 		{	
 			int iPreferentialType=0;//优惠状态 0 不优惠 1 按会员等级优惠
 			int iPurchaseAmount=orderDetailObj.getiPurchaseAmount();//购买商品或服务的数量
 			int iItemIntegrationAmount=0;	//多个商品或服务所需积分数量
-			int iUseIntegrationAmount=0;//	 单个商品或服务所需积分数量
+			int iUseIntegrationAmount=0;//	 有等级优惠的单个商品或服务所需积分数量
 			int iRequiredIntegrationAmount=0;	//无等级优惠情况下，兑换商品或服务所需积分数量
+			int iExtendedAttribute=0;//会员扩展属性
 			strProductServiceId=orderDetailObj.getStrProductServiceId();
 			iPurchaseType=orderDetailObj.getiPurchaseType();
 			queryMap.put("strProductServiceId",strProductServiceId);
@@ -537,6 +540,8 @@ public class CashierDeskService
 						}
 						else
 						{
+							if(iUseIntegrationAmount>iRequiredIntegrationAmount)	//等级优惠后的商品或服务积分数量>无优惠的商品或服务积分数量的情况：
+								iUseIntegrationAmount=iRequiredIntegrationAmount;
 							iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
 							iTotalIntegrationAmount+=iItemIntegrationAmount;
 						}
@@ -544,6 +549,7 @@ public class CashierDeskService
 					else
 					{
 						//无等级优惠的情况下：
+						iUseIntegrationAmount=iRequiredIntegrationAmount;
 						iItemIntegrationAmount=iRequiredIntegrationAmount*iPurchaseAmount;
 						iTotalIntegrationAmount+=iItemIntegrationAmount;
 						
@@ -553,8 +559,8 @@ public class CashierDeskService
 					//如果是服务
 					ServiceInfoEntity serviceInfoEntity=cashierDeskMapper.selectServicePreferentialType(strProductServiceId);
 					iPreferentialType=serviceInfoEntity.getiPreferentialType();
-					
-					if(iPreferentialType==0)
+					iRequiredIntegrationAmount=serviceInfoEntity.getiRequiredIntegral();
+					if(iPreferentialType==0&&iRequiredIntegrationAmount==0)
 					{
 						iErrorCode=0;
 						strErrorObj=orderDetailObj.getStrProductServiceName();	//错误对象
@@ -579,23 +585,36 @@ public class CashierDeskService
 						}
 						else
 						{
+							if(iUseIntegrationAmount>iRequiredIntegrationAmount)	//等级优惠后的商品或服务积分数量>无优惠的商品或服务积分数量的情况：
+								iUseIntegrationAmount=iRequiredIntegrationAmount;
 							iItemIntegrationAmount=iUseIntegrationAmount*iPurchaseAmount;
 							iTotalIntegrationAmount+=iItemIntegrationAmount;
 						}
 					}
+					else
+					{
+						//无等级优惠的情况下：
+						iUseIntegrationAmount=iRequiredIntegrationAmount;
+						iItemIntegrationAmount=iRequiredIntegrationAmount*iPurchaseAmount;
+						iTotalIntegrationAmount+=iItemIntegrationAmount;
+						
+					}
 					break;
 			}
-			
+			iMemberIntegration=iMemberIntegration-iItemIntegrationAmount;
+			iExtendedAttribute=iMemberIntegration;
 			if(booBreak==true)
 				return orderStatusMap;
 			orderDetailObj.setiPurchaseIntegrationAmount(iItemIntegrationAmount);
 			orderDetailObj.setiIntegrationAmount(iUseIntegrationAmount);
+			orderDetailObj.setiExtendedAttribute(iExtendedAttribute);
 			//订单对象检查完毕 for 完
 		}
-		//将更新的积信息写入订单详情，及汇总表
+		//将更新的积分信息写入订单详情，及汇总表
 		Map<String,Object> updateMap=new HashMap<String,Object>();
 		updateMap.put("strOrderId",insertOrderEntityList.get(0).getStrOrderNum());
 		updateMap.put("iTotalIntegrationAmount",iTotalIntegrationAmount);
+		updateMap.put("iExtendedAttribute",iMemberIntegration);
 		int iDetailOrderNum=0;
 		int iOrderNum=0;
 		int iLoopTime=0;
@@ -615,7 +634,8 @@ public class CashierDeskService
 			return orderStatusMap;
 		}
 		else
-		{//更新积分信息成功
+		{
+			//更新积分信息成功
 			orderStatusMap.put("iErrorCode",3);
 			orderStatusMap.put("strErrorObj","");
 			return orderStatusMap;

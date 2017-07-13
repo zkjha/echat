@@ -75,5 +75,7 @@ public interface CashierDeskMapper
 	public int modifyIntegrationChangeFlow(IntegralModRecord integrationChangeEntity) throws Exception;
 	//修改改会员表的现金余额属性
 	public int modifyMemberDbalanceInfo(Map<String,Object> orderStatusMap) throws Exception;
+	//根据会员ID查会员积分
+	public int selectMemberIntegration(String strMemberId) throws Exception;
 	
 }

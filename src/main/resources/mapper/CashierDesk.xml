@@ -262,7 +262,7 @@ select
 
 <!-- 根据服务ID查服务信息表，看是否优惠 -->
 <select id="selectServicePreferentialType" resultType="com.ecard.entity.ServiceInfoEntity" parameterType="String">
-	select iPreferentialType from tb_service_info where strServiceInfoId=#{strServiceInfoId}
+	select iPreferentialType,iRequiredIntegral from tb_service_info where strServiceInfoId=#{strServiceInfoId}
 </select>
 
 <!-- 根据级别ID和服务ID查服务优惠信息表 -->
@@ -328,10 +328,13 @@ select
 	iPayStandard=#{iPayStandard},
 	strPayTime=#{strPayTime},
 	iPayType=#{iPayType},
+	<if test="iExtendedAttribute!=null and iExtendedAttribute!=''">
+	iExtendedAttribute=#{iExtendedAttribute},
+	</if>
 	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
 		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
 	</if>
-	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderId}
+	strLastAccessedTime=#{strLastAccessedTime} where strOrderNum=#{strOrderId} and iStatus=0
 </update>
 
 <!-- 查询_[tableName:tb_purchase_order] -->
@@ -389,11 +392,14 @@ select
 	iPayStandard=#{iPayStandard},
 	strPayTime=#{strPayTime},
 	iPayType=#{iPayType},
+	<if test="iExtendedAttribute!=null and iExtendedAttribute!=''">
+	iExtendedAttribute=#{iExtendedAttribute},
+	</if>
 	<if test="strThirdPartyTradeFlow!=null and strThirdPartyTradeFlow!=''">
 		strThirdPartyTradeFlow=#{strThirdPartyTradeFlow},
 	</if>
 	strLastAccessedTime=#{strLastAccessedTime}
-	where strOrderId=#{strOrderId}
+	where strOrderId=#{strOrderId} and iStatus=0
 </update>
 
 <!-- 查询订单详情_[tableName:tb_orderDetail_info] -->
@@ -483,14 +489,16 @@ select
 <update id="updateOrderDetailInfo" parameterType="com.ecard.entity.PurchaseOrderDetailEntity">
  update tb_orderDetail_info set 
 	iIntegrationAmount=#{iIntegrationAmount},
-	iPurchaseIntegrationAmount=#{iPurchaseIntegrationAmount}
+	iPurchaseIntegrationAmount=#{iPurchaseIntegrationAmount},
+	iExtendedAttribute=#{iExtendedAttribute}
 	where strOrderId=#{strOrderId}
 </update>
 
 <!-- 更新订单总表_[tableName:tb_purchase_order] -->
 <update id="updateOrderInfo" parameterType="map">
  update tb_purchase_order set 
-	iPurchaseIntegrationAmount=#{iTotalIntegrationAmount}
+	iPurchaseIntegrationAmount=#{iTotalIntegrationAmount},
+	iExtendedAttribute=#{iExtendedAttribute}
 	where strOrderId=#{strOrderId}
 </update>
 
@@ -538,4 +546,9 @@ select
 	set DBALANCE=#{bgRestAmount}
 	where STRMEMBERID=#{strMemberId} and INTSTATUS=1
 </update>
+
+<!-- 根据会员ID查会员积分 -->
+<select id="selectMemberIntegration" parameterType="String" resultType="int">
+	select INTINTEGRAL from tb_member where STRMEMBERID=#{strMemberId} and INTSTATUS=1
+</select>
 </mapper>

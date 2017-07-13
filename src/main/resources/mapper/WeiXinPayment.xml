@@ -194,6 +194,7 @@ select
 	iPayStandard=0,
 	strPayTime=#{strPayTime},
 	iPayType=#{iPayType},
+	iExtendedAttribute=#{iExtendedAttribute},
 	strLastAccessedTime=#{strLastAccessedTime}
 	where strOrderId=#{strOrderId} and iStatus=0
 </update>

@@ -489,12 +489,14 @@ CREATE TABLE tb_service_info
   strServiceInfoName           VARCHAR(50) NOT NULL,       -- 服务类别名称
   strServiceTypeId             VARCHAR(50) NOT NULL,       -- 主键
   strServiceTypeName           VARCHAR(50) NOT NULL,       -- 服务类别名称 
+  strServiceImgName			   varchar(50) default'',       -- 服务图片名称
   dSalePrice                   DECIMAL(11,2) DEFAULT 0.00, -- 服务销售价格
   strServiceBarCode            VARCHAR(50) NOT NULL,        -- 编号条码
   strUnitId                    VARCHAR(50) NOT NULL,        -- 服务单位ID
   strUnitName                  VARCHAR(50) NOT NULL,        -- 服务计量单位名称 
   strSupplierName              VARCHAR(50) NOT NULL,        -- 供应商名称  
   iPreferentialType            int DEFAULT 0,               -- 商品优惠类型 0 不优惠 1 按照会员等级优惠
+  iRequiredIntegral         	int DEFAULT 0,              -- 兑换服务所需积分  
   iState                       int DEFAULT 0,               -- 商品状态 0 不使用 1 使用 
   txtServiceDesc               text null,                   -- 富文本描述信息
   txtServiceDescDetail         text null,                   -- 富文本详情描述信息
@@ -1131,6 +1133,7 @@ CREATE TABLE tb_weiXinGoods_order
   strGoodsId       				VARCHAR(50) NOT NULL,       -- 商品ID
   strGoodsName     				VARCHAR(50) NOT NULL,       -- 商品名称
   iPurchaseAmount           	int DEFAULT 0,              -- 购买商品数量
+  iPurchaseType					int default 0,				-- 购买类型:0商品 1服务
   dPrice                    	DECIMAL(11,2) DEFAULT 0.00, -- 商品单价(原价）
   strUnitName               	VARCHAR(50) NOT NULL,       -- 商品单位名称
   dPurchaseCashTotalAmount  	DECIMAL(11,2) DEFAULT 0.00, -- 订单总金额（原价计算得来)

@@ -34,9 +34,28 @@ public class ServiceInfoEntity {
 	private String strInsertTime="";
 	private String strUpdateTime="";
 	private String strReserved="";
-	
+	private int iRequiredIntegral=0;//	兑换服务所需积分数量	
 	private List<ServicePreferentialEntity> listServicePreferentialEntity;
+	private String strServiceImgName;//服务图片名称
 	
+	public void setStrServiceImgName(String strServiceImgName)
+	{
+		this.strServiceImgName=strServiceImgName;
+	}
+	
+	public String getStrServiceImgName()
+	{
+		return strServiceImgName;
+	}
+	public int getiRequiredIntegral()
+	{
+		return iRequiredIntegral;
+	}
+	
+	public void setiRequiredIntegral(int iRequiredIntegral)
+	{
+		this.iRequiredIntegral=iRequiredIntegral;
+	}
 	
 	
 	

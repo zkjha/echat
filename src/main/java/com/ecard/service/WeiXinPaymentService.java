@@ -243,6 +243,7 @@ public class WeiXinPaymentService
 		updateMap.put("strPayTime",strPayTime);
 		updateMap.put("iPayType",0);
 		updateMap.put("strOrderId",queryMap.get("strOrderId"));
+		updateMap.put("iExtendedAttribute",iRestIntegration);
 		iAffectNum=weiXinPaymentMapper.updateOrderInfo(updateMap);
 		if(iAffectNum==0)
 			iOk=0;
@@ -253,8 +254,8 @@ public class WeiXinPaymentService
 		integralModRecord.setStrMemberId((String)queryMap.get("strMemberId"));
 		integralModRecord.setStrMemberCardNum(memberEntity.getStrMembercardnum());
 		integralModRecord.setStrMemberName(memberEntity.getStrRealname());
-		integralModRecord.setiIntegralNum(-iRestIntegration);
-		integralModRecord.setStrDesc("微信积分支付订单:(单号:"+(String)queryMap.get("strOrderId")+")");
+		integralModRecord.setiIntegralNum(-iOrderIntegration);
+		integralModRecord.setStrDesc("微信端积分支付订单:(单号:"+(String)queryMap.get("strOrderId")+")");
 		integralModRecord.setStrInsertTime(DateTool.DateToString(new Date(),DateStyle.YYYY_MM_DD_HH_MM));
 		iAffectNum=weiXinPaymentMapper.insertIntegrationChangedRecord(integralModRecord);
 		if(iAffectNum==0)
@@ -264,6 +265,7 @@ public class WeiXinPaymentService
 		iAffectNum=weiXinPaymentMapper.updateMemberIntegrationInfo(queryMap);
 		if(iAffectNum==0)
 			iOk=0;
+		
 		if(iOk==0)
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"积分支付失败",null);
 		else

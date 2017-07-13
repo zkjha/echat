@@ -383,7 +383,7 @@ public class CashierDeskController
 	//积分支付--查询 
 	@ResponseBody
 	@RequestMapping("payWithIntegration")
-	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=10000
+	//localhost:8083/admin/biz/CashierDesk/payWithIntegration?strOrderId=201707131112
 	public String payWithIntegration(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");
@@ -400,10 +400,10 @@ public class CashierDeskController
 	}
 
 	
-	//积分支付完毕--- 修改订单状态,会员信息，积分流水
+	//积分支付--- 修改订单状态,会员信息，积分流水
 	@ResponseBody
 	@RequestMapping("integrationPayOverEditStatus")
-	//localhost:8083/admin/biz/CashierDesk/integrationPayOverEditStatus?strOrderId=10000&iPurchaseIntegrationAmount=4400&strMemberId=651c5888e17c4fe08bd27551d7852fed&iMemberIntegration=10000&strMemberCardNum=65638664&strMemberName=Tom
+	//localhost:8083/admin/biz/CashierDesk/integrationPayOverEditStatus?strOrderId=201707131054&iPurchaseIntegrationAmount=4400&strMemberId=651c5888e17c4fe08bd27551d7852fed&iMemberIntegration=10000&strMemberCardNum=65638664&strMemberName=Tom
 	public String integrationPayOverEditStatus(HttpServletRequest request,HttpServletResponse response)
 	{
 		String strOrderId=request.getParameter("strOrderId");	//订单号

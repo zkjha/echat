@@ -224,6 +224,14 @@ public class WeiXinConsumeRecordService {
 			}
 		}
 		
+		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
+		//String strImgName="";
+		//int
+	/*	for(OrderVo entity:ListOrderVoEntity)
+		{
+			
+		}
+		*/
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();

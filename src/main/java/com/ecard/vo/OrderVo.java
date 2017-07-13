@@ -32,7 +32,18 @@ public class OrderVo {
 	private String strCreationTime;           //记录创建时间
 	private String strLastAccessedTime;           //记录修改时间
 	private int iPurchaseType;	//购买种类0商品 1服务
-
+	private String strGoodsOrServiceImgName="";//服务或商品图片名称
+	
+	public void setStrGoodsOrServiceImgName(String strGoodsOrServiceImgName)
+	{
+		this.strGoodsOrServiceImgName=strGoodsOrServiceImgName;
+	}
+	
+	public String getStrGoodsOrServiceImgName()
+	{
+		return strGoodsOrServiceImgName;
+	}
+	
 	public void setStrOrderId(String strOrderId)
 	{
 		this.strOrderId=strOrderId;
