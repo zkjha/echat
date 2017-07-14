@@ -10,7 +10,7 @@
  	strLevelsId,
  	strProductServiceId as strGoodsOrServiceId,
  	strProductServiceName as strGoodsOrServiceName,
- 	iPurchaseType as iPurchaseType,
+ 	iPurchaseType,
  	iPurchaseAmount,
  	strUnitName,
  	dPrice,
@@ -44,6 +44,7 @@
  	strGoodsId as strGoodsOrServiceId,
  	strGoodsName as strGoodsOrServiceName,
  	iPurchaseAmount,
+ 	iPurchaseType,
  	dPrice,
  	strUnitName,
  	dPurchaseCashTotalAmount,
@@ -113,6 +114,7 @@
  	strGoodsId as strGoodsOrServiceId,
  	strGoodsName as strGoodsOrServiceName,
  	iPurchaseAmount,
+ 	iPurchaseType,
  	dPrice,
  	strUnitName,
  	dPurchaseCashTotalAmount,
@@ -181,6 +183,7 @@
  	strGoodsId as strGoodsOrServiceId,
  	strGoodsName as strGoodsOrServiceName,
  	iPurchaseAmount,
+ 	iPurchaseType,
  	dPrice,
  	strUnitName,
  	dPurchaseCashTotalAmount,
@@ -249,6 +252,7 @@
  	strGoodsId as strGoodsOrServiceId,
  	strGoodsName as strGoodsOrServiceName,
  	iPurchaseAmount,
+ 	iPurchaseType,
  	dPrice,
  	strUnitName,
  	dPurchaseCashTotalAmount,
@@ -318,6 +322,7 @@
  	strGoodsId as strGoodsOrServiceId,
  	strGoodsName as strGoodsOrServiceName,
  	iPurchaseAmount,
+ 	iPurchaseType,
  	dPrice,
  	strUnitName,
  	dPurchaseCashTotalAmount,
@@ -340,5 +345,30 @@
  	strLastAccessedTime
  	from tb_weiXinGoods_order
 	where strMemberId=#{strMemberId} order by strCreationTime DESC
+</select>
+
+<!-- 查商品图片名称 -->
+<select id="findImgNameFromGoodsTable" parameterType="String" resultType="String">
+	select strGoodsImg from tb_goods where strGoodsId=#{strGoodId}
+</select>
+
+<!-- 查服务图片名称 -->
+<select id="findImgNameFromServiceTable" parameterType="String" resultType="String">
+	select strServiceImgName from tb_service_info where strServiceInfoId=#{strServiceId}
+</select>
+
+<!-- 查询抵用券使用信息_[tableName:tb_useVoucherTicket_info] -->
+<select id="selectUseVoucherTicketInfo" resultType="com.ecard.entity.UseVoucherInfoEntity" parameterType="String">
+ select 
+ 	strRecordId,
+ 	strVoucherTicketId,
+ 	strVoucherTicketName,
+ 	strOrderId,
+ 	iOrderIdFrom,
+ 	strMemberId,
+ 	strConsumeDate,
+ 	iPayOrderUseCount
+ 	from tb_useVoucherTicket_info
+	where strOrderId=#{strOrderId}
 </select>
 </mapper>

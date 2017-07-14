@@ -1205,3 +1205,19 @@ create table tb_areaCounty
  iCityCode 				int,                   -- 城市代码
  primary key(iAreaCountryId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------------------------------------------------------
+-- tableName:useVoucherTicketinfo											[抵用券使用信息表]
+-- -------------------------------------------------------------------------------------------------------
+drop table if exists tb_useVoucherTicket_info;
+create table tb_useVoucherTicket_info
+(
+strRecordId				varchar(50)			not null,			-- 主键
+strVoucherTicketId		varchar(50)			not null,			-- 抵用券id
+strVoucherTicketName	varchar(50)         not null,			-- 抵用券名称
+strOrderId				varchar(50)			not null,			-- 订单ID
+iOrderIdFrom			int 				default 0,			-- 订单号的来源:0后台管理生成的订单表 1手机端生成的订单表
+strMemberId				varchar(50)			not null,			-- 会员ID
+strConsumeDate			varchar(50)			not null,			-- 消费日期
+iPayOrderUseCount		int					default 1,			-- 为支付订单所使用的抵用券次数
+ primary key(strRecordId)	
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

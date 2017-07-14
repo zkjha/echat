@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.commontools.data.DataTool;
 import com.ecard.config.ResultCode;
 import com.ecard.entity.PurchaseOrderDetailEntity;
+import com.ecard.entity.UseVoucherInfoEntity;
 import com.ecard.entity.VoucherTicketInfoEntity;
 import com.ecard.entity.WeiXinGoodsOrderEntity;
 import com.ecard.mapper.WeiXinConsumeRecordMapper;
@@ -225,13 +226,26 @@ public class WeiXinConsumeRecordService {
 		}
 		
 		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
-		//String strImgName="";
-		//int
-	/*	for(OrderVo entity:ListOrderVoEntity)
+		String strImgName="";
+		String strServiceOrGoodsId="";
+		int iPurchaseType=0;//购买类型 
+		for(OrderVo entity:ListOrderVoEntity)
 		{
+			iPurchaseType=entity.getiPurchaseType();
+			strServiceOrGoodsId=entity.getStrGoodsOrServiceId();
+			switch(iPurchaseType)
+			{
+			case 0:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromGoodsTable(strServiceOrGoodsId);
+				break;
+			case 1:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromServiceTable(strServiceOrGoodsId);
+				break;
+			}
+			entity.setStrGoodsOrServiceImgName(strImgName);
 			
 		}
-		*/
+		
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();
@@ -469,7 +483,26 @@ public class WeiXinConsumeRecordService {
 				}
 			}
 		}
-		
+		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
+		String strImgName="";
+		String strServiceOrGoodsId="";
+		int iPurchaseType=0;//购买类型 
+		for(OrderVo entity:ListOrderVoEntity)
+		{
+			iPurchaseType=entity.getiPurchaseType();
+			strServiceOrGoodsId=entity.getStrGoodsOrServiceId();
+			switch(iPurchaseType)
+			{
+			case 0:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromGoodsTable(strServiceOrGoodsId);
+				break;
+			case 1:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromServiceTable(strServiceOrGoodsId);
+				break;
+			}
+			entity.setStrGoodsOrServiceImgName(strImgName);
+			
+		}
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();
@@ -706,6 +739,26 @@ public class WeiXinConsumeRecordService {
 			}
 		}
 		
+		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
+		String strImgName="";
+		String strServiceOrGoodsId="";
+		int iPurchaseType=0;//购买类型 
+		for(OrderVo entity:ListOrderVoEntity)
+		{
+			iPurchaseType=entity.getiPurchaseType();
+			strServiceOrGoodsId=entity.getStrGoodsOrServiceId();
+			switch(iPurchaseType)
+			{
+			case 0:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromGoodsTable(strServiceOrGoodsId);
+				break;
+			case 1:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromServiceTable(strServiceOrGoodsId);
+				break;
+			}
+			entity.setStrGoodsOrServiceImgName(strImgName);
+			
+		}
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();
@@ -742,7 +795,7 @@ public class WeiXinConsumeRecordService {
 	
 	
 	
-	//查询抵用券支付记录
+	//查询抵用券消费记录
 	@Transactional
 	public String selectVoucherTicketConsume(Map<String,Object> queryMap) throws Exception
 	{
@@ -942,7 +995,28 @@ public class WeiXinConsumeRecordService {
 				}
 			}
 		}
-		
+		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
+		String strImgName="";
+		String strServiceOrGoodsId="";
+		int iPurchaseType=0;//购买类型 
+		for(OrderVo entity:ListOrderVoEntity)
+		{
+			iPurchaseType=entity.getiPurchaseType();
+			strServiceOrGoodsId=entity.getStrGoodsOrServiceId();
+			switch(iPurchaseType)
+			{
+			case 0:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromGoodsTable(strServiceOrGoodsId);
+				break;
+			case 1:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromServiceTable(strServiceOrGoodsId);
+				break;
+			}
+			entity.setStrGoodsOrServiceImgName(strImgName);
+			
+		}
+		//调用方法 取得具体的抵用券使用信息
+		getUseVoucherTicketInfo(ListOrderVoEntity);
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();
@@ -1178,7 +1252,26 @@ public class WeiXinConsumeRecordService {
 				}
 			}
 		}
-		
+		//对列表ListOrderVoEntity里的对象添加商品或服务图片名称属性
+		String strImgName="";
+		String strServiceOrGoodsId="";
+		int iPurchaseType=0;//购买类型 
+		for(OrderVo entity:ListOrderVoEntity)
+		{
+			iPurchaseType=entity.getiPurchaseType();
+			strServiceOrGoodsId=entity.getStrGoodsOrServiceId();
+			switch(iPurchaseType)
+			{
+			case 0:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromGoodsTable(strServiceOrGoodsId);
+				break;
+			case 1:
+				strImgName=weiXinConsumeRecordMapper.findImgNameFromServiceTable(strServiceOrGoodsId);
+				break;
+			}
+			entity.setStrGoodsOrServiceImgName(strImgName);
+			
+		}
 		//处理分页问题
 	
 		iTotalRecord=ListOrderVoEntity.size();
@@ -1211,5 +1304,19 @@ public class WeiXinConsumeRecordService {
 		resultMap.put("iTotalRecord",iTotalRecord);
 		resultMap.put("iTotalPage",iTotalPage);
 		return DataTool.constructResponse(ResultCode.OK,"查询成功",resultMap);
+	}
+	
+	
+	//取得为支付订单所使用的抵用券信息
+	public void getUseVoucherTicketInfo(List<OrderVo>ListOrderVoEntity) throws Exception
+	{
+		String strOrderId="";
+		for(OrderVo entity:ListOrderVoEntity)
+		{
+			strOrderId=entity.getStrOrderId();
+			List<UseVoucherInfoEntity> listUseVoucherInfoEntity=weiXinConsumeRecordMapper.selectUseVoucherTicketInfo(strOrderId);
+			if(listUseVoucherInfoEntity!=null&&listUseVoucherInfoEntity.size()!=0)
+				entity.setListUseVoucherInfoEntity(listUseVoucherInfoEntity);
+		}
 	}
 }

@@ -1,6 +1,9 @@
 package com.ecard.vo;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.ecard.entity.UseVoucherInfoEntity;
 
 //记录后台生成订单记录 及微信下单记录
 public class OrderVo {
@@ -33,6 +36,18 @@ public class OrderVo {
 	private String strLastAccessedTime;           //记录修改时间
 	private int iPurchaseType;	//购买种类0商品 1服务
 	private String strGoodsOrServiceImgName="";//服务或商品图片名称
+	//----用抵用券消费时，需要用到的抵用券属性
+	private List<UseVoucherInfoEntity> listUseVoucherInfoEntity=null;
+	
+	public void setListUseVoucherInfoEntity(List<UseVoucherInfoEntity> listUseVoucherInfoEntity)
+	{
+		this.listUseVoucherInfoEntity=listUseVoucherInfoEntity;
+	}
+	
+	public List<UseVoucherInfoEntity> getListUseVoucherInfoEntity()
+	{
+		return listUseVoucherInfoEntity;
+	}
 	
 	public void setStrGoodsOrServiceImgName(String strGoodsOrServiceImgName)
 	{
