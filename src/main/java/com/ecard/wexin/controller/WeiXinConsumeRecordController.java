@@ -218,7 +218,7 @@ public class WeiXinConsumeRecordController {
 		}
 
 		//以下会员ID为测试数据
-		//strMemberId="377f37a5871f4874a2879dd77758e075";
+		//strMemberId="a9abc19a75d94c3da9facaa490561ba9";
 		if(ValidateTool.isEmptyStr(strMemberId))
 			return DataTool.constructResponse(ResultCode.CAN_NOT_NULL,"请重新登陆",null);
 		if(ValidateTool.isEmptyStr(strPageNum))

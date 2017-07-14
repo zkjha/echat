@@ -519,7 +519,7 @@ public class CashierDeskController
 		
 	}
 	
-	//会员卡余额支付完毕,修改订单状态及会员信息
+	//会员卡余额支付---,修改订单状态及会员信息
 	@ResponseBody
 	@RequestMapping("cardCashPayOverEditStatus")
 	//localhost:8083/admin/biz/CashierDesk/cardCashPayOverEditStatus?strOrderId=30000&dbalance=20000&dTotalCashAmount=157.16&strMemberId=651c5888e17c4fe08bd27551d7852fed
@@ -591,7 +591,7 @@ public class CashierDeskController
 		
 	}
 	
-	//现金支付完毕，修改订单状态 
+	//现金支付---修改订单状态 
 	@ResponseBody
 	@RequestMapping("cashPayOverEditStatus")
 	//localhost:8083/admin/biz/CashierDesk/cashPayOverEditStatus?strOrderId=20000

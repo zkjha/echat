@@ -725,7 +725,7 @@ public class CashierDeskService
 	
 	
 	
-	//会员卡余额支付
+	//会员卡余额支付--查询
 	@Transactional
 	public String payWithMemberCardCash(String strOrderId) throws Exception
 	{
@@ -746,7 +746,7 @@ public class CashierDeskService
 	}
 	
 	
-	//会员卡余额支付完毕，修改订单信息及会员信息
+	//会员卡余额支付 -- 修改订单信息及会员信息
 	@Transactional
 	public String cardCashPayOverEditStatus(Map<String,Object> orderStatusMap) throws Exception
 	{
@@ -762,7 +762,7 @@ public class CashierDeskService
 		
 	}
 	
-	//现金支付
+	//现金支付-- 查询订单
 	@Transactional
 	public String payWithCash(String strOrderId) throws Exception
 	{
@@ -782,44 +782,7 @@ public class CashierDeskService
 		return DataTool.constructResponse(ResultCode.OK,"查询订单现金支付信息成功",resultMap);
 	}
 	
-	
-	//支付完毕 修改订单状态
-	/*
-	@Transactional
-	public String editOrderPaymentStatus(Map<String,Object> orderStatusMap) throws Exception
-	{
-		int iOrderDetailAffectNum=0;	//订单详情表记录影响条数
-		int iOrderAffectNum=0;	//订单总表记录影响条数
-		String strMsg="";
-		int iPayType=0;//支付方式/订单支付方式:0积分兑换 1 微信支付 2 支付宝支付 3 线下现金支付
-		iPayType=(Integer)orderStatusMap.get("iPayType");
-		switch(iPayType)
-		{
-			case 0:
-				strMsg="积分";
-				break;
-			case 1:
-				strMsg="微信";
-				break;
-			case 2:
-				strMsg="支付宝";
-				break;
-			case 3:
-				strMsg="现金";
-				break;
-		}
-			
-		iOrderDetailAffectNum=cashierDeskMapper.editOrderDetailPaymentStatus(orderStatusMap);//修改详情表
-		iOrderAffectNum=cashierDeskMapper.editOrderPaymentStatus(orderStatusMap);//修改总表
-		if(iOrderDetailAffectNum!=0&&iOrderAffectNum!=0)
-			return DataTool.constructResponse(ResultCode.OK,"该笔订单已用"+strMsg+"完成支付",null);
-		else
-			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR,"订单付款状态修改失败",null);
-
-	}
-	*/
-	
-	//积分支付完毕，修改订单状态，积分流水变更，会员积分信息
+	//积分支付--修改订单状态，积分流水变更，会员积分信息
 	@Transactional
 	public String integrationPayOverEditStatus(Map<String,Object> orderStatusMap,IntegralModRecord integrationChangeEntity) throws Exception
 	{
@@ -843,7 +806,7 @@ public class CashierDeskService
 
 	}
 	
-	//现金支付完毕修改订单状态
+	//现金支付--修改订单状态
 	@Transactional
 	public String cashPayOverEditStatus(Map<String,Object> orderStatusMap) throws Exception
 	{
@@ -876,7 +839,7 @@ public class CashierDeskService
 			return DataTool.constructResponse(ResultCode.UNKNOW_ERROR, "删除失败",null);
 	}
 	
-	//支付宝支付
+	//支付宝支付-- 查询
 	public Map<String,Object> payWithAliPayment(String strOrderId) throws Exception
 	{
 		
