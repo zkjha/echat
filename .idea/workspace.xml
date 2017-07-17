@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="0a20fd3c-0502-4dc6-991b-2fad11ff63b4" name="Default" comment="完成员工添加表单验证" />
-    <list default="true" id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="前端-会员中心">
+    <list default="true" id="4a160833-37b4-4afc-9e15-584132a6bfa3" name="need not commit" comment="登录拦截器打开">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ecard/config/InterceptorConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/ecard/config/InterceptorConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ecard.iws" />
@@ -31,11 +35,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="memberCenter.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberCenter.js">
+      <file leaf-file-name="DyqconsumeRecord.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6111111" vertical-offset="0" max-vertical-offset="1159">
-              <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="6" max-vertical-offset="665">
+              <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homepage.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/homepage.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1007">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="86" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homepage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1159">
+              <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="requestParamUtill.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/requestParamUtill.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="281" max-vertical-offset="1178">
+              <caret line="50" column="35" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="133">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="integrationMall.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="4655">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -60,7 +114,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/memberSign.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberSign.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/hotRechargeShop.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/newRechargeShop.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/listNewRechargeShop.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/integrationMall.js" />
@@ -88,7 +141,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/voucherTicketInfo/voucherTicketInfoNotuse.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/voucherTicketInfoController.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/levelSet.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/membercenter.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/memberCenter.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/memberCenter.js" />
@@ -102,11 +154,13 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/integralconsumeRecord.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/StoreconsumeRecord.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/consumeRecord.css" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/controller/weixin/consumeRecordController.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/consumeRecord.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/allconsumeRecord.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/memberCenter.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html" />
       </list>
     </option>
   </component>
@@ -114,10 +168,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="404" />
-    <option name="y" value="156" />
+    <option name="x" value="213" />
+    <option name="y" value="128" />
     <option name="width" value="1351" />
-    <option name="height" value="829" />
+    <option name="height" value="824" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -145,7 +199,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -740,6 +793,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1114,7 +1168,13 @@
       <option name="project" value="LOCAL" />
       <updated>1499936502415</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="前端-会员中心">
+      <created>1499996633284</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1499996633284</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -1138,18 +1198,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="404" y="156" width="1351" height="829" extended-state="0" />
+    <frame x="213" y="128" width="1351" height="824" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44985673" sideWeight="0.4988576" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44877344" sideWeight="0.4988576" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24928367" sideWeight="0.69535416" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25108224" sideWeight="0.69535416" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26808834" sideWeight="0.4989339" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23214285" sideWeight="0.5010661" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44985673" sideWeight="0.50114244" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44985673" sideWeight="0.50114244" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60028654" sideWeight="0.4996192" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1200,7 +1260,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="完成会员章程设置" />
     <MESSAGE value="完成会员章程设置补充提交" />
     <MESSAGE value="完成会员拓展资料列表" />
     <MESSAGE value="完成会员拓展资料相关功能" />
@@ -1225,7 +1284,8 @@
     <MESSAGE value="前端-会员中心部分完成" />
     <MESSAGE value="前端-会员中心部分完成/消费记录部分完成" />
     <MESSAGE value="前端-会员中心" />
-    <option name="LAST_COMMIT_MESSAGE" value="前端-会员中心" />
+    <MESSAGE value="登录拦截器打开" />
+    <option name="LAST_COMMIT_MESSAGE" value="登录拦截器打开" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1244,13 +1304,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/wechat/wechat.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29081634" vertical-offset="0" max-vertical-offset="588">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/css/pages/weixin/exchange.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6252" max-vertical-offset="7334">
@@ -1368,13 +1421,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/homepage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.392857" vertical-offset="552" max-vertical-offset="1007">
-          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/admin/membercenter/levelSet.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2204">
@@ -1431,13 +1477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/memberCenter.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-17.25" vertical-offset="353" max-vertical-offset="1007">
@@ -1449,13 +1488,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71145374" vertical-offset="912" max-vertical-offset="2926">
           <caret line="65" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.428571" vertical-offset="912" max-vertical-offset="1824">
-          <caret line="56" column="58" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -1501,24 +1533,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/requestParamUtill.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1178">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/integrationMall/hotRechargeShop.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
           <caret line="0" column="39" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.58849555" vertical-offset="1653" max-vertical-offset="4655">
-          <caret line="73" column="33" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1533,7 +1551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27700832" vertical-offset="7115" max-vertical-offset="9120">
           <caret line="385" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1541,17 +1558,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="817">
           <caret line="7" column="62" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="57" max-vertical-offset="665">
-          <caret line="9" column="90" selection-start-line="9" selection-start-column="73" selection-end-line="9" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1559,7 +1565,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34210527" vertical-offset="1425" max-vertical-offset="7239">
           <caret line="88" column="95" selection-start-line="88" selection-start-column="95" selection-end-line="88" selection-end-column="95" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1567,7 +1572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2146" max-vertical-offset="3724">
           <caret line="130" column="5" selection-start-line="130" selection-start-column="5" selection-end-line="130" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1575,9 +1579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="817">
           <caret line="12" column="93" selection-start-line="12" selection-start-column="93" selection-end-line="12" selection-end-column="93" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1585,7 +1586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5980254" vertical-offset="906" max-vertical-offset="1615">
           <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1593,7 +1593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="817">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="8" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1601,9 +1600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25110132" vertical-offset="114" max-vertical-offset="855">
           <caret line="15" column="90" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1611,6 +1607,60 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6111111" vertical-offset="0" max-vertical-offset="1159">
           <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/homepage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1159">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3009554" vertical-offset="0" max-vertical-offset="1824">
+          <caret line="43" column="80" selection-start-line="43" selection-start-column="80" selection-end-line="43" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/lib/requestParamUtill.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="281" max-vertical-offset="1178">
+          <caret line="50" column="35" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/temp/weixin/consumeRecord/DyqconsumeRecord.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6" max-vertical-offset="665">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/static/js/weixin/integrationMall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4655">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/weixin/homepage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1007">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="86" />
           <folding />
         </state>
       </provider>

@@ -8,7 +8,7 @@
             <div class="z-record-one z-record-two"><a href="#!/DyqconsumeRecord">抵用券</a></div>
         </div>
         <div class="z-voucherRecord-box" ng-repeat="returnListOrderVo in returnListOrderVo">
-            <div class="z-Voucher-card">
+            <div class="z-Voucher-card" ng-repeat="listUseVoucherInfoEntity in returnListOrderVo.listUseVoucherInfoEntity">
                 <!--边框波浪-->
                 <div class="z-Voucher-card-cycle z-Voucher-card-cycle-left">
                     <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
@@ -18,9 +18,9 @@
                 </div>
                 <div class="z-Voucher-card-box">
                     <div class="z-Voucher-card-content">
-                        <p>{{returnListOrderVo.strGoodsOrServiceName}}</p>
-                        <p>一次</p>
-                        <div>2016-12-30前使用</div>
+                        <p>{{listUseVoucherInfoEntity.strVoucherTicketName}}</p>
+                        <p>{{listUseVoucherInfoEntity.iPayOrderUseCount}}次</p>
+                        <div>使用日期：{{listUseVoucherInfoEntity.strConsumeDate | limitTo:10}}</div>
                     </div>
                 </div>
             </div>

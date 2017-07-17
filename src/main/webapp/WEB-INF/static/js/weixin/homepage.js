@@ -1,14 +1,18 @@
+/**
+ * Created by zhujunliang on 17/3/9.
+ */
 require.config({
-	baseUrl: EK.STATIC_ROOT + "js",
-	shim: {　　　　　　
-		'lib/angular': {
-			exports: 'angular'
-		},
-		'lib/angular-route': {
-			deps: ['lib/angular'],
-			exports: 'angular-route'
-		}　　　　
-	}
+    baseUrl : EK.STATIC_ROOT + "js" ,
+    shim:{
+        'lib/angular':{
+            exports:'angular'
+        },
+        //integrationMallCont
+        'lib/angular-route':{
+            deps:['lib/angular'],
+            exports: 'angular-route'
+        }
+    }
 });
 
 require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tipsDirctive'], function(angular, remoteUrl, WeChatController) {
@@ -21,12 +25,13 @@ require(['lib/angular', 'lib/remoteUrl', 'lib/requestParamUtill', 'dirctive/tips
 					var code = rs.code;
 					var data = rs.data;
 					if(code == 1) {
-						$scope.dBalance = data.dBalance;//余额
-						$scope.intIntegral = data.intIntegral;//积分
-						$scope.intVouchers = data.intVouchers;//优惠券数量
-						$scope.strLevelsname = data.strLevelsname;//会员卡级别
-						$scope.strMembercardnum = data.strMembercardnum;//会员卡卡号
-						$scope.strQrCode = data.strQrCode;
+                        $scope.vipIndetail = data;
+						//$scope.dBalance = data.dBalance;//余额
+						//$scope.intIntegral = data.intIntegral;//积分
+						//$scope.intVouchers = data.intVouchers;//优惠券数量
+						//$scope.strLevelsname = data.strLevelsname;//会员卡级别
+						//$scope.strMembercardnum = data.strMembercardnum;//会员卡卡号
+						//$scope.strQrCode = data.strQrCode;
 					} else if(code == -1) {
 						//得到登录路径
 						window.location.href = "/weixin/login?url=" + window.location.pathname + window.location.search + window.location.hash;
